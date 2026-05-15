@@ -1,0 +1,21 @@
+# Never commit secrets
+*.json.key
+hse-ai-saas-*.json
+service-account*.json
+key.json
+.env
+.env.*
+!.env.example
+
+# Build artifacts
+node_modules/
+.vercel/
+.next/
+dist/
+build/
+
+# OS / editor cruft
+.DS_Store
+Thumbs.db
+*.swp
+*.log

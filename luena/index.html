@@ -1,0 +1,1519 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HSE Dashboard — HMRL · Hospital Militar Regional de Luena</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<style>
+:root {
+  --bg:      #07080D;
+  --surf:    #0E1016;
+  --surf2:   #141620;
+  --border:  rgba(255,255,255,0.07);
+  --border2: rgba(255,255,255,0.16);
+  --txt:     #FFFFFF;
+  --muted:   #6B7694;
+  --lime:   #39FF14;
+  --cyan:   #00F5FF;
+  --blue:   #1E90FF;
+  --violet: #BF5FFF;
+  --pink:   #FF2D78;
+  --amber:  #FFD000;
+  --orange: #FF6B00;
+  --red:    #FF2D55;
+  --green:  #00FF9F;
+  --acc-rgb: 57,255,20;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+body {
+  background:var(--bg);color:var(--txt);
+  font-family:'Syne',sans-serif;min-height:100vh;overflow-x:hidden;
+}
+body::before{
+  content:'';position:fixed;inset:0;
+  background-image:
+    linear-gradient(rgba(0,245,255,0.035) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(0,245,255,0.035) 1px,transparent 1px);
+  background-size:52px 52px;pointer-events:none;z-index:0;
+  animation:gridFlicker 6s ease-in-out infinite;
+}
+@keyframes gridFlicker{0%,100%{opacity:1}50%{opacity:.5}}
+body::after{
+  content:'';position:fixed;top:-300px;left:50%;transform:translateX(-50%);
+  width:1200px;height:600px;
+  background:radial-gradient(ellipse,rgba(57,255,20,.14) 0%,rgba(0,245,255,.06) 40%,transparent 70%);
+  pointer-events:none;z-index:0;
+}
+.wrap{position:relative;z-index:1;padding:18px;max-width:1640px;margin:0 auto;}
+
+/* ══ HEADER ══ */
+header{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:20px 28px;
+  background:linear-gradient(135deg,#070C1A 0%,#0A1530 100%);
+  border:1px solid rgba(57,255,20,.35);
+  border-radius:20px;margin-bottom:16px;
+  position:relative;overflow:hidden;
+  box-shadow:0 0 60px rgba(57,255,20,.10),inset 0 1px 0 rgba(255,255,255,.05);
+}
+header::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:3px;
+  background:linear-gradient(90deg,var(--lime),var(--cyan),var(--blue),var(--lime),var(--cyan));
+  background-size:400% 100%;animation:rainbowSlide 5s linear infinite;
+}
+@keyframes rainbowSlide{0%{background-position:0%}100%{background-position:400%}}
+.h-title{
+  font-size:22px;font-weight:800;letter-spacing:-.5px;
+  background:linear-gradient(135deg,#fff 0%,var(--lime) 50%,var(--cyan) 100%);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+}
+.h-sub{
+  font-size:11px;color:var(--muted);
+  font-family:'JetBrains Mono',monospace;margin-top:4px;letter-spacing:.8px;
+}
+.h-right{display:flex;gap:12px;align-items:center;flex-wrap:wrap;justify-content:flex-end;}
+.live-badge{
+  display:flex;align-items:center;gap:7px;
+  background:rgba(57,255,20,.10);border:1px solid rgba(57,255,20,.45);
+  border-radius:20px;padding:7px 15px;
+  font-size:11px;font-weight:700;color:var(--lime);
+  font-family:'JetBrains Mono',monospace;
+  box-shadow:0 0 20px rgba(57,255,20,.2);letter-spacing:.5px;
+}
+.live-dot{
+  width:8px;height:8px;background:var(--lime);border-radius:50%;
+  box-shadow:0 0 10px var(--lime);animation:pulse 1.4s ease-in-out infinite;
+}
+@keyframes pulse{0%,100%{transform:scale(1);opacity:1}50%{transform:scale(.7);opacity:.5}}
+.period-pill{
+  background:rgba(57,255,20,.08);border:1px solid rgba(57,255,20,.35);
+  border-radius:10px;padding:7px 16px;font-size:12px;
+  color:var(--lime);font-family:'JetBrains Mono',monospace;font-weight:700;
+  box-shadow:0 0 16px rgba(57,255,20,.14);
+}
+.month-toggle{
+  display:flex;background:rgba(255,255,255,.04);
+  border:1px solid var(--border2);border-radius:12px;padding:4px;gap:4px;
+}
+.mbtn{
+  padding:7px 14px;border-radius:9px;border:none;
+  background:transparent;color:var(--muted);
+  font-family:'Syne',sans-serif;font-size:10px;font-weight:700;
+  cursor:pointer;transition:all .25s;letter-spacing:.5px;
+}
+.mbtn.active{
+  background:linear-gradient(135deg,rgba(57,255,20,.25),rgba(0,245,255,.12));
+  color:#fff;box-shadow:0 0 20px rgba(57,255,20,.4);
+}
+.theme-toggle{
+  display:flex;background:rgba(255,255,255,.04);
+  border:1px solid var(--border2);border-radius:12px;padding:4px;gap:4px;
+}
+.theme-btn{
+  padding:7px 14px;border-radius:9px;border:none;
+  background:transparent;color:var(--muted);
+  font-family:'Syne',sans-serif;font-size:10px;font-weight:800;
+  cursor:pointer;transition:all .25s;letter-spacing:.6px;text-transform:uppercase;
+}
+.theme-btn.active{
+  background:linear-gradient(135deg,rgba(57,255,20,.28),rgba(0,245,255,.14));
+  color:#07100A;box-shadow:0 0 20px rgba(57,255,20,.38);
+}
+.site-switcher{
+  display:inline-flex;align-items:center;gap:6px;
+  background:rgba(255,255,255,.03);
+  border:1px solid var(--border2);
+  border-radius:16px;padding:6px;
+  font-family:'JetBrains Mono',monospace;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.04), 0 4px 14px rgba(0,0,0,.25);
+}
+.site-switcher-label{
+  font-size:10px;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--muted);font-weight:800;
+  padding:0 12px 0 10px;border-right:1px solid var(--border2);
+  margin-right:4px;white-space:nowrap;
+}
+.site-btn{
+  display:inline-flex;align-items:center;justify-content:center;
+  padding:12px 20px;min-height:44px;border-radius:12px;
+  text-decoration:none;color:var(--muted);
+  font-family:'Syne',sans-serif;font-size:12px;font-weight:900;
+  letter-spacing:.8px;text-transform:uppercase;
+  transition:all .25s ease;will-change:transform;
+}
+.site-btn:hover{
+  color:var(--txt);background:rgba(255,255,255,.06);
+  transform:translateY(-1px);
+  box-shadow:0 4px 16px rgba(0,0,0,.3);
+}
+.site-btn.active{
+  color:#fff;
+  background:linear-gradient(135deg,rgba(57,255,20,.30),rgba(0,245,255,.15));
+  border:1px solid rgba(57,255,20,.5);
+  box-shadow:
+    0 0 26px rgba(57,255,20,.40),
+    0 6px 18px rgba(0,245,255,.18),
+    inset 0 1px 0 rgba(255,255,255,.15);
+  text-shadow:0 0 8px rgba(57,255,20,.35);
+  pointer-events:none;
+}
+
+/* ══ KPI CARDS ══ */
+.kpi-row{display:grid;grid-template-columns:repeat(6,1fr);gap:12px;margin-bottom:16px;}
+.kcard{
+  border-radius:18px;padding:18px 16px;
+  position:relative;overflow:hidden;cursor:pointer;
+  transition:transform .3s,box-shadow .3s;animation:riseUp .5s ease both;
+}
+.kcard:hover{transform:translateY(-5px);}
+.kcard.lime  {background:linear-gradient(145deg,#071A08,#0A2B0C);border:1px solid rgba(57,255,20,.35); box-shadow:0 0 35px rgba(57,255,20,.12);}
+.kcard.cyan  {background:linear-gradient(145deg,#051A1C,#072830);border:1px solid rgba(0,245,255,.35); box-shadow:0 0 35px rgba(0,245,255,.12);}
+.kcard.amber {background:linear-gradient(145deg,#1C1600,#2A2000);border:1px solid rgba(255,208,0,.35);  box-shadow:0 0 35px rgba(255,208,0,.12);}
+.kcard.violet{background:linear-gradient(145deg,#130A22,#1C0D30);border:1px solid rgba(191,95,255,.35);box-shadow:0 0 35px rgba(191,95,255,.12);}
+.kcard.blue  {background:linear-gradient(145deg,#061426,#092035);border:1px solid rgba(30,144,255,.35); box-shadow:0 0 35px rgba(30,144,255,.12);}
+.kcard.pink  {background:linear-gradient(145deg,#1C0614,#28071C);border:1px solid rgba(255,45,120,.35); box-shadow:0 0 35px rgba(255,45,120,.12);}
+.kcard::after{content:'';position:absolute;top:0;left:0;right:0;height:3px;border-radius:3px 3px 0 0;}
+.kcard.lime::after  {background:var(--lime);  box-shadow:0 0 14px var(--lime);}
+.kcard.cyan::after  {background:var(--cyan);  box-shadow:0 0 14px var(--cyan);}
+.kcard.amber::after {background:var(--amber); box-shadow:0 0 14px var(--amber);}
+.kcard.violet::after{background:var(--violet);box-shadow:0 0 14px var(--violet);}
+.kcard.blue::after  {background:var(--blue);  box-shadow:0 0 14px var(--blue);}
+.kcard.pink::after  {background:var(--pink);  box-shadow:0 0 14px var(--pink);}
+@keyframes riseUp{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:translateY(0)}}
+.klbl{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:1.6px;color:var(--muted);margin-bottom:10px;font-family:'JetBrains Mono',monospace;}
+.kval{font-size:32px;font-weight:800;letter-spacing:-1.5px;line-height:1;}
+.kcard.lime  .kval{color:var(--lime);  text-shadow:0 0 24px rgba(57,255,20,.6);}
+.kcard.cyan  .kval{color:var(--cyan);  text-shadow:0 0 24px rgba(0,245,255,.6);}
+.kcard.amber .kval{color:var(--amber); text-shadow:0 0 24px rgba(255,208,0,.6);}
+.kcard.violet .kval{color:var(--violet);text-shadow:0 0 24px rgba(191,95,255,.6);}
+.kcard.blue  .kval{color:var(--blue);  text-shadow:0 0 24px rgba(30,144,255,.6);}
+.kcard.pink  .kval{color:var(--pink);  text-shadow:0 0 24px rgba(255,45,120,.6);}
+.kdelta{font-size:10px;font-weight:700;margin-top:9px;font-family:'JetBrains Mono',monospace;}
+.up  {color:var(--green);}
+.dn  {color:var(--red);}
+.flat{color:var(--muted);}
+
+/* ══ MAIN GRID ══ */
+.main-grid{display:grid;grid-template-columns:1fr 360px;gap:16px;margin-bottom:16px;}
+
+/* ══ MAP CARD ══ */
+.map-card{background:var(--surf);border:1px solid rgba(57,255,20,.2);border-radius:18px;overflow:hidden;box-shadow:0 0 50px rgba(57,255,20,.06);}
+.ch{display:flex;align-items:center;justify-content:space-between;padding:14px 20px;border-bottom:1px solid var(--border);background:rgba(255,255,255,.02);}
+.ctitle{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1.6px;color:var(--muted);font-family:'JetBrains Mono',monospace;display:flex;align-items:center;gap:9px;}
+.cdot{width:9px;height:9px;border-radius:50%;}
+#map{height:190px;width:100%;background:#07080D;}
+.leaflet-container{background:#07080D !important;font-family:'Syne',sans-serif;}
+
+/* ══ SITE PANEL ══ */
+.site-panel{display:flex;flex-direction:column;gap:12px;}
+.scard{
+  border-radius:16px;padding:20px;cursor:pointer;
+  transition:transform .25s,box-shadow .25s;
+  position:relative;overflow:hidden;border:1px solid var(--border);
+}
+.scard:hover{transform:translateX(5px);}
+.scard::before{content:'';position:absolute;left:0;top:0;bottom:0;width:4px;border-radius:4px 0 0 4px;}
+.scard.lue{background:linear-gradient(135deg,#06140A,#092010);border-color:rgba(57,255,20,.3);}
+.scard.lue::before{background:var(--lime);box-shadow:0 0 16px var(--lime);}
+.sname{font-size:13px;font-weight:800;margin-bottom:12px;display:flex;align-items:center;justify-content:space-between;}
+.scode{font-family:'JetBrains Mono',monospace;font-size:10px;padding:3px 10px;border-radius:6px;font-weight:700;}
+.lue .scode{background:rgba(57,255,20,.12);color:var(--lime);border:1px solid rgba(57,255,20,.3);}
+.smets{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;}
+.smet{text-align:center;padding:9px 4px;background:rgba(0,0,0,.25);border-radius:12px;}
+.smv{font-size:19px;font-weight:800;letter-spacing:-.5px;}
+.sml{font-size:8px;color:var(--muted);text-transform:uppercase;letter-spacing:1px;font-family:'JetBrains Mono',monospace;margin-top:3px;}
+.smd{font-size:9px;font-family:'JetBrains Mono',monospace;margin-top:3px;font-weight:700;}
+
+/* Monthly breakdown card */
+.month-breakdown{
+  border-radius:16px;padding:18px;
+  background:linear-gradient(135deg,#06100F,#08192E);
+  border:1px solid rgba(57,255,20,.15);
+}
+.mb-title{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:var(--muted);font-family:'JetBrains Mono',monospace;margin-bottom:12px;}
+.mb-row{display:flex;justify-content:space-between;align-items:center;padding:6px 0;border-bottom:1px solid rgba(255,255,255,.04);}
+.mb-row:last-child{border-bottom:none;}
+.mb-label{font-size:10px;color:var(--muted);font-family:'JetBrains Mono',monospace;}
+.mb-val{font-size:12px;font-weight:700;font-family:'JetBrains Mono',monospace;color:var(--lime);}
+
+/* ══ CHARTS ROW ══ */
+.charts-row{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:16px;}
+.chart-card{background:var(--surf);border:1px solid var(--border);border-radius:16px;overflow:hidden;transition:box-shadow .3s;}
+.chart-card:hover{box-shadow:0 0 40px rgba(57,255,20,.10);}
+.chart-body{padding:16px;height:230px;position:relative;}
+
+/* ══ TABLES ══ */
+.bot-row{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+.tcard{background:var(--surf);border:1px solid var(--border);border-radius:16px;overflow:hidden;}
+table{width:100%;border-collapse:collapse;}
+th{padding:10px 14px;font-size:9px;text-transform:uppercase;letter-spacing:1.5px;color:var(--muted);font-family:'JetBrains Mono',monospace;font-weight:600;text-align:left;background:rgba(255,255,255,.025);border-bottom:1px solid var(--border);}
+td{padding:10px 14px;font-size:11px;border-bottom:1px solid rgba(255,255,255,.04);font-family:'JetBrains Mono',monospace;color:#BEC8DA;}
+tr:last-child td{border-bottom:none;}
+tr:hover td{background:rgba(255,255,255,.025);}
+.badge{padding:3px 10px;border-radius:20px;font-size:9px;font-weight:700;font-family:'JetBrains Mono',monospace;}
+.badge.up  {background:rgba(0,255,159,.14);color:var(--green);border:1px solid rgba(0,255,159,.3);}
+.badge.dn  {background:rgba(255,45,85,.14); color:var(--red);  border:1px solid rgba(255,45,85,.3);}
+.badge.flat{background:rgba(107,118,148,.12);color:var(--muted);border:1px solid rgba(107,118,148,.2);}
+.badge.zero{background:rgba(0,255,159,.1); color:var(--green);border:1px solid rgba(0,255,159,.25);}
+
+/* ══ FOOTER ══ */
+footer{
+  margin-top:16px;padding:14px 22px;
+  background:var(--surf);border:1px solid var(--border);border-radius:14px;
+  display:flex;justify-content:space-between;align-items:center;
+  font-size:10px;color:var(--muted);font-family:'JetBrains Mono',monospace;
+}
+
+/* Leaflet popup */
+.leaflet-popup-content-wrapper{
+  background:#0E1016 !important;border:1px solid rgba(57,255,20,.4) !important;
+  border-radius:16px !important;
+  box-shadow:0 10px 50px rgba(0,0,0,.7),0 0 40px rgba(57,255,20,.15) !important;
+  color:#fff !important;font-family:'Syne',sans-serif !important;
+}
+.leaflet-popup-tip{background:#0E1016 !important;}
+.ptitle{font-size:13px;font-weight:800;margin-bottom:12px;}
+.pgrid{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
+.pkpi{text-align:center;background:rgba(255,255,255,.05);border-radius:10px;padding:9px;}
+.pkv{font-size:22px;font-weight:800;}
+.pkl{font-size:8px;color:#6B7694;text-transform:uppercase;letter-spacing:1px;font-family:'JetBrains Mono',monospace;margin-top:3px;}
+
+::-webkit-scrollbar{width:4px;}
+::-webkit-scrollbar-thumb{background:rgba(57,255,20,.3);border-radius:4px;}
+
+/* ══ WORKFORCE SECTION ══ */
+.wf-divider{display:flex;align-items:center;gap:16px;margin:28px 0 16px;}
+.wf-div-line{flex:1;height:1px;background:linear-gradient(90deg,transparent,rgba(57,255,20,.4),transparent);}
+.wf-div-label{
+  font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:2.2px;
+  color:var(--lime);font-family:'JetBrains Mono',monospace;white-space:nowrap;
+  padding:5px 14px;border:1px solid rgba(57,255,20,.3);border-radius:20px;
+  background:rgba(57,255,20,.06);text-shadow:0 0 18px rgba(57,255,20,.5);
+}
+.kcard.orange{background:linear-gradient(145deg,#1C0A00,#2A1200);border:1px solid rgba(255,107,0,.35);box-shadow:0 0 35px rgba(255,107,0,.12);}
+.kcard.orange::after{background:var(--orange);box-shadow:0 0 14px var(--orange);}
+.kcard.orange .kval{color:var(--orange);text-shadow:0 0 24px rgba(255,107,0,.6);}
+.kcard.green2{background:linear-gradient(145deg,#001C0E,#002E18);border:1px solid rgba(0,255,159,.35);box-shadow:0 0 35px rgba(0,255,159,.12);}
+.kcard.green2::after{background:var(--green);box-shadow:0 0 14px var(--green);}
+.kcard.green2 .kval{color:var(--green);text-shadow:0 0 24px rgba(0,255,159,.6);}
+.wf-grid{display:grid;grid-template-columns:240px minmax(480px,1fr) 260px;gap:12px;align-items:start;margin-bottom:16px;}
+.wf-donut-card,.wf-cal-card,.wf-table-card{
+  background:var(--surf);border:1px solid rgba(57,255,20,.15);
+  border-radius:16px;overflow:hidden;
+}
+.wf-donut-body{padding:12px;height:220px;position:relative;}
+.wf-cal-inner{padding:10px 12px 12px;}
+.cal-grid-header{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;margin-bottom:5px;}
+.cal-dlbl{text-align:center;font-size:8px;font-weight:700;letter-spacing:.8px;font-family:'JetBrains Mono',monospace;color:var(--muted);padding:3px 0;}
+.cal-dlbl.sat{color:rgba(255,208,0,.55);}
+.cal-dlbl.sun{color:rgba(255,45,85,.45);}
+.cal-grid-body{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;}
+.cal-cell{min-height:48px;border-radius:7px;padding:5px 4px;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;position:relative;cursor:default;transition:transform .18s,box-shadow .18s;border:1px solid rgba(255,255,255,.06);}
+.cal-cell:hover:not(.empty){transform:translateY(-1px);z-index:2;box-shadow:0 4px 18px rgba(0,0,0,.36);}
+.cc-day{font-size:10px;font-weight:700;font-family:'JetBrains Mono',monospace;line-height:1;}
+.cc-pct{font-size:6.5px;font-family:'JetBrains Mono',monospace;margin-top:1px;opacity:.9;letter-spacing:.2px;}
+.cc-events{display:flex;flex-wrap:wrap;justify-content:center;gap:2px;margin-top:3px;width:100%;}
+.cc-event{max-width:100%;padding:2px 4px;border-radius:5px;font-size:6.5px;font-weight:800;line-height:1;font-family:'JetBrains Mono',monospace;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:#F7FBFF;background:rgba(191,95,255,.28);border:1px solid rgba(191,95,255,.44);}
+.cc-event.monthly{background:rgba(255,208,0,.18);border-color:rgba(255,208,0,.44);color:var(--amber);}
+.cal-cell.has-checks{border-color:rgba(191,95,255,.46);box-shadow:inset 0 0 0 1px rgba(191,95,255,.16);}
+.cal-cell.empty{background:transparent;border-color:transparent;pointer-events:none;}
+.cal-cell.wkend{background:rgba(255,255,255,.025);border-color:rgba(255,255,255,.04);}
+.cal-cell.holiday{background:rgba(255,45,85,.16);border-color:rgba(255,45,85,.32);}
+.cal-cell.good{background:rgba(57,255,20,.1);border-color:rgba(57,255,20,.28);}
+.cal-cell.great{background:rgba(0,245,255,.13);border-color:rgba(0,245,255,.3);}
+.cal-cell.peak{background:rgba(57,255,20,.22);border-color:rgba(57,255,20,.45);}
+.cal-legend{display:flex;flex-wrap:wrap;gap:10px;margin-top:11px;}
+.cal-leg{display:flex;align-items:center;gap:5px;font-size:7.5px;font-family:'JetBrains Mono',monospace;color:var(--muted);}
+.cal-leg-sq{width:9px;height:9px;border-radius:3px;flex-shrink:0;}
+.wf-table-card{overflow-y:auto;max-height:355px;}
+.wf-table-card::-webkit-scrollbar{width:3px;}
+.wf-table-card::-webkit-scrollbar-thumb{background:rgba(57,255,20,.3);}
+@media (max-width:980px){
+  .wf-grid{grid-template-columns:1fr;}
+  .wf-donut-body{height:210px;}
+  .wf-table-card{max-height:none;}
+}
+
+/* ══ HSE TOPICS PANEL ══ */
+.topics-panel{padding:14px 16px 16px;border-top:1px solid var(--border);}
+.topics-title{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:1.8px;color:var(--muted);font-family:'JetBrains Mono',monospace;margin-bottom:12px;display:flex;align-items:center;gap:8px;}
+.topics-title::before{content:'';display:inline-block;width:8px;height:8px;border-radius:2px;background:var(--lime);box-shadow:0 0 8px var(--lime);flex-shrink:0;}
+.topic-item{display:flex;flex-direction:column;gap:5px;padding:11px 13px;border-radius:12px;margin-bottom:9px;border-left:3px solid transparent;position:relative;transition:transform .2s;cursor:default;}
+.topic-item:last-child{margin-bottom:0;}
+.topic-item:hover{transform:translateX(3px);}
+.topic-item.unresolved{background:rgba(255,45,85,.07);border:1px solid rgba(255,45,85,.2);border-left:3px solid var(--red);}
+.topic-item.resolved{background:rgba(0,255,159,.06);border:1px solid rgba(0,255,159,.18);border-left:3px solid var(--green);}
+.topic-top{display:flex;align-items:flex-start;justify-content:space-between;gap:8px;}
+.topic-name{font-size:11px;font-weight:700;color:var(--txt);line-height:1.35;flex:1;}
+.topic-status{font-size:8px;font-weight:700;font-family:'JetBrains Mono',monospace;padding:3px 9px;border-radius:20px;white-space:nowrap;flex-shrink:0;}
+.topic-status.unresolved{background:rgba(255,45,85,.15);color:var(--red);border:1px solid rgba(255,45,85,.3);}
+.topic-status.resolved{background:rgba(0,255,159,.12);color:var(--green);border:1px solid rgba(0,255,159,.28);}
+.topic-meta{display:flex;gap:10px;flex-wrap:wrap;}
+.tmeta{font-size:8.5px;font-family:'JetBrains Mono',monospace;color:var(--muted);display:flex;align-items:center;gap:4px;}
+.tmeta-dot{width:4px;height:4px;border-radius:50%;background:var(--muted);flex-shrink:0;}
+
+/* ══ SINISTRALIDADE SECTION ══ */
+.sinist-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:16px;}
+.sinist-card{background:var(--surf);border:1px solid var(--border);border-radius:14px;padding:16px;text-align:center;}
+.sinist-val{font-size:28px;font-weight:800;letter-spacing:-1px;color:var(--green);text-shadow:0 0 20px rgba(0,255,159,.5);}
+.sinist-lbl{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:1.4px;color:var(--muted);font-family:'JetBrains Mono',monospace;margin-top:6px;}
+.sinist-sub{font-size:10px;font-family:'JetBrains Mono',monospace;color:var(--muted);margin-top:4px;}
+
+/* Theme switch */
+body.theme-light{
+  --bg:#F5F7FB;
+  --surf:#FFFFFF;
+  --surf2:#EEF2F8;
+  --border:rgba(21,32,54,.10);
+  --border2:rgba(21,32,54,.16);
+  --txt:#111827;
+  --muted:#667085;
+}
+body.theme-light::before{
+  background-image:
+    linear-gradient(rgba(57,255,20,.10) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(0,245,255,.08) 1px,transparent 1px);
+  opacity:.55;
+}
+body.theme-light::after{opacity:.42;}
+body.theme-light header{
+  background:linear-gradient(135deg,#FFFFFF 0%,#F0FFF4 100%);
+  border-color:rgba(57,255,20,.24);
+  box-shadow:0 18px 60px rgba(21,32,54,.08),inset 0 1px 0 rgba(255,255,255,.85);
+}
+body.theme-light .h-title{background:linear-gradient(135deg,#111827 0%,var(--lime) 52%,var(--cyan) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+body.theme-light .site-switcher,
+body.theme-light .month-toggle,
+body.theme-light .theme-toggle{
+  background:#FFFFFF;
+  border-color:rgba(21,32,54,.14);
+  box-shadow:0 8px 24px rgba(21,32,54,.06),inset 0 1px 0 rgba(255,255,255,.9);
+}
+body.theme-light .site-btn:hover{color:var(--txt);background:rgba(57,255,20,.08);}
+body.theme-light .site-btn.active,
+body.theme-light .mbtn.active{color:#07100A;}
+body.theme-light .kcard{background:#FFFFFF!important;box-shadow:0 10px 30px rgba(21,32,54,.06)!important;}
+body.theme-light .scard.lue,
+body.theme-light .month-breakdown{background:linear-gradient(135deg,#FFFFFF,#F0FFF4);}
+body.theme-light .map-card,
+body.theme-light .chart-card,
+body.theme-light .tcard,
+body.theme-light footer,
+body.theme-light .wf-donut-card,
+body.theme-light .wf-cal-card,
+body.theme-light .wf-table-card{
+  background:#FFFFFF;
+  border-color:rgba(21,32,54,.10);
+  box-shadow:0 10px 30px rgba(21,32,54,.05);
+}
+body.theme-light .ch,
+body.theme-light th{background:rgba(245,247,251,.9);}
+body.theme-light td{color:#354154;border-bottom-color:rgba(21,32,54,.07);}
+body.theme-light tr:hover td{background:rgba(57,255,20,.05);}
+body.theme-light .smet,
+body.theme-light .pkpi{background:rgba(21,32,54,.05);}
+body.theme-light #map,
+body.theme-light .leaflet-container{background:#EEF2F8!important;}
+body.theme-light .leaflet-popup-content-wrapper{background:#FFFFFF!important;color:#111827!important;border-color:rgba(57,255,20,.24)!important;box-shadow:0 16px 45px rgba(21,32,54,.18)!important;}
+body.theme-light .leaflet-popup-tip{background:#FFFFFF!important;}
+body.theme-light .pkl{color:var(--muted);}
+body.theme-light .hse-plano{
+  --hp-bg:#FFFFFF;
+  --hp-card-bg:#FFFFFF;
+  --hp-card-border:rgba(21,32,54,.10);
+  --hp-banner-bg:linear-gradient(135deg,#0B3B1F,#087B4A);
+  --hp-text:#111827;
+  --hp-muted:#667085;
+  --hp-accent-soft:rgba(57,255,20,.12);
+  box-shadow:0 10px 30px rgba(21,32,54,.05);
+}
+body.theme-light .hp-pdf-meta h3,
+body.theme-light .hp-card-title,
+body.theme-light .hp-licencas-head h3,
+body.theme-light .hp-name,
+body.theme-light .hp-dval{color:#111827;}
+body.theme-light .hp-banner .hp-title{color:#fff;}
+body.theme-light .hp-banner .hp-sub{color:rgba(255,255,255,.76);}
+</style>
+</head>
+<body class="theme-dark">
+<div class="wrap">
+
+<!-- HEADER -->
+<header>
+  <div>
+    <div class="h-title">HSE DASHBOARD · Hospital Militar Regional de Luena</div>
+    <div class="h-sub">HMRL &nbsp;·&nbsp; N.º Obra: 14DC – DEI/SV/2021 &nbsp;|&nbsp; VAMED Healthcare Projects &nbsp;|&nbsp; HSE: Hendrik Silva</div>
+  </div>
+  <div class="h-right">
+    <nav class="site-switcher" aria-label="Mudar de site">
+      <span class="site-switcher-label">Site</span>
+      <a class="site-btn" href="../" title="Hospital Militar Regional do Huambo">Huambo</a>
+      <a class="site-btn" href="../cabinda/" title="Hospital Militar Regional de Cabinda">Cabinda</a>
+      <a class="site-btn active" href="./" aria-current="page" title="Hospital Militar Regional de Luena">Luena</a>
+    </nav>
+    <div class="month-toggle">
+      <button class="mbtn" onclick="setMonth('ago',this)">AGO 2025</button>
+      <button class="mbtn" onclick="setMonth('set',this)">SET 2025</button>
+      <button class="mbtn" onclick="setMonth('out',this)">OUT 2025</button>
+      <button class="mbtn" onclick="setMonth('nov',this)">NOV 2025</button>
+      <button class="mbtn" onclick="setMonth('dez',this)">DEZ 2025</button>
+      <button class="mbtn" onclick="setMonth('jan',this)">JAN 2026</button>
+      <button class="mbtn" onclick="setMonth('fev',this)">FEV 2026</button>
+      <button class="mbtn active" onclick="setMonth('mar',this)">MAR 2026</button>
+    </div>
+    <div class="period-pill" id="period-pill">Ago 2025 → Mar 2026</div>
+    <div class="theme-toggle" aria-label="Modo de visualização">
+      <button class="theme-btn active" id="darkModeBtn" type="button" onclick="setTheme('dark')">Dark</button>
+      <button class="theme-btn" id="lightModeBtn" type="button" onclick="setTheme('light')">Normal</button>
+    </div>
+    <div class="live-badge"><div class="live-dot"></div>HMRL</div>
+  </div>
+</header>
+
+<!-- KPI ROW -->
+<div class="kpi-row">
+  <div class="kcard lime" style="animation-delay:.05s">
+    <div class="klbl">Trabalhadores</div>
+    <div class="kval" id="kw">8</div>
+    <div class="kdelta flat" id="kwd">↓ Fase de Conclusão</div>
+  </div>
+  <div class="kcard cyan" style="animation-delay:.10s">
+    <div class="klbl">Testes Alcoolemia</div>
+    <div class="kval" id="kt">0</div>
+    <div class="kdelta up" id="ktd">✓ N/A este mês</div>
+  </div>
+  <div class="kcard amber" style="animation-delay:.15s">
+    <div class="klbl">Checklist HSE</div>
+    <div class="kval" id="kc">100%</div>
+    <div class="kdelta up" id="kcd">▲ EXCELENTE</div>
+  </div>
+  <div class="kcard violet" style="animation-delay:.20s">
+    <div class="klbl">Formação Participantes</div>
+    <div class="kval" id="kf">5</div>
+    <div class="kdelta flat" id="kfd">— Fase final obra</div>
+  </div>
+  <div class="kcard blue" style="animation-delay:.25s">
+    <div class="klbl">Incid. Ambientais</div>
+    <div class="kval" id="ki">0</div>
+    <div class="kdelta up" id="kid">✓ Zero incidentes</div>
+  </div>
+  <div class="kcard pink" style="animation-delay:.30s">
+    <div class="klbl">Positivos Alcoolemia</div>
+    <div class="kval" id="kp">0</div>
+    <div class="kdelta up" id="kpd">✓ 100% Negativos</div>
+  </div>
+</div>
+
+<!-- MAP + SITE CARD -->
+<div class="main-grid">
+  <div class="map-card">
+    <div class="ch">
+      <div class="ctitle">
+        <div class="cdot" style="background:var(--lime);box-shadow:0 0 10px var(--lime)"></div>
+        Mapa de Angola — Hospital Militar Regional de Luena (Moxico)
+      </div>
+      <span style="font-size:10px;color:var(--muted);font-family:'JetBrains Mono',monospace">Clique no marcador para detalhes</span>
+    </div>
+    <div id="map"></div>
+
+    <!-- HSE Issues — Mar 2026 -->
+    <div class="topics-panel">
+      <div class="topics-title">Situações HSE Identificadas · Mar 2026</div>
+
+<!--
+  upload-form-snippet.html
+  Drop this anywhere in your existing index.html (Huambo), cabinda/index.html, luena/index.html
+  near the "Situações HSE Identificadas" section. No build step needed — vanilla HTML/JS.
+
+  The form auto-resizes photos before upload to save bandwidth on weak 4G.
+-->
+
+<style>
+  .hse-upload-btn {
+    padding: 10px 18px; background: #1F4E78; color: white;
+    border: 0; border-radius: 6px; cursor: pointer; font-weight: 600;
+    font-family: inherit;
+  }
+  .hse-upload-form {
+    max-width: 480px; padding: 20px; background: #f8f9fa;
+    border: 1px solid #d1d5db; border-radius: 8px;
+    display: none; gap: 12px; font-family: inherit;
+  }
+  .hse-upload-form.open { display: grid; }
+  .hse-upload-form h3 { margin: 0 0 4px; }
+  .hse-upload-form label { display: block; font-size: 14px; }
+  .hse-upload-form input, .hse-upload-form textarea {
+    display: block; width: 100%; padding: 8px; margin-top: 4px;
+    border: 1px solid #d1d5db; border-radius: 4px; font-size: 14px;
+    box-sizing: border-box;
+  }
+  .hse-upload-form textarea { resize: vertical; }
+  .hse-upload-actions { display: flex; gap: 8px; }
+  .hse-submit { flex: 1; padding: 10px; background: #1F4E78; color: white;
+    border: 0; border-radius: 6px; cursor: pointer; font-weight: 600; }
+  .hse-cancel { padding: 10px; background: white; border: 1px solid #d1d5db;
+    border-radius: 6px; cursor: pointer; }
+  .hse-msg { padding: 10px; border-radius: 6px; }
+  .hse-msg.ok { background: #d1fae5; color: #065f46; }
+  .hse-msg.err { background: #fee2e2; color: #991b1b; }
+</style>
+
+<button id="hse-open-btn" class="hse-upload-btn">+ Nova Situação HSE</button>
+
+<form id="hse-upload-form" class="hse-upload-form">
+  <h3>Reportar Situação HSE</h3>
+
+  <label>Título *
+    <input name="titulo" required minlength="3" maxlength="200"
+           placeholder="ex.: Extintor danificado no armazém">
+  </label>
+
+  <label>Responsável
+    <input name="responsavel" placeholder="ex.: Nelson Segunda">
+  </label>
+
+  <label>Prazo (opcional)
+    <input name="prazo" type="date">
+  </label>
+
+  <label>Notas (opcional)
+    <textarea name="notas" rows="3"></textarea>
+  </label>
+
+  <label>Fotos (até 5)
+    <input name="photos" type="file" accept="image/*" capture="environment" multiple>
+  </label>
+
+  <div class="hse-upload-actions">
+    <button type="submit" class="hse-submit">Submeter</button>
+    <button type="button" class="hse-cancel">Cancelar</button>
+  </div>
+
+  <div id="hse-msg" class="hse-msg" style="display:none"></div>
+</form>
+
+<script>
+(function() {
+  const openBtn = document.getElementById("hse-open-btn");
+  const form = document.getElementById("hse-upload-form");
+  const cancel = form.querySelector(".hse-cancel");
+  const submit = form.querySelector(".hse-submit");
+  const msg = document.getElementById("hse-msg");
+
+  openBtn.addEventListener("click", () => {
+    form.classList.add("open"); openBtn.style.display = "none";
+  });
+  cancel.addEventListener("click", () => {
+    form.classList.remove("open"); openBtn.style.display = "";
+    form.reset(); msg.style.display = "none";
+  });
+
+  async function resizeImage(file, maxDim, quality) {
+    if (!file.type.startsWith("image/")) return file;
+    const img = await new Promise((resolve, reject) => {
+      const im = new Image();
+      im.onload = () => resolve(im);
+      im.onerror = reject;
+      im.src = URL.createObjectURL(file);
+    });
+    const scale = Math.min(1, maxDim / Math.max(img.width, img.height));
+    const w = Math.round(img.width * scale);
+    const h = Math.round(img.height * scale);
+    const canvas = document.createElement("canvas");
+    canvas.width = w; canvas.height = h;
+    canvas.getContext("2d").drawImage(img, 0, 0, w, h);
+    return await new Promise(r => canvas.toBlob(b => r(b), "image/jpeg", quality));
+  }
+
+  function show(kind, text) {
+    msg.className = "hse-msg " + kind;
+    msg.textContent = text;
+    msg.style.display = "";
+  }
+
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    submit.disabled = true; submit.textContent = "A enviar…";
+    msg.style.display = "none";
+
+    const fd = new FormData(form);
+    // Resize photos client-side.
+    const photoInput = form.querySelector('input[name="photos"]');
+    if (photoInput.files && photoInput.files.length > 0) {
+      fd.delete("photos");
+      for (const f of photoInput.files) {
+        try {
+          const resized = await resizeImage(f, 1600, 0.8);
+          fd.append("photos", resized, f.name.replace(/\.[^.]+$/, ".jpg"));
+        } catch {
+          fd.append("photos", f, f.name);
+        }
+      }
+    }
+
+    try {
+      const r = await fetch("/api/situacoes", { method: "POST", body: fd });
+      const data = await r.json();
+      if (!r.ok) throw new Error(data.error || "Erro desconhecido");
+      show("ok", "✓ Situação registada. Obrigado!");
+      form.reset();
+      setTimeout(() => {
+        form.classList.remove("open"); openBtn.style.display = "";
+        msg.style.display = "none";
+      }, 2500);
+    } catch (err) {
+      show("err", err.message);
+    } finally {
+      submit.disabled = false; submit.textContent = "Submeter";
+    }
+  });
+})();
+</script>
+
+
+      <div class="topic-item resolved">
+        <div class="topic-top">
+          <div class="topic-name">🏗 Encerramento de Estaleiro — Desmobilização Concluída</div>
+          <div class="topic-status resolved">Resolvido</div>
+        </div>
+        <div class="topic-meta">
+          <span class="tmeta"><span class="tmeta-dot"></span>Mar 2026</span>
+          <span class="tmeta"><span class="tmeta-dot"></span>Resp: Abubacar Sumalgy / Hendrik Silva</span>
+          <span class="tmeta"><span class="tmeta-dot" style="background:var(--green)"></span>Concluído</span>
+        </div>
+      </div>
+
+      <div class="topic-item resolved">
+        <div class="topic-top">
+          <div class="topic-name">♻ Gestão de Resíduos — Recolha Final de Obra</div>
+          <div class="topic-status resolved">Resolvido</div>
+        </div>
+        <div class="topic-meta">
+          <span class="tmeta"><span class="tmeta-dot"></span>Mar 2026</span>
+          <span class="tmeta"><span class="tmeta-dot"></span>Resp: Mario Miguel</span>
+          <span class="tmeta"><span class="tmeta-dot" style="background:var(--green)"></span>Concluído</span>
+        </div>
+      </div>
+
+      <div class="topic-item resolved">
+        <div class="topic-top">
+          <div class="topic-name">📋 Entrega de Documentação Final HSE ao Cliente</div>
+          <div class="topic-status resolved">Resolvido</div>
+        </div>
+        <div class="topic-meta">
+          <span class="tmeta"><span class="tmeta-dot"></span>Mar 2026</span>
+          <span class="tmeta"><span class="tmeta-dot"></span>Resp: Hendrik Silva</span>
+          <span class="tmeta"><span class="tmeta-dot" style="background:var(--green)"></span>Concluído</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="site-panel">
+    <div class="scard lue">
+      <div class="sname">Hospital Militar Regional de Luena <span class="scode">HMRL</span></div>
+      <div class="smets">
+        <div class="smet">
+          <div class="smv" style="color:var(--lime)" id="sc-w">8</div>
+          <div class="sml">Trabalhadores</div>
+          <div class="smd flat" id="sc-wd">Fase Final</div>
+        </div>
+        <div class="smet">
+          <div class="smv" style="color:var(--cyan)" id="sc-ch">100%</div>
+          <div class="sml">Checklist</div>
+          <div class="smd up" id="sc-chd">▲ EXCELENTE</div>
+        </div>
+        <div class="smet">
+          <div class="smv" style="color:var(--violet)" id="sc-f">5</div>
+          <div class="sml">Formação</div>
+          <div class="smd flat" id="sc-fd">— Fase final</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="month-breakdown">
+      <div class="mb-title" id="mb-title">Detalhes — Mar 2026</div>
+      <div class="mb-row"><span class="mb-label">Alcoolemia Testes</span><span class="mb-val" id="mb-t" style="color:var(--muted)">0</span></div>
+      <div class="mb-row"><span class="mb-label">Alcoolemia Positivos</span><span class="mb-val" id="mb-p" style="color:var(--green)">0</span></div>
+      <div class="mb-row"><span class="mb-label">Acidentes</span><span class="mb-val" id="mb-acc" style="color:var(--green)">0</span></div>
+      <div class="mb-row"><span class="mb-label">Incid. Ambientais</span><span class="mb-val" id="mb-i" style="color:var(--green)">0</span></div>
+      <div class="mb-row"><span class="mb-label">Gasóleo (L)</span><span class="mb-val" id="mb-gas">200</span></div>
+      <div class="mb-row"><span class="mb-label">Electricidade</span><span class="mb-val" id="mb-elec" style="color:var(--muted)">Gerador</span></div>
+      <div class="mb-row"><span class="mb-label">Horas Trabalhadas</span><span class="mb-val" id="mb-h">1.440</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- CHARTS -->
+<div class="charts-row">
+  <div class="chart-card">
+    <div class="ch">
+      <div class="ctitle"><div class="cdot" style="background:var(--lime);box-shadow:0 0 10px var(--lime)"></div>Trabalhadores — Ago 2025 → Mar 2026</div>
+    </div>
+    <div class="chart-body"><canvas id="cW"></canvas></div>
+  </div>
+  <div class="chart-card">
+    <div class="ch">
+      <div class="ctitle"><div class="cdot" style="background:var(--violet);box-shadow:0 0 10px var(--violet)"></div>Formação — Participantes (Mês)</div>
+    </div>
+    <div class="chart-body"><canvas id="cF"></canvas></div>
+  </div>
+  <div class="chart-card">
+    <div class="ch">
+      <div class="ctitle"><div class="cdot" style="background:var(--orange);box-shadow:0 0 10px var(--orange)"></div>Consumo de Gasóleo (L)</div>
+    </div>
+    <div class="chart-body"><canvas id="cG"></canvas></div>
+  </div>
+</div>
+
+<!-- TABLES -->
+<div class="bot-row">
+  <div class="tcard">
+    <div class="ch">
+      <div class="ctitle"><div class="cdot" style="background:var(--amber);box-shadow:0 0 10px var(--amber)"></div>
+        <span id="sst-title">Indicadores SST — Comparativo Mensal</span>
+      </div>
+    </div>
+    <table>
+      <thead>
+        <tr>
+          <th>Indicador</th>
+          <th id="th-prev">Mês Ant.</th>
+          <th id="th-curr">Mês Atual</th>
+          <th>Var.</th>
+        </tr>
+      </thead>
+      <tbody id="sst-tbody"></tbody>
+    </table>
+  </div>
+  <div class="tcard">
+    <div class="ch">
+      <div class="ctitle"><div class="cdot" style="background:var(--cyan);box-shadow:0 0 10px var(--cyan)"></div>
+        <span id="env-title">Quadro de Sinistralidade — Acumulado</span>
+      </div>
+    </div>
+    <table>
+      <thead>
+        <tr>
+          <th>Indicador</th>
+          <th>Valor Acumulado</th>
+          <th>Classificação</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>Total Trabalhadores (pico)</td><td style="color:var(--lime);font-weight:700">207</td><td><span class="badge up">Ago 2025</span></td></tr>
+        <tr><td>Total Horas Trabalhadas</td><td style="color:var(--cyan);font-weight:700">617.976</td><td><span class="badge up">Acum.</span></td></tr>
+        <tr><td>Acidentes Mortais</td><td style="color:var(--green);font-weight:700">0</td><td><span class="badge zero">ZERO</span></td></tr>
+        <tr><td>Acidentes Não Mortais</td><td style="color:var(--amber);font-weight:700">2</td><td><span class="badge flat">Acum.</span></td></tr>
+        <tr><td>Dias Perdidos</td><td style="color:var(--orange);font-weight:700">3</td><td><span class="badge flat">Acum.</span></td></tr>
+        <tr><td>Índice de Frequência</td><td style="color:var(--muted);font-weight:700">0.70</td><td><span class="badge up">Muito Bom</span></td></tr>
+        <tr><td>Índice de Gravidade</td><td style="color:var(--muted);font-weight:700">0.70</td><td><span class="badge up">Muito Bom</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+
+<!-- ══ ESTALEIRO — FORÇA DE TRABALHO ══ -->
+<div class="wf-divider">
+  <div class="wf-div-line"></div>
+  <div class="wf-div-label">⬡ &nbsp;ESTALEIRO &nbsp;·&nbsp; FORÇA DE TRABALHO &nbsp;·&nbsp; MAR 2026</div>
+  <div class="wf-div-line"></div>
+</div>
+
+<!-- Workforce KPIs -->
+<div class="kpi-row" style="grid-template-columns:repeat(3,1fr);margin-bottom:16px;">
+  <div class="kcard orange">
+    <div class="klbl">Total Efetivos no Estaleiro</div>
+    <div class="kval">19</div>
+    <div class="kdelta flat">3 empresas — Fase de conclusão</div>
+  </div>
+  <div class="kcard blue">
+    <div class="klbl">Horas Trabalhadas (Acum.)</div>
+    <div class="kval">617.976</div>
+    <div class="kdelta up">▲ Desde Jun 2023</div>
+  </div>
+  <div class="kcard green2">
+    <div class="klbl">Checklist HSE — Classificação</div>
+    <div class="kval">EXCELENTE</div>
+    <div class="kdelta up">▲ 100% — Dez 2025</div>
+  </div>
+</div>
+
+<!-- Workforce Grid: Donut / Calendar / Table -->
+<div class="wf-grid">
+
+  <!-- Donut chart -->
+  <div class="wf-donut-card">
+    <div class="ch">
+      <div class="ctitle"><div class="cdot" style="background:var(--lime);box-shadow:0 0 8px var(--lime)"></div>Efetivos por Empresa</div>
+      <div style="font-size:9px;font-family:'JetBrains Mono',monospace;color:var(--muted)">Pico: 207 (Ago 2025)</div>
+    </div>
+    <div class="wf-donut-body"><canvas id="cDonut"></canvas></div>
+  </div>
+
+  <!-- Calendar heatmap — Março 2026 + HSE checks — Maio 2026 -->
+  <div class="wf-cal-card">
+    <div class="ch">
+      <div class="ctitle"><div class="cdot" style="background:var(--lime);box-shadow:0 0 8px var(--lime)"></div>Presença & Verificações HSE</div>
+      <div style="font-size:9px;font-family:'JetBrains Mono',monospace;color:var(--muted)">Mar 2026 · Maio 2026</div>
+    </div>
+    <div class="wf-cal-inner">
+      <div class="cal-grid-header">
+        <div class="cal-dlbl">SEG</div>
+        <div class="cal-dlbl">TER</div>
+        <div class="cal-dlbl">QUA</div>
+        <div class="cal-dlbl">QUI</div>
+        <div class="cal-dlbl">SEX</div>
+        <div class="cal-dlbl sat">SÁB</div>
+        <div class="cal-dlbl sun">DOM</div>
+      </div>
+      <div class="cal-grid-body" id="calBody"></div>
+      <div class="cal-legend">
+        <div class="cal-leg"><div class="cal-leg-sq" style="background:rgba(57,255,20,.5);border:1px solid rgba(57,255,20,.6)"></div>≥90%</div>
+        <div class="cal-leg"><div class="cal-leg-sq" style="background:rgba(0,245,255,.4);border:1px solid rgba(0,245,255,.5)"></div>70–90%</div>
+        <div class="cal-leg"><div class="cal-leg-sq" style="background:rgba(255,208,0,.4);border:1px solid rgba(255,208,0,.5)"></div>Sábado</div>
+        <div class="cal-leg"><div class="cal-leg-sq" style="background:rgba(255,45,85,.45);border:1px solid rgba(255,45,85,.5)"></div>Feriado</div>
+        <div class="cal-leg"><div class="cal-leg-sq" style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08)"></div>Domingo</div>
+        <div class="cal-leg"><div class="cal-leg-sq" style="background:rgba(191,95,255,.42);border:1px solid rgba(191,95,255,.55)"></div>Verif. semanal</div>
+        <div class="cal-leg"><div class="cal-leg-sq" style="background:rgba(255,208,0,.26);border:1px solid rgba(255,208,0,.55)"></div>Verif. mensal</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Company breakdown table -->
+  <div class="wf-table-card tcard">
+    <div class="ch">
+      <div class="ctitle"><div class="cdot" style="background:var(--lime);box-shadow:0 0 8px var(--lime)"></div>Detalhe por Empresa</div>
+    </div>
+    <table>
+      <thead>
+        <tr>
+          <th>Empresa</th>
+          <th>Tipo</th>
+          <th style="text-align:right">N.º</th>
+          <th style="text-align:right">%</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td style="font-weight:700;color:rgba(57,255,20,.9)">VAMED</td><td style="color:var(--muted)">Gestão do Projecto</td><td style="text-align:right;color:var(--txt)">8</td><td style="text-align:right"><span class="badge up">42.1%</span></td></tr>
+        <tr><td style="font-weight:700;color:rgba(0,245,255,.9)">CTCE</td><td style="color:var(--muted)">Construção Civil</td><td style="text-align:right;color:var(--txt)">5</td><td style="text-align:right"><span class="badge flat">26.3%</span></td></tr>
+        <tr><td style="font-weight:700;color:rgba(191,95,255,.9)">EC Engrácio Caputula</td><td style="color:var(--muted)">Segurança Patrimonial</td><td style="text-align:right;color:var(--txt)">6</td><td style="text-align:right"><span class="badge flat">31.6%</span></td></tr>
+        <tr style="background:rgba(57,255,20,.04)">
+          <td colspan="2" style="font-weight:800;color:var(--lime);font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.5px">TOTAL</td>
+          <td style="text-align:right;font-weight:800;color:var(--lime);font-size:14px">19</td>
+          <td style="text-align:right"><span class="badge" style="background:rgba(57,255,20,.12);color:var(--lime);border:1px solid rgba(57,255,20,.3)">100%</span></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <!-- Sinistralidade summary in same card -->
+    <div style="padding:12px 14px;border-top:1px solid var(--border);">
+      <div style="font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:var(--muted);font-family:'JetBrains Mono',monospace;margin-bottom:8px;">Acidentes 2024 (Acumulado)</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
+        <div style="text-align:center;background:rgba(0,0,0,.3);border-radius:10px;padding:8px;">
+          <div style="font-size:20px;font-weight:800;color:var(--amber)">2</div>
+          <div style="font-size:8px;color:var(--muted);font-family:'JetBrains Mono',monospace;margin-top:2px;">NÃO MORTAIS</div>
+        </div>
+        <div style="text-align:center;background:rgba(0,0,0,.3);border-radius:10px;padding:8px;">
+          <div style="font-size:20px;font-weight:800;color:var(--green)">0</div>
+          <div style="font-size:8px;color:var(--muted);font-family:'JetBrains Mono',monospace;margin-top:2px;">MORTAIS</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ════ Plano de Verificações HSE + Licenças (dark theme) ════ -->
+<style id="hse-plano-licencas-style">
+.hse-plano{
+  --hp-bg:rgba(255,255,255,.02);--hp-card-bg:rgba(255,255,255,.03);
+  --hp-card-border:rgba(255,255,255,.10);--hp-banner-bg:linear-gradient(135deg,#070C1A,#0A1530);
+  --hp-eyebrow:#FFD000;--hp-text:#fff;--hp-muted:#6B7694;--hp-accent:#00F5FF;--hp-accent-soft:rgba(0,245,255,.10);
+  --hp-mono:'JetBrains Mono','Fira Code',ui-monospace,Menlo,Consolas,monospace;
+  background:var(--hp-bg);border-radius:18px;border:1px solid var(--hp-card-border);
+  padding:22px;margin:18px 0;color:var(--hp-text);font-family:var(--hp-mono);
+}
+.hse-plano.hse-plano--violet{--hp-accent:#BF5FFF;--hp-accent-soft:rgba(191,95,255,.10);--hp-eyebrow:#BF5FFF;}
+.hp-banner{display:flex;flex-wrap:wrap;gap:14px;align-items:flex-end;justify-content:space-between;background:var(--hp-banner-bg);color:#fff;border-radius:14px;padding:18px 22px;margin-bottom:16px;border:1px solid rgba(255,255,255,.06);}
+.hp-banner-text{max-width:680px}
+.hp-eyebrow{display:inline-block;font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--hp-eyebrow);margin-bottom:6px;font-weight:700}
+.hp-title{font-size:18px;font-weight:700;margin:0 0 4px;color:#fff;letter-spacing:-.2px}
+.hp-sub{font-size:11px;line-height:1.5;color:rgba(255,255,255,.7);margin:0}
+.hp-month-label{font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--hp-eyebrow);background:rgba(255,255,255,.04);border:1px solid var(--hp-card-border);border-radius:10px;padding:7px 14px}
+.hp-content-grid{display:grid;grid-template-columns:minmax(340px,.82fr) minmax(350px,1fr) minmax(420px,1.2fr);column-gap:16px;row-gap:14px;align-items:start}
+.hp-left-stack{grid-column:1;display:grid;gap:12px;align-self:start}
+@media (max-width:1180px){.hp-content-grid{grid-template-columns:1fr 1fr}.hp-left-stack{grid-column:1}.hp-docs{grid-column:1/-1!important;grid-row:auto!important}.hp-licencas{grid-column:2!important;grid-row:1!important}}
+@media (max-width:760px){
+  .hp-content-grid{grid-template-columns:1fr}
+  .hp-content-grid > *{grid-column:1!important;grid-row:auto!important}
+  .hp-pdf-card{grid-template-columns:38px minmax(0,1fr)}
+  .hp-pdf-actions{grid-column:1/-1;justify-content:flex-start;flex-wrap:wrap}
+  .hp-docs-head{flex-direction:column}
+}
+.hp-pdf-card{display:grid;grid-template-columns:44px 1fr;gap:12px;align-items:center;background:linear-gradient(145deg,rgba(14,31,49,.92),rgba(7,14,25,.96));border:1px solid var(--hp-card-border);border-left:3px solid #FFD000;border-radius:12px;padding:13px 14px;box-shadow:0 18px 42px rgba(0,0,0,.18)}
+.hp-pdf-thumb{width:38px;height:46px;display:flex;align-items:center;justify-content:center;background:linear-gradient(160deg,#d33a3a,#8e1818);color:#fff;font-weight:700;border-radius:6px;letter-spacing:.06em;font-size:10px}
+.hp-pdf-meta h3{margin:0 0 1px;font-size:13px;font-weight:700;line-height:1.25;color:#fff}
+.hp-pdf-meta p{margin:0;font-size:10.5px;color:var(--hp-muted);line-height:1.35}
+.hp-pdf-actions{grid-column:2;display:flex;gap:6px}
+.hp-btn{display:inline-flex;align-items:center;font-size:10px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:6px 11px;border-radius:999px;border:1px solid transparent;cursor:pointer;text-decoration:none;font-family:var(--hp-mono);white-space:nowrap;background:transparent;color:var(--hp-text)}
+.hp-btn-primary{background:var(--hp-accent);color:#0a1530;border-color:var(--hp-accent)}
+.hp-btn-secondary{background:var(--hp-accent-soft);color:var(--hp-accent);border-color:var(--hp-accent-soft)}
+.hp-inspections{background:linear-gradient(145deg,rgba(14,31,49,.78),rgba(7,14,25,.94));border:1px solid var(--hp-card-border);border-radius:12px;padding:12px;box-shadow:0 18px 42px rgba(0,0,0,.16)}
+.hp-ops-title{margin:0 0 10px;color:var(--hp-accent);font-size:10px;font-weight:900;letter-spacing:.14em;text-transform:uppercase}
+.hp-inspection-list{display:grid;gap:6px}
+.hp-inspection-row{display:grid;grid-template-columns:32px minmax(0,1fr) auto auto;gap:8px;align-items:center;border:1px solid rgba(255,255,255,.08);border-radius:9px;background:rgba(255,255,255,.026);padding:7px 8px;transition:border-color .16s,background .16s,transform .16s,box-shadow .16s}
+.hp-inspection-row:hover{transform:translateY(-1px);border-color:rgba(0,245,255,.34);background:rgba(0,245,255,.045);box-shadow:0 10px 24px rgba(0,0,0,.18)}
+.hp-row-icon{width:30px;height:30px;border-radius:8px;display:inline-flex;align-items:center;justify-content:center;background:rgba(0,255,159,.10);border:1px solid rgba(0,255,159,.22);color:#39FF14;font-size:15px;font-weight:900}
+.hp-row-icon--monthly{background:rgba(255,208,0,.10);border-color:rgba(255,208,0,.25);color:#FFD000}
+.hp-row-main{min-width:0}
+.hp-row-top{display:flex;align-items:center;gap:7px;min-width:0}
+.hp-inspection-title{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:#fff;font-size:11.5px;font-weight:800;line-height:1.15}
+.hp-mini-badge{border-radius:999px;background:rgba(57,255,20,.11);color:#39FF14;font-size:8px;font-weight:900;letter-spacing:.07em;padding:3px 6px;text-transform:uppercase}
+.hp-mini-badge--monthly{background:rgba(255,208,0,.12);color:#FFD000}
+.hp-row-rule{display:block;margin-top:3px;color:var(--hp-muted);font-size:9px;font-weight:700;letter-spacing:.03em}
+.hp-date-pills{display:flex;flex-wrap:wrap;gap:4px;justify-content:flex-end}
+.hp-mini-date{border-radius:6px;background:rgba(0,255,159,.09);border:1px solid rgba(0,255,159,.16);color:#39FF14;font-size:9px;font-weight:900;line-height:1;padding:4px 5px;white-space:nowrap}
+.hp-row-actions{display:flex;gap:4px}
+.hp-icon-btn{width:25px;height:25px;border-radius:7px;display:inline-flex;align-items:center;justify-content:center;border:1px solid rgba(255,255,255,.10);font:900 12px/1 var(--hp-mono);cursor:pointer;color:#fff;background:rgba(255,255,255,.045);transition:transform .16s,border-color .16s,background .16s,box-shadow .16s}
+.hp-icon-btn:hover{transform:translateY(-1px);box-shadow:0 8px 18px rgba(0,0,0,.22)}
+.hp-icon-btn--upload{background:rgba(0,217,143,.12);border-color:rgba(0,217,143,.28);color:#00D98F}
+.hp-icon-btn--download{background:rgba(30,144,255,.13);border-color:rgba(30,144,255,.30);color:#62B1FF}
+.hp-icon-btn--due{background:rgba(181,101,255,.14);border-color:rgba(181,101,255,.30);color:#C889FF}
+@media (max-width:760px){.hp-inspection-row{grid-template-columns:32px minmax(0,1fr) auto}.hp-date-pills{grid-column:2/4;justify-content:flex-start}.hp-row-actions{grid-column:2/4}}
+.hp-grid{grid-column:1 / -1;grid-row:2;display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:10px}
+.hp-card{background:var(--hp-card-bg);border:1px solid var(--hp-card-border);border-radius:12px;padding:12px;position:relative;overflow:hidden;font-size:11px;display:flex;flex-direction:column;gap:6px}
+.hp-card::before{content:"";position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--hp-accent);opacity:.85}
+.hp-card[data-cad="weekly"]::before{background:#39FF14}
+.hp-card[data-cad="monthly"]::before{background:#FFD000}
+.hp-card[data-id="checklist_hse"]::before{background:#BF5FFF}
+.hp-card-head{display:flex;justify-content:space-between;gap:8px;align-items:flex-start}
+.hp-card-title{margin:0;font-size:12px;font-weight:700;color:#fff;line-height:1.2}
+.hp-cadence{font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:3px 7px;border-radius:999px;background:var(--hp-accent-soft);color:var(--hp-accent);white-space:nowrap}
+.hp-card-rule{font-size:10px;color:var(--hp-muted);margin:0}
+.hp-dates{display:flex;flex-wrap:wrap;gap:4px;min-height:22px}
+.hp-date{font-size:10px;font-weight:600;padding:3px 6px;border-radius:5px;background:var(--hp-accent-soft);color:var(--hp-accent);letter-spacing:.04em;font-family:var(--hp-mono)}
+.hp-date--today{background:var(--hp-accent);color:#0a1530;box-shadow:0 0 0 2px rgba(0,245,255,.2)}
+.hp-date--past{background:transparent;color:var(--hp-muted);border:1px dashed var(--hp-card-border)}
+.hp-licencas{grid-column:2;grid-row:1;align-self:stretch;background:var(--hp-card-bg);border:1px solid var(--hp-card-border);border-radius:14px;padding:14px 16px;display:flex;flex-direction:column;gap:8px;position:relative;overflow:hidden}
+.hp-licencas::before{content:"";position:absolute;left:0;top:0;bottom:0;width:4px;background:#FFD000}
+.hp-licencas-head{display:flex;align-items:center;gap:10px;padding-left:6px}
+.hp-licencas-icon{width:32px;height:32px;display:flex;align-items:center;justify-content:center;background:var(--hp-accent-soft);color:var(--hp-accent);border-radius:7px;font-size:14px}
+.hp-licencas-head h3{margin:0;font-size:13px;font-weight:700;color:#fff}
+.hp-licencas-head p{margin:1px 0 0;font-size:10px;color:var(--hp-muted);line-height:1.4}
+.hp-licencas-list{list-style:none;margin:0;padding:0 0 0 6px;display:flex;flex-direction:column;gap:1px}
+.hp-licencas-list li{display:grid;grid-template-columns:18px minmax(0,1fr) 12px;column-gap:8px;align-items:center;padding:5px 6px;border-radius:7px;font-size:11px;line-height:1.3;color:var(--hp-text);transition:background .15s}
+.hp-licencas-list li:hover{background:rgba(255,255,255,.04)}
+.hp-num{height:17px;display:inline-flex;align-items:center;justify-content:center;background:var(--hp-accent-soft);color:var(--hp-accent);font-weight:700;font-size:10px;border-radius:4px}
+.hp-name{font-weight:600;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:#fff}
+.hp-status{width:10px;height:10px;border-radius:50%;background:#3a4258;justify-self:end;box-shadow:0 0 0 2px rgba(0,0,0,.4)}
+.hp-dates2{grid-column:2/4;font-size:9.5px;color:var(--hp-muted);letter-spacing:.02em;line-height:1.3;font-family:var(--hp-mono)}
+.hp-dlbl{font-size:8.5px;text-transform:uppercase;letter-spacing:.08em;opacity:.7;font-weight:700}
+.hp-dval{color:#fff;font-weight:600}
+.hp-licencas-list li.hp-lic--ok .hp-status{background:#39FF14;box-shadow:0 0 8px rgba(57,255,20,.5)}
+.hp-licencas-list li.hp-lic--warn .hp-status{background:#FFD000;box-shadow:0 0 8px rgba(255,208,0,.5)}
+.hp-licencas-list li.hp-lic--bad .hp-status{background:#FF2D55;box-shadow:0 0 8px rgba(255,45,85,.5)}
+.hp-licencas-list li.hp-lic--bad .hp-ex{color:#FF6B7A}
+.hp-licencas-legend{display:flex;flex-wrap:wrap;gap:8px 12px;padding:6px 6px 0;margin-top:2px;border-top:1px dashed var(--hp-card-border);font-size:9.5px;color:var(--hp-muted);font-family:var(--hp-mono)}
+.hp-leg-item{display:inline-flex;align-items:center;gap:5px}
+.hp-leg-dot{width:7px;height:7px;border-radius:50%}
+.hp-docs{grid-column:3;grid-row:1;align-self:stretch;background:var(--hp-card-bg);border:1px solid var(--hp-card-border);border-radius:14px;padding:14px 16px;display:flex;flex-direction:column;gap:9px;position:relative;overflow:hidden}
+.hp-docs::before{content:"";position:absolute;left:0;top:0;bottom:0;width:4px;background:var(--hp-accent)}
+.hp-docs-head{display:flex;justify-content:space-between;gap:10px;padding-left:6px}
+.hp-docs-kicker{display:block;font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--hp-accent);font-weight:700;margin-bottom:3px}
+.hp-docs h3{margin:0;font-size:13px;color:#fff}
+.hp-docs p{margin:3px 0 0;font-size:10px;color:var(--hp-muted);line-height:1.4}
+.hp-drive{align-self:flex-start;border:1px solid var(--hp-card-border);border-radius:999px;color:var(--hp-accent);font-size:9.5px;font-weight:800;padding:6px 8px;text-decoration:none;white-space:nowrap}
+.hp-actions{display:flex;flex-wrap:wrap;gap:5px;padding-left:6px}
+.hp-action{border:1px solid var(--hp-card-border);border-radius:999px;background:var(--hp-accent-soft);color:var(--hp-accent);cursor:pointer;font-family:var(--hp-mono);font-size:8px;font-weight:900;letter-spacing:.06em;padding:5px 7px;text-transform:uppercase}
+.hp-action--active{background:var(--hp-accent);border-color:var(--hp-accent);color:#0a1530}
+.hp-docs-list{display:grid;gap:5px;max-height:390px;overflow:auto;padding-left:6px;padding-right:2px}
+.hp-doc{display:grid;grid-template-columns:30px minmax(0,1fr) 42px auto 10px;align-items:center;gap:7px;min-height:36px;border:1px solid var(--hp-card-border);border-radius:9px;color:#fff;padding:5px 7px;text-decoration:none;background:rgba(255,255,255,.018);transition:border-color .16s,background .16s,transform .16s}
+.hp-doc:hover{transform:translateY(-1px);background:rgba(255,255,255,.04);border-color:rgba(0,245,255,.24)}
+.hp-doc::after{content:'›';color:var(--hp-muted);font-size:14px;font-weight:900}
+.hp-doc-type{border-radius:6px;display:inline-flex;font-size:8px;font-weight:900;justify-content:center;padding:5px 0}
+.hp-doc-type--pdf{background:rgba(255,45,85,.14);color:#FF6B7A}
+.hp-doc-type--doc{background:rgba(30,144,255,.14);color:#7DBBFF}
+.hp-doc-type--xls{background:rgba(0,255,159,.12);color:#00FF9F}
+.hp-doc-name{font-size:10px;font-weight:800;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.hp-doc-src{color:var(--hp-muted);font-size:8px;font-weight:900;letter-spacing:.05em;text-transform:uppercase}
+.hp-doc-actions{display:inline-flex;gap:4px}
+.hp-doc-action{width:23px;height:23px;border-radius:6px;display:inline-flex;align-items:center;justify-content:center;border:1px solid rgba(255,255,255,.10);font:900 11px/1 var(--hp-mono)}
+.hp-doc-action--upload{background:rgba(0,217,143,.12);border-color:rgba(0,217,143,.28);color:#00D98F}
+.hp-doc-action--download{background:rgba(30,144,255,.13);border-color:rgba(30,144,255,.30);color:#62B1FF}
+.hp-doc-action--due{background:rgba(181,101,255,.14);border-color:rgba(181,101,255,.30);color:#C889FF}
+@media (max-width:760px){.hp-doc{grid-template-columns:30px minmax(0,1fr) auto}.hp-doc-actions{grid-column:2/4}.hp-doc::after{display:none}}
+</style>
+<link rel="stylesheet" href="../mobile-fixes.css">
+
+<section class="hse-plano " id="hse-plano-section">
+  <header class="hp-banner">
+    <div class="hp-banner-text">
+      <span class="hp-eyebrow">Plano de Verificações HSE</span>
+      <h2 class="hp-title">Calendário · Maio 2026 → Dezembro 2026</h2>
+      <p class="hp-sub">Datas principais integradas no Mapa de Presença acima · documentos e licenças mantidos nesta área.</p>
+    </div>
+    <div class="hp-banner-actions">
+      <span class="hp-month-label">Maio 2026</span>
+    </div>
+  </header>
+  <div class="hp-content-grid">
+    <div class="hp-left-stack">
+      <article class="hp-pdf-card">
+        <div class="hp-pdf-thumb">PDF</div>
+        <div class="hp-pdf-meta">
+          <h3>HSE Plano de Verificações 2025</h3>
+          <p>VAMED Engineering GmbH · referência base</p>
+        </div>
+        <div class="hp-pdf-actions">
+          <button class="hp-btn hp-btn-primary" type="button" onclick="alert('Abriria o PDF do plano (./documentos-plano/HSE_Plano_Verificacoes_2025.pdf)');return false;">Ver</button>
+          <a class="hp-btn hp-btn-secondary" href="../documentos-plano/HSE_Plano_Verificacoes_2025.pdf" target="_blank">Baixar PDF</a>
+        </div>
+      </article>
+      <section class="hp-inspections" aria-label="Plano de Inspecções Programadas">
+        <h3 class="hp-ops-title">Plano de Inspecções Programadas</h3>
+        <div class="hp-inspection-list">
+          <article class="hp-inspection-row"><span class="hp-row-icon" aria-hidden="true">□</span><div class="hp-row-main"><div class="hp-row-top"><span class="hp-inspection-title">Andaimes</span><span class="hp-mini-badge">Semanal</span></div><span class="hp-row-rule">2.ª-feira</span></div><div class="hp-date-pills"><span class="hp-mini-date">04/05</span><span class="hp-mini-date">11/05</span><span class="hp-mini-date">18/05</span><span class="hp-mini-date">25/05</span></div><div class="hp-row-actions"><button class="hp-icon-btn hp-icon-btn--upload" type="button" title="Upload" aria-label="Upload">⇧</button><button class="hp-icon-btn hp-icon-btn--download" type="button" title="Download" aria-label="Download">⇩</button><button class="hp-icon-btn hp-icon-btn--due" type="button" title="Data Devida" aria-label="Data Devida">◷</button></div></article>
+          <article class="hp-inspection-row"><span class="hp-row-icon" aria-hidden="true">◎</span><div class="hp-row-main"><div class="hp-row-top"><span class="hp-inspection-title">Instalações Sociais</span><span class="hp-mini-badge">Semanal</span></div><span class="hp-row-rule">4.ª-feira</span></div><div class="hp-date-pills"><span class="hp-mini-date">06/05</span><span class="hp-mini-date">13/05</span><span class="hp-mini-date">20/05</span><span class="hp-mini-date">27/05</span></div><div class="hp-row-actions"><button class="hp-icon-btn hp-icon-btn--upload" type="button" title="Upload" aria-label="Upload">⇧</button><button class="hp-icon-btn hp-icon-btn--download" type="button" title="Download" aria-label="Download">⇩</button><button class="hp-icon-btn hp-icon-btn--due" type="button" title="Data Devida" aria-label="Data Devida">◷</button></div></article>
+          <article class="hp-inspection-row"><span class="hp-row-icon hp-row-icon--monthly" aria-hidden="true">▣</span><div class="hp-row-main"><div class="hp-row-top"><span class="hp-inspection-title">Equip. Ligeiros e Pesados</span><span class="hp-mini-badge hp-mini-badge--monthly">Mensal</span></div><span class="hp-row-rule">1.ª 3.ª-feira</span></div><div class="hp-date-pills"><span class="hp-mini-date">05/05</span></div><div class="hp-row-actions"><button class="hp-icon-btn hp-icon-btn--upload" type="button" title="Upload" aria-label="Upload">⇧</button><button class="hp-icon-btn hp-icon-btn--download" type="button" title="Download" aria-label="Download">⇩</button><button class="hp-icon-btn hp-icon-btn--due" type="button" title="Data Devida" aria-label="Data Devida">◷</button></div></article>
+          <article class="hp-inspection-row"><span class="hp-row-icon hp-row-icon--monthly" aria-hidden="true">!</span><div class="hp-row-main"><div class="hp-row-top"><span class="hp-inspection-title">Extintores</span><span class="hp-mini-badge hp-mini-badge--monthly">Mensal</span></div><span class="hp-row-rule">2.ª 3.ª-feira</span></div><div class="hp-date-pills"><span class="hp-mini-date">12/05</span></div><div class="hp-row-actions"><button class="hp-icon-btn hp-icon-btn--upload" type="button" title="Upload" aria-label="Upload">⇧</button><button class="hp-icon-btn hp-icon-btn--download" type="button" title="Download" aria-label="Download">⇩</button><button class="hp-icon-btn hp-icon-btn--due" type="button" title="Data Devida" aria-label="Data Devida">◷</button></div></article>
+          <article class="hp-inspection-row"><span class="hp-row-icon hp-row-icon--monthly" aria-hidden="true">+</span><div class="hp-row-main"><div class="hp-row-top"><span class="hp-inspection-title">Caixa Primeiros Socorros</span><span class="hp-mini-badge hp-mini-badge--monthly">Mensal</span></div><span class="hp-row-rule">3.ª 3.ª-feira</span></div><div class="hp-date-pills"><span class="hp-mini-date">19/05</span></div><div class="hp-row-actions"><button class="hp-icon-btn hp-icon-btn--upload" type="button" title="Upload" aria-label="Upload">⇧</button><button class="hp-icon-btn hp-icon-btn--download" type="button" title="Download" aria-label="Download">⇩</button><button class="hp-icon-btn hp-icon-btn--due" type="button" title="Data Devida" aria-label="Data Devida">◷</button></div></article>
+          <article class="hp-inspection-row"><span class="hp-row-icon hp-row-icon--monthly" aria-hidden="true">⌁</span><div class="hp-row-main"><div class="hp-row-top"><span class="hp-inspection-title">Quadros Eléctricos</span><span class="hp-mini-badge hp-mini-badge--monthly">Mensal</span></div><span class="hp-row-rule">Última 3.ª-feira</span></div><div class="hp-date-pills"><span class="hp-mini-date">26/05</span></div><div class="hp-row-actions"><button class="hp-icon-btn hp-icon-btn--upload" type="button" title="Upload" aria-label="Upload">⇧</button><button class="hp-icon-btn hp-icon-btn--download" type="button" title="Download" aria-label="Download">⇩</button><button class="hp-icon-btn hp-icon-btn--due" type="button" title="Data Devida" aria-label="Data Devida">◷</button></div></article>
+          <article class="hp-inspection-row"><span class="hp-row-icon hp-row-icon--monthly" aria-hidden="true">✓</span><div class="hp-row-main"><div class="hp-row-top"><span class="hp-inspection-title">Check-list HSE</span><span class="hp-mini-badge hp-mini-badge--monthly">Mensal</span></div><span class="hp-row-rule">Último dia</span></div><div class="hp-date-pills"><span class="hp-mini-date">31/05</span></div><div class="hp-row-actions"><button class="hp-icon-btn hp-icon-btn--upload" type="button" title="Upload" aria-label="Upload">⇧</button><button class="hp-icon-btn hp-icon-btn--download" type="button" title="Download" aria-label="Download">⇩</button><button class="hp-icon-btn hp-icon-btn--due" type="button" title="Data Devida" aria-label="Data Devida">◷</button></div></article>
+        </div>
+      </section>
+    </div>
+    <article class="hp-licencas">
+      <header class="hp-licencas-head">
+        <div class="hp-licencas-icon" aria-hidden="true">📑</div>
+        <div><h3>Licenças</h3><p>9 licenças · OneDrive · 6.8 HSE Management on Site</p></div>
+      </header>
+      <ol class="hp-licencas-list">
+        <li data-emitida="2024-03-15" data-expiracao="2027-08-30"><span class="hp-num">1</span><span class="hp-name">Licença de Obra</span><span class="hp-status" aria-hidden="true"></span><span class="hp-dates2"><span class="hp-dlbl">Em</span> <span class="hp-dval hp-em">—</span> · <span class="hp-dlbl">Ex</span> <span class="hp-dval hp-ex">—</span></span></li>
+        <li data-emitida="2024-06-01" data-expiracao="2026-06-20"><span class="hp-num">2</span><span class="hp-name">Licença Ambiental</span><span class="hp-status" aria-hidden="true"></span><span class="hp-dates2"><span class="hp-dlbl">Em</span> <span class="hp-dval hp-em">—</span> · <span class="hp-dlbl">Ex</span> <span class="hp-dval hp-ex">—</span></span></li>
+        <li data-emitida="2024-02-10" data-expiracao="2026-04-10"><span class="hp-num">3</span><span class="hp-name">Licença de Tapume</span><span class="hp-status" aria-hidden="true"></span><span class="hp-dates2"><span class="hp-dlbl">Em</span> <span class="hp-dval hp-em">—</span> · <span class="hp-dlbl">Ex</span> <span class="hp-dval hp-ex">—</span></span></li>
+        <li data-emitida="2025-01-05" data-expiracao="2027-01-05"><span class="hp-num">4</span><span class="hp-name">Licença de Publicidade</span><span class="hp-status" aria-hidden="true"></span><span class="hp-dates2"><span class="hp-dlbl">Em</span> <span class="hp-dval hp-em">—</span> · <span class="hp-dlbl">Ex</span> <span class="hp-dval hp-ex">—</span></span></li>
+        <li data-emitida="2024-05-03" data-expiracao="2026-06-15"><span class="hp-num">5</span><span class="hp-name">Licença do Gerador</span><span class="hp-status" aria-hidden="true"></span><span class="hp-dates2"><span class="hp-dlbl">Em</span> <span class="hp-dval hp-em">—</span> · <span class="hp-dlbl">Ex</span> <span class="hp-dval hp-ex">—</span></span></li>
+        <li data-emitida="2024-01-25" data-expiracao="2027-01-25"><span class="hp-num">6</span><span class="hp-name">Certificado Bombeiros</span><span class="hp-status" aria-hidden="true"></span><span class="hp-dates2"><span class="hp-dlbl">Em</span> <span class="hp-dval hp-em">—</span> · <span class="hp-dlbl">Ex</span> <span class="hp-dval hp-ex">—</span></span></li>
+        <li data-emitida="2024-05-15" data-expiracao="2026-05-15"><span class="hp-num">7</span><span class="hp-name">Licença de furo de água</span><span class="hp-status" aria-hidden="true"></span><span class="hp-dates2"><span class="hp-dlbl">Em</span> <span class="hp-dval hp-em">—</span> · <span class="hp-dlbl">Ex</span> <span class="hp-dval hp-ex">—</span></span></li>
+        <li data-emitida="2024-05-21" data-expiracao="2027-05-21"><span class="hp-num">8</span><span class="hp-name">Licença de Areia</span><span class="hp-status" aria-hidden="true"></span><span class="hp-dates2"><span class="hp-dlbl">Em</span> <span class="hp-dval hp-em">—</span> · <span class="hp-dlbl">Ex</span> <span class="hp-dval hp-ex">—</span></span></li>
+        <li data-emitida="2024-05-21" data-expiracao="2026-06-30"><span class="hp-num">9</span><span class="hp-name">Licença de Brita</span><span class="hp-status" aria-hidden="true"></span><span class="hp-dates2"><span class="hp-dlbl">Em</span> <span class="hp-dval hp-em">—</span> · <span class="hp-dlbl">Ex</span> <span class="hp-dval hp-ex">—</span></span></li>
+      </ol>
+      <footer class="hp-licencas-legend" aria-label="Legenda de estado">
+        <span class="hp-leg-item"><span class="hp-leg-dot" style="background:#39FF14"></span>Vigente (&gt;60d)</span>
+        <span class="hp-leg-item"><span class="hp-leg-dot" style="background:#FFD000"></span>A expirar (30–60d)</span>
+        <span class="hp-leg-item"><span class="hp-leg-dot" style="background:#FF2D55"></span>Crítica / expirada (&lt;30d)</span>
+      </footer>
+    </article>
+    <article class="hp-docs" id="docsSection">
+      <header class="hp-docs-head">
+        <div>
+          <span class="hp-docs-kicker">Documentação HSE — Luena</span>
+          <h3>Repositório de Documentos · HMRL</h3>
+          <p>19 documentos · 9 modelos DOCX activos · raiz Google Drive ligada.</p>
+        </div>
+        <a class="hp-drive" href="https://drive.google.com/drive/folders/17bNbVIvwVU3MJgD-a9chatwR94L-tNbs" target="_blank" rel="noopener">Google Drive ↗</a>
+      </header>
+      <div class="hp-actions" aria-label="Fluxo de documentos">
+        <button class="hp-action hp-action--active" type="button" onclick="alert('Download local/Vercel activo. Raiz Google Drive HMRL ligada para documentos partilhados.');return false;">Download</button>
+        <button class="hp-action" type="button" onclick="window.open('https://drive.google.com/drive/folders/17bNbVIvwVU3MJgD-a9chatwR94L-tNbs','_blank');return false;">Upload</button>
+        <button class="hp-action" type="button" onclick="alert('Trânsito Google Drive ligado à raiz HMRL para ficheiros em revisão e partilha.');return false;">Trânsito</button>
+        <button class="hp-action" type="button" onclick="alert('Extracção para Google Drive: arquivar documentos finais na raiz HMRL ligada.');return false;">Extrair</button>
+      </div>
+      <div class="hp-docs-list">
+        <a class="hp-doc" href="../documentos-plano/HSE_Plano_Verificacoes_2025.pdf" target="_blank"><span class="hp-doc-type hp-doc-type--pdf">PDF</span><span class="hp-doc-name">HSE Plano de Verificações 2025</span><span class="hp-doc-src">PDF</span></a>
+        <a class="hp-doc" href="../documentos-hmrh/01_Checklist_Inspeccao_Andaime.docx" download><span class="hp-doc-type hp-doc-type--doc">DOC</span><span class="hp-doc-name">HSE Checklist de Inspecção de Andaime</span><span class="hp-doc-src">DOCX</span></a>
+        <a class="hp-doc" href="../documentos-hmrh/03_Checklist_Instalacoes_Sociais.docx" download><span class="hp-doc-type hp-doc-type--doc">DOC</span><span class="hp-doc-name">HSE Checklist de Instalações Sociais</span><span class="hp-doc-src">DOCX</span></a>
+        <a class="hp-doc" href="../formularios_pdf/HMRH_Formulario_EXTINTORES_2026.pdf" target="_blank"><span class="hp-doc-type hp-doc-type--pdf">PDF</span><span class="hp-doc-name">HSE Checklist de Verificação de Extintores</span><span class="hp-doc-src">PDF</span></a>
+        <a class="hp-doc" href="../documentos-hmrh/04_Checklist_Inspeccao_Equipamentos.docx" download><span class="hp-doc-type hp-doc-type--doc">DOC</span><span class="hp-doc-name">HSE Checklist Entrada Equipamentos</span><span class="hp-doc-src">DOCX</span></a>
+        <a class="hp-doc" href="../documentos-hmrh/07_Inspeccao_Primeiros_Socorros.docx" download><span class="hp-doc-type hp-doc-type--doc">DOC</span><span class="hp-doc-name">HSE Checklist Primeiros Socorros</span><span class="hp-doc-src">DOCX</span></a>
+        <a class="hp-doc" href="../documentos-hmrh/06_Verificacao_Mensal_Quadros_Electricos.docx" download><span class="hp-doc-type hp-doc-type--doc">DOC</span><span class="hp-doc-name">Verificação Mensal dos Quadros Eléctricos</span><span class="hp-doc-src">DOCX</span></a>
+        <a class="hp-doc" href="../formularios_pdf/HMRH_Formulario_CHECKLIST_HSE_2026.pdf" target="_blank"><span class="hp-doc-type hp-doc-type--pdf">PDF</span><span class="hp-doc-name">Check-list de Implementação HSE</span><span class="hp-doc-src">PDF</span></a>
+        <a class="hp-doc" href="../documentos-hmrh/09_Lista_AR_e_PES.docx" download><span class="hp-doc-type hp-doc-type--doc">DOC</span><span class="hp-doc-name">HSE Lista AR PES</span><span class="hp-doc-src">DOCX</span></a>
+        <a class="hp-doc" href="#" onclick="alert('Rota Google Drive a configurar: Matriz de Perigos');return false;"><span class="hp-doc-type hp-doc-type--pdf">PDF</span><span class="hp-doc-name">Matriz de Perigos</span><span class="hp-doc-src">Drive</span></a>
+        <a class="hp-doc" href="../documentos-hmrh/02_Checklist_Ferramentas_Electricas_Portateis_Manuais.docx" download><span class="hp-doc-type hp-doc-type--doc">DOC</span><span class="hp-doc-name">Checklist de Ferramentas Eléctricas Portáteis Manuais</span><span class="hp-doc-src">DOCX</span></a>
+        <a class="hp-doc" href="#" onclick="alert('Rota Google Drive a configurar: VAMED Mapa de Limpeza');return false;"><span class="hp-doc-type hp-doc-type--pdf">PDF</span><span class="hp-doc-name">VAMED Mapa de Limpeza</span><span class="hp-doc-src">Drive</span></a>
+        <a class="hp-doc" href="#" onclick="alert('Rota Google Drive a configurar: Plano de Verificações 2023');return false;"><span class="hp-doc-type hp-doc-type--pdf">PDF</span><span class="hp-doc-name">HSE Plano de Verificações 2023</span><span class="hp-doc-src">Drive</span></a>
+        <a class="hp-doc" href="#" onclick="alert('Rota Google Drive a configurar: Alcoolemia');return false;"><span class="hp-doc-type hp-doc-type--pdf">PDF</span><span class="hp-doc-name">HSE Alcoolemia — Controlo de Casos Positivos v02</span><span class="hp-doc-src">Drive</span></a>
+        <a class="hp-doc" href="../documentos-hmrh/08_Reconhecimento_Mensal_HSE.docx" download><span class="hp-doc-type hp-doc-type--doc">DOC</span><span class="hp-doc-name">HSE Reconhecimento Mensal</span><span class="hp-doc-src">DOCX</span></a>
+        <a class="hp-doc" href="#" onclick="alert('Rota Google Drive a configurar: Registo de Formação');return false;"><span class="hp-doc-type hp-doc-type--pdf">PDF</span><span class="hp-doc-name">HSE Registo de Formação</span><span class="hp-doc-src">Drive</span></a>
+        <a class="hp-doc" href="#" onclick="alert('Rota Google Drive a configurar: SEP HSE Registo');return false;"><span class="hp-doc-type hp-doc-type--pdf">PDF</span><span class="hp-doc-name">SEP HSE Registo — Actividades de Engajamento</span><span class="hp-doc-src">Drive</span></a>
+        <a class="hp-doc" href="../documentos-hmrh/05_Verificacao_Mensal_Extintores.docx" download><span class="hp-doc-type hp-doc-type--doc">DOC</span><span class="hp-doc-name">Verificação Mensal dos Extintores</span><span class="hp-doc-src">DOCX</span></a>
+        <a class="hp-doc" href="#" onclick="alert('Rota Google Drive a configurar: Reunião Semanal HSE Template');return false;"><span class="hp-doc-type hp-doc-type--doc">DOC</span><span class="hp-doc-name">Reunião Semanal HSE N.XX (Template)</span><span class="hp-doc-src">Drive</span></a>
+      </div>
+    </article>
+  </div>
+</section>
+
+<script>
+(function(){
+  document.querySelectorAll('#hse-plano-section .hp-icon-btn').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      alert((btn.getAttribute('aria-label') || 'Acção') + ' · configuração operacional pendente.');
+    });
+  });
+  document.querySelectorAll('#hse-plano-section .hp-doc').forEach(function(row){
+    if(row.querySelector('.hp-doc-actions')) return;
+    var actions=document.createElement('span');
+    actions.className='hp-doc-actions';
+    actions.setAttribute('aria-hidden','true');
+    actions.innerHTML='<span class="hp-doc-action hp-doc-action--upload" title="Upload">⇧</span><span class="hp-doc-action hp-doc-action--download" title="Download">⇩</span><span class="hp-doc-action hp-doc-action--due" title="Data Devida">◷</span>';
+    row.appendChild(actions);
+  });
+  function fmt(s){if(!s)return'—';var d=new Date(s);if(isNaN(d.getTime()))return'—';return String(d.getDate()).padStart(2,'0')+'/'+String(d.getMonth()+1).padStart(2,'0')+'/'+String(d.getFullYear()).slice(-2);}
+  function classify(s){if(!s)return{cls:'unknown',label:'Sem data'};var t=new Date();t.setHours(0,0,0,0);var d=new Date(s);if(isNaN(d.getTime()))return{cls:'unknown',label:'Data inválida'};var days=Math.round((d-t)/86400000);if(days<0)return{cls:'bad',label:'Expirada há '+Math.abs(days)+' dia(s)'};if(days<30)return{cls:'bad',label:'Expira em '+days+' dia(s)'};if(days<60)return{cls:'warn',label:'Expira em '+days+' dia(s)'};return{cls:'ok',label:'Vigente · '+days+' dia(s) restantes'};}
+  document.querySelectorAll('#hse-plano-section .hp-licencas-list li[data-expiracao]').forEach(function(li){
+    var em=li.getAttribute('data-emitida'),ex=li.getAttribute('data-expiracao');
+    var emEl=li.querySelector('.hp-em'),exEl=li.querySelector('.hp-ex');
+    if(emEl)emEl.textContent=fmt(em);if(exEl)exEl.textContent=fmt(ex);
+    var st=classify(ex);li.classList.add('hp-lic--'+st.cls);
+    var dot=li.querySelector('.hp-status');if(dot)dot.setAttribute('title',st.label);
+  });
+})();
+</script>
+<!-- ════ /Plano de Verificações HSE + Licenças ════ -->
+
+<footer>
+  <span>VAMED Healthcare Projects · Angola &nbsp;|&nbsp; PM: Fábio Seda &nbsp;·&nbsp; HSE: Hendrik Silva &nbsp;·&nbsp; Amb: Mario Miguel &nbsp;·&nbsp; Site Manager: Abubacar Sumalgy</span>
+  <span style="color:var(--lime);font-weight:700;text-shadow:0 0 12px var(--lime)" id="footer-status"></span>
+</footer>
+
+</div><!-- /wrap -->
+
+<script>
+/* ══ DATA ══ */
+const MONTHS = ['ago','set','out','nov','dez','jan','fev','mar'];
+
+const M_LABEL = {
+  ago:'AGO 2025', set:'SET 2025', out:'OUT 2025', nov:'NOV 2025',
+  dez:'DEZ 2025', jan:'JAN 2026', fev:'FEV 2026', mar:'MAR 2026'
+};
+const M_ABR = {
+  ago:'Ago', set:'Set', out:'Out', nov:'Nov',
+  dez:'Dez', jan:'Jan', fev:'Fev', mar:'Mar'
+};
+const M_YEAR = {
+  ago:'2025', set:'2025', out:'2025', nov:'2025',
+  dez:'2025', jan:'2026', fev:'2026', mar:'2026'
+};
+
+/* Real data from HMRL files:
+   Workers: from Quadro de Sinistralidade RM 32 / RM 33
+   Checklist: from HMRL_Checklist RM_32 (all EXCELENTE in Dec 2025)
+   Training: from HMRL Monthly Report Dec 2025 (RM031)
+   Accidents: from Sinistralidade (2 non-fatal in Jun-Jul 2024, 0 from Aug 2025)
+   Gasóleo: generator only (no public electricity)
+*/
+const DATA = {
+  ago: {w:207, ch:95.0, t:155, p:0, f:280, i:0, acc:0, gas:2850, h:44712},
+  set: {w:105, ch:95.5, t:78,  p:0, f:148, i:0, acc:0, gas:1820, h:22680},
+  out: {w:95,  ch:95.8, t:70,  p:0, f:126, i:0, acc:0, gas:1640, h:20520},
+  nov: {w:57,  ch:96.0, t:42,  p:0, f:76,  i:0, acc:0, gas:960,  h:12312},
+  dez: {w:22,  ch:100,  t:0,   p:0, f:10,  i:0, acc:0, gas:380,  h:4752},
+  jan: {w:10,  ch:100,  t:0,   p:0, f:5,   i:0, acc:0, gas:280,  h:2160},
+  fev: {w:10,  ch:100,  t:0,   p:0, f:5,   i:0, acc:0, gas:280,  h:2160},
+  mar: {w:8,   ch:100,  t:0,   p:0, f:5,   i:0, acc:0, gas:200,  h:1440},
+};
+
+let currMonth = 'mar';
+
+/* ══ HELPERS ══ */
+function fmt(n){
+  n = Math.round(n);
+  return n >= 1000 ? n.toLocaleString('pt-PT') : String(n);
+}
+function pf(v){ return v.toFixed(1) + '%'; }
+function prevMonth(m){ const idx = MONTHS.indexOf(m); return idx > 0 ? MONTHS[idx-1] : null; }
+
+/* ══ UI UPDATE ══ */
+function setMonth(m, btn){
+  currMonth = m;
+  document.querySelectorAll('.mbtn').forEach(b => b.classList.remove('active'));
+  if(btn) btn.classList.add('active');
+  renderKPIs(); renderSSTTable(); updatePill();
+}
+
+function updatePill(){
+  document.getElementById('period-pill').textContent = 'Ago 2025 → Mar 2026';
+}
+
+function delta(curr, prev, isChk){
+  if(prev === null) return '<span class="flat">—</span>';
+  const d = curr - prev;
+  const sign = d > 0 ? '▲' : d < 0 ? '▼' : '—';
+  const cls = d > 0 ? (isChk ? 'up' : 'up') : d < 0 ? 'dn' : 'flat';
+  const abs = isChk ? Math.abs(d).toFixed(1)+'pp' : fmt(Math.abs(d));
+  if(d === 0) return '<span class="flat">— igual</span>';
+  return `<span class="${cls}">${sign} ${d > 0 ? '+' : ''}${isChk ? (d>0?'+':'')+d.toFixed(1)+'pp' : fmt(d)}</span>`;
+}
+
+function renderKPIs(){
+  const d = DATA[currMonth];
+  const p = prevMonth(currMonth);
+  const pd = p ? DATA[p] : null;
+
+  document.getElementById('kw').textContent = fmt(d.w);
+  document.getElementById('kwd').innerHTML = pd ? delta(d.w, pd.w, false) + ' vs ' + M_ABR[p] : '<span class="flat">Período inicial</span>';
+
+  document.getElementById('kt').textContent = fmt(d.t);
+  document.getElementById('ktd').innerHTML = d.t === 0 ? '<span class="up">✓ N/A este mês</span>' : (pd ? delta(d.t, pd.t, false) + ' vs ' + M_ABR[p] : '');
+
+  document.getElementById('kc').textContent = pf(d.ch);
+  const chkClass = d.ch >= 98 ? 'up' : d.ch >= 85 ? 'flat' : 'dn';
+  const chkLabel = d.ch >= 98 ? 'EXCELENTE' : d.ch >= 84 ? 'SATISFATÓRIO' : 'MEDIANO';
+  document.getElementById('kcd').innerHTML = pd ? delta(d.ch, pd.ch, true) + ' vs ' + M_ABR[p] : `<span class="${chkClass}">▲ ${chkLabel}</span>`;
+
+  document.getElementById('kf').textContent = fmt(d.f);
+  document.getElementById('kfd').innerHTML = pd ? delta(d.f, pd.f, false) + ' vs ' + M_ABR[p] : '';
+
+  document.getElementById('ki').textContent = fmt(d.i);
+  document.getElementById('kid').innerHTML = d.i === 0 ? '<span class="up">✓ Zero incidentes</span>' : `<span class="dn">▲ ${d.i} incidente(s)</span>`;
+
+  document.getElementById('kp').textContent = fmt(d.p);
+  document.getElementById('kpd').innerHTML = d.p === 0 ? '<span class="up">✓ 100% Negativos</span>' : `<span class="dn">▲ ${d.p} positivo(s)</span>`;
+
+  /* Site panel */
+  document.getElementById('sc-w').textContent = fmt(d.w);
+  document.getElementById('sc-ch').textContent = pf(d.ch);
+  document.getElementById('sc-f').textContent = fmt(d.f);
+  if(pd){
+    document.getElementById('sc-wd').innerHTML = delta(d.w, pd.w, false);
+    document.getElementById('sc-chd').innerHTML = delta(d.ch, pd.ch, true);
+    document.getElementById('sc-fd').innerHTML = delta(d.f, pd.f, false);
+  }
+
+  /* Month breakdown */
+  document.getElementById('mb-title').textContent = 'Detalhes — ' + M_LABEL[currMonth];
+  document.getElementById('mb-t').textContent = fmt(d.t);
+  document.getElementById('mb-p').textContent = fmt(d.p);
+  document.getElementById('mb-acc').textContent = fmt(d.acc);
+  document.getElementById('mb-i').textContent = fmt(d.i);
+  document.getElementById('mb-gas').textContent = d.gas.toLocaleString('pt-PT');
+  document.getElementById('mb-h').textContent = d.h.toLocaleString('pt-PT');
+
+  /* Footer */
+  document.getElementById('footer-status').textContent =
+    '✓ Atualizado · ' + M_LABEL[currMonth] + ' · 0 Acidentes Mortais';
+}
+
+function renderSSTTable(){
+  const d = DATA[currMonth];
+  const p = prevMonth(currMonth);
+  const pd = p ? DATA[p] : null;
+
+  document.getElementById('sst-title').textContent = 'Indicadores SST — ' + (pd ? M_ABR[p]+' vs '+M_ABR[currMonth] : M_LABEL[currMonth]);
+  if(pd){
+    document.getElementById('th-prev').textContent = M_ABR[p];
+    document.getElementById('th-curr').textContent = M_ABR[currMonth];
+  }
+
+  const rows = [
+    {lbl:'Trabalhadores',   prev: pd?.w,   curr:d.w,  pct:false},
+    {lbl:'Checklist HSE',   prev: pd?.ch,  curr:d.ch, pct:true,  isChk:true},
+    {lbl:'Testes Alcoolemia',prev:pd?.t,   curr:d.t,  pct:false},
+    {lbl:'Positivos Alc.',  prev:pd?.p,    curr:d.p,  pct:false},
+    {lbl:'Formação Part.',  prev:pd?.f,    curr:d.f,  pct:false},
+    {lbl:'Acidentes',       prev:pd?.acc,  curr:d.acc,pct:false},
+    {lbl:'Inc. Ambientais', prev:pd?.i,    curr:d.i,  pct:false},
+  ];
+
+  const tbody = document.getElementById('sst-tbody');
+  tbody.innerHTML = rows.map(r => {
+    const cv = r.pct ? pf(r.curr) : fmt(r.curr);
+    const pv = r.prev !== undefined && r.prev !== null ? (r.pct ? pf(r.prev) : fmt(r.prev)) : '—';
+    let varHtml = '—';
+    if(r.prev !== undefined && r.prev !== null){
+      const diff = r.curr - r.prev;
+      const sign = diff > 0 ? '▲' : diff < 0 ? '▼' : '—';
+      const cls  = diff > 0 ? (r.lbl.includes('Acidente')||r.lbl.includes('Positivo')||r.lbl.includes('Ambientais') ? 'badge dn' : 'badge up') : diff < 0 ? (r.lbl.includes('Acidente')||r.lbl.includes('Positivo')||r.lbl.includes('Ambientais') ? 'badge up' : 'badge dn') : 'badge flat';
+      const abs = r.isChk ? Math.abs(diff).toFixed(1)+'pp' : fmt(Math.abs(diff));
+      varHtml = diff === 0 ? '<span class="badge flat">—</span>' : `<span class="${cls}">${sign}${abs}</span>`;
+    }
+    return `<tr><td>${r.lbl}</td><td>${pv}</td><td style="color:var(--txt);font-weight:700">${cv}</td><td>${varHtml}</td></tr>`;
+  }).join('');
+}
+
+/* ══ CHARTS ══ */
+const LABELS = MONTHS.map(m => M_ABR[m]);
+const ALLW  = MONTHS.map(m => DATA[m].w);
+const ALLF  = MONTHS.map(m => DATA[m].f);
+const ALLG  = MONTHS.map(m => DATA[m].gas);
+
+const baseOpts = {
+  responsive:true, maintainAspectRatio:false,
+  plugins:{legend:{display:false}},
+  scales:{
+    x:{ticks:{color:'#6B7694',font:{size:9,family:'JetBrains Mono'}},grid:{color:'rgba(255,255,255,.04)'}},
+    y:{ticks:{color:'#6B7694',font:{size:9,family:'JetBrains Mono'}},grid:{color:'rgba(255,255,255,.06)'},beginAtZero:true}
+  }
+};
+
+function gradLine(ctx, color){ const g=ctx.createLinearGradient(0,0,0,200);g.addColorStop(0,color+'55');g.addColorStop(1,color+'00');return g; }
+
+/* Workers chart */
+const ctxW = document.getElementById('cW').getContext('2d');
+new Chart(ctxW,{type:'line',data:{
+  labels:LABELS,
+  datasets:[{
+    data:ALLW,borderColor:'#39FF14',borderWidth:2.5,
+    backgroundColor:gradLine(ctxW,'#39FF14'),fill:true,
+    pointBackgroundColor:'#39FF14',pointRadius:5,tension:.35
+  }]
+}, options:{...baseOpts}});
+
+/* Training chart */
+const ctxF = document.getElementById('cF').getContext('2d');
+new Chart(ctxF,{type:'bar',data:{
+  labels:LABELS,
+  datasets:[{
+    data:ALLF,
+    backgroundColor:MONTHS.map((m,i)=>currMonth===m?'rgba(191,95,255,.85)':'rgba(191,95,255,.35)'),
+    borderColor:'#BF5FFF',borderWidth:1.5,borderRadius:6
+  }]
+}, options:{...baseOpts}});
+
+/* Fuel chart */
+const ctxG = document.getElementById('cG').getContext('2d');
+new Chart(ctxG,{type:'bar',data:{
+  labels:LABELS,
+  datasets:[{
+    data:ALLG,
+    backgroundColor:'rgba(255,107,0,.4)',
+    borderColor:'#FF6B00',borderWidth:1.5,borderRadius:6
+  }]
+}, options:{...baseOpts}});
+
+/* ══ DONUT — COMPANIES ══ */
+new Chart(document.getElementById('cDonut').getContext('2d'),{
+  type:'doughnut',
+  data:{
+    labels:['VAMED','CTCE','EC Engrácio Caputula'],
+    datasets:[{
+      data:[8,5,6],
+      backgroundColor:['rgba(57,255,20,.7)','rgba(0,245,255,.6)','rgba(191,95,255,.6)'],
+      borderColor:['#39FF14','#00F5FF','#BF5FFF'],
+      borderWidth:2,hoverOffset:6
+    }]
+  },
+  options:{
+    responsive:true,maintainAspectRatio:false,
+    cutout:'62%',
+    plugins:{
+      legend:{
+        display:true,position:'bottom',
+        labels:{color:'#6B7694',font:{size:10,family:'JetBrains Mono'},padding:14}
+      }
+    }
+  }
+});
+
+/* ══ CALENDAR — MARÇO 2026 ══ */
+// March 2026 starts on Sunday (day 0), 31 days
+const march2026 = [
+  // Week 1: 1 starts on Saturday (day 6)
+  {day:null},{day:null},{day:null},{day:null},{day:null},{day:1,pct:88,type:'good'},
+  {day:2,pct:null,type:'wkend'},
+  // Week 2
+  {day:3,pct:90,type:'great'},{day:4,pct:90,type:'great'},{day:5,pct:88,type:'good'},
+  {day:6,pct:88,type:'good'},{day:7,pct:88,type:'good'},{day:8,pct:null,type:'sat-work'},
+  {day:9,pct:null,type:'wkend'},
+  // Week 3
+  {day:10,pct:90,type:'great'},{day:11,pct:92,type:'peak'},{day:12,pct:90,type:'great'},
+  {day:13,pct:90,type:'great'},{day:14,pct:88,type:'good'},{day:15,pct:null,type:'wkend'},
+  {day:16,pct:null,type:'wkend'},
+  // Week 4
+  {day:17,pct:88,type:'good'},{day:18,pct:88,type:'good'},{day:19,pct:90,type:'great'},
+  {day:20,pct:88,type:'good'},{day:21,pct:88,type:'good'},{day:22,pct:null,type:'wkend'},
+  {day:23,pct:null,type:'wkend'},
+  // Week 5
+  {day:24,pct:88,type:'good'},{day:25,pct:88,type:'good'},{day:26,pct:88,type:'good'},
+  {day:27,pct:90,type:'great'},{day:28,pct:88,type:'good'},{day:29,pct:null,type:'wkend'},
+  {day:30,pct:null,type:'wkend'},
+  {day:31,pct:88,type:'good'},{day:null},{day:null},{day:null},{day:null},{day:null},{day:null},
+];
+const calBody = document.getElementById('calBody');
+const hseChecksByDay = {
+  4:[{date:'04/05',label:'Andaimes',short:'And.',cadence:'weekly'}],
+  5:[{date:'05/05',label:'Equip. Ligeiros e Pesados',short:'Equip.',cadence:'monthly'}],
+  6:[{date:'06/05',label:'Instalações Sociais',short:'Sociais',cadence:'weekly'}],
+  11:[{date:'11/05',label:'Andaimes',short:'And.',cadence:'weekly'}],
+  12:[{date:'12/05',label:'Extintores',short:'Ext.',cadence:'monthly'}],
+  13:[{date:'13/05',label:'Instalações Sociais',short:'Sociais',cadence:'weekly'}],
+  18:[{date:'18/05',label:'Andaimes',short:'And.',cadence:'weekly'}],
+  19:[{date:'19/05',label:'Caixa Primeiros Socorros',short:'Socorros',cadence:'monthly'}],
+  20:[{date:'20/05',label:'Instalações Sociais',short:'Sociais',cadence:'weekly'}],
+  25:[{date:'25/05',label:'Andaimes',short:'And.',cadence:'weekly'}],
+  26:[{date:'26/05',label:'Quadros Eléctricos',short:'Quadros',cadence:'monthly'}],
+  27:[{date:'27/05',label:'Instalações Sociais',short:'Sociais',cadence:'weekly'}],
+  31:[{date:'31/05',label:'Check-list HSE',short:'Check',cadence:'monthly'}],
+};
+march2026.forEach(c => {
+  const el = document.createElement('div');
+  const checks = c.day ? (hseChecksByDay[c.day] || []) : [];
+  el.className = 'cal-cell ' + (c.day ? c.type : 'empty') + (checks.length ? ' has-checks' : '');
+  if(c.day){
+    el.title = checks.length ? `Verificações HSE Maio 2026: ${checks.map(check => `${check.date} ${check.label}`).join(' · ')}` : '';
+    const checksHtml = checks.length ? `<span class="cc-events">${checks.map(check => `<span class="cc-event ${check.cadence}">${check.date} ${check.short}</span>`).join('')}</span>` : '';
+    el.innerHTML = `<span class="cc-day">${c.day}</span>${c.pct ? `<span class="cc-pct">${c.pct}%</span>` : ''}${checksHtml}`;
+  }
+  calBody.appendChild(el);
+});
+
+/* ══ MAP — LUENA ══ */
+const map = L.map('map',{zoomControl:false,dragging:true,scrollWheelZoom:false,attributionControl:false});
+let mapTile = null;
+function updateMapTheme(theme){
+  const url = theme === 'light'
+    ? 'https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png'
+    : 'https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png';
+  if(mapTile) map.removeLayer(mapTile);
+  mapTile = L.tileLayer(url,{maxZoom:18}).addTo(map);
+}
+function setTheme(mode){
+  const theme = mode === 'light' ? 'light' : 'dark';
+  document.body.classList.toggle('theme-light', theme === 'light');
+  document.body.classList.toggle('theme-dark', theme === 'dark');
+  document.getElementById('darkModeBtn')?.classList.toggle('active', theme === 'dark');
+  document.getElementById('lightModeBtn')?.classList.toggle('active', theme === 'light');
+  localStorage.setItem('hse-theme', theme);
+  updateMapTheme(theme);
+}
+map.setView([-11.7679,19.9170],8);
+
+const icon = L.divIcon({
+  className:'',
+  html:`<div style="width:22px;height:22px;border-radius:50%;background:#39FF14;border:2.5px solid #fff;
+        box-shadow:0 0 20px #39FF14,0 0 40px rgba(57,255,20,.5);
+        animation:pulse 1.4s infinite;"></div>`,
+  iconSize:[22,22],iconAnchor:[11,11]
+});
+
+const popup = `
+<div style="padding:4px;">
+  <div class="ptitle">🏥 HMRL — Hospital Militar de Luena</div>
+  <div style="font-size:10px;color:#6B7694;font-family:'JetBrains Mono',monospace;margin-bottom:12px;">Luena · Moxico · Angola &nbsp;|&nbsp; 14DC-DEI/SV/2021</div>
+  <div class="pgrid">
+    <div class="pkpi"><div class="pkv" style="color:#39FF14">8</div><div class="pkl">Trabalhadores</div></div>
+    <div class="pkpi"><div class="pkv" style="color:#FFD000">100%</div><div class="pkl">Checklist</div></div>
+    <div class="pkpi"><div class="pkv" style="color:#00FF9F">0</div><div class="pkl">Acidentes</div></div>
+    <div class="pkpi"><div class="pkv" style="color:#00F5FF">617.976</div><div class="pkl">H. Trabalhadas</div></div>
+  </div>
+</div>`;
+
+L.marker([-11.7679,19.9170],{icon}).addTo(map).bindPopup(popup,{maxWidth:320});
+
+/* ══ INITIAL RENDER ══ */
+setTheme(localStorage.getItem('hse-theme')||'dark');
+renderKPIs();
+renderSSTTable();
+updatePill();
+document.getElementById('footer-status').textContent = '✓ Atualizado · MAR 2026 · 0 Acidentes Mortais · 617.976 H. Trabalhadas';
+</script>
+</body>
+</html>

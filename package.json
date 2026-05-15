@@ -1,0 +1,14 @@
+{
+  "name": "hmrh-dashboard",
+  "version": "1.0.0",
+  "description": "HMRH HSE Dashboard — static site + serverless functions",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=18"
+  },
+  "dependencies": {
+    "googleapis": "^144.0.0",
+    "formidable": "^3.5.1"
+  }
+}
