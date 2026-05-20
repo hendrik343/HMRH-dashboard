@@ -1116,7 +1116,7 @@ body.theme-light .hp-banner .hp-sub{color:rgba(255,255,255,.76);}
         <div>
           <span class="hp-docs-kicker">Documentação HSE — Luena</span>
           <h3>Repositório de Documentos · HMRL</h3>
-          <p>29 documentos editáveis · modelos DOCX activos · raiz Google Drive ligada.</p>
+          <p>20 documentos editáveis · modelos DOCX activos · raiz Google Drive ligada.</p>
         </div>
         <a class="hp-drive" href="https://drive.google.com/drive/folders/17bNbVIvwVU3MJgD-a9chatwR94L-tNbs" target="_blank" rel="noopener">Google Drive ↗</a>
       </header>
@@ -1146,15 +1146,6 @@ body.theme-light .hp-banner .hp-sub{color:rgba(255,255,255,.76);}
         <a class="hp-doc" href="../documentos-hmrh/SEP_HSE_Registo_Actividades_de_Engajamento.docx" download><span class="hp-doc-type hp-doc-type--doc">DOC</span><span class="hp-doc-name">SEP HSE Registo — Actividades de Engajamento</span><span class="hp-doc-src">DOCX</span></a>
         <a class="hp-doc" href="../documentos-hmrh/05_Verificacao_Mensal_Extintores.docx" download><span class="hp-doc-type hp-doc-type--doc">DOC</span><span class="hp-doc-name">Verificação Mensal dos Extintores</span><span class="hp-doc-src">DOCX</span></a>
         <a class="hp-doc" href="../documentos-hmrh/xxx_reuniao_semanal_hse_n.xx_4.docx" download><span class="hp-doc-type hp-doc-type--doc">DOC</span><span class="hp-doc-name">Reunião Semanal HSE N.XX (Template)</span><span class="hp-doc-src">DOCX</span></a>
-        <a class="hp-doc" href="../documentos-hmrh/02_Checklist_Ferramentas_Electricas_Portateis_Manuais.docx" download><span class="hp-doc-type hp-doc-type--doc">DOC</span><span class="hp-doc-name">HSE. Checklist De Ferramentas Eletricas Portateis Manuais</span><span class="hp-doc-src">DOCX</span></a>
-        <a class="hp-doc" href="../documentos-hmrh/04_Checklist_Inspeccao_Equipamentos.docx" download><span class="hp-doc-type hp-doc-type--doc">DOC</span><span class="hp-doc-name">HSE Checklist Entrada Equipamentos</span><span class="hp-doc-src">DOCX</span></a>
-        <a class="hp-doc" href="../documentos-hmrh/04_Checklist_Inspeccao_Equipamentos.docx" download><span class="hp-doc-type hp-doc-type--doc">DOC</span><span class="hp-doc-name">HSE Checklist Entrada Equipamentos</span><span class="hp-doc-src">DOCX</span></a>
-        <a class="hp-doc" href="../documentos-hmrh/07_Inspeccao_Primeiros_Socorros.docx" download><span class="hp-doc-type hp-doc-type--doc">DOC</span><span class="hp-doc-name">HSE Checklist Primeiros Socorros</span><span class="hp-doc-src">DOCX</span></a>
-        <a class="hp-doc" href="../documentos-hmrh/08_Reconhecimento_Mensal_HSE.docx" download><span class="hp-doc-type hp-doc-type--doc">DOC</span><span class="hp-doc-name">HSE Reconhecimento Mensal</span><span class="hp-doc-src">DOCX</span></a>
-        <a class="hp-doc" href="../documentos-hmrh/HSE_Registo_de_Formacao.docx" download><span class="hp-doc-type hp-doc-type--doc">DOC</span><span class="hp-doc-name">HSE Registo De Formação</span><span class="hp-doc-src">DOCX</span></a>
-        <a class="hp-doc" href="../documentos-hmrh/VAMED_Mapa_de_Limpeza.docx" download><span class="hp-doc-type hp-doc-type--doc">DOC</span><span class="hp-doc-name">VAMED Mapa De Limpeza</span><span class="hp-doc-src">DOCX</span></a>
-        <a class="hp-doc" href="../documentos-hmrh/05_Verificacao_Mensal_Extintores.docx" download><span class="hp-doc-type hp-doc-type--doc">DOC</span><span class="hp-doc-name">Verificação Mensal Dos Extintores</span><span class="hp-doc-src">DOCX</span></a>
-        <a class="hp-doc" href="../documentos-hmrh/06_Verificacao_Mensal_Quadros_Electricos.docx" download><span class="hp-doc-type hp-doc-type--doc">DOC</span><span class="hp-doc-name">Verificação Mensal Dos Quadros Eléctricos</span><span class="hp-doc-src">DOCX</span></a>
         <a class="hp-doc" href="../documentos-hmrh/xxx_reuniao_semanal_hse_n.xx_4.docx" download><span class="hp-doc-type hp-doc-type--doc">DOC</span><span class="hp-doc-name">XXX Reunião Semanal HSE N.XX</span><span class="hp-doc-src">DOCX</span></a>
       </div>
 
@@ -1952,6 +1943,162 @@ document.getElementById('footer-status').textContent = '✓ Atualizado · MAR 20
     document.addEventListener("DOMContentLoaded", enhance);
   } else {
     enhance();
+  }
+})();
+</script>
+<!--
+  live-data-snippet.html
+  Wires the dashboard's hardcoded numbers to live data from /api/indicadores.
+  Also updates the footer date dynamically and the document counter.
+
+  Paste at the very end of each HTML page, just before the closing </body>.
+  Self-contained — no dependencies, no external CSS, IIFE-wrapped JS.
+-->
+
+<script>
+(async function() {
+  /* ============ Utilities ============ */
+  function fmt(n) {
+    if (n === null || n === undefined || n === "") return "—";
+    if (typeof n === "number") {
+      if (Number.isInteger(n)) return String(n);
+      return n.toFixed(1).replace(".", ",");
+    }
+    return String(n);
+  }
+
+  function pct(n) {
+    if (n === null || n === undefined || n === "") return "—";
+    const num = Number(n);
+    if (!Number.isFinite(num)) return "—";
+    return (num % 1 === 0 ? String(num) : num.toFixed(1).replace(".", ",")) + "%";
+  }
+
+  /* Walk all text nodes once, build an index of label → next-number-node */
+  function buildLabelIndex() {
+    const idx = new Map();
+    const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT);
+    const nodes = [];
+    let n;
+    while ((n = walker.nextNode())) nodes.push(n);
+
+    for (let i = 0; i < nodes.length; i++) {
+      const text = nodes[i].textContent.trim();
+      if (!text) continue;
+      // store first text-node match for this label
+      if (!idx.has(text)) {
+        // look ahead up to 6 nodes for a "number-like" sibling
+        for (let j = i + 1; j < Math.min(i + 8, nodes.length); j++) {
+          const t = nodes[j].textContent.trim();
+          if (/^-?\d+([.,]\d+)?\s*%?\s*(kg|m³|L|kWh)?$/.test(t)) {
+            idx.set(text, nodes[j]);
+            break;
+          }
+        }
+      }
+    }
+    return idx;
+  }
+
+  function setByLabel(idx, label, value) {
+    const node = idx.get(label);
+    if (node) {
+      node.textContent = value;
+      return true;
+    }
+    return false;
+  }
+
+  /* ============ Footer date ============ */
+  function updateFooterDate() {
+    const today = new Date();
+    const dateStr = `${String(today.getDate()).padStart(2, "0")}/${String(today.getMonth() + 1).padStart(2, "0")}/${today.getFullYear()}`;
+    const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT);
+    let n;
+    let found = false;
+    while ((n = walker.nextNode())) {
+      if (/Sistema activo · \d{2}\/\d{2}\/\d{4}/.test(n.textContent)) {
+        n.textContent = n.textContent.replace(
+          /Sistema activo · \d{2}\/\d{2}\/\d{4}/,
+          `Sistema activo · ${dateStr}`
+        );
+        found = true;
+      }
+    }
+    if (found) return;
+    const footerVamed = Array.from(document.querySelectorAll("footer span"))
+      .find((el) => /VAMED/i.test(el.textContent));
+    if (footerVamed) {
+      footerVamed.textContent = `${footerVamed.textContent.trim()} · Sistema activo · ${dateStr}`;
+    }
+  }
+
+  /* ============ Document counter (Repositório section header) ============ */
+  async function updateDocCounter() {
+    try {
+      const hub = await fetch("/api/hub", { cache: "no-store" }).then(r => r.json());
+      const total = (hub && hub.modelos) ? hub.modelos.length : null;
+      if (total === null) return;
+      const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT);
+      let n;
+      while ((n = walker.nextNode())) {
+        if (/\d+\s+documentos\s+edit[áa]veis/.test(n.textContent)) {
+          n.textContent = n.textContent.replace(
+            /\d+\s+documentos\s+edit[áa]veis/,
+            `${total} documentos editáveis`
+          );
+        }
+      }
+    } catch (e) { console.warn("doc counter:", e); }
+  }
+
+  /* ============ Live indicators ============ */
+  async function updateIndicators() {
+    try {
+      const res = await fetch("/api/indicadores", { cache: "no-store" });
+      const data = await res.json();
+      const rows = data && data.data ? data.data : [];
+      if (!rows.length) return;
+      const latest = rows[rows.length - 1];
+
+      const idx = buildLabelIndex();
+
+      /* ---- KPI cards (top of page) ---- */
+      setByLabel(idx, "Trabalhadores", fmt(latest.trabalhadores));
+      setByLabel(idx, "Testes Alcoolemia", fmt(latest.testes_alcoolemia));
+      setByLabel(idx, "Checklist HSE", pct(latest.checklist_pct));
+      setByLabel(idx, "Formação Participantes", fmt(latest.formacao_participantes));
+      setByLabel(idx, "Incid. Ambientais", fmt(latest.incidentes_ambientais ?? latest.incid_ambientais));
+      setByLabel(idx, "Positivos Alcoolemia", fmt(latest.positivos_alcoolemia));
+
+      /* ---- "Detalhes" panel ---- */
+      setByLabel(idx, "Alcoolemia Testes", fmt(latest.testes_alcoolemia));
+      setByLabel(idx, "Alcoolemia Positivos", fmt(latest.positivos_alcoolemia));
+      setByLabel(idx, "Acidentes", fmt(latest.acidentes));
+      setByLabel(idx, "Água (m³)", fmt(latest.agua_m3));
+      setByLabel(idx, "Gasóleo (L)", fmt(latest.gasoleo_l));
+      setByLabel(idx, "Electricidade (kWh)", fmt(latest.electricidade_kwh));
+      setByLabel(idx, "Advertências", fmt(latest.advertencias));
+      setByLabel(idx, "RCD mensal", fmt(latest.rcd_kg) + " kg");
+      setByLabel(idx, "Resíduos indiferenciados", fmt(latest.indiferenciados_kg) + " kg");
+
+      /* ---- Estaleiro panel ---- */
+      setByLabel(idx, "Total Efetivos", fmt(latest.trabalhadores));
+      setByLabel(idx, "Alcoolemia", fmt(latest.testes_alcoolemia));
+    } catch (e) { console.warn("live indicators:", e); }
+  }
+
+  /* ============ Boot ============ */
+  function init() {
+    updateFooterDate();
+    updateDocCounter();
+    updateIndicators();
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", init);
+  } else {
+    init();
   }
 })();
 </script>
