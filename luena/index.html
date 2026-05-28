@@ -864,7 +864,7 @@ body.theme-light .hp-banner .hp-sub{color:rgba(255,255,255,.76);}
   <div class="wf-cal-card">
     <div class="ch">
       <div class="ctitle"><div class="cdot" style="background:var(--lime);box-shadow:0 0 8px var(--lime)"></div>Presença & Verificações HSE</div>
-      <div style="font-size:9px;font-family:'JetBrains Mono',monospace;color:var(--muted)">Mar 2026 · Maio 2026</div>
+      <div style="font-size:9px;font-family:'JetBrains Mono',monospace;color:var(--muted)">Mai 2026</div>
     </div>
     <div class="wf-cal-inner">
       <div class="cal-grid-header">
@@ -1118,7 +1118,7 @@ body.theme-light .hp-banner .hp-sub{color:rgba(255,255,255,.76);}
         <div>
           <span class="hp-docs-kicker">Documentação HSE — Luena</span>
           <h3>Repositório de Documentos · HMRL</h3>
-          <p>21 documentos editáveis · modelos DOCX activos · raiz Google Drive ligada.</p>
+          <p>22 documentos editáveis · modelos DOCX activos · raiz Google Drive ligada · Mai 2026 integrado.</p>
         </div>
         <a class="hp-drive" href="https://drive.google.com/drive/folders/17bNbVIvwVU3MJgD-a9chatwR94L-tNbs" target="_blank" rel="noopener">Google Drive ↗</a>
       </header>
@@ -1150,9 +1150,7 @@ body.theme-light .hp-banner .hp-sub{color:rgba(255,255,255,.76);}
         <a class="hp-doc" href="../documentos-hmrh/08_Reconhecimento_Mensal_HSE.docx" download><span class="hp-doc-type hp-doc-type--doc">DOC</span><span class="hp-doc-name">HSE Reconhecimento Mensal</span><span class="hp-doc-src">DOCX</span></a>
         <a class="hp-doc" href="../documentos-hmrh/HSE_Registo_de_Formacao.docx" download><span class="hp-doc-type hp-doc-type--doc">DOC</span><span class="hp-doc-name">HSE Registo de Formação</span><span class="hp-doc-src">DOCX</span></a>
         <a class="hp-doc" href="../documentos-hmrh/SEP_HSE_Registo_Actividades_de_Engajamento.docx" download><span class="hp-doc-type hp-doc-type--doc">DOC</span><span class="hp-doc-name">SEP HSE Registo — Actividades de Engajamento</span><span class="hp-doc-src">DOCX</span></a>
-        <a class="hp-doc" href="../documentos-hmrh/05_Verificacao_Mensal_Extintores.docx" download><span class="hp-doc-type hp-doc-type--doc">DOC</span><span class="hp-doc-name">Verificação Mensal dos Extintores</span><span class="hp-doc-src">DOCX</span></a>
         <a class="hp-doc" href="../documentos-hmrh/xxx_reuniao_semanal_hse_n.xx_4.docx" download><span class="hp-doc-type hp-doc-type--doc">DOC</span><span class="hp-doc-name">Reunião Semanal HSE N.XX (Template)</span><span class="hp-doc-src">DOCX</span></a>
-        <a class="hp-doc" href="../documentos-hmrh/xxx_reuniao_semanal_hse_n.xx_4.docx" download><span class="hp-doc-type hp-doc-type--doc">DOC</span><span class="hp-doc-name">XXX Reunião Semanal HSE N.XX</span><span class="hp-doc-src">DOCX</span></a>
       </div>
 
 
@@ -1429,29 +1427,24 @@ new Chart(document.getElementById('cDonut').getContext('2d'),{
   }
 });
 
-/* ══ CALENDAR — MARÇO 2026 ══ */
-// March 2026 starts on Sunday (day 0), 31 days
-const march2026 = [
-  // Week 1: 1 starts on Saturday (day 6)
-  {day:null},{day:null},{day:null},{day:null},{day:null},{day:1,pct:88,type:'good'},
-  {day:2,pct:null,type:'wkend'},
+/* ══ CALENDAR — MAIO 2026 ══ */
+// May 2026: May 1 = Friday (col 4 in Mon=0 grid), 31 days
+const may2026 = [
+  // Week 1: empty Mon-Thu, May 1=Fri(holiday), May 2=Sat, May 3=Sun
+  {},{},{},{},
+  {day:1,type:'holiday'},{day:2,type:'wkend'},{day:3,type:'wkend'},
   // Week 2
-  {day:3,pct:90,type:'great'},{day:4,pct:90,type:'great'},{day:5,pct:88,type:'good'},
-  {day:6,pct:88,type:'good'},{day:7,pct:88,type:'good'},{day:8,pct:null,type:'sat-work'},
-  {day:9,pct:null,type:'wkend'},
+  {day:4,pct:89,type:'good'},{day:5,pct:89,type:'good'},{day:6,pct:89,type:'good'},
+  {day:7,pct:89,type:'good'},{day:8,pct:89,type:'good'},{day:9,type:'wkend'},{day:10,type:'wkend'},
   // Week 3
-  {day:10,pct:90,type:'great'},{day:11,pct:92,type:'peak'},{day:12,pct:90,type:'great'},
-  {day:13,pct:90,type:'great'},{day:14,pct:88,type:'good'},{day:15,pct:null,type:'wkend'},
-  {day:16,pct:null,type:'wkend'},
+  {day:11,pct:89,type:'good'},{day:12,pct:89,type:'good'},{day:13,pct:89,type:'good'},
+  {day:14,pct:89,type:'good'},{day:15,pct:89,type:'good'},{day:16,type:'wkend'},{day:17,type:'wkend'},
   // Week 4
-  {day:17,pct:88,type:'good'},{day:18,pct:88,type:'good'},{day:19,pct:90,type:'great'},
-  {day:20,pct:88,type:'good'},{day:21,pct:88,type:'good'},{day:22,pct:null,type:'wkend'},
-  {day:23,pct:null,type:'wkend'},
+  {day:18,pct:89,type:'good'},{day:19,pct:89,type:'good'},{day:20,pct:89,type:'good'},
+  {day:21,pct:89,type:'good'},{day:22,pct:89,type:'good'},{day:23,type:'wkend'},{day:24,type:'wkend'},
   // Week 5
-  {day:24,pct:88,type:'good'},{day:25,pct:88,type:'good'},{day:26,pct:88,type:'good'},
-  {day:27,pct:90,type:'great'},{day:28,pct:88,type:'good'},{day:29,pct:null,type:'wkend'},
-  {day:30,pct:null,type:'wkend'},
-  {day:31,pct:88,type:'good'},{day:null},{day:null},{day:null},{day:null},{day:null},{day:null},
+  {day:25,pct:89,type:'good'},{day:26,pct:89,type:'good'},{day:27,pct:89,type:'good'},
+  {day:28,pct:89,type:'good'},{day:29,pct:89,type:'good'},{day:30,type:'wkend'},{day:31,type:'wkend'},
 ];
 const calBody = document.getElementById('calBody');
 const hseChecksByDay = {
@@ -1467,9 +1460,9 @@ const hseChecksByDay = {
   25:[{date:'25/05',label:'Andaimes',short:'And.',cadence:'weekly'}],
   26:[{date:'26/05',label:'Quadros Eléctricos',short:'Quadros',cadence:'monthly'}],
   27:[{date:'27/05',label:'Instalações Sociais',short:'Sociais',cadence:'weekly'}],
-  31:[{date:'31/05',label:'Check-list HSE',short:'Check',cadence:'monthly'}],
+  29:[{date:'29/05',label:'Check-list HSE',short:'Check',cadence:'monthly'}],
 };
-march2026.forEach(c => {
+may2026.forEach(c => {
   const el = document.createElement('div');
   const checks = c.day ? (hseChecksByDay[c.day] || []) : [];
   el.className = 'cal-cell ' + (c.day ? c.type : 'empty') + (checks.length ? ' has-checks' : '');
