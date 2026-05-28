@@ -464,9 +464,11 @@ body.theme-light .hp-banner .hp-sub{color:rgba(255,255,255,.76);}
       <button class="mbtn" onclick="setMonth('dez',this)">DEZ 2025</button>
       <button class="mbtn" onclick="setMonth('jan',this)">JAN 2026</button>
       <button class="mbtn" onclick="setMonth('fev',this)">FEV 2026</button>
-      <button class="mbtn active" onclick="setMonth('mar',this)">MAR 2026</button>
+      <button class="mbtn" onclick="setMonth('mar',this)">MAR 2026</button>
+      <button class="mbtn" onclick="setMonth('abr',this)">ABR 2026</button>
+      <button class="mbtn active" onclick="setMonth('mai',this)">MAI 2026</button>
     </div>
-    <div class="period-pill" id="period-pill">Ago 2025 → Mar 2026</div>
+    <div class="period-pill" id="period-pill">Ago 2025 → Mai 2026</div>
     <div class="theme-toggle" aria-label="Modo de visualização">
       <button class="theme-btn active" id="darkModeBtn" type="button" onclick="setTheme('dark')">Dark</button>
       <button class="theme-btn" id="lightModeBtn" type="button" onclick="setTheme('light')">Normal</button>
@@ -479,7 +481,7 @@ body.theme-light .hp-banner .hp-sub{color:rgba(255,255,255,.76);}
 <div class="kpi-row">
   <div class="kcard lime" style="animation-delay:.05s">
     <div class="klbl">Trabalhadores</div>
-    <div class="kval" id="kw">8</div>
+    <div class="kval" id="kw">9</div>
     <div class="kdelta flat" id="kwd">↓ Fase de Conclusão</div>
   </div>
   <div class="kcard cyan" style="animation-delay:.10s">
@@ -489,13 +491,13 @@ body.theme-light .hp-banner .hp-sub{color:rgba(255,255,255,.76);}
   </div>
   <div class="kcard amber" style="animation-delay:.15s">
     <div class="klbl">Checklist HSE</div>
-    <div class="kval" id="kc">100%</div>
-    <div class="kdelta up" id="kcd">▲ EXCELENTE</div>
+    <div class="kval" id="kc">88.89%</div>
+    <div class="kdelta flat" id="kcd">SATISFATÓRIO</div>
   </div>
   <div class="kcard violet" style="animation-delay:.20s">
     <div class="klbl">Formação Participantes</div>
-    <div class="kval" id="kf">5</div>
-    <div class="kdelta flat" id="kfd">— Fase final obra</div>
+    <div class="kval" id="kf">0</div>
+    <div class="kdelta flat" id="kfd">— Sem formações</div>
   </div>
   <div class="kcard blue" style="animation-delay:.25s">
     <div class="klbl">Incid. Ambientais</div>
@@ -521,9 +523,9 @@ body.theme-light .hp-banner .hp-sub{color:rgba(255,255,255,.76);}
     </div>
     <div id="map"></div>
 
-    <!-- HSE Issues — Mar 2026 -->
+    <!-- HSE Issues — Mai 2026 -->
     <div class="topics-panel">
-      <div class="topics-title">Situações HSE Identificadas · Mar 2026</div>
+      <div class="topics-title">Situações HSE Identificadas · Mai 2026</div>
 
 <!--
   upload-form-snippet.html
@@ -676,39 +678,39 @@ body.theme-light .hp-banner .hp-sub{color:rgba(255,255,255,.76);}
 </script>
 
 
-      <div class="topic-item resolved">
+      <div class="topic-item unresolved">
         <div class="topic-top">
-          <div class="topic-name">🏗 Encerramento de Estaleiro — Desmobilização Concluída</div>
-          <div class="topic-status resolved">Resolvido</div>
+          <div class="topic-name">📋 Checklist HSE — Resultado 88,89%</div>
+          <div class="topic-status unresolved">Satisfatório</div>
         </div>
         <div class="topic-meta">
-          <span class="tmeta"><span class="tmeta-dot"></span>Mar 2026</span>
-          <span class="tmeta"><span class="tmeta-dot"></span>Resp: Abubacar Sumalgy / Hendrik Silva</span>
-          <span class="tmeta"><span class="tmeta-dot" style="background:var(--green)"></span>Concluído</span>
+          <span class="tmeta"><span class="tmeta-dot"></span>Mai 2026</span>
+          <span class="tmeta"><span class="tmeta-dot"></span>Itens NC: documentação, instalações sociais e CPAT</span>
+          <span class="tmeta"><span class="tmeta-dot" style="background:var(--amber)"></span>A acompanhar</span>
         </div>
       </div>
 
       <div class="topic-item resolved">
         <div class="topic-top">
-          <div class="topic-name">♻ Gestão de Resíduos — Recolha Final de Obra</div>
-          <div class="topic-status resolved">Resolvido</div>
+          <div class="topic-name">🏗 Paralisação temporária — Sem actividade operacional</div>
+          <div class="topic-status resolved">Registado</div>
         </div>
         <div class="topic-meta">
-          <span class="tmeta"><span class="tmeta-dot"></span>Mar 2026</span>
-          <span class="tmeta"><span class="tmeta-dot"></span>Resp: Mario Miguel</span>
-          <span class="tmeta"><span class="tmeta-dot" style="background:var(--green)"></span>Concluído</span>
+          <span class="tmeta"><span class="tmeta-dot"></span>Mai 2026</span>
+          <span class="tmeta"><span class="tmeta-dot"></span>Sem testes de alcoolemia por ausência de actividade em exercício</span>
+          <span class="tmeta"><span class="tmeta-dot" style="background:var(--green)"></span>0 acidentes</span>
         </div>
       </div>
 
       <div class="topic-item resolved">
         <div class="topic-top">
-          <div class="topic-name">📋 Entrega de Documentação Final HSE ao Cliente</div>
-          <div class="topic-status resolved">Resolvido</div>
+          <div class="topic-name">♻ Ambiente — Sem incidentes e sem produção de resíduos</div>
+          <div class="topic-status resolved">Conforme</div>
         </div>
         <div class="topic-meta">
-          <span class="tmeta"><span class="tmeta-dot"></span>Mar 2026</span>
-          <span class="tmeta"><span class="tmeta-dot"></span>Resp: Hendrik Silva</span>
-          <span class="tmeta"><span class="tmeta-dot" style="background:var(--green)"></span>Concluído</span>
+          <span class="tmeta"><span class="tmeta-dot"></span>Mai 2026</span>
+          <span class="tmeta"><span class="tmeta-dot"></span>Água: 14 m³ · Combustível: 245 L</span>
+          <span class="tmeta"><span class="tmeta-dot" style="background:var(--green)"></span>0 reclamações</span>
         </div>
       </div>
     </div>
@@ -719,17 +721,17 @@ body.theme-light .hp-banner .hp-sub{color:rgba(255,255,255,.76);}
       <div class="sname">Hospital Militar Regional de Luena <span class="scode">HMRL</span></div>
       <div class="smets">
         <div class="smet">
-          <div class="smv" style="color:var(--lime)" id="sc-w">8</div>
+          <div class="smv" style="color:var(--lime)" id="sc-w">9</div>
           <div class="sml">Trabalhadores</div>
           <div class="smd flat" id="sc-wd">Fase Final</div>
         </div>
         <div class="smet">
-          <div class="smv" style="color:var(--cyan)" id="sc-ch">100%</div>
+          <div class="smv" style="color:var(--cyan)" id="sc-ch">88.89%</div>
           <div class="sml">Checklist</div>
-          <div class="smd up" id="sc-chd">▲ EXCELENTE</div>
+          <div class="smd flat" id="sc-chd">SATISFATÓRIO</div>
         </div>
         <div class="smet">
-          <div class="smv" style="color:var(--violet)" id="sc-f">5</div>
+          <div class="smv" style="color:var(--violet)" id="sc-f">0</div>
           <div class="sml">Formação</div>
           <div class="smd flat" id="sc-fd">— Fase final</div>
         </div>
@@ -737,14 +739,15 @@ body.theme-light .hp-banner .hp-sub{color:rgba(255,255,255,.76);}
     </div>
 
     <div class="month-breakdown">
-      <div class="mb-title" id="mb-title">Detalhes — Mar 2026</div>
+      <div class="mb-title" id="mb-title">Detalhes — MAI 2026</div>
       <div class="mb-row"><span class="mb-label">Alcoolemia Testes</span><span class="mb-val" id="mb-t" style="color:var(--muted)">0</span></div>
       <div class="mb-row"><span class="mb-label">Alcoolemia Positivos</span><span class="mb-val" id="mb-p" style="color:var(--green)">0</span></div>
       <div class="mb-row"><span class="mb-label">Acidentes</span><span class="mb-val" id="mb-acc" style="color:var(--green)">0</span></div>
       <div class="mb-row"><span class="mb-label">Incid. Ambientais</span><span class="mb-val" id="mb-i" style="color:var(--green)">0</span></div>
-      <div class="mb-row"><span class="mb-label">Gasóleo (L)</span><span class="mb-val" id="mb-gas">200</span></div>
-      <div class="mb-row"><span class="mb-label">Electricidade</span><span class="mb-val" id="mb-elec" style="color:var(--muted)">Gerador</span></div>
-      <div class="mb-row"><span class="mb-label">Horas Trabalhadas</span><span class="mb-val" id="mb-h">1.440</span></div>
+      <div class="mb-row"><span class="mb-label">Água (m³)</span><span class="mb-val" id="mb-agua">14</span></div>
+      <div class="mb-row"><span class="mb-label">Gasóleo (L)</span><span class="mb-val" id="mb-gas">245</span></div>
+      <div class="mb-row"><span class="mb-label">Electricidade (kWh)</span><span class="mb-val" id="mb-elec">0</span></div>
+      <div class="mb-row"><span class="mb-label">Horas Trabalhadas</span><span class="mb-val" id="mb-h">1.944</span></div>
     </div>
   </div>
 </div>
@@ -753,7 +756,7 @@ body.theme-light .hp-banner .hp-sub{color:rgba(255,255,255,.76);}
 <div class="charts-row">
   <div class="chart-card">
     <div class="ch">
-      <div class="ctitle"><div class="cdot" style="background:var(--lime);box-shadow:0 0 10px var(--lime)"></div>Trabalhadores — Ago 2025 → Mar 2026</div>
+      <div class="ctitle"><div class="cdot" style="background:var(--lime);box-shadow:0 0 10px var(--lime)"></div>Trabalhadores — Ago 2025 → Mai 2026</div>
     </div>
     <div class="chart-body"><canvas id="cW"></canvas></div>
   </div>
@@ -794,25 +797,25 @@ body.theme-light .hp-banner .hp-sub{color:rgba(255,255,255,.76);}
   <div class="tcard">
     <div class="ch">
       <div class="ctitle"><div class="cdot" style="background:var(--cyan);box-shadow:0 0 10px var(--cyan)"></div>
-        <span id="env-title">Quadro de Sinistralidade — Acumulado</span>
+        <span id="env-title">Quadro de Sinistralidade — Maio 2026</span>
       </div>
     </div>
     <table>
       <thead>
         <tr>
           <th>Indicador</th>
-          <th>Valor Acumulado</th>
+          <th>Valor do mês</th>
           <th>Classificação</th>
         </tr>
       </thead>
       <tbody>
-        <tr><td>Total Trabalhadores (pico)</td><td style="color:var(--lime);font-weight:700">207</td><td><span class="badge up">Ago 2025</span></td></tr>
-        <tr><td>Total Horas Trabalhadas</td><td style="color:var(--cyan);font-weight:700">617.976</td><td><span class="badge up">Acum.</span></td></tr>
+        <tr><td>Trabalhadores</td><td style="color:var(--lime);font-weight:700">9</td><td><span class="badge up">Mai 2026</span></td></tr>
+        <tr><td>Horas Trabalhadas</td><td style="color:var(--cyan);font-weight:700">1.944</td><td><span class="badge flat">Mês</span></td></tr>
         <tr><td>Acidentes Mortais</td><td style="color:var(--green);font-weight:700">0</td><td><span class="badge zero">ZERO</span></td></tr>
-        <tr><td>Acidentes Não Mortais</td><td style="color:var(--amber);font-weight:700">2</td><td><span class="badge flat">Acum.</span></td></tr>
-        <tr><td>Dias Perdidos</td><td style="color:var(--orange);font-weight:700">3</td><td><span class="badge flat">Acum.</span></td></tr>
-        <tr><td>Índice de Frequência</td><td style="color:var(--muted);font-weight:700">0.70</td><td><span class="badge up">Muito Bom</span></td></tr>
-        <tr><td>Índice de Gravidade</td><td style="color:var(--muted);font-weight:700">0.70</td><td><span class="badge up">Muito Bom</span></td></tr>
+        <tr><td>Acidentes Não Mortais</td><td style="color:var(--green);font-weight:700">0</td><td><span class="badge zero">ZERO</span></td></tr>
+        <tr><td>Dias Perdidos</td><td style="color:var(--green);font-weight:700">0</td><td><span class="badge zero">ZERO</span></td></tr>
+        <tr><td>Índice de Frequência</td><td style="color:var(--muted);font-weight:700">0.00</td><td><span class="badge up">Muito Bom</span></td></tr>
+        <tr><td>Índice de Gravidade</td><td style="color:var(--muted);font-weight:700">0.00</td><td><span class="badge up">Muito Bom</span></td></tr>
       </tbody>
     </table>
   </div>
@@ -822,7 +825,7 @@ body.theme-light .hp-banner .hp-sub{color:rgba(255,255,255,.76);}
 <!-- ══ ESTALEIRO — FORÇA DE TRABALHO ══ -->
 <div class="wf-divider">
   <div class="wf-div-line"></div>
-  <div class="wf-div-label">⬡ &nbsp;ESTALEIRO &nbsp;·&nbsp; FORÇA DE TRABALHO &nbsp;·&nbsp; MAR 2026</div>
+  <div class="wf-div-label">⬡ &nbsp;ESTALEIRO &nbsp;·&nbsp; FORÇA DE TRABALHO &nbsp;·&nbsp; MAI 2026</div>
   <div class="wf-div-line"></div>
 </div>
 
@@ -830,18 +833,18 @@ body.theme-light .hp-banner .hp-sub{color:rgba(255,255,255,.76);}
 <div class="kpi-row" style="grid-template-columns:repeat(3,1fr);margin-bottom:16px;">
   <div class="kcard orange">
     <div class="klbl">Total Efetivos no Estaleiro</div>
-    <div class="kval">19</div>
-    <div class="kdelta flat">3 empresas — Fase de conclusão</div>
+    <div class="kval">9</div>
+    <div class="kdelta flat">VAMED — Fase temporariamente parada</div>
   </div>
   <div class="kcard blue">
     <div class="klbl">Horas Trabalhadas (Acum.)</div>
-    <div class="kval">617.976</div>
+    <div class="kval">1.944</div>
     <div class="kdelta up">▲ Desde Jun 2023</div>
   </div>
   <div class="kcard green2">
     <div class="klbl">Checklist HSE — Classificação</div>
-    <div class="kval">EXCELENTE</div>
-    <div class="kdelta up">▲ 100% — Dez 2025</div>
+    <div class="kval">SATISFATÓRIO</div>
+    <div class="kdelta flat">88,89% — Mai 2026</div>
   </div>
 </div>
 
@@ -852,7 +855,7 @@ body.theme-light .hp-banner .hp-sub{color:rgba(255,255,255,.76);}
   <div class="wf-donut-card">
     <div class="ch">
       <div class="ctitle"><div class="cdot" style="background:var(--lime);box-shadow:0 0 8px var(--lime)"></div>Efetivos por Empresa</div>
-      <div style="font-size:9px;font-family:'JetBrains Mono',monospace;color:var(--muted)">Pico: 207 (Ago 2025)</div>
+      <div style="font-size:9px;font-family:'JetBrains Mono',monospace;color:var(--muted)">9 total · Mai 2026</div>
     </div>
     <div class="wf-donut-body"><canvas id="cDonut"></canvas></div>
   </div>
@@ -901,12 +904,11 @@ body.theme-light .hp-banner .hp-sub{color:rgba(255,255,255,.76);}
         </tr>
       </thead>
       <tbody>
-        <tr><td style="font-weight:700;color:rgba(57,255,20,.9)">VAMED</td><td style="color:var(--muted)">Gestão do Projecto</td><td style="text-align:right;color:var(--txt)">8</td><td style="text-align:right"><span class="badge up">42.1%</span></td></tr>
-        <tr><td style="font-weight:700;color:rgba(0,245,255,.9)">CTCE</td><td style="color:var(--muted)">Construção Civil</td><td style="text-align:right;color:var(--txt)">5</td><td style="text-align:right"><span class="badge flat">26.3%</span></td></tr>
-        <tr><td style="font-weight:700;color:rgba(191,95,255,.9)">EC Engrácio Caputula</td><td style="color:var(--muted)">Segurança Patrimonial</td><td style="text-align:right;color:var(--txt)">6</td><td style="text-align:right"><span class="badge flat">31.6%</span></td></tr>
+        <tr><td style="font-weight:700;color:rgba(57,255,20,.9)">VAMED</td><td style="color:var(--muted)">Gestão do Projecto</td><td style="text-align:right;color:var(--txt)">9</td><td style="text-align:right"><span class="badge up">100%</span></td></tr>
+        <tr><td style="font-weight:700;color:rgba(0,245,255,.9)">MINDENACVP</td><td style="color:var(--muted)">Segurança das instalações</td><td style="text-align:right;color:var(--muted)">—</td><td style="text-align:right"><span class="badge flat">Registo sem efectivo</span></td></tr>
         <tr style="background:rgba(57,255,20,.04)">
           <td colspan="2" style="font-weight:800;color:var(--lime);font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.5px">TOTAL</td>
-          <td style="text-align:right;font-weight:800;color:var(--lime);font-size:14px">19</td>
+          <td style="text-align:right;font-weight:800;color:var(--lime);font-size:14px">9</td>
           <td style="text-align:right"><span class="badge" style="background:rgba(57,255,20,.12);color:var(--lime);border:1px solid rgba(57,255,20,.3)">100%</span></td>
         </tr>
       </tbody>
@@ -914,15 +916,15 @@ body.theme-light .hp-banner .hp-sub{color:rgba(255,255,255,.76);}
 
     <!-- Sinistralidade summary in same card -->
     <div style="padding:12px 14px;border-top:1px solid var(--border);">
-      <div style="font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:var(--muted);font-family:'JetBrains Mono',monospace;margin-bottom:8px;">Acidentes 2024 (Acumulado)</div>
+      <div style="font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:var(--muted);font-family:'JetBrains Mono',monospace;margin-bottom:8px;">Maio 2026 — Sinistralidade</div>
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
         <div style="text-align:center;background:rgba(0,0,0,.3);border-radius:10px;padding:8px;">
-          <div style="font-size:20px;font-weight:800;color:var(--amber)">2</div>
-          <div style="font-size:8px;color:var(--muted);font-family:'JetBrains Mono',monospace;margin-top:2px;">NÃO MORTAIS</div>
+          <div style="font-size:20px;font-weight:800;color:var(--green)">0</div>
+          <div style="font-size:8px;color:var(--muted);font-family:'JetBrains Mono',monospace;margin-top:2px;">ACIDENTES</div>
         </div>
         <div style="text-align:center;background:rgba(0,0,0,.3);border-radius:10px;padding:8px;">
           <div style="font-size:20px;font-weight:800;color:var(--green)">0</div>
-          <div style="font-size:8px;color:var(--muted);font-family:'JetBrains Mono',monospace;margin-top:2px;">MORTAIS</div>
+          <div style="font-size:8px;color:var(--muted);font-family:'JetBrains Mono',monospace;margin-top:2px;">DIAS PERDIDOS</div>
         </div>
       </div>
     </div>
@@ -1116,7 +1118,7 @@ body.theme-light .hp-banner .hp-sub{color:rgba(255,255,255,.76);}
         <div>
           <span class="hp-docs-kicker">Documentação HSE — Luena</span>
           <h3>Repositório de Documentos · HMRL</h3>
-          <p>20 documentos editáveis · modelos DOCX activos · raiz Google Drive ligada.</p>
+          <p>21 documentos editáveis · modelos DOCX activos · raiz Google Drive ligada.</p>
         </div>
         <a class="hp-drive" href="https://drive.google.com/drive/folders/17bNbVIvwVU3MJgD-a9chatwR94L-tNbs" target="_blank" rel="noopener">Google Drive ↗</a>
       </header>
@@ -1127,6 +1129,10 @@ body.theme-light .hp-banner .hp-sub{color:rgba(255,255,255,.76);}
         <button class="hp-action" type="button" onclick="alert('Extracção para Google Drive: arquivar documentos finais na raiz HMRL ligada.');return false;">Extrair</button>
       </div>
       <div class="hp-docs-list">
+        <a class="hp-doc" href="./documentos-maio/HMRL_Relatorio_Mensal_HSE_036_2026-05_Rev-01.docx" download><span class="hp-doc-type hp-doc-type--doc">DOC</span><span class="hp-doc-name">Relatório Mensal HSE Nº 036 · Maio 2026</span><span class="hp-doc-src">DOCX</span></a>
+        <a class="hp-doc" href="./documentos-maio/HMRL_Checklist_RM_036_2026-05.xlsm" download><span class="hp-doc-type hp-doc-type--xls">XLS</span><span class="hp-doc-name">Checklist RM HSE Nº 036 · Maio 2026</span><span class="hp-doc-src">XLSM</span></a>
+        <a class="hp-doc" href="./documentos-maio/HMRL_Quadro_de_Sinistralidade_RM_036_2026-05.xlsx" download><span class="hp-doc-type hp-doc-type--xls">XLS</span><span class="hp-doc-name">Quadro de Sinistralidade RM Nº 036 · Maio 2026</span><span class="hp-doc-src">XLSX</span></a>
+        <a class="hp-doc" href="./documentos-abril/HMRL_Relatorio_Mensal_HSE_035_2026-04_Rev-01.docx" download><span class="hp-doc-type hp-doc-type--doc">DOC</span><span class="hp-doc-name">Relatório Mensal HSE Nº 035 · Abril 2026</span><span class="hp-doc-src">DOCX</span></a>
         <a class="hp-doc" href="../documentos-plano/HSE_Plano_Verificacoes_2025.docx" download><span class="hp-doc-type hp-doc-type--doc">DOC</span><span class="hp-doc-name">HSE Plano de Verificações 2025</span><span class="hp-doc-src">DOCX</span></a>
         <a class="hp-doc" href="../documentos-hmrh/01_Checklist_Inspeccao_Andaime.docx" download><span class="hp-doc-type hp-doc-type--doc">DOC</span><span class="hp-doc-name">HSE Checklist de Inspecção de Andaime</span><span class="hp-doc-src">DOCX</span></a>
         <a class="hp-doc" href="../documentos-hmrh/03_Checklist_Instalacoes_Sociais.docx" download><span class="hp-doc-type hp-doc-type--doc">DOC</span><span class="hp-doc-name">HSE Checklist de Instalações Sociais</span><span class="hp-doc-src">DOCX</span></a>
@@ -1192,19 +1198,19 @@ body.theme-light .hp-banner .hp-sub{color:rgba(255,255,255,.76);}
 
 <script>
 /* ══ DATA ══ */
-const MONTHS = ['ago','set','out','nov','dez','jan','fev','mar'];
+const MONTHS = ['ago','set','out','nov','dez','jan','fev','mar','abr','mai'];
 
 const M_LABEL = {
   ago:'AGO 2025', set:'SET 2025', out:'OUT 2025', nov:'NOV 2025',
-  dez:'DEZ 2025', jan:'JAN 2026', fev:'FEV 2026', mar:'MAR 2026'
+  dez:'DEZ 2025', jan:'JAN 2026', fev:'FEV 2026', mar:'MAR 2026', abr:'ABR 2026', mai:'MAI 2026'
 };
 const M_ABR = {
   ago:'Ago', set:'Set', out:'Out', nov:'Nov',
-  dez:'Dez', jan:'Jan', fev:'Fev', mar:'Mar'
+  dez:'Dez', jan:'Jan', fev:'Fev', mar:'Mar', abr:'Abr', mai:'Mai'
 };
 const M_YEAR = {
   ago:'2025', set:'2025', out:'2025', nov:'2025',
-  dez:'2025', jan:'2026', fev:'2026', mar:'2026'
+  dez:'2025', jan:'2026', fev:'2026', mar:'2026', abr:'2026', mai:'2026'
 };
 
 /* Real data from HMRL files:
@@ -1215,24 +1221,26 @@ const M_YEAR = {
    Gasóleo: generator only (no public electricity)
 */
 const DATA = {
-  ago: {w:207, ch:95.0, t:155, p:0, f:280, i:0, acc:0, gas:2850, h:44712},
-  set: {w:105, ch:95.5, t:78,  p:0, f:148, i:0, acc:0, gas:1820, h:22680},
-  out: {w:95,  ch:95.8, t:70,  p:0, f:126, i:0, acc:0, gas:1640, h:20520},
-  nov: {w:57,  ch:96.0, t:42,  p:0, f:76,  i:0, acc:0, gas:960,  h:12312},
-  dez: {w:22,  ch:100,  t:0,   p:0, f:10,  i:0, acc:0, gas:380,  h:4752},
-  jan: {w:10,  ch:100,  t:0,   p:0, f:5,   i:0, acc:0, gas:280,  h:2160},
-  fev: {w:10,  ch:100,  t:0,   p:0, f:5,   i:0, acc:0, gas:280,  h:2160},
-  mar: {w:8,   ch:100,  t:0,   p:0, f:5,   i:0, acc:0, gas:200,  h:1440},
+  ago: {w:207, ch:95.0, t:155, p:0, f:280, i:0, acc:0, agua:0,  gas:2850, elec:0, h:44712},
+  set: {w:105, ch:95.5, t:78,  p:0, f:148, i:0, acc:0, agua:0,  gas:1820, elec:0, h:22680},
+  out: {w:95,  ch:95.8, t:70,  p:0, f:126, i:0, acc:0, agua:0,  gas:1640, elec:0, h:20520},
+  nov: {w:57,  ch:96.0, t:42,  p:0, f:76,  i:0, acc:0, agua:0,  gas:960,  elec:0, h:12312},
+  dez: {w:22,  ch:100,  t:0,   p:0, f:10,  i:0, acc:0, agua:0,  gas:380,  elec:0, h:4752},
+  jan: {w:10,  ch:100,  t:0,   p:0, f:5,   i:0, acc:0, agua:0,  gas:280,  elec:0, h:2160},
+  fev: {w:10,  ch:100,  t:0,   p:0, f:5,   i:0, acc:0, agua:0,  gas:280,  elec:0, h:2160},
+  mar: {w:8,   ch:100,  t:0,   p:0, f:5,   i:0, acc:0, agua:0,  gas:200,  elec:0, h:1440},
+  abr: {w:10,  ch:88.89,t:0,   p:0, f:0,   i:0, acc:0, agua:14, gas:40,   elec:0, h:2160},
+  mai: {w:9,   ch:88.89,t:0,   p:0, f:0,   i:0, acc:0, agua:14, gas:245,  elec:0, h:1944},
 };
 
-let currMonth = 'mar';
+let currMonth = 'mai';
 
 /* ══ HELPERS ══ */
 function fmt(n){
   n = Math.round(n);
   return n >= 1000 ? n.toLocaleString('pt-PT') : String(n);
 }
-function pf(v){ return v.toFixed(1) + '%'; }
+function pf(v){ return Number.isInteger(v) ? v.toFixed(0) + '%' : v.toFixed(2).replace(/0$/,'') + '%'; }
 function prevMonth(m){ const idx = MONTHS.indexOf(m); return idx > 0 ? MONTHS[idx-1] : null; }
 
 /* ══ UI UPDATE ══ */
@@ -1244,7 +1252,7 @@ function setMonth(m, btn){
 }
 
 function updatePill(){
-  document.getElementById('period-pill').textContent = 'Ago 2025 → Mar 2026';
+  document.getElementById('period-pill').textContent = 'Ago 2025 → Mai 2026';
 }
 
 function delta(curr, prev, isChk){
@@ -1298,7 +1306,9 @@ function renderKPIs(){
   document.getElementById('mb-p').textContent = fmt(d.p);
   document.getElementById('mb-acc').textContent = fmt(d.acc);
   document.getElementById('mb-i').textContent = fmt(d.i);
+  document.getElementById('mb-agua').textContent = d.agua.toLocaleString('pt-PT');
   document.getElementById('mb-gas').textContent = d.gas.toLocaleString('pt-PT');
+  document.getElementById('mb-elec').textContent = d.elec.toLocaleString('pt-PT');
   document.getElementById('mb-h').textContent = d.h.toLocaleString('pt-PT');
 
   /* Footer */
@@ -1325,6 +1335,8 @@ function renderSSTTable(){
     {lbl:'Formação Part.',  prev:pd?.f,    curr:d.f,  pct:false},
     {lbl:'Acidentes',       prev:pd?.acc,  curr:d.acc,pct:false},
     {lbl:'Inc. Ambientais', prev:pd?.i,    curr:d.i,  pct:false},
+    {lbl:'Água (m³)',       prev:pd?.agua, curr:d.agua,pct:false},
+    {lbl:'Gasóleo (L)',     prev:pd?.gas,  curr:d.gas,pct:false},
   ];
 
   const tbody = document.getElementById('sst-tbody');
@@ -1397,11 +1409,11 @@ new Chart(ctxG,{type:'bar',data:{
 new Chart(document.getElementById('cDonut').getContext('2d'),{
   type:'doughnut',
   data:{
-    labels:['VAMED','CTCE','EC Engrácio Caputula'],
+    labels:['VAMED','MINDENACVP'],
     datasets:[{
-      data:[8,5,6],
-      backgroundColor:['rgba(57,255,20,.7)','rgba(0,245,255,.6)','rgba(191,95,255,.6)'],
-      borderColor:['#39FF14','#00F5FF','#BF5FFF'],
+      data:[9,0],
+      backgroundColor:['rgba(57,255,20,.7)','rgba(0,245,255,.18)'],
+      borderColor:['#39FF14','#00F5FF'],
       borderWidth:2,hoverOffset:6
     }]
   },
@@ -1503,10 +1515,10 @@ const popup = `
   <div class="ptitle">🏥 HMRL — Hospital Militar de Luena</div>
   <div style="font-size:10px;color:#6B7694;font-family:'JetBrains Mono',monospace;margin-bottom:12px;">Luena · Moxico · Angola &nbsp;|&nbsp; 14DC-DEI/SV/2021</div>
   <div class="pgrid">
-    <div class="pkpi"><div class="pkv" style="color:#39FF14">8</div><div class="pkl">Trabalhadores</div></div>
-    <div class="pkpi"><div class="pkv" style="color:#FFD000">100%</div><div class="pkl">Checklist</div></div>
+    <div class="pkpi"><div class="pkv" style="color:#39FF14">9</div><div class="pkl">Trabalhadores</div></div>
+    <div class="pkpi"><div class="pkv" style="color:#FFD000">88.89%</div><div class="pkl">Checklist</div></div>
     <div class="pkpi"><div class="pkv" style="color:#00FF9F">0</div><div class="pkl">Acidentes</div></div>
-    <div class="pkpi"><div class="pkv" style="color:#00F5FF">617.976</div><div class="pkl">H. Trabalhadas</div></div>
+    <div class="pkpi"><div class="pkv" style="color:#00F5FF">1.944</div><div class="pkl">H. Trabalhadas</div></div>
   </div>
 </div>`;
 
@@ -1517,7 +1529,7 @@ setTheme(localStorage.getItem('hse-theme')||'dark');
 renderKPIs();
 renderSSTTable();
 updatePill();
-document.getElementById('footer-status').textContent = '✓ Atualizado · MAR 2026 · 0 Acidentes Mortais · 617.976 H. Trabalhadas';
+document.getElementById('footer-status').textContent = '✓ Atualizado · MAI 2026 · 0 Acidentes Mortais · 1.944 H. Trabalhadas';
 </script>
 <!--
   repo-integration-snippet.html
@@ -1780,13 +1792,52 @@ document.getElementById('footer-status').textContent = '✓ Atualizado · MAR 20
     return link.textContent.trim() || "Documento";
   }
 
+  function inferSite() {
+    const path = window.location.pathname.toLowerCase();
+    if (path.includes("luena")) return "Luena";
+    if (path.includes("cabinda")) return "Cabinda";
+    return "Huambo";
+  }
+
+  function getSavedAutor() {
+    try { return localStorage.getItem("hse-notify-autor") || ""; }
+    catch (e) { return ""; }
+  }
+
+  function rememberAutor(autor) {
+    try {
+      if (autor && autor.trim()) localStorage.setItem("hse-notify-autor", autor.trim());
+    } catch (e) {}
+  }
+
+  function getDownloadAutor() {
+    const saved = getSavedAutor();
+    if (saved) return saved;
+    const prompted = window.prompt("Nome para registo HSE do download:");
+    if (prompted && prompted.trim()) {
+      rememberAutor(prompted);
+      return prompted.trim();
+    }
+    return "anónimo";
+  }
+
+  function absoluteDocumentUrl(href) {
+    try { return href ? new URL(href, window.location.href).href : ""; }
+    catch (e) { return href || ""; }
+  }
+
   /* ============ DOWNLOAD LOGGING ============ */
   function logDownload(modeloNome, modeloId, autor) {
     try {
+      const href = modeloId || "";
       const payload = JSON.stringify({
         modelo_nome: modeloNome,
-        modelo_id: modeloId || "",
-        autor: autor || "anónimo",
+        modelo_id: href,
+        autor: autor || getSavedAutor() || "anónimo",
+        document_url: absoluteDocumentUrl(href),
+        page_url: window.location.href,
+        site: inferSite(),
+        timestamp: new Date().toISOString(),
       });
       if (navigator.sendBeacon) {
         navigator.sendBeacon("/api/log-download",
@@ -1821,6 +1872,7 @@ document.getElementById('footer-status').textContent = '✓ Atualizado · MAR 20
     modalSub.textContent = docName + "  ·  tipo: " + tipo;
     msg.style.display = "none";
     form.reset();
+    document.getElementById("ri-autor").value = getSavedAutor();
     drop.classList.remove("has-file");
     drop.innerHTML = "📎 Arrasta o ficheiro aqui ou clica para escolher<br><span style='font-size:0.75rem'>DOCX, PDF, XLSX até 20 MB</span>";
     // Default month = current
@@ -1876,8 +1928,9 @@ document.getElementById('footer-status').textContent = '✓ Atualizado · MAR 20
     msg.style.display = "none";
 
     const fd = new FormData();
+    const autorValue = document.getElementById("ri-autor").value.trim();
     fd.append("tipo_formulario", currentDoc.tipo);
-    fd.append("autor", document.getElementById("ri-autor").value);
+    fd.append("autor", autorValue);
     fd.append("mes_referente", document.getElementById("ri-mes").value);
     fd.append("observacoes", document.getElementById("ri-notas").value);
     if (fileIn.files[0]) fd.append("documento", fileIn.files[0]);
@@ -1886,6 +1939,7 @@ document.getElementById('footer-status').textContent = '✓ Atualizado · MAR 20
       const r = await fetch("/api/documentos-submetidos", { method: "POST", body: fd });
       const data = await r.json();
       if (!r.ok) throw new Error(data.error || "Erro desconhecido");
+      rememberAutor(autorValue);
       msg.className = "ri-msg ok";
       msg.textContent = "✓ Submetido com sucesso (ID #" + data.id + "). Obrigado!";
       msg.style.display = "block";
@@ -1917,7 +1971,7 @@ document.getElementById('footer-status').textContent = '✓ Atualizado · MAR 20
       // 1. Intercept download → log first, then let it proceed
       link.addEventListener("click", () => {
         // sendBeacon is async fire-and-forget — browser proceeds with download
-        logDownload(docName, "", "");
+        logDownload(docName, link.getAttribute("href") || "", getDownloadAutor());
       });
 
       // 2. Inject "↑ Submeter Preenchido" button next to the link
@@ -2102,5 +2156,6 @@ document.getElementById('footer-status').textContent = '✓ Atualizado · MAR 20
   }
 })();
 </script>
+<script defer src="/licencas-dashboard.js"></script>
 </body>
 </html>

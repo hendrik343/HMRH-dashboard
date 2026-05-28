@@ -1,12 +1,14 @@
 // api/situacoes.js
 //   GET  → returns all situações from the Sheet
 //   POST → accepts multipart form (titulo, responsavel, prazo, notas, photos[])
-//          and creates: a Drive subfolder + photo uploads + a new row in Situacoes_HSE
+//          Photos go to Vercel Blob (permanent URLs). A new row gets appended
+//          to Situacoes_HSE with the photo URLs in fotos_urls column.
 
 import {
-  readTab, appendRow, uploadFile, ensureSubfolder, listFolderImages,
-  ROOT_FOLDER_ID, rateLimit, getClientIp,
+  readTab, appendRow, rateLimit, getClientIp,
 } from "./_google.js";
+import { sendEmail as _notifySendEmail, formatSituacaoMsg } from "./_notify.js";
+import { put } from "@vercel/blob";
 import formidable from "formidable";
 import fs from "fs";
 
@@ -28,18 +30,15 @@ export default async function handler(req, res) {
   if (req.method === "GET") {
     try {
       const rows = await readTab("Situacoes_HSE");
-      const enriched = await Promise.all(rows.map(async (r) => {
-        if (r.drive_folder_id && r.drive_folder_id.length > 5) {
-          try {
-            const photos = await listFolderImages(r.drive_folder_id);
-            return { ...r, photos };
-          } catch {
-            return { ...r, photos: [] };
-          }
-        }
-        return { ...r, photos: [] };
+      // Photos are URLs in fotos_urls column (comma-separated). Parse into array.
+      const data = rows.map((r) => ({
+        ...r,
+        photos: (r.fotos_urls || "")
+          .split(",")
+          .map((u) => u.trim())
+          .filter((u) => u.length > 0),
       }));
-      return res.status(200).json({ data: enriched });
+      return res.status(200).json({ data });
     } catch (err) {
       return res.status(500).json({ error: err.message });
     }
@@ -97,28 +96,45 @@ export default async function handler(req, res) {
     const existing = await readTab("Situacoes_HSE");
     const nextId = existing.reduce((m, r) => Math.max(m, Number(r.id) || 0), 0) + 1;
 
-    const folderName = `Sit_${String(nextId).padStart(3, "0")}_${slug(titulo)}`;
-    const folderId = await ensureSubfolder(folderName, ROOT_FOLDER_ID);
-
+    // Upload photos to Vercel Blob (publicly readable URLs).
+    const slugTitle = slug(titulo);
     const photoUrls = [];
     for (const f of photoFiles) {
       if (!f) continue;
       const buf = fs.readFileSync(f.filepath);
-      const safeName = `${Date.now()}_${slug(f.originalFilename || "foto")}.jpg`;
-      const uploaded = await uploadFile(buf, safeName, f.mimetype, folderId);
-      photoUrls.push(uploaded.webViewLink);
+      const ext = (f.mimetype || "image/jpeg").split("/")[1] || "jpg";
+      const pathname = `situacoes/sit_${String(nextId).padStart(3, "0")}_${slugTitle}/${Date.now()}_${slug(f.originalFilename || "foto")}.${ext}`;
+      const blob = await put(pathname, buf, {
+        access: "public",
+        contentType: f.mimetype,
+      });
+      photoUrls.push(blob.url);
     }
 
     // Column order in Situacoes_HSE:
     // id | data_abertura | titulo | status | responsavel | prazo | drive_folder_id | fotos_urls
-    const today = new Date().toISOString().slice(0, 10);
+    // drive_folder_id is now unused (we kept the column for backwards compatibility).
+    const now = new Date();
+    const today = now.toISOString().slice(0, 10);
     await appendRow("Situacoes_HSE", [
       nextId, today, titulo, "Aberto", responsavel,
-      prazo || "", folderId, photoUrls.join(", "),
+      prazo || "", "", photoUrls.join(", "),
     ]);
 
+    // Fire-and-forget email notification (never blocks the response).
+    const notifyText = formatSituacaoMsg({
+      titulo, responsavel, prazo, notas,
+      data: today,
+      timestamp: now.toISOString(),
+      photoCount: photoUrls.length,
+    });
+    await _notifySendEmail("VAMED HSE — Nova Situação HSE", notifyText);
+
     return res.status(200).json({
-      ok: true, id: nextId, folderId,
+      ok: true,
+      id: nextId,
+      photoCount: photoUrls.length,
+      photoUrls,
       message: "Situação registada com sucesso.",
     });
   } catch (err) {
