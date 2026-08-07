@@ -310,6 +310,92 @@
         { "tipo": "PDF", "nome": "Reunião Semanal HSE Nº 118 · 25 Jun 2026", "fonte": "Drive", "ref": "2026-06" },
         { "tipo": "PDF", "nome": "Quadro de Sinistralidade RM Nº 037 · Junho 2026", "fonte": "Local", "ref": "2026-06" }
       ]
+    },
+    "2026-07": {
+      "relatorio": { "numero": 38, "revisao": "01" },
+      "estado": "activa",
+      "trabalhadores": 157,
+      "checklist": 98.1,
+      "alcoolemia": {
+        "testes": 0, "positivos": 0,
+        "obs": "Zero é real, não omissão. Checklist item 1.21 (Realização de controlos de alcoolemia) marcado NÃO CONFORME em jul-2026."
+      },
+      "formacao": {
+        "accoes": 19, "participantes": 277,
+        "obs": "CPAT declara 1 participante mas 180 min de formação (180/45=4 participantes equivalentes). As restantes 5 linhas reconciliam. Valor total não verificado."
+      },
+      "sinistralidade": {
+        "acidentes": 0, "diasPerdidos": 0, "acumulado": 2,
+        "horas": 33912, "horasAcumulado": 1441152,
+        "indices": { "incidencia": 0.30, "frequencia": 1.39, "gravidade": 0.00, "duracao": 0.00 },
+        "obs": "Índices do Quadro anexo ao RM038, verificados contra fórmulas ILO: frequencia=2e6/1441152=1.39; incidencia=2e3/6672=0.30. A tabela do corpo do RM038 mostra 0.69/0.73 e acumulado=1 acidente — valores de Maio, não actualizados."
+      },
+      "advertencias": { "mes": 0, "acumulado": 103 },
+      "ambiente": {
+        "agua": {
+          "mes": null, "acumulado": null, "unidade": "m³",
+          "obs": "RM038 repete o RM037 (469 m³ mensal e 997.836 acumulado). Acumulado não progride face ao consumo declarado. Bloco não actualizado — aguarda confirmação da equipa de obra."
+        },
+        "combustivel":  { "mes": 660,  "acumulado": 7153,     "unidade": "L" },
+        "electricidade": {
+          "mes": 2613, "acumulado": 226306.4, "unidade": "kWh",
+          "obs": "RM038 regista 2.236.937 kWh acumulado — erro de casa decimal (10×). Corrigido: 223.693,4 (RM037) + 2.613 = 226.306,4."
+        },
+        "gas":          { "mes": 0,    "acumulado": 180,      "unidade": "kg" },
+        "incidentes": 0
+      },
+      "empresas": [
+        { "nome": "Belo Empreendimentos", "tipo": "Construção Civil",        "efectivos": 111 },
+        { "nome": "FAA",                  "tipo": "Forças Armadas",          "efectivos": 21 },
+        { "nome": "VAMED",                "tipo": "Gestor do Projecto",      "efectivos": 13 },
+        { "nome": "Prefangol (Belo)",     "tipo": "Fornecedor de Betão",     "efectivos": 5 },
+        { "nome": "GUEMAKAL (Belo)",      "tipo": "Segurança Patrimonial",   "efectivos": 4 },
+        { "nome": "Dar Angola",           "tipo": "Fiscalização",            "efectivos": 1 },
+        { "nome": "CIPTOP (Belo)",        "tipo": "Topografia",              "efectivos": 1 },
+        { "nome": "Afrilim",              "tipo": "Limpeza",                 "efectivos": 1 },
+        { "nome": "CEM (Belo)",           "tipo": "Estrutura de Betão",      "efectivos": 0 }
+      ],
+      "residuos": {
+        "mensal": [
+          {
+            "tipo": "RCD — Entulho", "quantidade": 570, "unidade": "m³",
+            "transportador": "Belo Empreendimentos",
+            "destino": "Reaproveitamento", "operacao": "Composição de solo"
+          },
+          {
+            "tipo": "RSU", "quantidade": 660, "unidade": "kg",
+            "transportador": "Belo Empreendimentos",
+            "destino": "Depósito do Sacaála", "operacao": "Aterro autorizado"
+          }
+        ]
+      },
+      "eventos": [
+        {
+          "data": "2026-07-03", "tipo": "Simulacro",
+          "titulo": "Simulacro de derrame — casa de armazenamento de produtos químicos",
+          "referencia": "Relatório de Simulacro Nº 05",
+          "obs": "Elaborado Nelson Segunda, aprovado João Ladeiro."
+        },
+        {
+          "data": "2026-07-10", "tipo": "Visita Institucional",
+          "titulo": "Visita do Ministro do MINDENACVP",
+          "entidade": "MINDENACVP", "intervenientes": 38
+        },
+        {
+          "data": "2026-07-16", "tipo": "Acção Comunidade",
+          "titulo": "Inquérito à direcção do Colégio São Francisco",
+          "entidade": "Comunidade", "intervenientes": 6
+        },
+        {
+          "data": "2026-06-29", "tipo": "Visita Institucional",
+          "titulo": "Visita do Tribunal de Contas",
+          "entidade": "Tribunal de Contas", "intervenientes": 4,
+          "obs": "Evento de Junho repetido no RM038. Data própria 2026-06-29 — filtrar por data para evitar duplicado com a entrada de Junho."
+        }
+      ],
+      "documentos": [
+        { "tipo": "PDF", "nome": "Relatório Mensal HSE RM Nº 038 · Julho 2026 Rev.1", "fonte": "Confirmado", "ref": "2026-07" }
+      ]
     }
   }
 }
