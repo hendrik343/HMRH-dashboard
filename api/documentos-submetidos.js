@@ -13,6 +13,7 @@ import {
   readTab, appendRow, rateLimit, getClientIp,
 } from "./_google.js";
 import { sendEmail as _notifySendEmail, formatDocumentoMsg } from "./_notify.js";
+import { applyCors } from "./_cors.js";
 import { put } from "@vercel/blob";
 import formidable from "formidable";
 import fs from "fs";
@@ -73,6 +74,8 @@ function ext(mimetype, originalName) {
 }
 
 export default async function handler(req, res) {
+  if (applyCors(req, res)) return;
+
   if (req.method === "GET") {
     try {
       const rows = await readTab("Documentos_Submetidos");

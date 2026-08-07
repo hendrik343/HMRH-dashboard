@@ -4,10 +4,13 @@
 
 import { readTab, appendRow, rateLimit, getClientIp } from "./_google.js";
 import { sendEmail as _notifySendEmail, formatDownloadMsg } from "./_notify.js";
+import { applyCors } from "./_cors.js";
 
 export const config = { api: { bodyParser: true } };
 
 export default async function handler(req, res) {
+  if (applyCors(req, res)) return;
+
   if (req.method !== "POST") {
     res.setHeader("Allow", "POST");
     return res.status(405).json({ error: "Method not allowed" });
