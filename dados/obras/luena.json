@@ -262,20 +262,20 @@
     "2026-06": {
       "relatorio": { "numero": 37, "revisao": null },
       "estado": "suspensa",
-      "trabalhadores": null,
+      "trabalhadores": 10,
       "checklist": 87.88,
       "alcoolemia": { "testes": null, "positivos": null },
       "formacao": { "accoes": null, "participantes": null },
       "sinistralidade": {
-        "acidentes": 0, "diasPerdidos": 0, "acumulado": 0,
-        "horas": null,
+        "acidentes": 0, "diasPerdidos": 0, "acumulado": 2,
+        "horas": 2160,
         "indices": { "incidencia": null, "frequencia": null, "gravidade": null, "duracao": null }
       },
       "advertencias": { "mes": null, "acumulado": null },
       "ambiente": {
         "agua":         { "mes": null, "acumulado": null, "unidade": "m³" },
         "combustivel":  { "mes": null, "acumulado": null, "unidade": "L" },
-        "electricidade":{ "mes": 0,   "acumulado": null, "unidade": "kWh" },
+        "electricidade":{ "mes": null, "acumulado": null, "unidade": "kWh" },
         "incidentes": 0
       },
       "empresas": [],
@@ -286,29 +286,53 @@
       ]
     },
     "2026-07": {
-      "relatorio": { "numero": 38, "revisao": null },
+      "relatorio": { "numero": 38, "revisao": "01" },
       "estado": "activa",
       "trabalhadores": 10,
       "checklist": 87.88,
-      "alcoolemia": { "testes": null, "positivos": null },
-      "formacao": { "accoes": null, "participantes": null },
-      "sinistralidade": {
-        "acidentes": 0, "diasPerdidos": 0, "acumulado": 0,
-        "horas": 2160,
-        "indices": { "incidencia": 0, "frequencia": 0, "gravidade": 0, "duracao": null }
+      "alcoolemia": {
+        "testes": 0, "positivos": 0,
+        "obs": "Não se registaram acções realizadas no mês."
       },
-      "advertencias": { "mes": null, "acumulado": null },
+      "formacao": {
+        "accoes": 0, "participantes": 0,
+        "obs": "Não se registaram acções de formação no mês."
+      },
+      "sinistralidade": {
+        "acidentes": 0, "diasPerdidos": 0, "acumulado": 2,
+        "diasPerdidosAcumulado": 3,
+        "horas": 2160, "horasAcumulado": 628776,
+        "indices": { "incidencia": 0.69, "frequencia": 3.18, "gravidade": 0.00, "duracao": 1.50 },
+        "obs": "O corpo do RM038 declara 0 acidentes acumulados. O Quadro anexo ao mesmo relatório mostra 2 não mortais e 3 dias perdidos, de Junho e Julho de 2024. O anexo prevalece."
+      },
+      "advertencias": { "mes": 0, "acumulado": 0 },
       "ambiente": {
-        "agua":         { "mes": null, "acumulado": null, "unidade": "m³" },
-        "combustivel":  { "mes": null, "acumulado": null, "unidade": "L" },
-        "electricidade":{ "mes": 0,   "acumulado": null, "unidade": "kWh" },
+        "agua":          { "mes": 15,  "acumulado": 2097.45, "unidade": "m³" },
+        "combustivel":   { "mes": 340, "acumulado": 98386,   "unidade": "L"  },
+        "electricidade": { "mes": null, "acumulado": null,   "unidade": "kWh",
+          "obs": "Sem ligação à rede pública. Apenas gerador. Ausência de ligação, não consumo zero." },
         "incidentes": 0
       },
-      "empresas": [],
-      "residuos": { "mensal": [] },
-      "eventos": [],
+      "empresas": [
+        { "nome": "VAMED",      "tipo": "Gestora do Projecto",                    "efectivos": 10   },
+        { "nome": "MINDENACVP", "tipo": "Segurança das instalações (inerência)", "efectivos": null }
+      ],
+      "residuos": {
+        "mensal": [
+          { "tipo": "RSU", "quantidade": 2, "unidade": "kg", "transportador": "VAMED", "destino": "Contentor municipal", "operacao": "Deposição" }
+        ]
+      },
+      "eventos": [
+        {
+          "data": "2026-07",
+          "tipo": "visita",
+          "titulo": "Visita de S.E. o Ministro do MINDENACVP",
+          "entidade": "MINDENACVP",
+          "intervenientes": null
+        }
+      ],
       "documentos": [
-        { "tipo": "XLS", "nome": "Quadro de Sinistralidade RM Nº 038 · Julho 2026", "fonte": "Confirmado", "ref": "2026-07" }
+        { "tipo": "PDF", "nome": "Relatório Mensal HSE Nº 038 · Julho 2026 Rev.01", "fonte": "Confirmado", "ref": "2026-07" }
       ]
     }
   }
