@@ -1,0 +1,349 @@
+{
+  "obra": "HMRC",
+  "nome": "Hospital Militar Regional de Cabinda",
+  "contrato": "12DC – DEI/SV/2021",
+  "coordenadas": [-5.5487, 12.1948],
+  "meses_estimados": ["2025-08", "2025-10", "2025-11", "2025-12", "2026-01", "2026-02", "2026-03"],
+  "_aviso": "Os meses em 'meses_estimados' contêm valores mensais retirados do objecto DATA JavaScript e marcados como estimativas ('Other months estimated based on project trajectory'). O acumulado de Abr 2026 verificado nos relatórios fonte (água 3278.6 m³, gasóleo 403207 L, electricidade 57192.4 kWh) não reconcilia com a soma desses meses estimados — os valores mensais individuais são possivelmente incorrectos. Não usar para cálculo de índices ou médias até confirmação documental por relatório RM.",
+  "meses": {
+    "2025-08": {
+      "relatorio": null,
+      "estado": "activa",
+      "trabalhadores": 210,
+      "checklist": 96.0,
+      "alcoolemia": { "testes": 85, "positivos": 0 },
+      "formacao": { "accoes": null, "participantes": 3100 },
+      "sinistralidade": {
+        "acidentes": 0,
+        "diasPerdidos": null,
+        "acumulado": null,
+        "indices": { "incidencia": null, "frequencia": null, "gravidade": null, "duracao": null }
+      },
+      "advertencias": { "mes": null, "acumulado": null },
+      "ambiente": {
+        "agua":         { "mes": 340,    "acumulado": null, "unidade": "m³" },
+        "combustivel":  { "mes": 14200,  "acumulado": null, "unidade": "L" },
+        "electricidade":{ "mes": 2900,   "acumulado": null, "unidade": "kWh" },
+        "incidentes": 0
+      },
+      "empresas": [],
+      "residuos": { "mensal": [] },
+      "eventos": [],
+      "documentos": []
+    },
+
+    "2025-09": {
+      "relatorio": { "numero": 24, "revisao": "01" },
+      "estado": "activa",
+      "trabalhadores": 196,
+      "checklist": 96.19,
+      "alcoolemia": { "testes": 79, "positivos": 0 },
+      "formacao": { "accoes": null, "participantes": 2888 },
+      "sinistralidade": {
+        "acidentes": 0,
+        "diasPerdidos": null,
+        "acumulado": null,
+        "indices": { "incidencia": null, "frequencia": null, "gravidade": null, "duracao": null }
+      },
+      "advertencias": { "mes": null, "acumulado": null },
+      "ambiente": {
+        "agua":         { "mes": 326,   "acumulado": null, "unidade": "m³" },
+        "combustivel":  { "mes": 13895, "acumulado": null, "unidade": "L" },
+        "electricidade":{ "mes": 2746,  "acumulado": null, "unidade": "kWh" },
+        "incidentes": 0
+      },
+      "empresas": [],
+      "residuos": { "mensal": [] },
+      "eventos": [],
+      "documentos": [
+        {
+          "tipo": "DOC",
+          "nome": "Relatório Mensal HSE RM Nº 024 · Setembro 2025",
+          "fonte": "DOCX",
+          "ref": "2025-09"
+        }
+      ]
+    },
+
+    "2025-10": {
+      "relatorio": null,
+      "estado": "activa",
+      "trabalhadores": 185,
+      "checklist": 96.5,
+      "alcoolemia": { "testes": 75, "positivos": 0 },
+      "formacao": { "accoes": null, "participantes": 2600 },
+      "sinistralidade": {
+        "acidentes": 0,
+        "diasPerdidos": null,
+        "acumulado": null,
+        "indices": { "incidencia": null, "frequencia": null, "gravidade": null, "duracao": null }
+      },
+      "advertencias": { "mes": null, "acumulado": null },
+      "ambiente": {
+        "agua":         { "mes": 310,   "acumulado": null, "unidade": "m³" },
+        "combustivel":  { "mes": 13200, "acumulado": null, "unidade": "L" },
+        "electricidade":{ "mes": 2600,  "acumulado": null, "unidade": "kWh" },
+        "incidentes": 0
+      },
+      "empresas": [],
+      "residuos": { "mensal": [] },
+      "eventos": [],
+      "documentos": []
+    },
+
+    "2025-11": {
+      "relatorio": null,
+      "estado": "activa",
+      "trabalhadores": 165,
+      "checklist": 96.8,
+      "alcoolemia": { "testes": 68, "positivos": 0 },
+      "formacao": { "accoes": null, "participantes": 2100 },
+      "sinistralidade": {
+        "acidentes": 0,
+        "diasPerdidos": null,
+        "acumulado": null,
+        "indices": { "incidencia": null, "frequencia": null, "gravidade": null, "duracao": null }
+      },
+      "advertencias": { "mes": null, "acumulado": null },
+      "ambiente": {
+        "agua":         { "mes": 280,   "acumulado": null, "unidade": "m³" },
+        "combustivel":  { "mes": 11800, "acumulado": null, "unidade": "L" },
+        "electricidade":{ "mes": 2350,  "acumulado": null, "unidade": "kWh" },
+        "incidentes": 0
+      },
+      "empresas": [],
+      "residuos": { "mensal": [] },
+      "eventos": [],
+      "documentos": []
+    },
+
+    "2025-12": {
+      "relatorio": null,
+      "estado": "activa",
+      "trabalhadores": 145,
+      "checklist": 97.0,
+      "alcoolemia": { "testes": 58, "positivos": 0 },
+      "formacao": { "accoes": null, "participantes": 1600 },
+      "sinistralidade": {
+        "acidentes": 0,
+        "diasPerdidos": null,
+        "acumulado": null,
+        "indices": { "incidencia": null, "frequencia": null, "gravidade": null, "duracao": null }
+      },
+      "advertencias": { "mes": null, "acumulado": null },
+      "ambiente": {
+        "agua":         { "mes": 245,   "acumulado": null, "unidade": "m³" },
+        "combustivel":  { "mes": 10400, "acumulado": null, "unidade": "L" },
+        "electricidade":{ "mes": 2100,  "acumulado": null, "unidade": "kWh" },
+        "incidentes": 0
+      },
+      "empresas": [],
+      "residuos": { "mensal": [] },
+      "eventos": [],
+      "documentos": []
+    },
+
+    "2026-01": {
+      "relatorio": null,
+      "estado": "activa",
+      "trabalhadores": 130,
+      "checklist": 97.0,
+      "alcoolemia": { "testes": 52, "positivos": 0 },
+      "formacao": { "accoes": null, "participantes": 1200 },
+      "sinistralidade": {
+        "acidentes": 0,
+        "diasPerdidos": null,
+        "acumulado": null,
+        "indices": { "incidencia": null, "frequencia": null, "gravidade": null, "duracao": null }
+      },
+      "advertencias": { "mes": null, "acumulado": null },
+      "ambiente": {
+        "agua":         { "mes": 225,  "acumulado": null, "unidade": "m³" },
+        "combustivel":  { "mes": 9800, "acumulado": null, "unidade": "L" },
+        "electricidade":{ "mes": 1950, "acumulado": null, "unidade": "kWh" },
+        "incidentes": 0
+      },
+      "empresas": [],
+      "residuos": { "mensal": [] },
+      "eventos": [],
+      "documentos": []
+    },
+
+    "2026-02": {
+      "relatorio": null,
+      "estado": "activa",
+      "trabalhadores": 120,
+      "checklist": 97.0,
+      "alcoolemia": { "testes": 48, "positivos": 0 },
+      "formacao": { "accoes": null, "participantes": 1100 },
+      "sinistralidade": {
+        "acidentes": 0,
+        "diasPerdidos": null,
+        "acumulado": null,
+        "indices": { "incidencia": null, "frequencia": null, "gravidade": null, "duracao": null }
+      },
+      "advertencias": { "mes": null, "acumulado": null },
+      "ambiente": {
+        "agua":         { "mes": 215,  "acumulado": null, "unidade": "m³" },
+        "combustivel":  { "mes": 9500, "acumulado": null, "unidade": "L" },
+        "electricidade":{ "mes": 1850, "acumulado": null, "unidade": "kWh" },
+        "incidentes": 0
+      },
+      "empresas": [],
+      "residuos": { "mensal": [] },
+      "eventos": [],
+      "documentos": []
+    },
+
+    "2026-03": {
+      "relatorio": null,
+      "estado": "activa",
+      "trabalhadores": 110,
+      "checklist": 97.0,
+      "alcoolemia": { "testes": 45, "positivos": 0 },
+      "formacao": { "accoes": null, "participantes": 900 },
+      "sinistralidade": {
+        "acidentes": 0,
+        "diasPerdidos": null,
+        "acumulado": null,
+        "indices": { "incidencia": null, "frequencia": null, "gravidade": null, "duracao": null }
+      },
+      "advertencias": { "mes": null, "acumulado": null },
+      "ambiente": {
+        "agua":         { "mes": 210,  "acumulado": null, "unidade": "m³" },
+        "combustivel":  { "mes": 9200, "acumulado": null, "unidade": "L" },
+        "electricidade":{ "mes": 1780, "acumulado": null, "unidade": "kWh" },
+        "incidentes": 0
+      },
+      "empresas": [],
+      "residuos": { "mensal": [] },
+      "eventos": [],
+      "documentos": []
+    },
+
+    "2026-04": {
+      "relatorio": { "numero": 31, "revisao": "01" },
+      "estado": "activa",
+      "trabalhadores": 91,
+      "checklist": 96.23,
+      "alcoolemia": { "testes": 114, "positivos": 2 },
+      "formacao": { "accoes": null, "participantes": 1635 },
+      "sinistralidade": {
+        "acidentes": 0,
+        "diasPerdidos": null,
+        "acumulado": null,
+        "indices": { "incidencia": null, "frequencia": null, "gravidade": null, "duracao": null }
+      },
+      "advertencias": { "mes": null, "acumulado": null },
+      "ambiente": {
+        "agua":         { "mes": 92,     "acumulado": 3278.6,  "unidade": "m³" },
+        "combustivel":  { "mes": 8142,   "acumulado": 403207,  "unidade": "L" },
+        "electricidade":{ "mes": 2741.6, "acumulado": 57192.4, "unidade": "kWh" },
+        "incidentes": 0
+      },
+      "empresas": [],
+      "residuos": { "mensal": [] },
+      "eventos": [],
+      "documentos": [
+        { "tipo": "DOC", "nome": "Relatório Mensal HSE RM Nº 031 · Abril 2026",   "fonte": "DOCX", "ref": "2026-04" },
+        { "tipo": "XLS", "nome": "Checklist RM Nº 031 · Abril 2026",              "fonte": "XLSX", "ref": "2026-04" },
+        { "tipo": "XLS", "nome": "Quadro de Sinistralidade RM Nº 031 · Abril 2026","fonte": "XLSX", "ref": "2026-04" },
+        { "tipo": "PDF", "nome": "Formações · Abril 2026",                         "fonte": "PDF",  "ref": "2026-04" },
+        { "tipo": "PDF", "nome": "Toolbox Talks · Abril 2026",                     "fonte": "PDF",  "ref": "2026-04" },
+        { "tipo": "PDF", "nome": "Inspecções de Quadro · Abril 2026",              "fonte": "PDF",  "ref": "2026-04" },
+        { "tipo": "PDF", "nome": "Inspecção de Equipamento · Abril 2026",          "fonte": "PDF",  "ref": "2026-04" },
+        { "tipo": "PDF", "nome": "Indução 4 · Abril 2026",                         "fonte": "PDF",  "ref": "2026-04" },
+        { "tipo": "PDF", "nome": "Extintor · Abril 2026",                          "fonte": "PDF",  "ref": "2026-04" },
+        { "tipo": "PDF", "nome": "Andaime · Abril 2026",                           "fonte": "PDF",  "ref": "2026-04" },
+        { "tipo": "PDF", "nome": "Advertências · Abril 2026",                      "fonte": "PDF",  "ref": "2026-04" }
+      ]
+    },
+
+    "2026-05": {
+      "relatorio": { "numero": 32, "revisao": "01" },
+      "estado": "activa",
+      "trabalhadores": 93,
+      "checklist": 96.23,
+      "alcoolemia": { "testes": 85, "positivos": 0 },
+      "formacao": { "accoes": null, "participantes": 1332 },
+      "sinistralidade": {
+        "acidentes": 0,
+        "diasPerdidos": null,
+        "acumulado": null,
+        "indices": { "incidencia": null, "frequencia": null, "gravidade": null, "duracao": null }
+      },
+      "advertencias": { "mes": null, "acumulado": null },
+      "ambiente": {
+        "agua":         { "mes": 78,     "acumulado": null, "unidade": "m³" },
+        "combustivel":  { "mes": 7546,   "acumulado": null, "unidade": "L" },
+        "electricidade":{ "mes": 2428.8, "acumulado": null, "unidade": "kWh" },
+        "incidentes": 0
+      },
+      "empresas": [],
+      "residuos": { "mensal": [] },
+      "eventos": [],
+      "documentos": [
+        { "tipo": "DOC", "nome": "Relatório Mensal HSE RM Nº 032 · Maio 2026", "fonte": "DOCX", "ref": "2026-05" }
+      ]
+    },
+
+    "2026-06": {
+      "relatorio": { "numero": 33, "revisao": "01" },
+      "estado": "activa",
+      "trabalhadores": 71,
+      "checklist": 96.23,
+      "alcoolemia": { "testes": 77, "positivos": 0 },
+      "formacao": { "accoes": null, "participantes": 982 },
+      "sinistralidade": {
+        "acidentes": 0,
+        "diasPerdidos": null,
+        "acumulado": null,
+        "indices": { "incidencia": null, "frequencia": null, "gravidade": null, "duracao": null }
+      },
+      "advertencias": { "mes": 0, "acumulado": 13 },
+      "ambiente": {
+        "agua":         { "mes": 64,     "acumulado": 3420.6,  "unidade": "m³" },
+        "combustivel":  { "mes": 5784,   "acumulado": 416537,  "unidade": "L" },
+        "electricidade":{ "mes": 1982.4, "acumulado": 61603.6, "unidade": "kWh" },
+        "incidentes": 0
+      },
+      "empresas": [
+        { "nome": "VAMED",       "tipo": "Gestão do Projecto",   "efectivos": 8  },
+        { "nome": "Mota-Engil",  "tipo": "Estrutura",            "efectivos": 41 },
+        { "nome": "Confrasilvas","tipo": "Cofragem (M-E)",        "efectivos": 15 },
+        { "nome": "Protector",   "tipo": "Segurança Patrimonial","efectivos": 6  },
+        { "nome": "Afrilim",     "tipo": "Limpeza",              "efectivos": 1  }
+      ],
+      "residuos": {
+        "mensal": [
+          { "tipo": "RSU",           "quantidade": 76, "unidade": "kg",  "acumulado": 9765,   "acumulado_unidade": "kg" },
+          { "tipo": "Biodegradáveis","quantidade": 38, "unidade": "kg",  "acumulado": 3431,   "acumulado_unidade": "kg" },
+          { "tipo": "Entulho",       "quantidade": 16, "unidade": "m³",  "acumulado": 893.84, "acumulado_unidade": "m³" }
+        ]
+      },
+      "eventos": [
+        {
+          "data": "2026-06-10",
+          "tipo": "Simulacro",
+          "descricao": "Simulacro — queda de nível diferente",
+          "estado": "Realizado",
+          "responsavel": null
+        },
+        {
+          "data": "2026-06",
+          "tipo": "Situação HSE",
+          "descricao": "Estudos Técnicos — periodicidade trimestral",
+          "estado": "Pendente",
+          "responsavel": "Juarês Manico"
+        }
+      ],
+      "documentos": [
+        { "tipo": "DOC", "nome": "Relatório Mensal HSE RM Nº 033 · Junho 2026",         "fonte": "Drive", "ref": "2026-06" },
+        { "tipo": "XLS", "nome": "Checklist RM Nº 033 · Junho 2026",                    "fonte": "Drive", "ref": "2026-06" },
+        { "tipo": "XLS", "nome": "Quadro de Sinistralidade RM Nº 033 · Junho 2026",    "fonte": "Drive", "ref": "2026-06" },
+        { "tipo": "PDF", "nome": "Relatório de Simulacro · Junho 2026",                 "fonte": "Drive", "ref": "2026-06" },
+        { "tipo": "PDF", "nome": "Formação Interna · Junho 2026",                       "fonte": "Drive", "ref": "2026-06" }
+      ]
+    }
+  }
+}

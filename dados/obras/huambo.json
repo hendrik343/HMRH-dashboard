@@ -1,0 +1,315 @@
+{
+  "obra": "HMRH",
+  "nome": "Hospital Militar Regional de Huambo",
+  "contrato": "13DC – DEI/SV/2021",
+  "coordenadas": [-12.776, 15.734],
+  "_aviso": "Valores mensais para 2025-09 a 2026-03 não referenciados a relatórios fonte no HTML. Anomalias no DATA: (1) nov e dez partilham combustivel=1109 L; (2) nov.electricidade=7350 kWh é outlier ~4× a média dos meses adjacentes. Sem totais acumulados ambientais no HTML para validação cruzada.",
+  "meses": {
+    "2025-09": {
+      "relatorio": { "numero": null, "revisao": null },
+      "estado": "activa",
+      "trabalhadores": 219,
+      "checklist": 98.15,
+      "alcoolemia": { "testes": 420, "positivos": 0 },
+      "formacao": { "accoes": null, "participantes": 667 },
+      "sinistralidade": {
+        "acidentes": 0, "diasPerdidos": null, "acumulado": null,
+        "indices": { "incidencia": null, "frequencia": null, "gravidade": null, "duracao": null }
+      },
+      "advertencias": { "mes": null, "acumulado": null },
+      "ambiente": {
+        "agua":         { "mes": 462,    "acumulado": null, "unidade": "m³" },
+        "combustivel":  { "mes": 1100,   "acumulado": null, "unidade": "L" },
+        "electricidade":{ "mes": 3344,   "acumulado": null, "unidade": "kWh" },
+        "incidentes": 0
+      },
+      "empresas": [],
+      "residuos": { "mensal": [] },
+      "eventos": [],
+      "documentos": []
+    },
+    "2025-10": {
+      "relatorio": { "numero": null, "revisao": null },
+      "estado": "activa",
+      "trabalhadores": 212,
+      "checklist": 98.11,
+      "alcoolemia": { "testes": 362, "positivos": 3 },
+      "formacao": { "accoes": null, "participantes": 671 },
+      "sinistralidade": {
+        "acidentes": 0, "diasPerdidos": null, "acumulado": null,
+        "indices": { "incidencia": null, "frequencia": null, "gravidade": null, "duracao": null }
+      },
+      "advertencias": { "mes": null, "acumulado": null },
+      "ambiente": {
+        "agua":         { "mes": 479,    "acumulado": null, "unidade": "m³" },
+        "combustivel":  { "mes": 3070,   "acumulado": null, "unidade": "L" },
+        "electricidade":{ "mes": 1597,   "acumulado": null, "unidade": "kWh" },
+        "incidentes": 0
+      },
+      "empresas": [],
+      "residuos": { "mensal": [] },
+      "eventos": [],
+      "documentos": []
+    },
+    "2025-11": {
+      "relatorio": { "numero": null, "revisao": null },
+      "estado": "activa",
+      "trabalhadores": 221,
+      "checklist": 91.0,
+      "alcoolemia": { "testes": 300, "positivos": 3 },
+      "formacao": { "accoes": null, "participantes": 383 },
+      "sinistralidade": {
+        "acidentes": 0, "diasPerdidos": null, "acumulado": null,
+        "indices": { "incidencia": null, "frequencia": null, "gravidade": null, "duracao": null }
+      },
+      "advertencias": { "mes": null, "acumulado": null },
+      "ambiente": {
+        "agua":         { "mes": 367,    "acumulado": null, "unidade": "m³" },
+        "combustivel":  { "mes": 1109,   "acumulado": null, "unidade": "L" },
+        "electricidade":{ "mes": 7350,   "acumulado": null, "unidade": "kWh" },
+        "incidentes": 0
+      },
+      "empresas": [],
+      "residuos": { "mensal": [] },
+      "eventos": [],
+      "documentos": []
+    },
+    "2025-12": {
+      "relatorio": { "numero": null, "revisao": null },
+      "estado": "activa",
+      "trabalhadores": 208,
+      "checklist": 98.1,
+      "alcoolemia": { "testes": 0, "positivos": 0 },
+      "formacao": { "accoes": null, "participantes": 587 },
+      "sinistralidade": {
+        "acidentes": 0, "diasPerdidos": null, "acumulado": null,
+        "indices": { "incidencia": null, "frequencia": null, "gravidade": null, "duracao": null }
+      },
+      "advertencias": { "mes": null, "acumulado": null },
+      "ambiente": {
+        "agua":         { "mes": 428,    "acumulado": null, "unidade": "m³" },
+        "combustivel":  { "mes": 1109,   "acumulado": null, "unidade": "L" },
+        "electricidade":{ "mes": 2841,   "acumulado": null, "unidade": "kWh" },
+        "incidentes": 0
+      },
+      "empresas": [],
+      "residuos": { "mensal": [] },
+      "eventos": [],
+      "documentos": []
+    },
+    "2026-01": {
+      "relatorio": { "numero": null, "revisao": null },
+      "estado": "activa",
+      "trabalhadores": 182,
+      "checklist": 98.1,
+      "alcoolemia": { "testes": 0, "positivos": 0 },
+      "formacao": { "accoes": null, "participantes": 375 },
+      "sinistralidade": {
+        "acidentes": 0, "diasPerdidos": null, "acumulado": null,
+        "indices": { "incidencia": null, "frequencia": null, "gravidade": null, "duracao": null }
+      },
+      "advertencias": { "mes": null, "acumulado": null },
+      "ambiente": {
+        "agua":         { "mes": 291,    "acumulado": null, "unidade": "m³" },
+        "combustivel":  { "mes": 728,    "acumulado": null, "unidade": "L" },
+        "electricidade":{ "mes": 2012,   "acumulado": null, "unidade": "kWh" },
+        "incidentes": 0
+      },
+      "empresas": [],
+      "residuos": { "mensal": [] },
+      "eventos": [],
+      "documentos": []
+    },
+    "2026-02": {
+      "relatorio": { "numero": null, "revisao": null },
+      "estado": "activa",
+      "trabalhadores": 232,
+      "checklist": 94.3,
+      "alcoolemia": { "testes": 180, "positivos": 0 },
+      "formacao": { "accoes": null, "participantes": 524 },
+      "sinistralidade": {
+        "acidentes": 0, "diasPerdidos": null, "acumulado": null,
+        "indices": { "incidencia": null, "frequencia": null, "gravidade": null, "duracao": null }
+      },
+      "advertencias": { "mes": null, "acumulado": null },
+      "ambiente": {
+        "agua":         { "mes": 514,    "acumulado": null, "unidade": "m³" },
+        "combustivel":  { "mes": 1038,   "acumulado": null, "unidade": "L" },
+        "electricidade":{ "mes": 1634,   "acumulado": null, "unidade": "kWh" },
+        "incidentes": 0
+      },
+      "empresas": [],
+      "residuos": { "mensal": [] },
+      "eventos": [],
+      "documentos": []
+    },
+    "2026-03": {
+      "relatorio": { "numero": null, "revisao": null },
+      "estado": "activa",
+      "trabalhadores": 248,
+      "checklist": 95.5,
+      "alcoolemia": { "testes": 195, "positivos": 0 },
+      "formacao": { "accoes": null, "participantes": 480 },
+      "sinistralidade": {
+        "acidentes": 0, "diasPerdidos": null, "acumulado": null,
+        "indices": { "incidencia": null, "frequencia": null, "gravidade": null, "duracao": null }
+      },
+      "advertencias": { "mes": null, "acumulado": null },
+      "ambiente": {
+        "agua":         { "mes": 510,    "acumulado": null, "unidade": "m³" },
+        "combustivel":  { "mes": 1050,   "acumulado": null, "unidade": "L" },
+        "electricidade":{ "mes": 1680,   "acumulado": null, "unidade": "kWh" },
+        "incidentes": 0
+      },
+      "empresas": [
+        { "nome": "BELO", "tipo": null, "efectivos": 172 },
+        { "nome": "GUEMAKAL", "tipo": null, "efectivos": 15 },
+        { "nome": "VAMED", "tipo": null, "efectivos": 13 },
+        { "nome": "Estagiários", "tipo": null, "efectivos": 10 },
+        { "nome": "Cozinha", "tipo": null, "efectivos": 12 },
+        { "nome": "CAMICUTI", "tipo": null, "efectivos": 11 },
+        { "nome": "PREFANGOL", "tipo": null, "efectivos": 9 },
+        { "nome": "DAR", "tipo": null, "efectivos": 6 }
+      ],
+      "residuos": { "mensal": [] },
+      "eventos": [],
+      "documentos": []
+    },
+    "2026-04": {
+      "relatorio": { "numero": null, "revisao": null },
+      "estado": "activa",
+      "trabalhadores": 207,
+      "checklist": 100.0,
+      "alcoolemia": { "testes": 90, "positivos": 4 },
+      "formacao": { "accoes": null, "participantes": 475 },
+      "sinistralidade": {
+        "acidentes": 0, "diasPerdidos": null, "acumulado": null,
+        "indices": { "incidencia": null, "frequencia": null, "gravidade": null, "duracao": null }
+      },
+      "advertencias": { "mes": 4, "acumulado": null },
+      "ambiente": {
+        "agua":         { "mes": 410,    "acumulado": null, "unidade": "m³" },
+        "combustivel":  { "mes": 1020,   "acumulado": null, "unidade": "L" },
+        "electricidade":{ "mes": 1783.2, "acumulado": null, "unidade": "kWh" },
+        "incidentes": 0
+      },
+      "empresas": [
+        { "nome": "BELO EMPREENDIMENTOS", "tipo": null, "efectivos": 153 },
+        { "nome": "FAA", "tipo": null, "efectivos": 21 },
+        { "nome": "VAMED", "tipo": null, "efectivos": 12 },
+        { "nome": "CAMACUTI", "tipo": null, "efectivos": 10 },
+        { "nome": "PREFANGOL", "tipo": null, "efectivos": 4 },
+        { "nome": "GUEMAKAL", "tipo": null, "efectivos": 4 },
+        { "nome": "DAR", "tipo": null, "efectivos": 1 },
+        { "nome": "CIPTOP", "tipo": null, "efectivos": 1 },
+        { "nome": "AFRILIM", "tipo": null, "efectivos": 1 },
+        { "nome": "CEM", "tipo": null, "efectivos": 0 }
+      ],
+      "residuos": {
+        "mensal": [
+          { "tipo": "RCD", "quantidade": 1500, "unidade": "kg", "acumulado": null, "acumulado_unidade": null },
+          { "tipo": "Indiferenciados", "quantidade": 180, "unidade": "kg", "acumulado": null, "acumulado_unidade": null },
+          { "tipo": "Gasóleo residual", "quantidade": 0, "unidade": "kg", "acumulado": null, "acumulado_unidade": null }
+        ]
+      },
+      "eventos": [],
+      "documentos": []
+    },
+    "2026-05": {
+      "relatorio": { "numero": 36, "revisao": "02" },
+      "estado": "activa",
+      "trabalhadores": 192,
+      "checklist": 98.1,
+      "alcoolemia": { "testes": 95, "positivos": 1 },
+      "formacao": { "accoes": null, "participantes": 424 },
+      "sinistralidade": {
+        "acidentes": 0, "diasPerdidos": null, "acumulado": null,
+        "indices": { "incidencia": null, "frequencia": null, "gravidade": null, "duracao": null }
+      },
+      "advertencias": { "mes": 4, "acumulado": null },
+      "ambiente": {
+        "agua":         { "mes": 528,    "acumulado": null, "unidade": "m³" },
+        "combustivel":  { "mes": 1033,   "acumulado": null, "unidade": "L" },
+        "electricidade":{ "mes": 1995,   "acumulado": null, "unidade": "kWh" },
+        "incidentes": 0
+      },
+      "empresas": [
+        { "nome": "BELO EMPREENDIMENTOS", "tipo": null, "efectivos": 135 },
+        { "nome": "FAA", "tipo": null, "efectivos": 21 },
+        { "nome": "VAMED", "tipo": null, "efectivos": 12 },
+        { "nome": "CAMACUTI", "tipo": null, "efectivos": 10 },
+        { "nome": "PREFANGOL", "tipo": null, "efectivos": 5 },
+        { "nome": "GUEMAKAL", "tipo": null, "efectivos": 4 },
+        { "nome": "CEM (Belo)", "tipo": null, "efectivos": 2 },
+        { "nome": "DAR", "tipo": null, "efectivos": 1 },
+        { "nome": "CIPTOP", "tipo": null, "efectivos": 1 },
+        { "nome": "AFRILIM", "tipo": null, "efectivos": 1 }
+      ],
+      "residuos": {
+        "mensal": [
+          { "tipo": "RCD", "quantidade": 570, "unidade": "kg", "acumulado": null, "acumulado_unidade": null },
+          { "tipo": "Indiferenciados", "quantidade": 1410, "unidade": "kg", "acumulado": null, "acumulado_unidade": null },
+          { "tipo": "Gasóleo residual", "quantidade": 0, "unidade": "kg", "acumulado": null, "acumulado_unidade": null },
+          { "tipo": "Águas Negras", "quantidade": 30000, "unidade": "L", "acumulado": null, "acumulado_unidade": null }
+        ]
+      },
+      "eventos": [],
+      "documentos": [
+        { "tipo": "DOC", "nome": "Relatório Mensal HSE RM Nº 036 · Maio 2026", "fonte": "Local", "ref": "2026-05" }
+      ]
+    },
+    "2026-06": {
+      "relatorio": { "numero": 37, "revisao": "01" },
+      "estado": "activa",
+      "trabalhadores": 171,
+      "checklist": 98.11,
+      "alcoolemia": { "testes": 316, "positivos": 5 },
+      "formacao": { "accoes": 21, "participantes": 395 },
+      "sinistralidade": {
+        "acidentes": 1, "diasPerdidos": 0, "acumulado": null,
+        "indices": { "incidencia": null, "frequencia": null, "gravidade": null, "duracao": null }
+      },
+      "advertencias": { "mes": 5, "acumulado": null },
+      "ambiente": {
+        "agua":         { "mes": 469,    "acumulado": null, "unidade": "m³" },
+        "combustivel":  { "mes": 1412,   "acumulado": null, "unidade": "L" },
+        "electricidade":{ "mes": 1672.2, "acumulado": null, "unidade": "kWh" },
+        "incidentes": 0
+      },
+      "empresas": [
+        { "nome": "BELO EMPREENDIMENTOS", "tipo": null, "efectivos": 123 },
+        { "nome": "FAA", "tipo": null, "efectivos": 21 },
+        { "nome": "VAMED", "tipo": null, "efectivos": 12 },
+        { "nome": "PREFANGOL (Belo)", "tipo": null, "efectivos": 5 },
+        { "nome": "GUEMAKAL (Belo)", "tipo": null, "efectivos": 4 },
+        { "nome": "CEM (Belo)", "tipo": null, "efectivos": 3 },
+        { "nome": "DAR ANGOLA", "tipo": null, "efectivos": 1 },
+        { "nome": "CIPTOP (Belo)", "tipo": null, "efectivos": 1 },
+        { "nome": "AFRILIM", "tipo": null, "efectivos": 1 }
+      ],
+      "residuos": {
+        "mensal": [
+          { "tipo": "RSU", "quantidade": 810, "unidade": "kg", "acumulado": null, "acumulado_unidade": null },
+          { "tipo": "Gasóleo residual", "quantidade": 0, "unidade": "kg", "acumulado": null, "acumulado_unidade": null },
+          { "tipo": "Águas Negras", "quantidade": null, "unidade": "L", "acumulado": 191000, "acumulado_unidade": "L" }
+        ]
+      },
+      "eventos": [
+        { "data": "2026-06", "tipo": "Sinistralidade", "descricao": "Acidente em trajecto — 1 acidente não mortal · 0 dias perdidos", "estado": "Registado", "responsavel": null },
+        { "data": "2026-06-17", "tipo": "Acção Comunidade", "descricao": "Inquérito às vendedeiras na proximidade da obra · 8 intervenientes", "estado": "Realizada", "responsavel": null },
+        { "data": "2026-06-08", "tipo": "Manutenção Ambiental", "descricao": "Controlo de pragas", "estado": "Realizado", "responsavel": null },
+        { "data": "2026-06-10", "tipo": "Manutenção Ambiental", "descricao": "Lavagem do sistema de filtragem de água", "estado": "Realizado", "responsavel": null },
+        { "data": "2026-06-18", "tipo": "Manutenção Ambiental", "descricao": "Colheita de água para análise", "estado": "Realizado", "responsavel": null },
+        { "data": "2026-06-25", "tipo": "Reunião HSE", "descricao": "Reunião Semanal de Segurança e Ambiente n.º 118 · máquina multifunção em fase de resolução · filtros do bebedouro até 09 Jul 2026 · CPAT pendente", "estado": "Registada", "responsavel": null },
+        { "data": "2026-06-27", "tipo": "Visita Institucional", "descricao": "Visita do Ministro do MINDENACVP à obra · 38 intervenientes", "estado": "Realizada", "responsavel": null },
+        { "data": "2026-06-29", "tipo": "Visita Institucional", "descricao": "Visita da equipa do Tribunal de Contas · 4 intervenientes", "estado": "Realizada", "responsavel": null },
+        { "data": "2026-06-30", "tipo": "Simulacro", "descricao": "Simulacro de emergência (agendado)", "estado": "Agendado", "responsavel": null }
+      ],
+      "documentos": [
+        { "tipo": "PDF", "nome": "Relatório Mensal HSE RM Nº 037 · Junho 2026", "fonte": "Local", "ref": "2026-06" },
+        { "tipo": "PDF", "nome": "Reunião Semanal HSE Nº 118 · 25 Jun 2026", "fonte": "Drive", "ref": "2026-06" },
+        { "tipo": "PDF", "nome": "Quadro de Sinistralidade RM Nº 037 · Junho 2026", "fonte": "Local", "ref": "2026-06" }
+      ]
+    }
+  }
+}
