@@ -375,9 +375,10 @@ body.theme-light .hp-banner .hp-sub{color:rgba(255,255,255,.76);}
       <button class="mbtn" onclick="setMonth('fev',this)">FEV 2026</button>
       <button class="mbtn" onclick="setMonth('mar',this)">MAR 2026</button>
       <button class="mbtn" onclick="setMonth('abr',this)">ABR 2026</button>
-      <button class="mbtn active" onclick="setMonth('mai',this)">MAI 2026</button>
+      <button class="mbtn" onclick="setMonth('mai',this)">MAI 2026</button>
+      <button class="mbtn active" onclick="setMonth('jun',this)">JUN 2026</button>
     </div>
-    <div class="period-pill" id="period-pill">Ago 2025 → Mai 2026</div>
+    <div class="period-pill" id="period-pill">Ago 2025 → Jun 2026</div>
     <div class="theme-toggle" aria-label="Modo de visualização">
       <button class="theme-btn active" id="darkModeBtn" type="button" onclick="setTheme('dark')">Dark</button>
       <button class="theme-btn" id="lightModeBtn" type="button" onclick="setTheme('light')">Normal</button>
@@ -390,12 +391,12 @@ body.theme-light .hp-banner .hp-sub{color:rgba(255,255,255,.76);}
 <div class="kpi-row">
   <div class="kcard violet" style="animation-delay:.05s">
     <div class="klbl">Trabalhadores</div>
-    <div class="kval" id="kw">91</div>
+    <div class="kval" id="kw">71</div>
     <div class="kdelta flat" id="kwd">▼ vs Mar</div>
   </div>
   <div class="kcard cyan" style="animation-delay:.10s">
     <div class="klbl">Testes Alcoolemia</div>
-    <div class="kval" id="kt">114</div>
+    <div class="kval" id="kt">77</div>
     <div class="kdelta up" id="ktd">▲ vs Mar</div>
   </div>
   <div class="kcard amber" style="animation-delay:.15s">
@@ -405,7 +406,7 @@ body.theme-light .hp-banner .hp-sub{color:rgba(255,255,255,.76);}
   </div>
   <div class="kcard lime" style="animation-delay:.20s">
     <div class="klbl">Formação Participantes</div>
-    <div class="kval" id="kf">1.635</div>
+    <div class="kval" id="kf">982</div>
     <div class="kdelta up" id="kfd">▲ vs Mar</div>
   </div>
   <div class="kcard blue" style="animation-delay:.25s">
@@ -415,8 +416,8 @@ body.theme-light .hp-banner .hp-sub{color:rgba(255,255,255,.76);}
   </div>
   <div class="kcard pink" style="animation-delay:.30s">
     <div class="klbl">Positivos Alcoolemia</div>
-    <div class="kval" id="kp">2</div>
-    <div class="kdelta dn" id="kpd">2 positivo(s)</div>
+    <div class="kval" id="kp">0</div>
+    <div class="kdelta up" id="kpd">✓ 100% Negativos</div>
   </div>
 </div>
 
@@ -432,9 +433,9 @@ body.theme-light .hp-banner .hp-sub{color:rgba(255,255,255,.76);}
     </div>
     <div id="map"></div>
 
-    <!-- HSE Issues — Abr 2026 -->
+    <!-- HSE Issues — Jun 2026 -->
     <div class="topics-panel">
-      <div class="topics-title">Situações HSE Identificadas · Mai 2026</div>
+      <div class="topics-title">Situações HSE Identificadas · Jun 2026</div>
 
 <!--
   upload-form-snippet.html
@@ -593,7 +594,7 @@ body.theme-light .hp-banner .hp-sub{color:rgba(255,255,255,.76);}
           <div class="topic-status unresolved">Pendente</div>
         </div>
         <div class="topic-meta">
-          <span class="tmeta"><span class="tmeta-dot"></span>Mai 2026</span>
+          <span class="tmeta"><span class="tmeta-dot"></span>Jun 2026</span>
           <span class="tmeta"><span class="tmeta-dot"></span>Resp: Juarês Manico</span>
           <span class="tmeta"><span class="tmeta-dot" style="background:var(--amber)"></span>Prazo: Jun 2026</span>
         </div>
@@ -601,12 +602,12 @@ body.theme-light .hp-banner .hp-sub{color:rgba(255,255,255,.76);}
 
       <div class="topic-item resolved">
         <div class="topic-top">
-          <div class="topic-name">🚮 Produção de Resíduos — RSU 106 kg / Entulho 18 m³</div>
+          <div class="topic-name">🚮 Produção de Resíduos — RSU 76 kg / Entulho 16 m³</div>
           <div class="topic-status resolved">Monitorizado</div>
         </div>
         <div class="topic-meta">
-          <span class="tmeta"><span class="tmeta-dot"></span>Mai 2026</span>
-          <span class="tmeta"><span class="tmeta-dot"></span>Biodegradáveis: 47 kg</span>
+          <span class="tmeta"><span class="tmeta-dot"></span>Jun 2026</span>
+          <span class="tmeta"><span class="tmeta-dot"></span>Biodegradáveis: 38 kg</span>
           <span class="tmeta"><span class="tmeta-dot" style="background:var(--green)"></span>Recolhido</span>
         </div>
       </div>
@@ -617,9 +618,21 @@ body.theme-light .hp-banner .hp-sub{color:rgba(255,255,255,.76);}
           <div class="topic-status resolved">Sem ocorrências</div>
         </div>
         <div class="topic-meta">
-          <span class="tmeta"><span class="tmeta-dot"></span>Mai 2026</span>
+          <span class="tmeta"><span class="tmeta-dot"></span>Jun 2026</span>
           <span class="tmeta"><span class="tmeta-dot"></span>Resp: Hendrik Silva</span>
           <span class="tmeta"><span class="tmeta-dot" style="background:var(--green)"></span>0 retiradas</span>
+        </div>
+      </div>
+
+      <div class="topic-item resolved">
+        <div class="topic-top">
+          <div class="topic-name">🧯 Simulacro — queda de nível diferente</div>
+          <div class="topic-status resolved">Realizado</div>
+        </div>
+        <div class="topic-meta">
+          <span class="tmeta"><span class="tmeta-dot"></span>10 Jun 2026</span>
+          <span class="tmeta"><span class="tmeta-dot"></span>Segurança</span>
+          <span class="tmeta"><span class="tmeta-dot" style="background:var(--green)"></span>Sem entidades externas</span>
         </div>
       </div>
     </div>
@@ -630,7 +643,7 @@ body.theme-light .hp-banner .hp-sub{color:rgba(255,255,255,.76);}
       <div class="sname">Hospital Militar Regional de Cabinda <span class="scode">HMRC</span></div>
       <div class="smets">
         <div class="smet">
-          <div class="smv" style="color:var(--violet)" id="sc-w">91</div>
+          <div class="smv" style="color:var(--violet)" id="sc-w">71</div>
           <div class="sml">Trabalhadores</div>
           <div class="smd flat" id="sc-wd">— Fase Ativa</div>
         </div>
@@ -640,7 +653,7 @@ body.theme-light .hp-banner .hp-sub{color:rgba(255,255,255,.76);}
           <div class="smd up" id="sc-chd">▲ EXCELENTE</div>
         </div>
         <div class="smet">
-          <div class="smv" style="color:var(--lime)" id="sc-f">1.635</div>
+          <div class="smv" style="color:var(--lime)" id="sc-f">982</div>
           <div class="sml">Formação</div>
           <div class="smd flat" id="sc-fd">— Part.</div>
         </div>
@@ -648,14 +661,14 @@ body.theme-light .hp-banner .hp-sub{color:rgba(255,255,255,.76);}
     </div>
 
     <div class="month-breakdown">
-      <div class="mb-title" id="mb-title">Detalhes — MAI 2026</div>
-      <div class="mb-row"><span class="mb-label">Alcoolemia Testes</span><span class="mb-val" id="mb-t">114</span></div>
-      <div class="mb-row"><span class="mb-label">Alcoolemia Positivos</span><span class="mb-val" id="mb-p" style="color:var(--green)">2</span></div>
+      <div class="mb-title" id="mb-title">Detalhes — JUN 2026</div>
+      <div class="mb-row"><span class="mb-label">Alcoolemia Testes</span><span class="mb-val" id="mb-t">77</span></div>
+      <div class="mb-row"><span class="mb-label">Alcoolemia Positivos</span><span class="mb-val" id="mb-p" style="color:var(--green)">0</span></div>
       <div class="mb-row"><span class="mb-label">Acidentes</span><span class="mb-val" id="mb-acc" style="color:var(--green)">0</span></div>
       <div class="mb-row"><span class="mb-label">Incid. Ambientais</span><span class="mb-val" id="mb-i" style="color:var(--green)">0</span></div>
-      <div class="mb-row"><span class="mb-label">Água (m³)</span><span class="mb-val" id="mb-agua">92</span></div>
-      <div class="mb-row"><span class="mb-label">Gasóleo (L)</span><span class="mb-val" id="mb-gas">8.142</span></div>
-      <div class="mb-row"><span class="mb-label">Electricidade (kWh)</span><span class="mb-val" id="mb-elec">2.741,6</span></div>
+      <div class="mb-row"><span class="mb-label">Água (m³)</span><span class="mb-val" id="mb-agua">64</span></div>
+      <div class="mb-row"><span class="mb-label">Gasóleo (L)</span><span class="mb-val" id="mb-gas">5.784</span></div>
+      <div class="mb-row"><span class="mb-label">Electricidade (kWh)</span><span class="mb-val" id="mb-elec">1.982,4</span></div>
     </div>
   </div>
 </div>
@@ -664,7 +677,7 @@ body.theme-light .hp-banner .hp-sub{color:rgba(255,255,255,.76);}
 <div class="charts-row">
   <div class="chart-card">
     <div class="ch">
-      <div class="ctitle"><div class="cdot" style="background:var(--violet);box-shadow:0 0 10px var(--violet)"></div>Trabalhadores — Ago 2025 → Mai 2026</div>
+      <div class="ctitle"><div class="cdot" style="background:var(--violet);box-shadow:0 0 10px var(--violet)"></div>Trabalhadores — Ago 2025 → Jun 2026</div>
     </div>
     <div class="chart-body"><canvas id="cW"></canvas></div>
   </div>
@@ -705,23 +718,22 @@ body.theme-light .hp-banner .hp-sub{color:rgba(255,255,255,.76);}
   <div class="tcard">
     <div class="ch">
       <div class="ctitle"><div class="cdot" style="background:var(--orange);box-shadow:0 0 10px var(--orange)"></div>
-        Consumos Ambientais — Maio 2026 (Verificado)
+        Consumos Ambientais — Junho 2026 (Verificado)
       </div>
     </div>
     <table>
       <thead>
-        <tr><th>Recurso</th><th>Mês (Abr)</th><th>Acumulado</th><th>Estado</th></tr>
+          <tr><th>Recurso</th><th>Mês (Jun)</th><th>Acumulado</th><th>Estado</th></tr>
       </thead>
       <tbody>
-        <tr><td>Água</td><td style="color:var(--cyan);font-weight:700">92 m³</td><td style="color:var(--muted)">3.278,6 m³</td><td><span class="badge up">Normal</span></td></tr>
-        <tr><td>Gasóleo</td><td style="color:var(--orange);font-weight:700">8.142 L</td><td style="color:var(--muted)">403.207 L</td><td><span class="badge flat">Acum.</span></td></tr>
-        <tr><td>Electricidade</td><td style="color:var(--amber);font-weight:700">2.741,6 kWh</td><td style="color:var(--muted)">57.192,4 kWh</td><td><span class="badge flat">Acum.</span></td></tr>
-        <tr><td>RSU (kg)</td><td style="color:var(--green);font-weight:700">302 kg</td><td style="color:var(--muted)">—</td><td><span class="badge up">Recolhido</span></td></tr>
-        <tr><td>Biodegradáveis</td><td style="color:var(--green);font-weight:700">164 kg</td><td style="color:var(--muted)">—</td><td><span class="badge flat">Registado</span></td></tr>
-        <tr><td>Entulho / Madeira</td><td style="color:var(--amber);font-weight:700">36 m³ / 21 m³</td><td style="color:var(--muted)">—</td><td><span class="badge flat">Triado</span></td></tr>
-        <tr><td>Baldes de tinta</td><td style="color:var(--muted);font-weight:700">0,58 m³</td><td style="color:var(--muted)">—</td><td><span class="badge flat">Registado</span></td></tr>
-        <tr><td>Advertências</td><td style="color:var(--muted);font-weight:700">2</td><td style="color:var(--amber);font-weight:700">13 acum.</td><td><span class="badge dn">2 ret. 1 dia</span></td></tr>
-        <tr><td>Checklist (Abr)</td><td style="color:var(--violet);font-weight:700">96,23%</td><td></td><td><span class="badge up">EXCELENTE</span></td></tr>
+        <tr><td>Água</td><td style="color:var(--cyan);font-weight:700">64 m³</td><td style="color:var(--muted)">3.420,6 m³</td><td><span class="badge up">Normal</span></td></tr>
+        <tr><td>Gasóleo</td><td style="color:var(--orange);font-weight:700">5.784 L</td><td style="color:var(--muted)">416.537 L</td><td><span class="badge flat">Acum.</span></td></tr>
+        <tr><td>Electricidade</td><td style="color:var(--amber);font-weight:700">1.982,4 kWh</td><td style="color:var(--muted)">61.603,6 kWh</td><td><span class="badge flat">Acum.</span></td></tr>
+        <tr><td>RSU (kg)</td><td style="color:var(--green);font-weight:700">76 kg</td><td style="color:var(--muted)">9.765 kg</td><td><span class="badge up">Recolhido</span></td></tr>
+        <tr><td>Biodegradáveis</td><td style="color:var(--green);font-weight:700">38 kg</td><td style="color:var(--muted)">3.431 kg</td><td><span class="badge flat">Registado</span></td></tr>
+        <tr><td>Entulho</td><td style="color:var(--amber);font-weight:700">16 m³</td><td style="color:var(--muted)">893,84 m³</td><td><span class="badge flat">Triado</span></td></tr>
+        <tr><td>Advertências</td><td style="color:var(--muted);font-weight:700">0</td><td style="color:var(--amber);font-weight:700">13 acum.</td><td><span class="badge up">Sem retiradas</span></td></tr>
+        <tr><td>Checklist (Jun)</td><td style="color:var(--violet);font-weight:700">96,23%</td><td></td><td><span class="badge up">EXCELENTE</span></td></tr>
       </tbody>
     </table>
   </div>
@@ -731,26 +743,26 @@ body.theme-light .hp-banner .hp-sub{color:rgba(255,255,255,.76);}
 <!-- ══ ESTALEIRO — FORÇA DE TRABALHO ══ -->
 <div class="wf-divider">
   <div class="wf-div-line"></div>
-  <div class="wf-div-label">⬡ &nbsp;ESTALEIRO &nbsp;·&nbsp; FORÇA DE TRABALHO &nbsp;·&nbsp; MAI 2026</div>
+  <div class="wf-div-label">⬡ &nbsp;ESTALEIRO &nbsp;·&nbsp; FORÇA DE TRABALHO &nbsp;·&nbsp; JUN 2026</div>
   <div class="wf-div-line"></div>
 </div>
 
 <!-- Workforce KPIs -->
 <div class="kpi-row" style="grid-template-columns:repeat(3,1fr);margin-bottom:16px;">
   <div class="kcard orange">
-    <div class="klbl">Total Efetivos (Mai 2026)</div>
-    <div class="kval">93</div>
+    <div class="klbl">Total Efetivos (Jun 2026)</div>
+    <div class="kval">71</div>
     <div class="kdelta flat">5 empresas / subcontratadas</div>
   </div>
   <div class="kcard blue">
-    <div class="klbl">Alcoolemia — Maio</div>
-    <div class="kval">85</div>
-    <div class="kdelta up">85 negativos · 0 positivos</div>
+    <div class="klbl">Alcoolemia — Junho</div>
+    <div class="kval">77</div>
+    <div class="kdelta up">77 negativos · 0 positivos</div>
   </div>
   <div class="kcard green2">
     <div class="klbl">Checklist HSE — Classificação</div>
     <div class="kval">96.23%</div>
-    <div class="kdelta up">▲ EXCELENTE · Maio 2026</div>
+    <div class="kdelta up">▲ EXCELENTE · Junho 2026</div>
   </div>
 </div>
 
@@ -760,17 +772,17 @@ body.theme-light .hp-banner .hp-sub{color:rgba(255,255,255,.76);}
   <!-- Donut chart -->
   <div class="wf-donut-card">
     <div class="ch">
-      <div class="ctitle"><div class="cdot" style="background:var(--violet);box-shadow:0 0 8px var(--violet)"></div>Efetivos por Empresa (Mai 2026)</div>
-      <div style="font-size:9px;font-family:'JetBrains Mono',monospace;color:var(--muted)">93 total</div>
+      <div class="ctitle"><div class="cdot" style="background:var(--violet);box-shadow:0 0 8px var(--violet)"></div>Efetivos por Empresa (Jun 2026)</div>
+      <div style="font-size:9px;font-family:'JetBrains Mono',monospace;color:var(--muted)">71 total</div>
     </div>
     <div class="wf-donut-body"><canvas id="cDonut"></canvas></div>
   </div>
 
-  <!-- Calendar heatmap — Maio 2026 -->
+  <!-- Calendar heatmap — Junho 2026 -->
   <div class="wf-cal-card">
     <div class="ch">
       <div class="ctitle"><div class="cdot" style="background:var(--violet);box-shadow:0 0 8px var(--violet)"></div>Presença & Verificações HSE</div>
-      <div style="font-size:9px;font-family:'JetBrains Mono',monospace;color:var(--muted)">Mai 2026</div>
+      <div style="font-size:9px;font-family:'JetBrains Mono',monospace;color:var(--muted)">Jun 2026</div>
     </div>
     <div class="wf-cal-inner">
       <div class="cal-grid-header">
@@ -798,21 +810,21 @@ body.theme-light .hp-banner .hp-sub{color:rgba(255,255,255,.76);}
   <!-- Company breakdown table -->
   <div class="wf-table-card tcard">
     <div class="ch">
-      <div class="ctitle"><div class="cdot" style="background:var(--violet);box-shadow:0 0 8px var(--violet)"></div>Detalhe por Empresa (Mai 2026)</div>
+      <div class="ctitle"><div class="cdot" style="background:var(--violet);box-shadow:0 0 8px var(--violet)"></div>Detalhe por Empresa (Jun 2026)</div>
     </div>
     <table>
       <thead>
         <tr><th>Empresa</th><th>Tipo</th><th style="text-align:right">N.º</th><th style="text-align:right">%</th></tr>
       </thead>
       <tbody>
-        <tr><td style="font-weight:700;color:rgba(0,245,255,.9)">VAMED</td><td style="color:var(--muted)">Gestão do Projecto</td><td style="text-align:right;color:var(--txt)">8</td><td style="text-align:right"><span class="badge flat">8.6%</span></td></tr>
-        <tr><td style="font-weight:700;color:rgba(255,107,0,.9)">Mota-Engil</td><td style="color:var(--muted)">Estrutura</td><td style="text-align:right;color:var(--txt)">54</td><td style="text-align:right"><span class="badge up">58.1%</span></td></tr>
-        <tr><td style="font-weight:700;color:rgba(57,255,20,.9)">Confrasilvas</td><td style="color:var(--muted)">Cofragem (M-E)</td><td style="text-align:right;color:var(--txt)">24</td><td style="text-align:right"><span class="badge flat">25.8%</span></td></tr>
-        <tr><td style="font-weight:700;color:rgba(255,208,0,.9)">Protector</td><td style="color:var(--muted)">Segurança Patrimonial</td><td style="text-align:right;color:var(--txt)">6</td><td style="text-align:right"><span class="badge flat">6.5%</span></td></tr>
-        <tr><td style="font-weight:700;color:rgba(255,45,120,.9)">Afrilim</td><td style="color:var(--muted)">Limpeza</td><td style="text-align:right;color:var(--txt)">1</td><td style="text-align:right"><span class="badge flat">1.1%</span></td></tr>
+        <tr><td style="font-weight:700;color:rgba(0,245,255,.9)">VAMED</td><td style="color:var(--muted)">Gestão do Projecto</td><td style="text-align:right;color:var(--txt)">8</td><td style="text-align:right"><span class="badge flat">11.3%</span></td></tr>
+        <tr><td style="font-weight:700;color:rgba(255,107,0,.9)">Mota-Engil</td><td style="color:var(--muted)">Estrutura</td><td style="text-align:right;color:var(--txt)">41</td><td style="text-align:right"><span class="badge up">57.7%</span></td></tr>
+        <tr><td style="font-weight:700;color:rgba(57,255,20,.9)">Confrasilvas</td><td style="color:var(--muted)">Cofragem (M-E)</td><td style="text-align:right;color:var(--txt)">15</td><td style="text-align:right"><span class="badge flat">21.1%</span></td></tr>
+        <tr><td style="font-weight:700;color:rgba(255,208,0,.9)">Protector</td><td style="color:var(--muted)">Segurança Patrimonial</td><td style="text-align:right;color:var(--txt)">6</td><td style="text-align:right"><span class="badge flat">8.5%</span></td></tr>
+        <tr><td style="font-weight:700;color:rgba(255,45,120,.9)">Afrilim</td><td style="color:var(--muted)">Limpeza</td><td style="text-align:right;color:var(--txt)">1</td><td style="text-align:right"><span class="badge flat">1.4%</span></td></tr>
         <tr style="background:rgba(191,95,255,.04)">
           <td colspan="2" style="font-weight:800;color:var(--violet);font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.5px">TOTAL</td>
-          <td style="text-align:right;font-weight:800;color:var(--violet);font-size:14px">93</td>
+          <td style="text-align:right;font-weight:800;color:var(--violet);font-size:14px">71</td>
           <td style="text-align:right"><span class="badge" style="background:rgba(191,95,255,.15);color:var(--violet);border:1px solid rgba(191,95,255,.35)">100%</span></td>
         </tr>
       </tbody>
@@ -820,18 +832,18 @@ body.theme-light .hp-banner .hp-sub{color:rgba(255,255,255,.76);}
 
     <!-- Waste summary -->
     <div class="waste-bar">
-      <div class="wb-title">Resíduos Produzidos (Mai 2026)</div>
+      <div class="wb-title">Resíduos Produzidos (Jun 2026)</div>
       <div class="wb-item">
-        <div class="wb-row"><span>RSU</span><span style="color:var(--green)">106 kg</span></div>
-        <div class="wb-bar"><div class="wb-fill" style="width:20%;background:linear-gradient(90deg,rgba(0,255,159,.6),rgba(0,255,159,.3))"></div></div>
+        <div class="wb-row"><span>RSU</span><span style="color:var(--green)">76 kg</span></div>
+        <div class="wb-bar"><div class="wb-fill" style="width:18%;background:linear-gradient(90deg,rgba(0,255,159,.6),rgba(0,255,159,.3))"></div></div>
       </div>
       <div class="wb-item">
-        <div class="wb-row"><span>Entulho</span><span style="color:var(--amber)">18 m³</span></div>
-        <div class="wb-bar"><div class="wb-fill" style="width:22%;background:linear-gradient(90deg,rgba(255,208,0,.6),rgba(255,208,0,.3))"></div></div>
+        <div class="wb-row"><span>Entulho</span><span style="color:var(--amber)">16 m³</span></div>
+        <div class="wb-bar"><div class="wb-fill" style="width:20%;background:linear-gradient(90deg,rgba(255,208,0,.6),rgba(255,208,0,.3))"></div></div>
       </div>
       <div class="wb-item">
-        <div class="wb-row"><span>Madeira</span><span style="color:var(--orange)">21 m³</span></div>
-        <div class="wb-bar"><div class="wb-fill" style="width:30%;background:linear-gradient(90deg,rgba(255,107,0,.6),rgba(255,107,0,.3))"></div></div>
+        <div class="wb-row"><span>Biodegradáveis</span><span style="color:var(--orange)">38 kg</span></div>
+        <div class="wb-bar"><div class="wb-fill" style="width:16%;background:linear-gradient(90deg,rgba(255,107,0,.6),rgba(255,107,0,.3))"></div></div>
       </div>
     </div>
   </div>
@@ -964,11 +976,11 @@ body.theme-light .hp-banner .hp-sub{color:rgba(255,255,255,.76);}
   <header class="hp-banner">
     <div class="hp-banner-text">
       <span class="hp-eyebrow">Plano de Verificações HSE</span>
-      <h2 class="hp-title">Calendário · Maio 2026 → Dezembro 2026</h2>
+      <h2 class="hp-title">Calendário · Junho 2026 → Dezembro 2026</h2>
       <p class="hp-sub">Datas principais integradas no Mapa de Presença acima · documentos e licenças mantidos nesta área.</p>
     </div>
     <div class="hp-banner-actions">
-      <span class="hp-month-label">Maio 2026</span>
+      <span class="hp-month-label">Junho 2026</span>
     </div>
   </header>
   <div class="hp-content-grid">
@@ -1024,17 +1036,22 @@ body.theme-light .hp-banner .hp-sub{color:rgba(255,255,255,.76);}
         <div>
           <span class="hp-docs-kicker">Documentação HSE — Cabinda</span>
           <h3>Repositório de Documentos · HMRC</h3>
-          <p>32 documentos · Maio 2026 integrado · raiz Google Drive ligada.</p>
+          <p>37 documentos · Junho 2026 integrado · pasta Google Drive ligada.</p>
         </div>
-        <a class="hp-drive" href="https://drive.google.com/drive/folders/1sEkP_7uwvO_v8V7q-BaRwnnKm5a2B-uh" target="_blank" rel="noopener">Google Drive ↗</a>
+        <a class="hp-drive" href="https://drive.google.com/drive/folders/1vCgKGJHByR4LWzFaD6jvO0CN28Z__PCR" target="_blank" rel="noopener">Google Drive ↗</a>
       </header>
       <div class="hp-actions" aria-label="Fluxo de documentos">
-        <button class="hp-action hp-action--active" type="button" onclick="alert('Download local/Vercel activo. Raiz Google Drive HMRC ligada para documentos partilhados.');return false;">Download</button>
-        <button class="hp-action" type="button" onclick="window.open('https://drive.google.com/drive/folders/1sEkP_7uwvO_v8V7q-BaRwnnKm5a2B-uh','_blank');return false;">Upload</button>
+        <button class="hp-action hp-action--active" type="button" onclick="alert('Documentos de Junho ligados ao Google Drive HMRC para consulta e partilha.');return false;">Download</button>
+        <button class="hp-action" type="button" onclick="window.open('https://drive.google.com/drive/folders/1vCgKGJHByR4LWzFaD6jvO0CN28Z__PCR','_blank');return false;">Upload</button>
         <button class="hp-action" type="button" onclick="alert('Trânsito Google Drive ligado à raiz HMRC para ficheiros em revisão e partilha.');return false;">Trânsito</button>
         <button class="hp-action" type="button" onclick="alert('Extracção para Google Drive: arquivar documentos finais na raiz HMRC ligada.');return false;">Extrair</button>
       </div>
       <div class="hp-docs-list">
+        <a class="hp-doc" href="https://docs.google.com/document/d/1FE3B8vtm1seTETiKJRYoswtxSohmIatd/edit?usp=drivesdk&ouid=101598031199915965185&rtpof=true&sd=true" target="_blank" rel="noopener"><span class="hp-doc-type hp-doc-type--doc">DOC</span><span class="hp-doc-name">Relatório Mensal HSE RM Nº 033 · Junho 2026</span><span class="hp-doc-src">Drive</span></a>
+        <a class="hp-doc" href="https://docs.google.com/spreadsheets/d/1Tb-o21pn2BkvNkicYY4GDAVaR-UDXv2p/edit?usp=drivesdk&ouid=101598031199915965185&rtpof=true&sd=true" target="_blank" rel="noopener"><span class="hp-doc-type hp-doc-type--xls">XLS</span><span class="hp-doc-name">Checklist RM Nº 033 · Junho 2026</span><span class="hp-doc-src">Drive</span></a>
+        <a class="hp-doc" href="https://docs.google.com/spreadsheets/d/1R5ZUrRvkbjxFn_YUi3AnfO7VFyO7_yDo/edit?usp=drivesdk&ouid=101598031199915965185&rtpof=true&sd=true" target="_blank" rel="noopener"><span class="hp-doc-type hp-doc-type--xls">XLS</span><span class="hp-doc-name">Quadro de Sinistralidade RM Nº 033 · Junho 2026</span><span class="hp-doc-src">Drive</span></a>
+        <a class="hp-doc" href="https://drive.google.com/file/d/1KFOZ7ULIK3V3oG2h-twq0ciRWbF2Puaj/view?usp=drivesdk" target="_blank" rel="noopener"><span class="hp-doc-type hp-doc-type--pdf">PDF</span><span class="hp-doc-name">Relatório de Simulacro · Junho 2026</span><span class="hp-doc-src">Drive</span></a>
+        <a class="hp-doc" href="https://drive.google.com/file/d/1xv5HT4KMay5cR3tbqzoq5p8AQaqyMXYE/view?usp=drivesdk" target="_blank" rel="noopener"><span class="hp-doc-type hp-doc-type--pdf">PDF</span><span class="hp-doc-name">Formação Interna · Junho 2026</span><span class="hp-doc-src">Drive</span></a>
         <a class="hp-doc" href="./documentos-maio/HMRC_Relatorio_Mensal_HSE_032_2026-05_Rev-01.docx" download><span class="hp-doc-type hp-doc-type--doc">DOC</span><span class="hp-doc-name">Relatório Mensal HSE RM Nº 032 · Maio 2026</span><span class="hp-doc-src">DOCX</span></a>
         <a class="hp-doc" href="./documentos-abril/HMRC_Relatorio_Mensal_HSE_031_2026-04_Rev-01.docx" download><span class="hp-doc-type hp-doc-type--doc">DOC</span><span class="hp-doc-name">Relatório Mensal HSE RM Nº 031 · Abril 2026</span><span class="hp-doc-src">DOCX</span></a>
         <a class="hp-doc" href="./documentos-abril/HMRC_Checklist_RM_031_2026-04_Rev-01.xlsx" download><span class="hp-doc-type hp-doc-type--xls">XLS</span><span class="hp-doc-name">Checklist RM Nº 031 · Abril 2026</span><span class="hp-doc-src">XLSX</span></a>
@@ -1121,11 +1138,14 @@ body.theme-light .hp-banner .hp-sub{color:rgba(255,255,255,.76);}
    - Water: 326 m3, Fuel: 13,895 L, Elec: 2745.6 kWh
    Apr 2026 confirmed from HMRC_Relatorio Mensal HSE_031_2026.04_Rev.01.docx,
    HMRC_Checklist RM_031_2026.04_Rev.01.xlsx and HMRC_Quadro de Sinistralidade_RM_031_2026.04.xlsx.
+   Jun 2026 confirmed from HMRC_Relatorio Mensal HSE_033_2026.06_Rev.01.docx,
+   HMRC_Checklist RM_033_2026.06_Rev.01.xlsx, HMRC_Quadro de Sinistralidade_RM_033_2026.06.xlsx,
+   Formacao interna06.pdf and Relatorio de Simulacro.pdf.
    Other months estimated based on project trajectory
 */
-const MONTHS = ['ago','set','out','nov','dez','jan','fev','mar','abr','mai'];
-const M_LABEL = {ago:'AGO 2025',set:'SET 2025',out:'OUT 2025',nov:'NOV 2025',dez:'DEZ 2025',jan:'JAN 2026',fev:'FEV 2026',mar:'MAR 2026',abr:'ABR 2026',mai:'MAI 2026'};
-const M_ABR   = {ago:'Ago',set:'Set',out:'Out',nov:'Nov',dez:'Dez',jan:'Jan',fev:'Fev',mar:'Mar',abr:'Abr',mai:'Mai'};
+const MONTHS = ['ago','set','out','nov','dez','jan','fev','mar','abr','mai','jun'];
+const M_LABEL = {ago:'AGO 2025',set:'SET 2025',out:'OUT 2025',nov:'NOV 2025',dez:'DEZ 2025',jan:'JAN 2026',fev:'FEV 2026',mar:'MAR 2026',abr:'ABR 2026',mai:'MAI 2026',jun:'JUN 2026'};
+const M_ABR   = {ago:'Ago',set:'Set',out:'Out',nov:'Nov',dez:'Dez',jan:'Jan',fev:'Fev',mar:'Mar',abr:'Abr',mai:'Mai',jun:'Jun'};
 
 const DATA = {
   ago: {w:210, ch:96.0, t:85,  p:0, f:3100, i:0, acc:0, agua:340, gas:14200, elec:2900},
@@ -1138,9 +1158,10 @@ const DATA = {
   mar: {w:110, ch:97.0, t:45,  p:0, f:900,  i:0, acc:0, agua:210, gas:9200,  elec:1780},
   abr: {w:91,  ch:96.23,t:114, p:2, f:1635, i:0, acc:0, agua:92,  gas:8142,  elec:2741.6},
   mai: {w:93,  ch:96.23,t:85,  p:0, f:1332, i:0, acc:0, agua:78,  gas:7546,  elec:2428.8},
+  jun: {w:71,  ch:96.23,t:77,  p:0, f:982,  i:0, acc:0, agua:64,  gas:5784,  elec:1982.4},
 };
 
-let currMonth = 'mai';
+let currMonth = 'jun';
 
 function fmt(n){ n=Math.round(n); return n>=1000?n.toLocaleString('pt-PT'):String(n); }
 function pf(v){ return v.toFixed(2)+'%'; }
@@ -1199,7 +1220,7 @@ function renderKPIs(){
   document.getElementById('mb-gas').textContent=d.gas.toLocaleString('pt-PT');
   document.getElementById('mb-elec').textContent=d.elec.toLocaleString('pt-PT');
 
-  document.getElementById('footer-status').textContent='✓ Mai 2026 Verificado · 0 acidentes no mês · 96.23% Checklist';
+  document.getElementById('footer-status').textContent='✓ '+M_LABEL[currMonth]+' Verificado · '+fmt(d.acc)+' acidentes no mês · '+pf(d.ch)+' Checklist';
 }
 
 function renderSSTTable(){
@@ -1265,43 +1286,42 @@ new Chart(document.getElementById('cDonut').getContext('2d'),{
   type:'doughnut',
   data:{
     labels:['VAMED','Mota-Engil','Confrasilvas','Protector','Afrilim'],
-    datasets:[{data:[8,54,24,6,1],backgroundColor:['rgba(0,245,255,.6)','rgba(255,107,0,.65)','rgba(57,255,20,.6)','rgba(255,208,0,.6)','rgba(255,45,120,.6)'],borderColor:['#00F5FF','#FF6B00','#39FF14','#FFD000','#FF2D78'],borderWidth:2,hoverOffset:6}]
+    datasets:[{data:[8,41,15,6,1],backgroundColor:['rgba(0,245,255,.6)','rgba(255,107,0,.65)','rgba(57,255,20,.6)','rgba(255,208,0,.6)','rgba(255,45,120,.6)'],borderColor:['#00F5FF','#FF6B00','#39FF14','#FFD000','#FF2D78'],borderWidth:2,hoverOffset:6}]
   },
   options:{responsive:true,maintainAspectRatio:false,cutout:'60%',plugins:{legend:{display:true,position:'bottom',labels:{color:'#6B7694',font:{size:9,family:'JetBrains Mono'},padding:10}}}}
 });
 
-/* ══ CALENDAR — Maio 2026 ══ */
-// May 2026: starts Friday (col 5), 31 days. May 1 = Dia do Trabalho (feriado).
-const may2026=[
-  {},{},{},{},
-  {day:1,type:'holiday'},{day:2,type:'sat-work'},{day:3,type:'wkend'},
-  {day:4,pct:91,type:'peak'},{day:5,pct:91,type:'peak'},{day:6,pct:90,type:'great'},{day:7,pct:91,type:'peak'},{day:8,pct:90,type:'great'},{day:9,type:'sat-work'},{day:10,type:'wkend'},
-  {day:11,pct:90,type:'great'},{day:12,pct:91,type:'peak'},{day:13,pct:90,type:'great'},{day:14,pct:90,type:'great'},{day:15,pct:89,type:'good'},{day:16,type:'sat-work'},{day:17,type:'wkend'},
-  {day:18,pct:90,type:'great'},{day:19,pct:91,type:'peak'},{day:20,pct:90,type:'great'},{day:21,pct:90,type:'great'},{day:22,pct:89,type:'good'},{day:23,type:'sat-work'},{day:24,type:'wkend'},
-  {day:25,pct:90,type:'great'},{day:26,pct:91,type:'peak'},{day:27,pct:90,type:'great'},{day:28,pct:90,type:'great'},{day:29,pct:89,type:'good'},{day:30,type:'sat-work'},{day:31,type:'wkend'},
+/* ══ CALENDAR — Junho 2026 ══ */
+// June 2026 starts Monday. Daily attendance percentages were not in the June source package.
+const june2026=[
+  {day:1,type:'good'},{day:2,type:'good'},{day:3,type:'good'},{day:4,type:'good'},{day:5,type:'good'},{day:6,type:'sat-work'},{day:7,type:'wkend'},
+  {day:8,type:'good'},{day:9,type:'good'},{day:10,type:'great'},{day:11,type:'good'},{day:12,type:'good'},{day:13,type:'sat-work'},{day:14,type:'wkend'},
+  {day:15,type:'good'},{day:16,type:'good'},{day:17,type:'good'},{day:18,type:'good'},{day:19,type:'good'},{day:20,type:'sat-work'},{day:21,type:'wkend'},
+  {day:22,type:'good'},{day:23,type:'good'},{day:24,type:'good'},{day:25,type:'good'},{day:26,type:'good'},{day:27,type:'sat-work'},{day:28,type:'wkend'},
+  {day:29,type:'good'},{day:30,type:'good'},
 ];
 const calBody=document.getElementById('calBody');
 const hseChecksByDay={
-  4:[{date:'04/05',label:'Andaimes',short:'And.',cadence:'weekly'}],
-  5:[{date:'05/05',label:'Equip. Ligeiros e Pesados',short:'Equip.',cadence:'monthly'}],
-  6:[{date:'06/05',label:'Instalações Sociais',short:'Sociais',cadence:'weekly'}],
-  11:[{date:'11/05',label:'Andaimes',short:'And.',cadence:'weekly'}],
-  12:[{date:'12/05',label:'Extintores',short:'Ext.',cadence:'monthly'}],
-  13:[{date:'13/05',label:'Instalações Sociais',short:'Sociais',cadence:'weekly'}],
-  18:[{date:'18/05',label:'Andaimes',short:'And.',cadence:'weekly'}],
-  19:[{date:'19/05',label:'Caixa Primeiros Socorros',short:'Socorros',cadence:'monthly'}],
-  20:[{date:'20/05',label:'Instalações Sociais',short:'Sociais',cadence:'weekly'}],
-  25:[{date:'25/05',label:'Andaimes',short:'And.',cadence:'weekly'}],
-  26:[{date:'26/05',label:'Quadros Eléctricos',short:'Quadros',cadence:'monthly'}],
-  27:[{date:'27/05',label:'Instalações Sociais',short:'Sociais',cadence:'weekly'}],
-  31:[{date:'31/05',label:'Check-list HSE',short:'Check',cadence:'monthly'}],
+  1:[{date:'01/06',label:'Andaimes',short:'And.',cadence:'weekly'}],
+  2:[{date:'02/06',label:'Equip. Ligeiros e Pesados',short:'Equip.',cadence:'monthly'}],
+  3:[{date:'03/06',label:'Instalações Sociais',short:'Sociais',cadence:'weekly'}],
+  8:[{date:'08/06',label:'Andaimes',short:'And.',cadence:'weekly'}],
+  9:[{date:'09/06',label:'Extintores',short:'Ext.',cadence:'monthly'}],
+  10:[{date:'10/06',label:'Instalações Sociais',short:'Sociais',cadence:'weekly'},{date:'10/06',label:'Simulacro - queda de nível diferente',short:'Sim.',cadence:'monthly'}],
+  15:[{date:'15/06',label:'Andaimes',short:'And.',cadence:'weekly'}],
+  16:[{date:'16/06',label:'Caixa Primeiros Socorros',short:'Socorros',cadence:'monthly'}],
+  17:[{date:'17/06',label:'Instalações Sociais',short:'Sociais',cadence:'weekly'}],
+  22:[{date:'22/06',label:'Andaimes',short:'And.',cadence:'weekly'}],
+  24:[{date:'24/06',label:'Instalações Sociais',short:'Sociais',cadence:'weekly'}],
+  29:[{date:'29/06',label:'Andaimes',short:'And.',cadence:'weekly'}],
+  30:[{date:'30/06',label:'Quadros Eléctricos',short:'Quadros',cadence:'monthly'},{date:'30/06',label:'Check-list HSE',short:'Check',cadence:'monthly'}],
 };
-may2026.forEach(c=>{
+june2026.forEach(c=>{
   const el=document.createElement('div');
   const checks=c.day?(hseChecksByDay[c.day]||[]):[];
   el.className='cal-cell '+(c.day?c.type:'empty')+(checks.length?' has-checks':'');
   if(c.day){
-    el.title=checks.length?`Verificações HSE Maio 2026: ${checks.map(check=>`${check.date} ${check.label}`).join(' · ')}`:'';
+    el.title=checks.length?`Verificações HSE Junho 2026: ${checks.map(check=>`${check.date} ${check.label}`).join(' · ')}`:'';
     const checksHtml=checks.length?`<span class="cc-events">${checks.map(check=>`<span class="cc-event ${check.cadence}">${check.date} ${check.short}</span>`).join('')}</span>`:'';
     el.innerHTML=`<span class="cc-day">${c.day}</span>${c.pct?`<span class="cc-pct">${c.pct}%</span>`:''}${checksHtml}`;
   }
@@ -1336,10 +1356,10 @@ const popup=`
   <div class="ptitle">🏥 HMRC — Hospital Militar de Cabinda</div>
   <div style="font-size:10px;color:#6B7694;font-family:'JetBrains Mono',monospace;margin-bottom:12px;">Cabinda · Angola &nbsp;|&nbsp; 12DC-DEI/SV/2021</div>
   <div class="pgrid">
-    <div class="pkpi"><div class="pkv" style="color:#BF5FFF">93</div><div class="pkl">Trabalhadores</div></div>
+    <div class="pkpi"><div class="pkv" style="color:#BF5FFF">71</div><div class="pkl">Trabalhadores</div></div>
     <div class="pkpi"><div class="pkv" style="color:#FFD000">96.23%</div><div class="pkl">Checklist</div></div>
     <div class="pkpi"><div class="pkv" style="color:#00FF9F">0</div><div class="pkl">Acidentes</div></div>
-    <div class="pkpi"><div class="pkv" style="color:#00F5FF">85</div><div class="pkl">Alc. Neg.</div></div>
+    <div class="pkpi"><div class="pkv" style="color:#00F5FF">77</div><div class="pkl">Alc. Neg.</div></div>
   </div>
 </div>`;
 
@@ -1369,7 +1389,7 @@ renderSSTTable();
     - ./cabinda/index.html
     - ./luena/index.html
 
-  Self-contained: own <style>, own <script> (IIFE). Won't collide with
+  Self-contained: own style block, own script block (IIFE). Won't collide with
   existing styles or JS. All classes prefixed "ri-".
 
   If the existing dashboard markup changes the section's heading text,
