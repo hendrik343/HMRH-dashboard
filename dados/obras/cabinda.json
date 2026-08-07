@@ -344,6 +344,60 @@
         { "tipo": "PDF", "nome": "Relatório de Simulacro · Junho 2026",                 "fonte": "Drive", "ref": "2026-06" },
         { "tipo": "PDF", "nome": "Formação Interna · Junho 2026",                       "fonte": "Drive", "ref": "2026-06" }
       ]
+    },
+
+    "2026-07": {
+      "relatorio": { "numero": 34, "revisao": "01" },
+      "estado": "activa",
+      "trabalhadores": 46,
+      "checklist": 98.10,
+      "alcoolemia": {
+        "testes": 62,
+        "positivos": 0,
+        "acumulado": { "testes": 2962, "negativos": 2949, "positivos": 13 }
+      },
+      "formacao": { "accoes": 25, "participantes": 503 },
+      "sinistralidade": {
+        "acidentes": 0,
+        "diasPerdidos": 0,
+        "acumulado": 1,
+        "horas": null,
+        "horasAcumulado": null,
+        "indices": { "incidencia": null, "frequencia": 1.45, "gravidade": 0.00, "duracao": null },
+        "obs": "Frequência acumulada 1.45 conforme RM034. Horas trabalhadas não constam do relatório — incidência e duração não calculáveis."
+      },
+      "advertencias": { "mes": 0, "acumulado": 13 },
+      "ambiente": {
+        "agua":          { "mes": 52,     "acumulado": 3472.6,  "unidade": "m³" },
+        "combustivel":   { "mes": 5866,   "acumulado": 422403,  "unidade": "L"  },
+        "electricidade": { "mes": 1977.2, "acumulado": 63580.8, "unidade": "kWh" },
+        "incidentes": 0
+      },
+      "empresas": [
+        { "nome": "Mota-Engil", "tipo": "Subcontratado de estrutura", "efectivos": 32 },
+        { "nome": "VAMED",      "tipo": "Gestor do Projecto",         "efectivos": 7  },
+        { "nome": "Protector",  "tipo": "Segurança Patrimonial",      "efectivos": 6  },
+        { "nome": "Afrilim",    "tipo": "Limpeza",                    "efectivos": 1  }
+      ],
+      "residuos": {
+        "mensal": [
+          { "tipo": "RSU",                    "quantidade": 164, "unidade": "kg", "transportador": "Organizações AP", "destino": "Lixeira da planície", "operacao": "Aterro" },
+          { "tipo": "Resíduos Biodegradáveis", "quantidade": 31,  "unidade": "kg", "transportador": "Organizações AP", "destino": "Lixeira da planície", "operacao": "Aterro" },
+          { "tipo": "Entulho",                "quantidade": 142, "unidade": "m³", "transportador": "Organizações AP", "destino": "Lixeira da planície", "operacao": "Aterro" }
+        ]
+      },
+      "eventos": [
+        {
+          "data": "2026-06-10",
+          "tipo": "simulacro",
+          "titulo": "Queda de nível diferente",
+          "entidade": null,
+          "obs": "Evento de Junho, repetido no RM034. Nenhum simulacro realizado em Julho. Filtrar por data."
+        }
+      ],
+      "documentos": [
+        { "tipo": "PDF", "nome": "Relatório Mensal HSE Nº 034 · Julho 2026 Rev.01", "fonte": "Confirmado", "ref": "2026-07" }
+      ]
     }
   }
 }
