@@ -365,7 +365,7 @@
     var r = resumo(hojeISO()), t = r.t;
     var limpo = t.arVencidas === 0;
     var h = '';
-    h += '<a class="ph-atalho ' + (limpo ? 'is-limpo' : 'is-divida') + '" href="./planeamento.html">';
+    h += '<a class="ph-atalho ' + (limpo ? 'is-limpo' : 'is-divida') + '" href="./planeamento">';
     h += '<span class="ph-atalho-lbl">Planeamento HSE</span>';
     h += '<span class="ph-atalho-num">' + t.arVencidas + '</span>';
     h += '<span class="ph-atalho-sub">' + (limpo
