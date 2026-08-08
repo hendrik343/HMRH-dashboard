@@ -52,7 +52,7 @@ body::after{
 
 /* ══ HEADER ══ */
 header{
-  display:flex;align-items:center;justify-content:space-between;
+  display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;row-gap:14px;
   padding:20px 28px;
   background:linear-gradient(135deg,#0D070A 0%,#18072B 100%);
   border:1px solid rgba(191,95,255,.4);
@@ -94,6 +94,9 @@ header::before{
 .theme-toggle{display:flex;background:rgba(255,255,255,.04);border:1px solid var(--border2);border-radius:12px;padding:4px;gap:4px;}
 .theme-btn{padding:7px 13px;border-radius:9px;border:none;background:transparent;color:var(--muted);font-family:'Syne',sans-serif;font-size:10px;font-weight:800;cursor:pointer;transition:all .25s;letter-spacing:.6px;text-transform:uppercase;}
 .theme-btn.active{background:linear-gradient(135deg,rgba(191,95,255,.32),rgba(255,45,120,.16));color:#fff;box-shadow:0 0 20px rgba(191,95,255,.36);}
+.marca{height:44px;width:auto;flex:none;align-self:flex-start;}
+.theme-dark .marca{content:url('./vamed-wwh-logo-dark.png');}
+@media(max-width:640px){.marca{height:32px;}}
 .site-switcher{display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,.03);border:1px solid var(--border2);border-radius:16px;padding:6px;font-family:'JetBrains Mono',monospace;box-shadow:inset 0 1px 0 rgba(255,255,255,.04), 0 4px 14px rgba(0,0,0,.25);}
 .site-switcher-label{font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);font-weight:800;padding:0 12px 0 10px;border-right:1px solid var(--border2);margin-right:4px;white-space:nowrap;}
 .site-btn{display:inline-flex;align-items:center;justify-content:center;padding:12px 20px;min-height:44px;border-radius:12px;text-decoration:none;color:var(--muted);font-family:'Syne',sans-serif;font-size:12px;font-weight:900;letter-spacing:.8px;text-transform:uppercase;transition:all .25s ease;will-change:transform;}
@@ -378,6 +381,7 @@ body.theme-light .hp-banner .hp-sub{color:rgba(255,255,255,.76);}
       <button class="theme-btn" id="lightModeBtn" type="button" onclick="setTheme('light')">Normal</button>
     </div>
     <div class="live-badge"><div class="live-dot"></div>HMRC</div>
+    <img class="marca" src="./vamed-wwh-logo.png" alt="VAMED + WWH">
   </div>
 </header>
 

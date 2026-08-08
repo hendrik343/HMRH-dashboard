@@ -52,7 +52,7 @@ body::after{
 
 /* ══ HEADER ══ */
 header{
-  display:flex;align-items:center;justify-content:space-between;
+  display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;row-gap:14px;
   padding:20px 28px;
   background:linear-gradient(135deg,#070C1A 0%,#0A1530 100%);
   border:1px solid rgba(57,255,20,.35);
@@ -123,6 +123,9 @@ header::before{
   background:linear-gradient(135deg,rgba(57,255,20,.28),rgba(0,245,255,.14));
   color:#07100A;box-shadow:0 0 20px rgba(57,255,20,.38);
 }
+.marca{height:44px;width:auto;flex:none;align-self:flex-start;}
+.theme-dark .marca{content:url('./vamed-wwh-logo-dark.png');}
+@media(max-width:640px){.marca{height:32px;}}
 .site-switcher{
   display:inline-flex;align-items:center;gap:6px;
   background:rgba(255,255,255,.03);
@@ -468,6 +471,7 @@ body.theme-light .hp-banner .hp-sub{color:rgba(255,255,255,.76);}
       <button class="theme-btn" id="lightModeBtn" type="button" onclick="setTheme('light')">Normal</button>
     </div>
     <div class="live-badge"><div class="live-dot"></div>HMRL</div>
+    <img class="marca" src="./vamed-wwh-logo.png" alt="VAMED + WWH">
   </div>
 </header>
 

@@ -44,9 +44,21 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
+      flex-wrap: wrap;
       gap: 14px;
       margin-bottom: 18px;
     }
+
+    .topbar-right {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 14px;
+    }
+
+    .marca { height: 44px; width: auto; flex: none; align-self: flex-start; }
+    .theme-dark .marca { content: url('./vamed-wwh-logo-dark.png'); }
+    @media (max-width: 640px) { .marca { height: 32px; } }
 
     .back {
       display: inline-flex;
@@ -101,9 +113,12 @@
   <main class="page">
     <div class="topbar">
       <a class="back" href="./">&larr; HSE Dashboard</a>
-      <div class="mode-toggle" aria-label="Theme mode">
-        <button class="mode-btn" id="darkModeBtn" type="button" onclick="setTheme('dark')">Dark</button>
-        <button class="mode-btn active" id="lightModeBtn" type="button" onclick="setTheme('light')">Normal</button>
+      <div class="topbar-right">
+        <div class="mode-toggle" aria-label="Theme mode">
+          <button class="mode-btn" id="darkModeBtn" type="button" onclick="setTheme('dark')">Dark</button>
+          <button class="mode-btn active" id="lightModeBtn" type="button" onclick="setTheme('light')">Normal</button>
+        </div>
+        <img class="marca" src="./vamed-wwh-logo.png" alt="VAMED + WWH">
       </div>
     </div>
 

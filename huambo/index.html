@@ -81,6 +81,11 @@
       margin-bottom: 16px;
     }
 
+    .header-actions { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+    .marca { height: 44px; width: auto; flex: none; align-self: flex-start; }
+    .theme-dark .marca { content: url('./vamed-wwh-logo-dark.png'); }
+    @media (max-width: 640px) { .marca { height: 32px; } }
+
     .mode-toggle {
       display: inline-flex;
       border: 1px solid var(--line);
@@ -1381,9 +1386,12 @@
       </div>
       <nav class="months" id="monthButtons"><button class="month-btn" data-month="set" onclick="setMonth('set')">SET 2025</button><button class="month-btn" data-month="out" onclick="setMonth('out')">OUT 2025</button><button class="month-btn" data-month="nov" onclick="setMonth('nov')">NOV 2025</button><button class="month-btn" data-month="dez" onclick="setMonth('dez')">DEZ 2025</button><button class="month-btn" data-month="jan" onclick="setMonth('jan')">JAN 2026</button><button class="month-btn" data-month="fev" onclick="setMonth('fev')">FEV 2026</button><button class="month-btn" data-month="mar" onclick="setMonth('mar')">MAR 2026</button><button class="month-btn" data-month="abr" onclick="setMonth('abr')">ABR 2026</button><button class="month-btn" data-month="mai" onclick="setMonth('mai')">MAI 2026</button><button class="month-btn" data-month="jun" onclick="setMonth('jun')">JUN 2026</button><button class="month-btn active" data-month="jul" onclick="setMonth('jul')">JUL 2026</button></nav>
       <div class="period" id="periodText">Jun -&gt; Jul 2026</div>
-      <div class="mode-toggle" aria-label="Theme mode">
-        <button class="mode-btn" id="darkModeBtn" type="button" onclick="setTheme('dark')">Dark</button>
-        <button class="mode-btn active" id="lightModeBtn" type="button" onclick="setTheme('light')">Normal</button>
+      <div class="header-actions">
+        <div class="mode-toggle" aria-label="Theme mode">
+          <button class="mode-btn" id="darkModeBtn" type="button" onclick="setTheme('dark')">Dark</button>
+          <button class="mode-btn active" id="lightModeBtn" type="button" onclick="setTheme('light')">Normal</button>
+        </div>
+        <img class="marca" src="./vamed-wwh-logo.png" alt="VAMED + WWH">
       </div>
     </header>
 
