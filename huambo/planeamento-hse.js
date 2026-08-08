@@ -361,10 +361,31 @@
     alvo.innerHTML = h;
   }
 
+  function renderAtalho(alvo) {
+    var r = resumo(hojeISO()), t = r.t;
+    var limpo = t.arVencidas === 0;
+    var h = '';
+    h += '<a class="ph-atalho ' + (limpo ? 'is-limpo' : 'is-divida') + '" href="./planeamento.html">';
+    h += '<span class="ph-atalho-lbl">Planeamento HSE</span>';
+    h += '<span class="ph-atalho-num">' + t.arVencidas + '</span>';
+    h += '<span class="ph-atalho-sub">' + (limpo
+      ? 'avaliações de risco em atraso'
+      : 'AR por emitir · ' + t.nVencidas + ' frente' + (t.nVencidas === 1 ? '' : 's') + ' vencida' + (t.nVencidas === 1 ? '' : 's')) +
+      '</span>';
+    if (t.proximo) {
+      h += '<span class="ph-atalho-prox">Próximo limite ' + esc(t.proximo.id) + ' · ' +
+        (t.proximo.paraLimite === 0 ? 'hoje'
+          : t.proximo.paraLimite + ' dia' + (t.proximo.paraLimite === 1 ? '' : 's')) +
+        '</span>';
+    }
+    h += '</a>';
+    alvo.innerHTML = h;
+  }
+
   /* ---------- ESTILOS ----------------------------------------------------- */
 
   var CSS = `
-.ph{--ph-t:#12222f;--ph-t2:#52646f;--ph-p:#fbfcfc;--ph-rg:#dbe3e8;--ph-v:#0090d4;
+.ph,.ph-atalho{--ph-t:#12222f;--ph-t2:#52646f;--ph-p:#fbfcfc;--ph-rg:#dbe3e8;--ph-v:#0090d4;
 --ph-br:#b8321a;--ph-brf:#fdf1ee;--ph-w:#a86a00;--ph-wf:#fdf6e8;--ph-c:#16704a;--ph-cf:#eff7f2;
 --ph-m:ui-monospace,"SF Mono","Roboto Mono",Menlo,monospace;--ph-r:15rem;
 color:var(--ph-t);font-size:15px;line-height:1.5}
@@ -461,17 +482,37 @@ font-family:var(--ph-m);font-size:.65rem;color:var(--ph-t2)}
 .ph-prov{gap:1rem}
 .ph-ln-r{font-size:.68rem}}
 @media(prefers-reduced-motion:reduce){.ph-f-cab{transition:none}}
+.ph-atalho{display:flex;flex-direction:column;gap:.4rem;height:100%;padding:1.1rem 1.25rem;
+border:1px solid var(--ph-rg);border-left:5px solid var(--ph-t2);background:var(--ph-p);
+text-decoration:none;color:var(--ph-t);font-family:inherit;transition:transform .15s ease,box-shadow .15s ease}
+.ph-atalho:hover{transform:translateY(-2px);box-shadow:0 10px 26px rgba(0,0,0,.18)}
+.ph-atalho.is-divida{border-left-color:var(--ph-br);background:var(--ph-brf)}
+.ph-atalho.is-limpo{border-left-color:var(--ph-c);background:var(--ph-cf)}
+.ph-atalho-lbl{font-family:var(--ph-m);font-size:.65rem;font-weight:600;letter-spacing:.12em;
+text-transform:uppercase;color:var(--ph-t2)}
+.ph-atalho-num{font-family:var(--ph-m);font-size:2.1rem;font-weight:600;line-height:.9;
+letter-spacing:-.03em;font-variant-numeric:tabular-nums}
+.ph-atalho.is-divida .ph-atalho-num{color:var(--ph-br)}
+.ph-atalho.is-limpo .ph-atalho-num{color:var(--ph-c)}
+.ph-atalho-sub{font-size:.78rem;color:var(--ph-t2)}
+.ph-atalho-prox{margin-top:auto;padding-top:.4rem;font-family:var(--ph-m);font-size:.68rem;
+color:var(--ph-w);border-top:1px dashed var(--ph-rg)}
 `;
 
   /* ---------- ARRANQUE ---------------------------------------------------- */
 
   function iniciar() {
-    var alvo = document.getElementById('planeamento-hse');
-    if (!alvo) return;
-    var s = document.createElement('style');
-    s.textContent = CSS;
-    document.head.appendChild(s);
-    render(alvo);
+    var alvo   = document.getElementById('planeamento-hse');
+    var atalho = document.getElementById('planeamento-hse-atalho');
+    if (!alvo && !atalho) return;
+    if (!document.getElementById('ph-css')) {
+      var s = document.createElement('style');
+      s.id = 'ph-css';
+      s.textContent = CSS;
+      document.head.appendChild(s);
+    }
+    if (alvo)   render(alvo);
+    if (atalho) renderAtalho(atalho);
   }
 
   if (document.readyState === 'loading') {
