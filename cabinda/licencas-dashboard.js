@@ -1,5 +1,5 @@
 (function () {
-  const API = "/api/licencas/";
+  const API = "https://vamed-hse-dashboard-vercel.vercel.app/api/licencas/";
   const STATUS_CLASSES = ["vrf-lic--ok", "vrf-lic--warn", "vrf-lic--bad", "vrf-lic--unknown", "hp-lic--ok", "hp-lic--warn", "hp-lic--bad", "hp-lic--unknown"];
   const SITE = detectSite();
   let cache = [];

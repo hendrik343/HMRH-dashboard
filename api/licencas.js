@@ -4,6 +4,7 @@
 
 import { readTab, appendRow, sheets, SHEETS_ID, rateLimit, getClientIp } from "./_google.js";
 import { sendEmail as _notifySendEmail, formatLicencaMsg } from "./_notify.js";
+import { applyCors } from "./_cors.js";
 import { put } from "@vercel/blob";
 import formidable from "formidable";
 import fs from "fs";
@@ -251,6 +252,8 @@ async function notifyLicenseSaved(mode, payload) {
 }
 
 export default async function handler(req, res) {
+  if (applyCors(req, res)) return;
+
   if (req.method === "GET") {
     try {
       const site = normalizeSite(req.query?.site);

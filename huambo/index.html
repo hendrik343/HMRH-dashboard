@@ -1540,7 +1540,7 @@
     }
 
     try {
-      const r = await fetch("https://vamed-hse-dashboard-vercel.vercel.app/api/situacoes", { method: "POST", body: fd });
+      const r = await fetch("https://vamed-hse-dashboard-vercel.vercel.app/api/situacoes/", { method: "POST", body: fd });
       const data = await r.json();
       if (!r.ok) throw new Error(data.error || "Erro desconhecido");
       show("ok", "✓ Situação registada. Obrigado!");
@@ -2568,10 +2568,10 @@
         timestamp: new Date().toISOString(),
       });
       if (navigator.sendBeacon) {
-        navigator.sendBeacon("https://vamed-hse-dashboard-vercel.vercel.app/api/log-download",
+        navigator.sendBeacon("https://vamed-hse-dashboard-vercel.vercel.app/api/log-download/",
           new Blob([payload], { type: "application/json" }));
       } else {
-        fetch("https://vamed-hse-dashboard-vercel.vercel.app/api/log-download", {
+        fetch("https://vamed-hse-dashboard-vercel.vercel.app/api/log-download/", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: payload,
@@ -2664,7 +2664,7 @@
     if (fileIn.files[0]) fd.append("documento", fileIn.files[0]);
 
     try {
-      const r = await fetch("https://vamed-hse-dashboard-vercel.vercel.app/api/documentos-submetidos", { method: "POST", body: fd });
+      const r = await fetch("https://vamed-hse-dashboard-vercel.vercel.app/api/documentos-submetidos/", { method: "POST", body: fd });
       const data = await r.json();
       if (!r.ok) throw new Error(data.error || "Erro desconhecido");
       rememberAutor(autorValue);
@@ -2818,7 +2818,7 @@
   /* ============ Document counter (Repositório section header) ============ */
   async function updateDocCounter() {
     try {
-      const hub = await fetch("https://vamed-hse-dashboard-vercel.vercel.app/api/hub", { cache: "no-store" }).then(r => r.json());
+      const hub = await fetch("https://vamed-hse-dashboard-vercel.vercel.app/api/hub/", { cache: "no-store" }).then(r => r.json());
       const total = (hub && hub.modelos) ? hub.modelos.length : null;
       if (total === null) return;
       const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT);
@@ -2837,7 +2837,7 @@
   /* ============ Live indicators ============ */
   async function updateIndicators() {
     try {
-      const res = await fetch("https://vamed-hse-dashboard-vercel.vercel.app/api/indicadores", { cache: "no-store" });
+      const res = await fetch("https://vamed-hse-dashboard-vercel.vercel.app/api/indicadores/", { cache: "no-store" });
       const data = await res.json();
       const rows = data && data.data ? data.data : [];
       if (!rows.length) return;
