@@ -4,6 +4,25 @@
   "contrato": "12DC – DEI/SV/2021",
   "coordenadas": [-5.5487, 12.1948],
   "meses_estimados": ["2025-08", "2025-10", "2025-11", "2025-12", "2026-01", "2026-02", "2026-03"],
+  "_semData": [
+    {
+      "tipo": "Visita Institucional",
+      "descricao": "Visita do Ministro do MINDENACVP — entrega de EPI à delegação",
+      "estado": "Realizada",
+      "entidade": "MINDENACVP",
+      "data": null,
+      "obs": "Data por confirmar. Ficheiros das fotos datam de 07-08-2026, mas pode ser apenas a data de exportação. Enquanto a data não for apurada, a situação é mostrada em qualquer mês, marcada como sem data.",
+      "fotos": [
+        "fotos-ministro/visita-ministro-01.jpg",
+        "fotos-ministro/visita-ministro-02.jpg",
+        "fotos-ministro/visita-ministro-03.jpg",
+        "fotos-ministro/visita-ministro-04.jpg",
+        "fotos-ministro/visita-ministro-05.jpg",
+        "fotos-ministro/visita-ministro-06.jpg",
+        "fotos-ministro/visita-ministro-07.jpg"
+      ]
+    }
+  ],
   "_aviso": "Os meses em 'meses_estimados' contêm valores mensais retirados do objecto DATA JavaScript e marcados como estimativas ('Other months estimated based on project trajectory'). O acumulado de Abr 2026 verificado nos relatórios fonte (água 3278.6 m³, gasóleo 403207 L, electricidade 57192.4 kWh) não reconcilia com a soma desses meses estimados — os valores mensais individuais são possivelmente incorrectos. Não usar para cálculo de índices ou médias até confirmação documental por relatório RM.",
   "meses": {
     "2025-08": {
@@ -292,15 +311,40 @@
       "estado": "activa",
       "trabalhadores": 71,
       "checklist": 96.23,
-      "alcoolemia": { "testes": 77, "positivos": 0 },
-      "formacao": { "accoes": null, "participantes": 982 },
+      "alcoolemia": {
+        "testes": 77, "positivos": 0, "negativos": 77,
+        "testesAcumulado": 2900, "negativosAcumulado": 2887, "positivosAcumulado": 13,
+        "obs": "RM033: 100% negativos no mês; acumulado 99,55% negativos / 0,45% positivos."
+      },
+      "formacao": {
+        "accoes": 20, "participantes": 982,
+        "accoesAcumulado": 817, "participantesAcumulado": 43856, "minutosMes": 44190,
+        "porAmbito": [
+          { "ambito": "Indução",               "accoes": 0,  "participantes": 4,   "minutos": 180 },
+          { "ambito": "Segurança",             "accoes": 17, "participantes": 850, "minutos": 38250 },
+          { "ambito": "Ambiente",              "accoes": 3,  "participantes": 128, "minutos": 5760 },
+          { "ambito": "Segurança Patrimonial", "accoes": 0,  "participantes": 0,   "minutos": 0 },
+          { "ambito": "Visitantes",            "accoes": 0,  "participantes": 0,   "minutos": 0 }
+        ],
+        "obs": "Totais do mês somados a partir da tabela de formação do RM033."
+      },
       "sinistralidade": {
         "acidentes": 0,
-        "diasPerdidos": null,
-        "acumulado": null,
-        "indices": { "incidencia": null, "frequencia": null, "gravidade": null, "duracao": null }
+        "diasPerdidos": 0,
+        "diasPerdidosAcumulado": 0,
+        "acumulado": 1,
+        "indices": {
+          "incidencia": null, "duracao": null,
+          "frequencia": 0.0, "frequenciaAcumulado": 1.45,
+          "gravidade": 0.0, "gravidadeAcumulado": 0.0
+        },
+        "obs": "RM033 não publica índice de incidência nem de duração para Cabinda."
       },
-      "advertencias": { "mes": 0, "acumulado": 13 },
+      "advertencias": {
+        "mes": 0, "acumulado": 13,
+        "retiradas1Dia": { "mes": 0, "acumulado": 13 },
+        "retiradasDefinitivo": { "mes": 0, "acumulado": 1 }
+      },
       "ambiente": {
         "agua":         { "mes": 64,     "acumulado": 3420.6,  "unidade": "m³" },
         "combustivel":  { "mes": 5784,   "acumulado": 416537,  "unidade": "L" },
@@ -327,7 +371,14 @@
           "tipo": "Simulacro",
           "descricao": "Simulacro — queda de nível diferente",
           "estado": "Realizado",
-          "responsavel": null
+          "responsavel": null,
+          "referencia": "Relatório de Simulacro (HMRC)",
+          "fotos": [
+            "fotos-simulacro/simulacro-01-reuniao-abertura.jpg",
+            "fotos-simulacro/simulacro-02-queda-caixa-visita.jpg",
+            "fotos-simulacro/simulacro-03-primeiros-socorros.jpg",
+            "fotos-simulacro/simulacro-04-retirada-colaborador.jpg"
+          ]
         },
         {
           "data": "2026-06",
@@ -335,6 +386,20 @@
           "descricao": "Estudos Técnicos — periodicidade trimestral",
           "estado": "Pendente",
           "responsavel": "Juarês Manico"
+        },
+        {
+          "data": "2026-06",
+          "tipo": "Reclamações",
+          "descricao": "Sem reclamações registadas no mês",
+          "estado": "Sem ocorrências",
+          "responsavel": null
+        },
+        {
+          "data": "2026-06",
+          "tipo": "Acção Comunidade",
+          "descricao": "Sem acções de interacção com a comunidade no mês",
+          "estado": "Sem ocorrências",
+          "responsavel": null
         }
       ],
       "documentos": [
@@ -392,7 +457,14 @@
           "tipo": "simulacro",
           "titulo": "Queda de nível diferente",
           "entidade": null,
-          "obs": "Evento de Junho, repetido no RM034. Nenhum simulacro realizado em Julho. Filtrar por data."
+          "obs": "Realizado a 10-06-2026 — Relatório de Simulacro Rev.3 de 10-06-2026, confirmado na tabela de simulacros do RM033. Nenhum simulacro realizado em Julho; o RM034 repete o evento de Junho. Mostrado também no mês de Julho, com as fotos e a data de Junho explícitas, como último simulacro executado.",
+          "referencia": "Relatório de Simulacro Rev.3 (10-06-2026)",
+          "fotos": [
+            "fotos-simulacro/simulacro-01-reuniao-abertura.jpg",
+            "fotos-simulacro/simulacro-02-queda-caixa-visita.jpg",
+            "fotos-simulacro/simulacro-03-primeiros-socorros.jpg",
+            "fotos-simulacro/simulacro-04-retirada-colaborador.jpg"
+          ]
         }
       ],
       "documentos": [

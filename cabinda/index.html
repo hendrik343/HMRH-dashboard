@@ -266,6 +266,32 @@ footer{margin-top:16px;padding:14px 22px;background:var(--surf);border:1px solid
 .tmeta{font-size:8.5px;font-family:'JetBrains Mono',monospace;color:var(--muted);display:flex;align-items:center;gap:4px;}
 .tmeta-dot{width:4px;height:4px;border-radius:50%;background:var(--muted);flex-shrink:0;}
 
+/* ══ FOTOS DAS SITUAÇÕES HSE ══ */
+.topic-fotos{display:flex;flex-wrap:wrap;gap:7px;margin-top:9px;}
+.foto-th{padding:0;border:1px solid var(--border);border-radius:8px;overflow:hidden;background:none;
+cursor:zoom-in;line-height:0;width:66px;height:66px;transition:transform .15s ease,border-color .15s ease;}
+.foto-th img{width:100%;height:100%;object-fit:cover;display:block;}
+.foto-th:hover,.foto-th:focus-visible{transform:translateY(-2px);border-color:var(--acc);outline:none;}
+.lightbox{position:fixed;inset:0;z-index:9999;display:none;align-items:center;justify-content:center;
+flex-direction:column;gap:14px;background:rgba(3,5,10,.93);padding:24px;backdrop-filter:blur(4px);}
+.lightbox.open{display:flex;}
+.lightbox img{max-width:min(1100px,92vw);max-height:78vh;width:auto;height:auto;border-radius:12px;
+border:1px solid rgba(255,255,255,.16);}
+.lightbox-cap{max-width:min(1100px,92vw);text-align:center;color:#fff;font-size:12.5px;line-height:1.6;
+font-family:'JetBrains Mono',monospace;}
+.lightbox-cap span{display:block;color:#8a93a8;font-size:11px;margin-top:4px;}
+.lightbox-close{position:absolute;top:18px;right:20px;width:40px;height:40px;border-radius:50%;
+border:1px solid rgba(255,255,255,.22);background:rgba(255,255,255,.08);color:#fff;font-size:20px;
+cursor:pointer;display:flex;align-items:center;justify-content:center;}
+.lightbox-close:hover{background:rgba(255,255,255,.18);}
+.lightbox-nav{position:absolute;top:50%;transform:translateY(-50%);width:44px;height:44px;border-radius:50%;
+border:1px solid rgba(255,255,255,.22);background:rgba(255,255,255,.08);color:#fff;font-size:22px;
+cursor:pointer;display:flex;align-items:center;justify-content:center;}
+.lightbox-nav:hover{background:rgba(255,255,255,.18);}
+.lightbox-nav.prev{left:16px;}
+.lightbox-nav.next{right:16px;}
+@media(max-width:640px){.foto-th{width:56px;height:56px;}.lightbox-nav{width:38px;height:38px;font-size:18px;}}
+
 /* Waste bar */
 .waste-bar{margin-top:14px;padding:0 14px 14px;}
 .wb-title{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:1.4px;color:var(--muted);font-family:'JetBrains Mono',monospace;margin-bottom:10px;}
@@ -373,9 +399,10 @@ body.theme-light .hp-banner .hp-sub{color:rgba(255,255,255,.76);}
       <button class="mbtn" onclick="setMonth('mar',this)">MAR 2026</button>
       <button class="mbtn" onclick="setMonth('abr',this)">ABR 2026</button>
       <button class="mbtn" onclick="setMonth('mai',this)">MAI 2026</button>
-      <button class="mbtn active" onclick="setMonth('jun',this)">JUN 2026</button>
+      <button class="mbtn" onclick="setMonth('jun',this)">JUN 2026</button>
+      <button class="mbtn active" onclick="setMonth('jul',this)">JUL 2026</button>
     </div>
-    <div class="period-pill" id="period-pill">Ago 2025 → Jun 2026</div>
+    <div class="period-pill" id="period-pill">Ago 2025 → Jul 2026</div>
     <div class="theme-toggle" aria-label="Modo de visualização">
       <button class="theme-btn active" id="darkModeBtn" type="button" onclick="setTheme('dark')">Dark</button>
       <button class="theme-btn" id="lightModeBtn" type="button" onclick="setTheme('light')">Normal</button>
@@ -433,7 +460,7 @@ body.theme-light .hp-banner .hp-sub{color:rgba(255,255,255,.76);}
 
     <!-- HSE Issues — Jun 2026 -->
     <div class="topics-panel">
-      <div class="topics-title">Situações HSE Identificadas · Jun 2026</div>
+      <div class="topics-title" id="topics-title">Situações HSE Identificadas · Jul 2026</div>
 
 <!--
   upload-form-snippet.html
@@ -586,53 +613,8 @@ body.theme-light .hp-banner .hp-sub{color:rgba(255,255,255,.76);}
 </script>
 
 
-      <div class="topic-item unresolved">
-        <div class="topic-top">
-          <div class="topic-name">🔊 Estudos Técnicos — periodicidade trimestral</div>
-          <div class="topic-status unresolved">Pendente</div>
-        </div>
-        <div class="topic-meta">
-          <span class="tmeta"><span class="tmeta-dot"></span>Jun 2026</span>
-          <span class="tmeta"><span class="tmeta-dot"></span>Resp: Juarês Manico</span>
-          <span class="tmeta"><span class="tmeta-dot" style="background:var(--amber)"></span>Prazo: Jun 2026</span>
-        </div>
-      </div>
+      <div id="topics-list"></div>
 
-      <div class="topic-item resolved">
-        <div class="topic-top">
-          <div class="topic-name">🚮 Produção de Resíduos — RSU 76 kg / Entulho 16 m³</div>
-          <div class="topic-status resolved">Monitorizado</div>
-        </div>
-        <div class="topic-meta">
-          <span class="tmeta"><span class="tmeta-dot"></span>Jun 2026</span>
-          <span class="tmeta"><span class="tmeta-dot"></span>Biodegradáveis: 38 kg</span>
-          <span class="tmeta"><span class="tmeta-dot" style="background:var(--green)"></span>Recolhido</span>
-        </div>
-      </div>
-
-      <div class="topic-item resolved">
-        <div class="topic-top">
-          <div class="topic-name">✅ Advertências — 0 no mês / 13 acumuladas</div>
-          <div class="topic-status resolved">Sem ocorrências</div>
-        </div>
-        <div class="topic-meta">
-          <span class="tmeta"><span class="tmeta-dot"></span>Jun 2026</span>
-          <span class="tmeta"><span class="tmeta-dot"></span>Resp: Hendrik Silva</span>
-          <span class="tmeta"><span class="tmeta-dot" style="background:var(--green)"></span>0 retiradas</span>
-        </div>
-      </div>
-
-      <div class="topic-item resolved">
-        <div class="topic-top">
-          <div class="topic-name">🧯 Simulacro — queda de nível diferente</div>
-          <div class="topic-status resolved">Realizado</div>
-        </div>
-        <div class="topic-meta">
-          <span class="tmeta"><span class="tmeta-dot"></span>10 Jun 2026</span>
-          <span class="tmeta"><span class="tmeta-dot"></span>Segurança</span>
-          <span class="tmeta"><span class="tmeta-dot" style="background:var(--green)"></span>Sem entidades externas</span>
-        </div>
-      </div>
     </div>
   </div>
 
@@ -661,8 +643,15 @@ body.theme-light .hp-banner .hp-sub{color:rgba(255,255,255,.76);}
     <div class="month-breakdown">
       <div class="mb-title" id="mb-title">Detalhes — JUN 2026</div>
       <div class="mb-row"><span class="mb-label">Alcoolemia Testes</span><span class="mb-val" id="mb-t">77</span></div>
+      <div class="mb-row"><span class="mb-label">Alcoolemia Testes (acum.)</span><span class="mb-val" id="mb-tac">2.900</span></div>
       <div class="mb-row"><span class="mb-label">Alcoolemia Positivos</span><span class="mb-val" id="mb-p" style="color:var(--green)">0</span></div>
+      <div class="mb-row"><span class="mb-label">Alcoolemia Positivos (acum.)</span><span class="mb-val" id="mb-pac" style="color:var(--amber)">13 · 0,45%</span></div>
       <div class="mb-row"><span class="mb-label">Acidentes</span><span class="mb-val" id="mb-acc" style="color:var(--green)">0</span></div>
+      <div class="mb-row"><span class="mb-label">Acidentes (acum.)</span><span class="mb-val" id="mb-accac" style="color:var(--amber)">1</span></div>
+      <div class="mb-row"><span class="mb-label">Dias perdidos</span><span class="mb-val" id="mb-dp" style="color:var(--green)">0</span></div>
+      <div class="mb-row"><span class="mb-label">Í. Frequência (acum.)</span><span class="mb-val" id="mb-if">1,45</span></div>
+      <div class="mb-row"><span class="mb-label">Í. Gravidade (acum.)</span><span class="mb-val" id="mb-ig">0,00</span></div>
+      <div class="mb-row"><span class="mb-label">Formação · acções</span><span class="mb-val" id="mb-fa">20</span></div>
       <div class="mb-row"><span class="mb-label">Incid. Ambientais</span><span class="mb-val" id="mb-i" style="color:var(--green)">0</span></div>
       <div class="mb-row"><span class="mb-label">Água (m³)</span><span class="mb-val" id="mb-agua">64</span></div>
       <div class="mb-row"><span class="mb-label">Gasóleo (L)</span><span class="mb-val" id="mb-gas">5.784</span></div>
@@ -721,18 +710,9 @@ body.theme-light .hp-banner .hp-sub{color:rgba(255,255,255,.76);}
     </div>
     <table>
       <thead>
-          <tr><th>Recurso</th><th>Mês (Jun)</th><th>Acumulado</th><th>Estado</th></tr>
+          <tr><th>Recurso</th><th id="amb-mes">Mês (Jul)</th><th>Acumulado</th><th>Estado</th></tr>
       </thead>
-      <tbody>
-        <tr><td>Água</td><td style="color:var(--cyan);font-weight:700">64 m³</td><td style="color:var(--muted)">3.420,6 m³</td><td><span class="badge up">Normal</span></td></tr>
-        <tr><td>Gasóleo</td><td style="color:var(--orange);font-weight:700">5.784 L</td><td style="color:var(--muted)">416.537 L</td><td><span class="badge flat">Acum.</span></td></tr>
-        <tr><td>Electricidade</td><td style="color:var(--amber);font-weight:700">1.982,4 kWh</td><td style="color:var(--muted)">61.603,6 kWh</td><td><span class="badge flat">Acum.</span></td></tr>
-        <tr><td>RSU (kg)</td><td style="color:var(--green);font-weight:700">76 kg</td><td style="color:var(--muted)">9.765 kg</td><td><span class="badge up">Recolhido</span></td></tr>
-        <tr><td>Biodegradáveis</td><td style="color:var(--green);font-weight:700">38 kg</td><td style="color:var(--muted)">3.431 kg</td><td><span class="badge flat">Registado</span></td></tr>
-        <tr><td>Entulho</td><td style="color:var(--amber);font-weight:700">16 m³</td><td style="color:var(--muted)">893,84 m³</td><td><span class="badge flat">Triado</span></td></tr>
-        <tr><td>Advertências</td><td style="color:var(--muted);font-weight:700">0</td><td style="color:var(--amber);font-weight:700">13 acum.</td><td><span class="badge up">Sem retiradas</span></td></tr>
-        <tr><td>Checklist (Jun)</td><td style="color:var(--violet);font-weight:700">96,23%</td><td></td><td><span class="badge up">EXCELENTE</span></td></tr>
-      </tbody>
+      <tbody id="amb-body"></tbody>
     </table>
   </div>
 </div>
@@ -741,26 +721,26 @@ body.theme-light .hp-banner .hp-sub{color:rgba(255,255,255,.76);}
 <!-- ══ ESTALEIRO — FORÇA DE TRABALHO ══ -->
 <div class="wf-divider">
   <div class="wf-div-line"></div>
-  <div class="wf-div-label">⬡ &nbsp;ESTALEIRO &nbsp;·&nbsp; FORÇA DE TRABALHO &nbsp;·&nbsp; JUN 2026</div>
+  <div class="wf-div-label" id="wf-div-label">⬡ &nbsp;ESTALEIRO &nbsp;·&nbsp; FORÇA DE TRABALHO &nbsp;·&nbsp; JUL 2026</div>
   <div class="wf-div-line"></div>
 </div>
 
 <!-- Workforce KPIs -->
 <div class="kpi-row" style="grid-template-columns:repeat(3,1fr);margin-bottom:16px;">
   <div class="kcard orange">
-    <div class="klbl">Total Efetivos (Jun 2026)</div>
-    <div class="kval">71</div>
-    <div class="kdelta flat">5 empresas / subcontratadas</div>
+    <div class="klbl" id="klbl-efet">Total Efetivos (Jul 2026)</div>
+    <div class="kval" id="kv-efet">46</div>
+    <div class="kdelta flat" id="kd-efet">4 empresas / subcontratadas</div>
   </div>
   <div class="kcard blue">
-    <div class="klbl">Alcoolemia — Junho</div>
-    <div class="kval">77</div>
-    <div class="kdelta up">77 negativos · 0 positivos</div>
+    <div class="klbl" id="klbl-alc">Alcoolemia — Julho</div>
+    <div class="kval" id="kv-alc">62</div>
+    <div class="kdelta up" id="kd-alc">62 negativos · 0 positivos</div>
   </div>
   <div class="kcard green2">
     <div class="klbl">Checklist HSE — Classificação</div>
-    <div class="kval">96.23%</div>
-    <div class="kdelta up">▲ EXCELENTE · Junho 2026</div>
+    <div class="kval" id="kv-chk">98.1%</div>
+    <div class="kdelta up" id="kd-chk">▲ EXCELENTE · Julho 2026</div>
   </div>
 </div>
 
@@ -780,7 +760,7 @@ body.theme-light .hp-banner .hp-sub{color:rgba(255,255,255,.76);}
   <div class="wf-cal-card">
     <div class="ch">
       <div class="ctitle"><div class="cdot" style="background:var(--violet);box-shadow:0 0 8px var(--violet)"></div>Presença & Verificações HSE</div>
-      <div style="font-size:9px;font-family:'JetBrains Mono',monospace;color:var(--muted)">Jun 2026</div>
+      <div style="font-size:9px;font-family:'JetBrains Mono',monospace;color:var(--muted)" id="cal-mes">Jul 2026</div>
     </div>
     <div class="wf-cal-inner">
       <div class="cal-grid-header">
@@ -808,41 +788,19 @@ body.theme-light .hp-banner .hp-sub{color:rgba(255,255,255,.76);}
   <!-- Company breakdown table -->
   <div class="wf-table-card tcard">
     <div class="ch">
-      <div class="ctitle"><div class="cdot" style="background:var(--violet);box-shadow:0 0 8px var(--violet)"></div>Detalhe por Empresa (Jun 2026)</div>
+      <div class="ctitle"><div class="cdot" style="background:var(--violet);box-shadow:0 0 8px var(--violet)"></div>Detalhe por Empresa (<span id="emp-mes">Jul 2026</span>)</div>
     </div>
     <table>
       <thead>
         <tr><th>Empresa</th><th>Tipo</th><th style="text-align:right">N.º</th><th style="text-align:right">%</th></tr>
       </thead>
-      <tbody>
-        <tr><td style="font-weight:700;color:rgba(0,245,255,.9)">VAMED</td><td style="color:var(--muted)">Gestão do Projecto</td><td style="text-align:right;color:var(--txt)">8</td><td style="text-align:right"><span class="badge flat">11.3%</span></td></tr>
-        <tr><td style="font-weight:700;color:rgba(255,107,0,.9)">Mota-Engil</td><td style="color:var(--muted)">Estrutura</td><td style="text-align:right;color:var(--txt)">41</td><td style="text-align:right"><span class="badge up">57.7%</span></td></tr>
-        <tr><td style="font-weight:700;color:rgba(57,255,20,.9)">Confrasilvas</td><td style="color:var(--muted)">Cofragem (M-E)</td><td style="text-align:right;color:var(--txt)">15</td><td style="text-align:right"><span class="badge flat">21.1%</span></td></tr>
-        <tr><td style="font-weight:700;color:rgba(255,208,0,.9)">Protector</td><td style="color:var(--muted)">Segurança Patrimonial</td><td style="text-align:right;color:var(--txt)">6</td><td style="text-align:right"><span class="badge flat">8.5%</span></td></tr>
-        <tr><td style="font-weight:700;color:rgba(255,45,120,.9)">Afrilim</td><td style="color:var(--muted)">Limpeza</td><td style="text-align:right;color:var(--txt)">1</td><td style="text-align:right"><span class="badge flat">1.4%</span></td></tr>
-        <tr style="background:rgba(191,95,255,.04)">
-          <td colspan="2" style="font-weight:800;color:var(--violet);font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.5px">TOTAL</td>
-          <td style="text-align:right;font-weight:800;color:var(--violet);font-size:14px">71</td>
-          <td style="text-align:right"><span class="badge" style="background:rgba(191,95,255,.15);color:var(--violet);border:1px solid rgba(191,95,255,.35)">100%</span></td>
-        </tr>
-      </tbody>
+      <tbody id="emp-body"></tbody>
     </table>
 
     <!-- Waste summary -->
     <div class="waste-bar">
-      <div class="wb-title">Resíduos Produzidos (Jun 2026)</div>
-      <div class="wb-item">
-        <div class="wb-row"><span>RSU</span><span style="color:var(--green)">76 kg</span></div>
-        <div class="wb-bar"><div class="wb-fill" style="width:18%;background:linear-gradient(90deg,rgba(0,255,159,.6),rgba(0,255,159,.3))"></div></div>
-      </div>
-      <div class="wb-item">
-        <div class="wb-row"><span>Entulho</span><span style="color:var(--amber)">16 m³</span></div>
-        <div class="wb-bar"><div class="wb-fill" style="width:20%;background:linear-gradient(90deg,rgba(255,208,0,.6),rgba(255,208,0,.3))"></div></div>
-      </div>
-      <div class="wb-item">
-        <div class="wb-row"><span>Biodegradáveis</span><span style="color:var(--orange)">38 kg</span></div>
-        <div class="wb-bar"><div class="wb-fill" style="width:16%;background:linear-gradient(90deg,rgba(255,107,0,.6),rgba(255,107,0,.3))"></div></div>
-      </div>
+      <div class="wb-title" id="wb-title">Resíduos Produzidos (Jul 2026)</div>
+      <div id="wb-items"></div>
     </div>
   </div>
 
@@ -1141,9 +1099,9 @@ body.theme-light .hp-banner .hp-sub{color:rgba(255,255,255,.76);}
    Formacao interna06.pdf and Relatorio de Simulacro.pdf.
    Other months estimated based on project trajectory
 */
-const MONTHS = ['ago','set','out','nov','dez','jan','fev','mar','abr','mai','jun'];
-const M_LABEL = {ago:'AGO 2025',set:'SET 2025',out:'OUT 2025',nov:'NOV 2025',dez:'DEZ 2025',jan:'JAN 2026',fev:'FEV 2026',mar:'MAR 2026',abr:'ABR 2026',mai:'MAI 2026',jun:'JUN 2026'};
-const M_ABR   = {ago:'Ago',set:'Set',out:'Out',nov:'Nov',dez:'Dez',jan:'Jan',fev:'Fev',mar:'Mar',abr:'Abr',mai:'Mai',jun:'Jun'};
+const MONTHS = ['ago','set','out','nov','dez','jan','fev','mar','abr','mai','jun','jul'];
+const M_LABEL = {ago:'AGO 2025',set:'SET 2025',out:'OUT 2025',nov:'NOV 2025',dez:'DEZ 2025',jan:'JAN 2026',fev:'FEV 2026',mar:'MAR 2026',abr:'ABR 2026',mai:'MAI 2026',jun:'JUN 2026',jul:'JUL 2026'};
+const M_ABR   = {ago:'Ago',set:'Set',out:'Out',nov:'Nov',dez:'Dez',jan:'Jan',fev:'Fev',mar:'Mar',abr:'Abr',mai:'Mai',jun:'Jun',jul:'Jul'};
 
 const DATA = {
   ago: {w:210, ch:96.0, t:85,  p:0, f:3100, i:0, acc:0, agua:340, gas:14200, elec:2900},
@@ -1156,10 +1114,15 @@ const DATA = {
   mar: {w:110, ch:97.0, t:45,  p:0, f:900,  i:0, acc:0, agua:210, gas:9200,  elec:1780},
   abr: {w:91,  ch:96.23,t:114, p:2, f:1635, i:0, acc:0, agua:92,  gas:8142,  elec:2741.6},
   mai: {w:93,  ch:96.23,t:85,  p:0, f:1332, i:0, acc:0, agua:78,  gas:7546,  elec:2428.8},
-  jun: {w:71,  ch:96.23,t:77,  p:0, f:982,  i:0, acc:0, agua:64,  gas:5784,  elec:1982.4},
+  /* Campos acumulados/índices só existem onde o relatório mensal os publica.
+     jun 2026 = RM033 Rev.01. Meses sem estes campos mostram "—". */
+  jun: {w:71,  ch:96.23,t:77,  p:0, f:982,  i:0, acc:0, agua:64,  gas:5784,  elec:1982.4,
+        tac:2900, pac:13, pacPct:0.45, accAc:1, dp:0, ifq:1.45, ig:0.00, fa:20},
+  jul: {w:46,  ch:98.1, t:62,  p:0, f:503,  i:0, acc:0, agua:52,  gas:5866,  elec:1977.2,
+        tac:2962, pac:13, pacPct:0.44, accAc:1, dp:0, ifq:1.45, ig:0.00, fa:25},
 };
 
-let currMonth = 'jun';
+let currMonth = 'jul';
 
 function fmt(n){ n=Math.round(n); return n>=1000?n.toLocaleString('pt-PT'):String(n); }
 function pf(v){ return v.toFixed(2)+'%'; }
@@ -1179,7 +1142,7 @@ function setMonth(m,btn){
   currMonth=m;
   document.querySelectorAll('.mbtn').forEach(b=>b.classList.remove('active'));
   if(btn) btn.classList.add('active');
-  renderKPIs(); renderSSTTable();
+  renderKPIs(); renderSSTTable(); renderMes();
 }
 
 function renderKPIs(){
@@ -1218,7 +1181,223 @@ function renderKPIs(){
   document.getElementById('mb-gas').textContent=d.gas.toLocaleString('pt-PT');
   document.getElementById('mb-elec').textContent=d.elec.toLocaleString('pt-PT');
 
+  /* Acumulados e índices — só nos meses em que o relatório os publica. */
+  var nd = function(v, dec){
+    if (v === undefined || v === null) return '—';
+    return dec ? v.toLocaleString('pt-PT',{minimumFractionDigits:dec, maximumFractionDigits:dec})
+               : v.toLocaleString('pt-PT');
+  };
+  document.getElementById('mb-tac').textContent   = nd(d.tac);
+  document.getElementById('mb-pac').textContent   = d.pac == null ? '—'
+    : nd(d.pac) + (d.pacPct != null ? ' · ' + nd(d.pacPct,2) + '%' : '');
+  document.getElementById('mb-accac').textContent = nd(d.accAc);
+  document.getElementById('mb-dp').textContent    = nd(d.dp);
+  document.getElementById('mb-if').textContent    = nd(d.ifq,2);
+  document.getElementById('mb-ig').textContent    = nd(d.ig,2);
+  document.getElementById('mb-fa').textContent    = nd(d.fa);
+
   document.getElementById('footer-status').textContent='✓ '+M_LABEL[currMonth]+' Verificado · '+fmt(d.acc)+' acidentes no mês · '+pf(d.ch)+' Checklist';
+}
+
+
+/* ══ DETALHE MENSAL — situações, empresas, resíduos, ambiente ══
+   jun 2026 = RM033 Rev.01 · jul 2026 = RM034 Rev.01
+   Acumulados de resíduos de Julho não constam do RM034 → null (mostra "—"). */
+const MES_DETALHE = {
+  jun: {
+    situacoes: [
+      {estado:'unresolved', nome:'🔊 Estudos Técnicos — periodicidade trimestral', tag:'Pendente',
+       meta:['Jun 2026','Resp: Juarês Manico',{txt:'Prazo: Jun 2026',cor:'var(--amber)'}]},
+      {estado:'resolved', nome:'🚮 Produção de Resíduos — RSU 76 kg / Entulho 16 m³', tag:'Monitorizado',
+       meta:['Jun 2026','Biodegradáveis: 38 kg',{txt:'Recolhido',cor:'var(--green)'}]},
+      {estado:'resolved', nome:'✅ Advertências — 0 no mês / 13 acumuladas', tag:'Sem ocorrências',
+       meta:['Jun 2026','Resp: Hendrik Silva',{txt:'0 retiradas',cor:'var(--green)'}]},
+      {estado:'resolved', nome:'🧯 Simulacro — queda de nível diferente', tag:'Realizado',
+       meta:['10 Jun 2026','Segurança',{txt:'Sem entidades externas',cor:'var(--green)'}],
+       fotos:[
+         ['fotos-simulacro/simulacro-01-reuniao-abertura','Simulacro · reunião de abertura com os intervenientes na frente de obra','Reunião de abertura do simulacro, trabalhadores reunidos em círculo na obra'],
+         ['fotos-simulacro/simulacro-02-queda-caixa-visita','Simulacro · cenário — queda do colaborador em caixa de visita aberta sem sinalização','Caixa de visita aberta com o colaborador simulando a queda no interior'],
+         ['fotos-simulacro/simulacro-03-primeiros-socorros','Simulacro · chegada da equipa de primeiros socorros à obra','Equipa de primeiros socorros a chegar ao local com maca'],
+         ['fotos-simulacro/simulacro-04-retirada-colaborador','Simulacro · retirada do colaborador da caixa de visita e imobilização em maca','Equipa a retirar o colaborador da caixa de visita para a maca']
+       ]}
+    ],
+    empresas: [
+      ['VAMED','Gestão do Projecto',8,'0,245,255'],
+      ['Mota-Engil','Estrutura',41,'255,107,0'],
+      ['Confrasilvas','Cofragem (M-E)',15,'57,255,20'],
+      ['Protector','Segurança Patrimonial',6,'255,208,0'],
+      ['Afrilim','Limpeza',1,'255,45,120']
+    ],
+    residuos: [
+      ['RSU', 76, 'kg', 9765, 'var(--green)', '0,255,159', 'Recolhido', 'up'],
+      ['Entulho', 16, 'm³', 893.84, 'var(--amber)', '255,208,0', 'Triado', 'flat'],
+      ['Biodegradáveis', 38, 'kg', 3431, 'var(--orange)', '255,107,0', 'Registado', 'flat']
+    ]
+  },
+  jul: {
+    situacoes: [
+      {estado:'unresolved', nome:'🔊 Estudos Técnicos — periodicidade trimestral', tag:'Pendente',
+       meta:['Jul 2026','Resp: Juarês Manico',{txt:'Periodicidade trimestral',cor:'var(--amber)'}]},
+      {estado:'unresolved', nome:'🧯 Simulacro — queda de nível diferente', tag:'Não realizado em Julho',
+       meta:['Segurança',
+             {txt:'Realizado a 10 Jun 2026',cor:'var(--amber)'},
+             {txt:'Sem simulacro no mês de Julho',cor:'var(--red)'},
+             'Fonte: Relatório de Simulacro Rev.3, 10-06-2026'],
+       fotos:[
+         ['fotos-simulacro/simulacro-01-reuniao-abertura','Simulacro de 10 Jun 2026 · reunião de abertura com os intervenientes na frente de obra','Reunião de abertura do simulacro, trabalhadores reunidos em círculo na obra'],
+         ['fotos-simulacro/simulacro-02-queda-caixa-visita','Simulacro de 10 Jun 2026 · cenário — queda do colaborador em caixa de visita aberta sem sinalização','Caixa de visita aberta com o colaborador simulando a queda no interior'],
+         ['fotos-simulacro/simulacro-03-primeiros-socorros','Simulacro de 10 Jun 2026 · chegada da equipa de primeiros socorros à obra','Equipa de primeiros socorros a chegar ao local com maca'],
+         ['fotos-simulacro/simulacro-04-retirada-colaborador','Simulacro de 10 Jun 2026 · retirada do colaborador da caixa de visita e imobilização em maca','Equipa a retirar o colaborador da caixa de visita para a maca']
+       ]},
+      {estado:'resolved', nome:'🚮 Produção de Resíduos — RSU 164 kg / Entulho 142 m³', tag:'Monitorizado',
+       meta:['Jul 2026','Biodegradáveis: 31 kg',{txt:'Recolhido',cor:'var(--green)'}]},
+      {estado:'resolved', nome:'🍺 Controlo de alcoolemia — 62 testes / 0 positivos', tag:'Conforme',
+       meta:['Jul 2026','Acumulado: 2.962 testes',{txt:'100% negativos',cor:'var(--green)'}]},
+      {estado:'resolved', nome:'✅ Advertências — 0 no mês / 13 acumuladas', tag:'Sem ocorrências',
+       meta:['Jul 2026','Resp: Hendrik Silva',{txt:'0 retiradas',cor:'var(--green)'}]}
+    ],
+    empresas: [
+      ['Mota-Engil','Subcontratado de estrutura',32,'255,107,0'],
+      ['VAMED','Gestor do Projecto',7,'0,245,255'],
+      ['Protector','Segurança Patrimonial',6,'255,208,0'],
+      ['Afrilim','Limpeza',1,'255,45,120']
+    ],
+    residuos: [
+      ['RSU', 164, 'kg', null, 'var(--green)', '0,255,159', 'Aterro', 'up'],
+      ['Entulho', 142, 'm³', null, 'var(--amber)', '255,208,0', 'Aterro', 'flat'],
+      ['Biodegradáveis', 31, 'kg', null, 'var(--orange)', '255,107,0', 'Aterro', 'flat']
+    ]
+  }
+};
+
+/* Situações sem data confirmada — aparecem em qualquer mês seleccionado,
+   marcadas como tal, até a data ser apurada e passarem para o mês respectivo. */
+const SITUACOES_SEM_DATA = [
+  {estado:'resolved', nome:'🎖️ Visita do Ministro do MINDENACVP — entrega de EPI à delegação', tag:'Realizada',
+   meta:['Visita institucional à obra',
+         {txt:'Data por confirmar', cor:'var(--amber)'},
+         {txt:'Delegação equipada com capacete e colete', cor:'var(--green)'}],
+   fotos:[
+     ['fotos-ministro/visita-ministro-01','Acolhimento da comitiva junto à mesa de EPI, à entrada da obra','Técnica HSE junto à mesa com capacetes e coletes enquanto a comitiva é recebida'],
+     ['fotos-ministro/visita-ministro-02','Capacetes e coletes preparados para distribuição a toda a comitiva','Mesa com capacetes brancos e coletes laranja alinhados, comitiva e escolta ao fundo'],
+     ['fotos-ministro/visita-ministro-03','Chegada da comitiva e da escolta militar ao estaleiro','Plano largo do pátio com a comitiva a chegar e a mesa de EPI em primeiro plano'],
+     ['fotos-ministro/visita-ministro-04','Percurso pela obra com toda a comitiva equipada com capacete e colete','Comitiva a percorrer o acesso à obra de capacete e colete reflector, acompanhada por escolta'],
+     ['fotos-ministro/visita-ministro-05','Briefing do projecto na sala de reuniões do estaleiro','Comitiva sentada na sala de reuniões durante a apresentação'],
+     ['fotos-ministro/visita-ministro-06','Briefing do projecto — Ministro do MINDENACVP e chefias militares','Ministro sentado a assistir à apresentação, ladeado por oficiais'],
+     ['fotos-ministro/visita-ministro-07','Apresentação do ponto de situação da obra pela equipa VAMED','Técnico da equipa a apresentar o ponto de situação à comitiva sentada']
+   ]}
+];
+
+function nfmt(v, dec){
+  if (v === undefined || v === null) return '—';
+  return v.toLocaleString('pt-PT', {
+    useGrouping: true,
+    minimumFractionDigits: dec || 0,
+    maximumFractionDigits: dec || 0
+  });
+}
+
+function renderMes(){
+  const m = currMonth, d = DATA[m], det = MES_DETALHE[m];
+  const rot = M_ABR[m] + ' 2026';
+  const esc = t => String(t).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+
+  const set = (id, txt) => { const e = document.getElementById(id); if (e) e.textContent = txt; };
+  set('period-pill', 'Ago 2025 → ' + rot);
+  set('topics-title', 'Situações HSE Identificadas · ' + rot);
+  set('wf-div-label', '⬡  ESTALEIRO · FORÇA DE TRABALHO · ' + M_LABEL[m]);
+  set('klbl-efet', 'Total Efetivos (' + rot + ')');
+  set('cal-mes', rot);
+  set('emp-mes', rot);
+  set('wb-title', 'Resíduos Produzidos (' + rot + ')');
+  set('amb-mes', 'Mês (' + M_ABR[m] + ')');
+  set('klbl-alc', 'Alcoolemia — ' + rot);
+  set('kv-alc', nfmt(d.t));
+  set('kd-alc', nfmt(d.t) + ' negativos · ' + nfmt(d.p) + ' positivos');
+  set('kv-chk', pf(d.ch));
+  set('kd-chk', '▲ EXCELENTE · ' + rot);
+
+  const lista = document.getElementById('topics-list');
+  if (lista && det) {
+    lista.innerHTML = det.situacoes.concat(SITUACOES_SEM_DATA).map(function(t){
+      const metas = t.meta.map(function(x){
+        const o = typeof x === 'string' ? {txt:x} : x;
+        return '<span class="tmeta"><span class="tmeta-dot"' +
+               (o.cor ? ' style="background:' + o.cor + '"' : '') + '></span>' + esc(o.txt) + '</span>';
+      }).join('');
+      const fotos = (t.fotos || []).map(function(f){
+        return '<button type="button" class="foto-th" data-src="./' + f[0] + '.jpg" data-legenda="' + esc(f[1]) +
+               '"><img src="./' + f[0] + '-th.jpg" alt="' + esc(f[2]) + '" loading="lazy"></button>';
+      }).join('');
+      return '<div class="topic-item ' + t.estado + '">' +
+        '<div class="topic-top"><div class="topic-name">' + esc(t.nome) + '</div>' +
+        '<div class="topic-status ' + t.estado + '">' + esc(t.tag) + '</div></div>' +
+        '<div class="topic-meta">' + metas + '</div>' +
+        (fotos ? '<div class="topic-fotos">' + fotos + '</div>' : '') + '</div>';
+    }).join('');
+    if (window.ligarLightbox) window.ligarLightbox();
+  }
+
+  if (det) {
+    const total = det.empresas.reduce(function(a,e){ return a + e[2]; }, 0);
+    set('kv-efet', nfmt(total));
+    set('kd-efet', det.empresas.length + ' empresas / subcontratadas');
+    const eb = document.getElementById('emp-body');
+    if (eb) {
+      eb.innerHTML = det.empresas.map(function(e){
+        return '<tr><td style="font-weight:700;color:rgba(' + e[3] + ',.9)">' + esc(e[0]) + '</td>' +
+          '<td style="color:var(--muted)">' + esc(e[1]) + '</td>' +
+          '<td style="text-align:right;color:var(--txt);font-weight:700">' + e[2] + '</td>' +
+          '<td style="text-align:right;color:var(--muted)">' + (total ? (e[2]/total*100).toFixed(1) : '0,0') + '%</td></tr>';
+      }).join('') +
+      '<tr style="background:rgba(191,95,255,.04)">' +
+      '<td colspan="2" style="font-weight:800;color:var(--violet);font-family:\'JetBrains Mono\',monospace;font-size:10px;letter-spacing:.5px">TOTAL</td>' +
+      '<td style="text-align:right;font-weight:800;color:var(--violet);font-size:14px">' + total + '</td>' +
+      '<td style="text-align:right"><span class="badge" style="background:rgba(191,95,255,.15);color:var(--violet);border:1px solid rgba(191,95,255,.35)">100%</span></td></tr>';
+    }
+    if (window.donutChart) {
+      window.donutChart.data.labels = det.empresas.map(function(e){ return e[0]; });
+      window.donutChart.data.datasets[0].data = det.empresas.map(function(e){ return e[2]; });
+      window.donutChart.data.datasets[0].backgroundColor = det.empresas.map(function(e){ return 'rgba(' + e[3] + ',.75)'; });
+      window.donutChart.update();
+    }
+
+    const maxR = Math.max.apply(null, det.residuos.map(function(r){ return r[1]; })) || 1;
+    const wb = document.getElementById('wb-items');
+    if (wb) {
+      wb.innerHTML = det.residuos.map(function(r){
+        const pct = Math.max(6, Math.round(r[1] / maxR * 60));
+        return '<div class="wb-item"><div class="wb-row"><span>' + esc(r[0]) + '</span>' +
+          '<span style="color:' + r[4] + '">' + nfmt(r[1]) + ' ' + r[2] + '</span></div>' +
+          '<div class="wb-bar"><div class="wb-fill" style="width:' + pct + '%;background:linear-gradient(90deg,rgba(' + r[5] + ',.6),rgba(' + r[5] + ',.3))"></div></div></div>';
+      }).join('');
+    }
+
+    const ab = document.getElementById('amb-body');
+    if (ab) {
+      const linha = function(nome, mes, acum, cor, badge, tipo){
+        return '<tr><td>' + nome + '</td>' +
+          '<td style="color:' + cor + ';font-weight:700">' + mes + '</td>' +
+          '<td style="color:var(--muted)">' + acum + '</td>' +
+          '<td><span class="badge ' + tipo + '">' + badge + '</span></td></tr>';
+      };
+      const AMB = {
+        jun: {aguaAc:'3.420,6 m³', gasAc:'416.537 L', elecAc:'61.603,6 kWh'},
+        jul: {aguaAc:'3.472,6 m³', gasAc:'422.403 L', elecAc:'63.580,8 kWh'}
+      }[m] || {};
+      ab.innerHTML =
+        linha('Água', nfmt(d.agua) + ' m³', AMB.aguaAc || '—', 'var(--cyan)', 'Normal', 'up') +
+        linha('Gasóleo', nfmt(d.gas) + ' L', AMB.gasAc || '—', 'var(--orange)', 'Acum.', 'flat') +
+        linha('Electricidade', nfmt(d.elec,1) + ' kWh', AMB.elecAc || '—', 'var(--amber)', 'Acum.', 'flat') +
+        det.residuos.map(function(r){
+          return linha(r[0] + ' (' + r[2] + ')', nfmt(r[1]) + ' ' + r[2],
+                       r[3] == null ? '—' : nfmt(r[3], r[3] % 1 ? 2 : 0) + ' ' + r[2],
+                       r[4], r[6], r[7]);
+        }).join('') +
+        linha('Advertências', '0', '13 acum.', 'var(--muted)', 'Sem retiradas', 'up') +
+        linha('Checklist (' + M_ABR[m] + ')', pf(d.ch), '', 'var(--violet)', 'EXCELENTE', 'up');
+    }
+  }
 }
 
 function renderSSTTable(){
@@ -1280,7 +1459,7 @@ new Chart(ctxA,{type:'bar',data:{labels:LABELS,datasets:[
 ]},options:{...baseOpts,plugins:{legend:{display:true,labels:{color:'#6B7694',font:{size:9,family:'JetBrains Mono'}}}}}});
 
 /* ══ DONUT ══ */
-new Chart(document.getElementById('cDonut').getContext('2d'),{
+window.donutChart = new Chart(document.getElementById('cDonut').getContext('2d'),{
   type:'doughnut',
   data:{
     labels:['VAMED','Mota-Engil','Confrasilvas','Protector','Afrilim'],
@@ -1367,6 +1546,7 @@ L.marker([-5.5487,12.1948],{icon}).addTo(map).bindPopup(popup,{maxWidth:320});
 setTheme(localStorage.getItem('hse-theme')||'dark');
 renderKPIs();
 renderSSTTable();
+renderMes();
 </script>
 <!--
   repo-integration-snippet.html
@@ -1991,6 +2171,76 @@ renderSSTTable();
   } else {
     init();
   }
+})();
+</script>
+<script>
+/* ══ LIGHTBOX DAS FOTOS DAS SITUAÇÕES HSE ══
+   As situações são renderizadas por JS a cada mudança de mês, por isso o
+   lightbox expõe window.ligarLightbox() para voltar a ligar os botões. */
+(function () {
+  var lb = document.createElement('div');
+  lb.className = 'lightbox';
+  lb.setAttribute('role', 'dialog');
+  lb.setAttribute('aria-modal', 'true');
+  lb.innerHTML =
+    '<button type="button" class="lightbox-close" aria-label="Fechar">&times;</button>' +
+    '<button type="button" class="lightbox-nav prev" aria-label="Foto anterior">&lsaquo;</button>' +
+    '<button type="button" class="lightbox-nav next" aria-label="Foto seguinte">&rsaquo;</button>' +
+    '<img alt=""><div class="lightbox-cap"></div>';
+  document.body.appendChild(lb);
+
+  var img = lb.querySelector('img');
+  var cap = lb.querySelector('.lightbox-cap');
+  var botoes = [], i = 0, anterior = null;
+
+  function mostrar(n) {
+    if (!botoes.length) return;
+    i = (n + botoes.length) % botoes.length;
+    var b = botoes[i];
+    img.src = b.getAttribute('data-src');
+    img.alt = b.querySelector('img').alt;
+    cap.innerHTML = b.getAttribute('data-legenda') + '<span>' + (i + 1) + ' de ' + botoes.length + '</span>';
+  }
+  function abrir(n) {
+    anterior = document.activeElement;
+    mostrar(n);
+    lb.classList.add('open');
+    document.body.style.overflow = 'hidden';
+    lb.querySelector('.lightbox-close').focus();
+  }
+  function fechar() {
+    lb.classList.remove('open');
+    document.body.style.overflow = '';
+    img.src = '';
+    if (anterior && anterior.focus) anterior.focus();
+  }
+
+  lb.querySelector('.lightbox-close').addEventListener('click', fechar);
+  lb.querySelector('.prev').addEventListener('click', function () { mostrar(i - 1); });
+  lb.querySelector('.next').addEventListener('click', function () { mostrar(i + 1); });
+  lb.addEventListener('click', function (e) { if (e.target === lb) fechar(); });
+  document.addEventListener('keydown', function (e) {
+    if (!lb.classList.contains('open')) return;
+    if (e.key === 'Escape') fechar();
+    else if (e.key === 'ArrowLeft') mostrar(i - 1);
+    else if (e.key === 'ArrowRight') mostrar(i + 1);
+  });
+
+  window.ligarLightbox = function () {
+    botoes = Array.prototype.slice.call(document.querySelectorAll('.foto-th'));
+    botoes.forEach(function (b, n) {
+      if (b.dataset.lbLigado) return;
+      b.dataset.lbLigado = '1';
+      b.addEventListener('click', function () {
+        botoes = Array.prototype.slice.call(document.querySelectorAll('.foto-th'));
+        abrir(botoes.indexOf(b));
+      });
+    });
+    lb.querySelectorAll('.lightbox-nav').forEach(function (n) {
+      n.style.display = botoes.length < 2 ? 'none' : '';
+    });
+  };
+  window.ligarLightbox();
 })();
 </script>
 <script defer src="./licencas-dashboard.js"></script>
