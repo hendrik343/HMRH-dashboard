@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="pt"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Actas de Reunião HSE - HMRH Huambo</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500;700;800&amp;family=Orbitron:wght@600;700;800;900&amp;display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #07080d;
+      --panel: #0f121a;
+      --panel-2: #151927;
+      --text: #f7fbff;
+      --muted: #7b86a3;
+      --line: rgba(255,255,255,.1);
+      --blue: #1e90ff;
+      --cyan: #00e5ff;
+      --amber: #ffd000;
+      --violet: #b565ff;
+      --red: #ff4267;
+      --green: #00d98f;
+    }
+
+    body.theme-light {
+      --bg: #eef3f8;
+      --panel: #ffffff;
+      --panel-2: #edf4fb;
+      --text: #0b1522;
+      --muted: #64748b;
+      --line: rgba(16,41,70,.14);
+      --blue: #0b72d9;
+      --cyan: #0397ad;
+      --amber: #b07d00;
+      --violet: #7c3aed;
+      --red: #d32b4d;
+      --green: #0a8f62;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+
+    .page {
+      width: min(1200px, calc(100% - 28px));
+      margin: 0 auto;
+      padding: 22px 0 40px;
+    }
+
+    .topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 14px;
+      margin-bottom: 18px;
+    }
+
+    .topbar-right {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 14px;
+    }
+
+    .marca { height: 44px; width: auto; flex: none; align-self: flex-start; }
+    .theme-dark .marca { content: url('./vamed-wwh-logo-dark.png'); }
+    @media (max-width: 640px) { .marca { height: 32px; } }
+
+    .back {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      color: var(--blue);
+      text-decoration: none;
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: .05em;
+      text-transform: uppercase;
+    }
+
+    .back:hover { text-decoration: underline; }
+
+    .mode-toggle {
+      display: inline-flex;
+      border: 1px solid var(--line);
+      border-radius: 13px;
+      padding: 4px;
+      gap: 4px;
+      background: rgba(255,255,255,.05);
+    }
+
+    .mode-btn {
+      border: 0;
+      border-radius: 9px;
+      padding: 7px 10px;
+      background: transparent;
+      color: var(--muted);
+      cursor: pointer;
+      font-size: 11px;
+      font-weight: 900;
+      letter-spacing: .05em;
+      font-family: "JetBrains Mono", monospace;
+    }
+
+    .mode-btn.active {
+      color: #fff;
+      background: linear-gradient(135deg, rgba(30,144,255,.75), rgba(0,229,255,.45));
+    }
+
+    .panel {
+      background: linear-gradient(145deg, var(--panel), var(--panel-2));
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      overflow: hidden;
+    }
+
+    .intro {
+      border-left: 4px solid var(--amber);
+      border-radius: 0 12px 12px 0;
+      background: linear-gradient(145deg, var(--panel), var(--panel-2));
+      border-top: 1px solid var(--line);
+      border-right: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+      padding: 18px 20px;
+      margin-bottom: 6px;
+    }
+
+    .intro h1 {
+      margin: 0 0 6px;
+      font-family: "Orbitron", "JetBrains Mono", monospace;
+      font-size: 18px;
+      font-weight: 800;
+      letter-spacing: .06em;
+    }
+
+    .intro p {
+      margin: 0;
+      font-size: 12px;
+      line-height: 1.6;
+      color: var(--muted);
+    }
+
+    .kpis-actas {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 12px;
+      margin: 16px 0 4px;
+    }
+
+    .kpis-actas .panel { padding: 14px 16px; }
+
+    .kpis-actas .lbl {
+      font-size: 10px;
+      font-weight: 900;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 6px;
+    }
+
+    .kpis-actas .val {
+      font-family: "Orbitron", "JetBrains Mono", monospace;
+      font-size: 26px;
+      font-weight: 800;
+      line-height: 1;
+    }
+
+    .kpis-actas .val.red { color: var(--red); }
+    .kpis-actas .val.amber { color: var(--amber); }
+    .kpis-actas .val.blue { color: var(--blue); }
+    .kpis-actas .val.green { color: var(--green); }
+
+    .kpis-actas .hint { margin-top: 5px; font-size: 10.5px; color: var(--muted); line-height: 1.4; }
+
+    .nota {
+      margin-top: 22px;
+      padding: 14px 16px;
+      border: 1px dashed var(--line);
+      border-radius: 12px;
+      font-size: 11px;
+      line-height: 1.6;
+      color: var(--muted);
+    }
+  </style>
+</head>
+<body class="theme-light">
+  <main class="page">
+    <div class="topbar">
+      <a class="back" href="./">&larr; HSE Dashboard</a>
+      <div class="topbar-right">
+        <a class="back" href="./planeamento">Planeamento HSE &rarr;</a>
+        <div class="mode-toggle" aria-label="Theme mode">
+          <button class="mode-btn" id="darkModeBtn" type="button" onclick="setTheme('dark')">Dark</button>
+          <button class="mode-btn active" id="lightModeBtn" type="button" onclick="setTheme('light')">Normal</button>
+        </div>
+        <img class="marca" src="./vamed-wwh-logo.png" alt="VAMED + WWH">
+      </div>
+    </div>
+
+    <div class="intro">
+      <h1>Actas · Reuniões Semanais de Segurança e Ambiente</h1>
+      <p>
+        HMRH · Obra n.º 13DC-DEI/SV/2021 · VAMED Healthcare Projects · Formulário AF 001.<br>
+        Registo das reuniões quinzenais de obra: temas em acompanhamento, responsáveis, prazos e
+        balanço Good News / Bad News. Cada tema é classificado como Tarefa, Informação ou Decisão.
+      </p>
+    </div>
+
+    <div class="kpis-actas" id="actasKpis"></div>
+
+    <div id="actas-hse"></div>
+
+    <p class="nota">
+      Fonte: actas originais em PDF, formulário AF 001 (VAMED+WWH). Duas notas de transcrição —
+      na acta n.º 119 o original grafa &laquo;HSE (MAMED)&raquo;, corrigido para VAMED; na acta n.º 120
+      o tema 4 regista ocorrência a 09-07-2026 mas prazo a 05/07/2026, inconsistência mantida como no original.
+    </p>
+  </main>
+
+  <script>
+    function setTheme(mode) {
+      const theme = mode === 'light' ? 'light' : 'dark';
+      document.body.classList.toggle('theme-light', theme === 'light');
+      document.body.classList.toggle('theme-dark', theme === 'dark');
+      document.getElementById('darkModeBtn')?.classList.toggle('active', theme === 'dark');
+      document.getElementById('lightModeBtn')?.classList.toggle('active', theme === 'light');
+      localStorage.setItem('hse-theme', theme);
+    }
+    setTheme(localStorage.getItem('hse-theme') || 'dark');
+  </script>
+  <script src="./actas-hse.js"></script>
+  <script>
+    (function () {
+      const A = window.ACTAS_HSE;
+      const el = document.getElementById('actasKpis');
+      if (!A || !el) return;
+      const mes = A.mesMaisRecente();
+      const r = mes ? A.resumo(mes) : null;
+      if (!r) { el.innerHTML = ''; return; }
+      const dmy = iso => { const p = String(iso).split('-'); return p[2] + '/' + p[1] + '/' + p[0]; };
+      const cards = [
+        ['Actas no mês', r.nActas, 'blue', r.rotulo],
+        ['Última acta', 'Nº ' + r.ultima.numero, 'amber', dmy(r.ultima.data)],
+        ['Tarefas em aberto', r.emAberto, r.emAberto ? 'amber' : 'green', 'na acta n.º ' + r.ultima.numero],
+        ['Prazos ultrapassados', r.atrasadas, r.atrasadas ? 'red' : 'green', r.atrasadas ? 'requerem acompanhamento' : 'sem atrasos'],
+        ['Próxima reunião', r.proxima ? 'Nº ' + r.proxima.numero : '—', 'blue', r.proxima ? dmy(r.proxima.data) : 'por agendar']
+      ];
+      el.innerHTML = cards.map(([lbl, val, cls, hint]) =>
+        `<article class="panel"><div class="lbl">${lbl}</div><div class="val ${cls}">${val}</div><div class="hint">${hint}</div></article>`
+      ).join('');
+    })();
+  </script>
+  <script>
+    /* cleanUrls (Vercel) remove o .html; aberto como file:// não há servidor
+       a resolver caminhos sem extensão — corrige os links internos nesse caso. */
+    if (location.protocol === 'file:') {
+      document.querySelectorAll('a[href^="./"]').forEach(function (a) {
+        var h = a.getAttribute('href');
+        if (h === './') a.setAttribute('href', './index.html');
+        else if (!/\.[a-z0-9]+$/i.test(h)) a.setAttribute('href', h + '.html');
+      });
+    }
+  </script>
+</body></html>

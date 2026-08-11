@@ -137,4 +137,15 @@
     setTheme(localStorage.getItem('hse-theme') || 'dark');
   </script>
   <script src="./planeamento-hse.js"></script>
+  <script>
+    /* cleanUrls (Vercel) remove o .html; aberto como file:// não há servidor
+       a resolver caminhos sem extensão — corrige os links internos nesse caso. */
+    if (location.protocol === 'file:') {
+      document.querySelectorAll('a[href^="./"]').forEach(function (a) {
+        var h = a.getAttribute('href');
+        if (h === './') a.setAttribute('href', './index.html');
+        else if (!/\.[a-z0-9]+$/i.test(h)) a.setAttribute('href', h + '.html');
+      });
+    }
+  </script>
 </body></html>

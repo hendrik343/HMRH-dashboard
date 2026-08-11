@@ -361,11 +361,17 @@
     alvo.innerHTML = h;
   }
 
+  /* Em produção o Vercel serve com cleanUrls:true ("./planeamento").
+     Aberto como ficheiro local (file://) não há servidor a resolver o caminho
+     sem extensão — nesse caso apontamos directamente para o .html. */
+  var LINK_PLAN = (typeof location !== 'undefined' && location.protocol === 'file:')
+    ? './planeamento.html' : './planeamento';
+
   function renderAtalho(alvo) {
     var r = resumo(hojeISO()), t = r.t;
     var limpo = t.arVencidas === 0;
     var h = '';
-    h += '<a class="ph-atalho ' + (limpo ? 'is-limpo' : 'is-divida') + '" href="./planeamento">';
+    h += '<a class="ph-atalho ' + (limpo ? 'is-limpo' : 'is-divida') + '" href="' + LINK_PLAN + '">';
     h += '<span class="ph-atalho-lbl">Planeamento HSE</span>';
     h += '<span class="ph-atalho-num">' + t.arVencidas + '</span>';
     h += '<span class="ph-atalho-sub">' + (limpo

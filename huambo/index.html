@@ -9,6 +9,7 @@
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+  <script src="./actas-hse.js"></script>
   <style>
     :root {
       --bg: #07080d;
@@ -550,6 +551,52 @@
       height: 1px;
       flex: 1;
       background: linear-gradient(90deg, transparent, rgba(255,208,0,.45), transparent);
+    }
+
+    /* --- Fotos das situações HSE --- */
+    .topic-fotos { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; }
+    .foto-th {
+      padding: 0; border: 1px solid var(--line); border-radius: 8px; overflow: hidden;
+      background: none; cursor: zoom-in; line-height: 0; width: 78px; height: 78px;
+      transition: transform .15s ease, border-color .15s ease;
+    }
+    .foto-th img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .foto-th:hover, .foto-th:focus-visible { transform: translateY(-2px); border-color: var(--amber); outline: none; }
+
+    .lightbox {
+      position: fixed; inset: 0; z-index: 9999; display: none;
+      align-items: center; justify-content: center; flex-direction: column; gap: 14px;
+      background: rgba(3,5,10,.92); padding: 24px; backdrop-filter: blur(4px);
+    }
+    .lightbox.open { display: flex; }
+    .lightbox img {
+      max-width: min(1100px, 92vw); max-height: 78vh; width: auto; height: auto;
+      border-radius: 12px; border: 1px solid rgba(255,255,255,.16);
+    }
+    .lightbox-cap {
+      max-width: min(1100px, 92vw); text-align: center; color: #f7fbff;
+      font-size: 12.5px; line-height: 1.6;
+    }
+    .lightbox-cap span { display: block; color: #7b86a3; font-size: 11px; margin-top: 4px; }
+    .lightbox-close {
+      position: absolute; top: 18px; right: 20px; width: 40px; height: 40px;
+      border-radius: 50%; border: 1px solid rgba(255,255,255,.22);
+      background: rgba(255,255,255,.08); color: #fff; font-size: 20px; cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .lightbox-close:hover { background: rgba(255,255,255,.18); }
+    .lightbox-nav {
+      position: absolute; top: 50%; transform: translateY(-50%); width: 44px; height: 44px;
+      border-radius: 50%; border: 1px solid rgba(255,255,255,.22);
+      background: rgba(255,255,255,.08); color: #fff; font-size: 22px; cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .lightbox-nav:hover { background: rgba(255,255,255,.18); }
+    .lightbox-nav.prev { left: 16px; }
+    .lightbox-nav.next { right: 16px; }
+    @media (max-width: 640px) {
+      .foto-th { width: 64px; height: 64px; }
+      .lightbox-nav { width: 38px; height: 38px; font-size: 18px; }
     }
 
     .workforce {
@@ -1395,7 +1442,10 @@
       </div>
     </header>
 
-    <div id="planeamento-hse-atalho"></div>
+    <div class="atalhos-row">
+      <div id="planeamento-hse-atalho"></div>
+      <div id="actas-atalho"></div>
+    </div>
 
     <section class="kpis">
       <article class="card"><div class="label">Trabalhadores</div><div class="value lime" id="kWorkers">157</div><div class="delta red" id="dWorkers">-8.2% vs Jun</div></article>
@@ -1570,16 +1620,32 @@
 
         <div class="topics">
           <div class="topic">
+            <div class="topic-top"><span>Substituição dos filtros do sistema de tratamento de água</span><span class="tag green">Realizada</span></div>
+            <div class="meta">Julho 2026 · Desmontagem dos copos de filtragem, remoção e lavagem dos cartuchos e recolocação do conjunto</div>
+            <div class="topic-fotos">
+              <button type="button" class="foto-th" data-src="./fotos-julho/filtros-agua-01.jpg" data-legenda="Substituição dos filtros de água · desmontagem dos copos de filtragem"><img src="./fotos-julho/filtros-agua-01-th.jpg" alt="Dois técnicos a desmontar os copos de filtragem do sistema de água" loading="lazy"></button>
+              <button type="button" class="foto-th" data-src="./fotos-julho/filtros-agua-02.jpg" data-legenda="Substituição dos filtros de água · remoção dos cartuchos saturados"><img src="./fotos-julho/filtros-agua-02-th.jpg" alt="Técnico com os cartuchos de filtragem retirados, em balde" loading="lazy"></button>
+              <button type="button" class="foto-th" data-src="./fotos-julho/filtros-agua-03.jpg" data-legenda="Substituição dos filtros de água · lavagem do cartucho"><img src="./fotos-julho/filtros-agua-03-th.jpg" alt="Técnico a lavar um cartucho de filtragem" loading="lazy"></button>
+              <button type="button" class="foto-th" data-src="./fotos-julho/filtros-agua-04.jpg" data-legenda="Substituição dos filtros de água · recolocação dos copos de filtragem"><img src="./fotos-julho/filtros-agua-04-th.jpg" alt="Técnico a transportar os copos de filtragem azuis para recolocação" loading="lazy"></button>
+            </div>
+          </div>
+          <div class="topic">
             <div class="topic-top"><span>Simulacro de derrame — casa de armazenamento de produtos químicos</span><span class="tag green">Realizado</span></div>
             <div class="meta">03 Jul 2026 · Relatório de Simulacro Nº 05 · Elaborado: Nelson Segunda · Aprovado: João Ladeiro</div>
+            <div class="topic-fotos">
+              <button type="button" class="foto-th" data-src="./fotos-julho/simulacro-05-01.jpg" data-legenda="Simulacro de derrame Nº 05 · contenção com manga absorvente e delimitação da zona"><img src="./fotos-julho/simulacro-05-01-th.jpg" alt="Equipa a conter um derrame simulado junto à casa de produtos químicos, com cones a delimitar a zona" loading="lazy"></button>
+            </div>
           </div>
           <div class="topic">
-            <div class="topic-top"><span>Visita do Ministro do MINDENACVP</span><span class="tag green">Realizada</span></div>
-            <div class="meta">10 Jul 2026 · Visita à obra · 38 intervenientes</div>
-          </div>
-          <div class="topic">
-            <div class="topic-top"><span>Acção de interacção com a comunidade — Colégio São Francisco</span><span class="tag green">Realizada</span></div>
-            <div class="meta">16 Jul 2026 · Inquérito à direcção do colégio · impactos de poeira e ruído · 6 intervenientes</div>
+            <div class="topic-top"><span>Inspecção de equipamentos</span><span class="tag green">Realizada</span></div>
+            <div class="meta">Julho 2026 · Verificação com check-list — gerador, manipulador telescópico, camião ligeiro, extintores e instalações sociais · inclui controlo de alcoolemia</div>
+            <div class="topic-fotos">
+              <button type="button" class="foto-th" data-src="./fotos-julho/inspeccao-equipamentos-01.jpg" data-legenda="Inspecção de equipamentos · gerador, preenchimento da check-list"><img src="./fotos-julho/inspeccao-equipamentos-01-th.jpg" alt="Técnico a preencher a check-list de inspecção junto ao gerador" loading="lazy"></button>
+              <button type="button" class="foto-th" data-src="./fotos-julho/inspeccao-equipamentos-02.jpg" data-legenda="Inspecção de equipamentos · manipulador telescópico, verificação com o operador"><img src="./fotos-julho/inspeccao-equipamentos-02-th.jpg" alt="Técnico a preencher a check-list junto ao manipulador telescópico com o operador na cabina" loading="lazy"></button>
+              <button type="button" class="foto-th" data-src="./fotos-julho/inspeccao-equipamentos-03.jpg" data-legenda="Inspecção de equipamentos · camião ligeiro FOTON (LD-59-82-IE), verificação com o condutor"><img src="./fotos-julho/inspeccao-equipamentos-03-th.jpg" alt="Técnico a preencher a check-list junto ao camião ligeiro FOTON, acompanhado pelo condutor" loading="lazy"></button>
+              <button type="button" class="foto-th" data-src="./fotos-julho/inspeccao-equipamentos-04.jpg" data-legenda="Inspecção de equipamentos · verificação de extintores e instalações sociais no estaleiro"><img src="./fotos-julho/inspeccao-equipamentos-04-th.jpg" alt="Técnico a preencher a check-list junto a um extintor no exterior dos contentores das instalações sociais" loading="lazy"></button>
+              <button type="button" class="foto-th" data-src="./fotos-julho/alcoolemia-01.jpg" data-legenda="Controlo de alcoolemia · teste com etilómetro iBlow 10 e registo em folha própria"><img src="./fotos-julho/alcoolemia-01-th.jpg" alt="Técnico HSE a realizar teste de alcoolemia a um trabalhador com etilómetro iBlow 10" loading="lazy"></button>
+            </div>
           </div>
         </div>
       </article>
@@ -1884,8 +1950,10 @@
         const day = i + 1;
         const notes = {
           3: 'Simulacro de derrame — casa de armazenamento de produtos químicos',
+          8: 'Reunião Semanal HSE Nº 119',
           10: 'Visita do Ministro do MINDENACVP',
-          16: 'Acção de interacção com a comunidade · Inquérito Colégio São Francisco'
+          16: 'Acção de interacção com a comunidade · Inquérito Colégio São Francisco',
+          22: 'Reunião Semanal HSE Nº 120'
         };
         return [day, null, null, notes[day]];
       })
@@ -1990,6 +2058,7 @@
       updateCharts(m);
       renderCompanies(m);
       renderCalendar(m);
+      renderActas(m);
     }
 
     function buildRows(id, rows) {
@@ -2046,6 +2115,13 @@
       document.getElementById('companyBody').innerHTML = rows.map(([name, n]) =>
         `<tr><td><strong class="amber">${name}</strong></td><td>${n}</td><td>${total ? (n/total*100).toFixed(1) : '0.0'}%</td></tr>`
       ).join('') + `<tr><td><strong>Total</strong></td><td><strong>${total}</strong></td><td><strong>100%</strong></td></tr>`;
+    }
+
+    /* Actas: só o cartão de atalho vive no dashboard. O conteúdo completo está
+       em ./actas (actas.html), servido pelo módulo partilhado ./actas-hse.js. */
+    function renderActas(m) {
+      if (!window.ACTAS_HSE) return;
+      window.ACTAS_HSE.renderAtalho(document.getElementById('actas-atalho'), m);
     }
 
     function renderCalendar(m) {
@@ -2205,6 +2281,65 @@
 
       setTimeout(() => siteMap.invalidateSize(), 100);
     }
+
+    /* --- Lightbox das fotos das situações HSE --- */
+    (function () {
+      const botoes = Array.from(document.querySelectorAll('.foto-th'));
+      if (!botoes.length) return;
+
+      const lb = document.createElement('div');
+      lb.className = 'lightbox';
+      lb.setAttribute('role', 'dialog');
+      lb.setAttribute('aria-modal', 'true');
+      lb.innerHTML =
+        '<button type="button" class="lightbox-close" aria-label="Fechar">&times;</button>' +
+        '<button type="button" class="lightbox-nav prev" aria-label="Foto anterior">&lsaquo;</button>' +
+        '<button type="button" class="lightbox-nav next" aria-label="Foto seguinte">&rsaquo;</button>' +
+        '<img alt=""><div class="lightbox-cap"></div>';
+      document.body.appendChild(lb);
+
+      const img = lb.querySelector('img');
+      const cap = lb.querySelector('.lightbox-cap');
+      const navs = lb.querySelectorAll('.lightbox-nav');
+      let i = 0, anterior = null;
+
+      function mostrar(n) {
+        i = (n + botoes.length) % botoes.length;
+        const b = botoes[i];
+        img.src = b.dataset.src;
+        img.alt = b.querySelector('img').alt;
+        cap.innerHTML = b.dataset.legenda + '<span>' + (i + 1) + ' de ' + botoes.length + '</span>';
+      }
+
+      function abrir(n) {
+        anterior = document.activeElement;
+        mostrar(n);
+        lb.classList.add('open');
+        document.body.style.overflow = 'hidden';
+        lb.querySelector('.lightbox-close').focus();
+      }
+
+      function fechar() {
+        lb.classList.remove('open');
+        document.body.style.overflow = '';
+        img.src = '';
+        if (anterior) anterior.focus();
+      }
+
+      botoes.forEach((b, n) => b.addEventListener('click', () => abrir(n)));
+      lb.querySelector('.lightbox-close').addEventListener('click', fechar);
+      lb.querySelector('.prev').addEventListener('click', () => mostrar(i - 1));
+      lb.querySelector('.next').addEventListener('click', () => mostrar(i + 1));
+      lb.addEventListener('click', e => { if (e.target === lb) fechar(); });
+      navs.forEach(n => { if (botoes.length < 2) n.style.display = 'none'; });
+
+      document.addEventListener('keydown', e => {
+        if (!lb.classList.contains('open')) return;
+        if (e.key === 'Escape') fechar();
+        else if (e.key === 'ArrowLeft') mostrar(i - 1);
+        else if (e.key === 'ArrowRight') mostrar(i + 1);
+      });
+    })();
 
     const now = new Date();
     document.getElementById('today').textContent = 'Sistema activo · ' + now.toLocaleDateString('pt-PT');

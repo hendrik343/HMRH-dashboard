@@ -374,7 +374,35 @@
           "data": "2026-07-03", "tipo": "Simulacro",
           "titulo": "Simulacro de derrame — casa de armazenamento de produtos químicos",
           "referencia": "Relatório de Simulacro Nº 05",
-          "obs": "Elaborado Nelson Segunda, aprovado João Ladeiro."
+          "obs": "Elaborado Nelson Segunda, aprovado João Ladeiro.",
+          "destaque": true,
+          "fotos": ["fotos-julho/simulacro-05-01.jpg"]
+        },
+        {
+          "data": null, "mes": "2026-07", "tipo": "Manutenção",
+          "titulo": "Substituição dos filtros do sistema de tratamento de água",
+          "obs": "Desmontagem dos copos de filtragem, remoção e lavagem dos cartuchos e recolocação do conjunto. Dia não registado — só mês de referência.",
+          "destaque": true,
+          "fotos": [
+            "fotos-julho/filtros-agua-01.jpg",
+            "fotos-julho/filtros-agua-02.jpg",
+            "fotos-julho/filtros-agua-03.jpg",
+            "fotos-julho/filtros-agua-04.jpg"
+          ]
+        },
+        {
+          "data": null, "mes": "2026-07", "tipo": "Inspecção",
+          "titulo": "Inspecção de equipamentos",
+          "obs": "Verificação com check-list — gerador, manipulador telescópico, camião ligeiro FOTON (LD-59-82-IE), extintores e instalações sociais. Inclui foto de controlo de alcoolemia com etilómetro iBlow 10. Dia não registado — só mês de referência.",
+          "destaque": true,
+          "_conflito": "A foto de alcoolemia contradiz alcoolemia.testes=0 e o item 1.21 da checklist marcado NÃO CONFORME em jul-2026. Confirmar se a foto é de Julho ou de outro mês antes de publicar.",
+          "fotos": [
+            "fotos-julho/inspeccao-equipamentos-01.jpg",
+            "fotos-julho/inspeccao-equipamentos-02.jpg",
+            "fotos-julho/inspeccao-equipamentos-03.jpg",
+            "fotos-julho/inspeccao-equipamentos-04.jpg",
+            "fotos-julho/alcoolemia-01.jpg"
+          ]
         },
         {
           "data": "2026-07-10", "tipo": "Visita Institucional",
@@ -393,8 +421,82 @@
           "obs": "Evento de Junho repetido no RM038. Data própria 2026-06-29 — filtrar por data para evitar duplicado com a entrada de Junho."
         }
       ],
+      "actas": [
+        {
+          "numero": 119,
+          "doc": "119/2026",
+          "data": "2026-07-08",
+          "hora": "10:00 – 11:00",
+          "local": "Obra e sala de reuniões da obra",
+          "redator": "Faustino dos Santos",
+          "gestor": "Eduardo Silva",
+          "proxima": { "numero": 120, "data": "2026-07-22" },
+          "participantes": [
+            "Leônidas Calheiros — Site Manager Adjunto (VAMED)",
+            "Irineu Silva — Respons. de Especialidade (VAMED)",
+            "Hendrik Silva — HSE Manager (VAMED)",
+            "Faustino Santos — HSE (VAMED)",
+            "João Ladeiro — HSE (Belo Empreendimentos)",
+            "Nelson Segunda — Diretor (Belo Empreendimentos)"
+          ],
+          "temas": [
+            { "n": 1, "cat": "T", "texto": "Tema da última reunião (06-02-2026) — Máquina multifunção: pirilampo, luzes de retaguarda e piscas resolvidos e em funcionamento; falta resolver os piscas de mudança de direção.", "estado": "Em fase avançada de resolução", "responsavel": "Nelson Segunda / Leonel Luamba", "prazo": "2026-06-24" },
+            { "n": 2, "cat": "I", "texto": "Temas provenientes da reunião passada: todos resolvidos.", "estado": "Resolvido", "responsavel": null, "prazo": null },
+            { "n": 3, "cat": "I", "texto": "Visita de campo à obra: não surgiram temas novos para discussão.", "estado": "Informação", "responsavel": null, "prazo": null },
+            { "n": 4, "cat": "T", "texto": "Substituição dos filtros do bebedouro do pessoal.", "estado": "Em curso", "responsavel": "Belo Empreendimentos", "prazo": "2026-07-09" },
+            { "n": 5, "cat": "T", "texto": "Reeleição em assembleia do representante legal dos trabalhadores da Belo Empreendimentos (CPAT).", "estado": "Em curso", "responsavel": "Belo Empreendimentos", "prazo": null },
+            { "n": 6, "cat": "T", "texto": "Afixar na vitrine da obra a documentação exigida, de acesso ao pessoal: licenças, salário mínimo, planta de estaleiro, apólice de seguro, etc.", "estado": "Em curso", "responsavel": "Belo Empreendimentos", "prazo": null },
+            { "n": 7, "cat": "T", "texto": "Melhorar o procedimento de rega para conter a poeira na obra.", "estado": "Em curso", "responsavel": "Belo Empreendimentos", "prazo": null }
+          ],
+          "boasNoticias": [
+            "Elevado nível de organização e limpeza, evidenciado nas diversas frentes de trabalho.",
+            "Corte de capim na parte interior e exterior da obra."
+          ],
+          "masNoticias": [
+            "Piscas de mudança de direção da máquina multifunção ainda por resolver (prazo 24/06/2026)."
+          ]
+        },
+        {
+          "numero": 120,
+          "doc": "120/2026",
+          "data": "2026-07-22",
+          "hora": "10:00 – 11:00",
+          "local": "Obra e sala de reuniões da obra",
+          "redator": "Faustino dos Santos",
+          "gestor": "Eduardo Silva",
+          "proxima": { "numero": 121, "data": "2026-08-05" },
+          "participantes": [
+            "Eduardo Silva — Site Manager (VAMED)",
+            "Leônidas Calheiros — Site Manager Adjunto (VAMED)",
+            "Irineu Silva — Respons. de Especialidade (VAMED)",
+            "Rita Casqueiro — Site Manager HSE (VAMED)",
+            "Hendrik Silva — HSE Manager (VAMED)",
+            "Faustino Santos — HSE (VAMED)",
+            "Leonel Luamba — Diretor Adjunto (Belo Empreendimentos)",
+            "Nelson Segunda — THSE (Belo Empreendimentos)"
+          ],
+          "temas": [
+            { "n": 1, "cat": "T", "texto": "Tema da última reunião (06-02-2026) — Máquina multifunção: pirilampo, luzes de retaguarda e piscas resolvidos e em funcionamento; falta resolver os piscas de mudança de direção.", "estado": "Em fase avançada de resolução", "responsavel": "Nelson Segunda / Leonel Luamba", "prazo": "2026-06-24" },
+            { "n": 2, "cat": "I", "texto": "Temas provenientes da reunião passada: restantes temas resolvidos.", "estado": "Resolvido", "responsavel": null, "prazo": null },
+            { "n": 3, "cat": "I", "texto": "Visita de campo à obra: identificados novos temas para acompanhamento (pontos 4 e 5).", "estado": "Informação", "responsavel": null, "prazo": null },
+            { "n": 4, "cat": "T", "texto": "Substituição dos filtros do bebedouro do pessoal (ocorrência 09-07-2026). A Belo Empreendimentos comprometeu-se a substituí-los na semana seguinte, uma vez que a aquisição provém de Luanda.", "estado": "Não resolvido", "responsavel": "Nelson Segunda / Leonel Luamba", "prazo": "2026-07-05" },
+            { "n": 5, "cat": "T", "texto": "Substituição dos elementos que constituem a CPAT (ocorrência 22-07-2026). A Belo Empreendimentos comprometeu-se a realizar eleições na sexta-feira, 24 de Julho, para reeleição do representante legal dos trabalhadores.", "estado": "Não resolvido", "responsavel": "Nelson Segunda / Leonel Luamba", "prazo": "2026-07-24" },
+            { "n": 6, "cat": "T", "texto": "Melhorar o procedimento de rega para conter a poeira na obra, evitando riscos desnecessários aos trabalhadores.", "estado": "Em curso", "responsavel": "Belo Empreendimentos", "prazo": null }
+          ],
+          "boasNoticias": [
+            "Elevado nível de organização e limpeza, evidenciado nas diversas frentes de trabalho."
+          ],
+          "masNoticias": [
+            "Piscas de mudança de direção da máquina multifunção ainda por resolver (prazo 24/06/2026 ultrapassado).",
+            "Filtros do bebedouro do pessoal ainda por substituir (prazo 05/07/2026 ultrapassado).",
+            "Reeleição do representante legal dos trabalhadores (CPAT) ainda por concretizar (prazo 24/07/2026)."
+          ]
+        }
+      ],
       "documentos": [
-        { "tipo": "PDF", "nome": "Relatório Mensal HSE RM Nº 038 · Julho 2026 Rev.1", "fonte": "Confirmado", "ref": "2026-07" }
+        { "tipo": "PDF", "nome": "Relatório Mensal HSE RM Nº 038 · Julho 2026 Rev.1", "fonte": "Confirmado", "ref": "2026-07" },
+        { "tipo": "PDF", "nome": "Reunião Semanal HSE Nº 119 · 08 Jul 2026", "fonte": "Confirmado", "ref": "2026-07" },
+        { "tipo": "PDF", "nome": "Reunião Semanal HSE Nº 120 · 22 Jul 2026", "fonte": "Confirmado", "ref": "2026-07" }
       ]
     }
   }
