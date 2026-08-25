@@ -100,7 +100,7 @@ header::before{
   border:1px solid var(--border2);border-radius:12px;padding:4px;gap:4px;
 }
 .mbtn{
-  padding:7px 14px;border-radius:9px;border:none;
+  padding:7px 13px;border-radius:9px;border:none;
   background:transparent;color:var(--muted);
   font-family:'Syne',sans-serif;font-size:10px;font-weight:700;
   cursor:pointer;transition:all .25s;letter-spacing:.5px;
@@ -114,7 +114,7 @@ header::before{
   border:1px solid var(--border2);border-radius:12px;padding:4px;gap:4px;
 }
 .theme-btn{
-  padding:7px 14px;border-radius:9px;border:none;
+  padding:7px 13px;border-radius:9px;border:none;
   background:transparent;color:var(--muted);
   font-family:'Syne',sans-serif;font-size:10px;font-weight:800;
   cursor:pointer;transition:all .25s;letter-spacing:.6px;text-transform:uppercase;
@@ -463,9 +463,11 @@ body.theme-light .hp-banner .hp-sub{color:rgba(255,255,255,.76);}
       <button class="mbtn" onclick="setMonth('fev',this)">FEV 2026</button>
       <button class="mbtn" onclick="setMonth('mar',this)">MAR 2026</button>
       <button class="mbtn" onclick="setMonth('abr',this)">ABR 2026</button>
-      <button class="mbtn active" onclick="setMonth('mai',this)">MAI 2026</button>
+      <button class="mbtn" onclick="setMonth('mai',this)">MAI 2026</button>
+      <button class="mbtn" onclick="setMonth('jun',this)">JUN 2026</button>
+      <button class="mbtn active" onclick="setMonth('jul',this)">JUL 2026</button>
     </div>
-    <div class="period-pill" id="period-pill">Ago 2025 → Mai 2026</div>
+    <div class="period-pill" id="period-pill">Ago 2025 → Jul 2026</div>
     <div class="theme-toggle" aria-label="Modo de visualização">
       <button class="theme-btn active" id="darkModeBtn" type="button" onclick="setTheme('dark')">Dark</button>
       <button class="theme-btn" id="lightModeBtn" type="button" onclick="setTheme('light')">Normal</button>
@@ -523,7 +525,7 @@ body.theme-light .hp-banner .hp-sub{color:rgba(255,255,255,.76);}
 
     <!-- HSE Issues — Mai 2026 -->
     <div class="topics-panel">
-      <div class="topics-title">Situações HSE Identificadas · Mai 2026</div>
+      <div class="topics-title" id="topics-title">Situações HSE Identificadas · Jul 2026</div>
 
 <!--
   upload-form-snippet.html
@@ -676,41 +678,7 @@ body.theme-light .hp-banner .hp-sub{color:rgba(255,255,255,.76);}
 </script>
 
 
-      <div class="topic-item unresolved">
-        <div class="topic-top">
-          <div class="topic-name">📋 Checklist HSE — Resultado 88,89%</div>
-          <div class="topic-status unresolved">Satisfatório</div>
-        </div>
-        <div class="topic-meta">
-          <span class="tmeta"><span class="tmeta-dot"></span>Mai 2026</span>
-          <span class="tmeta"><span class="tmeta-dot"></span>Itens NC: documentação, instalações sociais e CPAT</span>
-          <span class="tmeta"><span class="tmeta-dot" style="background:var(--amber)"></span>A acompanhar</span>
-        </div>
-      </div>
-
-      <div class="topic-item resolved">
-        <div class="topic-top">
-          <div class="topic-name">🏗 Paralisação temporária — Sem actividade operacional</div>
-          <div class="topic-status resolved">Registado</div>
-        </div>
-        <div class="topic-meta">
-          <span class="tmeta"><span class="tmeta-dot"></span>Mai 2026</span>
-          <span class="tmeta"><span class="tmeta-dot"></span>Sem testes de alcoolemia por ausência de actividade em exercício</span>
-          <span class="tmeta"><span class="tmeta-dot" style="background:var(--green)"></span>0 acidentes</span>
-        </div>
-      </div>
-
-      <div class="topic-item resolved">
-        <div class="topic-top">
-          <div class="topic-name">♻ Ambiente — Sem incidentes e sem produção de resíduos</div>
-          <div class="topic-status resolved">Conforme</div>
-        </div>
-        <div class="topic-meta">
-          <span class="tmeta"><span class="tmeta-dot"></span>Mai 2026</span>
-          <span class="tmeta"><span class="tmeta-dot"></span>Água: 14 m³ · Combustível: 245 L</span>
-          <span class="tmeta"><span class="tmeta-dot" style="background:var(--green)"></span>0 reclamações</span>
-        </div>
-      </div>
+      <div id="topics-list"></div>
     </div>
   </div>
 
@@ -754,7 +722,7 @@ body.theme-light .hp-banner .hp-sub{color:rgba(255,255,255,.76);}
 <div class="charts-row">
   <div class="chart-card">
     <div class="ch">
-      <div class="ctitle"><div class="cdot" style="background:var(--lime);box-shadow:0 0 10px var(--lime)"></div>Trabalhadores — Ago 2025 → Mai 2026</div>
+      <div class="ctitle"><div class="cdot" style="background:var(--lime);box-shadow:0 0 10px var(--lime)"></div><span id="cw-title">Trabalhadores — Ago 2025 → Jul 2026</span></div>
     </div>
     <div class="chart-body"><canvas id="cW"></canvas></div>
   </div>
@@ -795,7 +763,7 @@ body.theme-light .hp-banner .hp-sub{color:rgba(255,255,255,.76);}
   <div class="tcard">
     <div class="ch">
       <div class="ctitle"><div class="cdot" style="background:var(--cyan);box-shadow:0 0 10px var(--cyan)"></div>
-        <span id="env-title">Quadro de Sinistralidade — Maio 2026</span>
+        <span id="env-title">Quadro de Sinistralidade — Julho 2026</span>
       </div>
     </div>
     <table>
@@ -806,15 +774,7 @@ body.theme-light .hp-banner .hp-sub{color:rgba(255,255,255,.76);}
           <th>Classificação</th>
         </tr>
       </thead>
-      <tbody>
-        <tr><td>Trabalhadores</td><td style="color:var(--lime);font-weight:700">9</td><td><span class="badge up">Mai 2026</span></td></tr>
-        <tr><td>Horas Trabalhadas</td><td style="color:var(--cyan);font-weight:700">1.944</td><td><span class="badge flat">Mês</span></td></tr>
-        <tr><td>Acidentes Mortais</td><td style="color:var(--green);font-weight:700">0</td><td><span class="badge zero">ZERO</span></td></tr>
-        <tr><td>Acidentes Não Mortais</td><td style="color:var(--green);font-weight:700">0</td><td><span class="badge zero">ZERO</span></td></tr>
-        <tr><td>Dias Perdidos</td><td style="color:var(--green);font-weight:700">0</td><td><span class="badge zero">ZERO</span></td></tr>
-        <tr><td>Índice de Frequência</td><td style="color:var(--muted);font-weight:700">0.00</td><td><span class="badge up">Muito Bom</span></td></tr>
-        <tr><td>Índice de Gravidade</td><td style="color:var(--muted);font-weight:700">0.00</td><td><span class="badge up">Muito Bom</span></td></tr>
-      </tbody>
+      <tbody id="sin-tbody"></tbody>
     </table>
   </div>
 </div>
@@ -823,26 +783,26 @@ body.theme-light .hp-banner .hp-sub{color:rgba(255,255,255,.76);}
 <!-- ══ ESTALEIRO — FORÇA DE TRABALHO ══ -->
 <div class="wf-divider">
   <div class="wf-div-line"></div>
-  <div class="wf-div-label">⬡ &nbsp;ESTALEIRO &nbsp;·&nbsp; FORÇA DE TRABALHO &nbsp;·&nbsp; MAI 2026</div>
+  <div class="wf-div-label" id="wf-div-label">⬡ &nbsp;ESTALEIRO &nbsp;·&nbsp; FORÇA DE TRABALHO &nbsp;·&nbsp; JUL 2026</div>
   <div class="wf-div-line"></div>
 </div>
 
 <!-- Workforce KPIs -->
 <div class="kpi-row" style="grid-template-columns:repeat(3,1fr);margin-bottom:16px;">
   <div class="kcard orange">
-    <div class="klbl">Total Efetivos no Estaleiro</div>
-    <div class="kval">9</div>
-    <div class="kdelta flat">VAMED — Fase temporariamente parada</div>
+    <div class="klbl" id="klbl-efet">Total Efetivos no Estaleiro</div>
+    <div class="kval" id="kv-efet">10</div>
+    <div class="kdelta flat" id="kd-efet">VAMED — regime de caretaker</div>
   </div>
   <div class="kcard blue">
     <div class="klbl">Horas Trabalhadas (Acum.)</div>
-    <div class="kval">1.944</div>
-    <div class="kdelta up">▲ Desde Jun 2023</div>
+    <div class="kval" id="kv-horas">628.776</div>
+    <div class="kdelta up" id="kd-horas">▲ Acumulado do Quadro de Sinistralidade</div>
   </div>
   <div class="kcard green2">
     <div class="klbl">Checklist HSE — Classificação</div>
-    <div class="kval">SATISFATÓRIO</div>
-    <div class="kdelta flat">88,89% — Mai 2026</div>
+    <div class="kval" id="kv-chkcls">EXCELENTE</div>
+    <div class="kdelta flat" id="kd-chkcls">87,88% — Jul 2026</div>
   </div>
 </div>
 
@@ -853,7 +813,7 @@ body.theme-light .hp-banner .hp-sub{color:rgba(255,255,255,.76);}
   <div class="wf-donut-card">
     <div class="ch">
       <div class="ctitle"><div class="cdot" style="background:var(--lime);box-shadow:0 0 8px var(--lime)"></div>Efetivos por Empresa</div>
-      <div style="font-size:9px;font-family:'JetBrains Mono',monospace;color:var(--muted)">9 total · Mai 2026</div>
+      <div style="font-size:9px;font-family:'JetBrains Mono',monospace;color:var(--muted)" id="donut-sub">10 total · Jul 2026</div>
     </div>
     <div class="wf-donut-body"><canvas id="cDonut"></canvas></div>
   </div>
@@ -862,7 +822,7 @@ body.theme-light .hp-banner .hp-sub{color:rgba(255,255,255,.76);}
   <div class="wf-cal-card">
     <div class="ch">
       <div class="ctitle"><div class="cdot" style="background:var(--lime);box-shadow:0 0 8px var(--lime)"></div>Presença & Verificações HSE</div>
-      <div style="font-size:9px;font-family:'JetBrains Mono',monospace;color:var(--muted)">Mai 2026</div>
+      <div style="font-size:9px;font-family:'JetBrains Mono',monospace;color:var(--muted)" id="cal-mes">Jul 2026</div>
     </div>
     <div class="wf-cal-inner">
       <div class="cal-grid-header">
@@ -901,27 +861,19 @@ body.theme-light .hp-banner .hp-sub{color:rgba(255,255,255,.76);}
           <th style="text-align:right">%</th>
         </tr>
       </thead>
-      <tbody>
-        <tr><td style="font-weight:700;color:rgba(57,255,20,.9)">VAMED</td><td style="color:var(--muted)">Gestão do Projecto</td><td style="text-align:right;color:var(--txt)">9</td><td style="text-align:right"><span class="badge up">100%</span></td></tr>
-        <tr><td style="font-weight:700;color:rgba(0,245,255,.9)">MINDENACVP</td><td style="color:var(--muted)">Segurança das instalações</td><td style="text-align:right;color:var(--muted)">—</td><td style="text-align:right"><span class="badge flat">Registo sem efectivo</span></td></tr>
-        <tr style="background:rgba(57,255,20,.04)">
-          <td colspan="2" style="font-weight:800;color:var(--lime);font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.5px">TOTAL</td>
-          <td style="text-align:right;font-weight:800;color:var(--lime);font-size:14px">9</td>
-          <td style="text-align:right"><span class="badge" style="background:rgba(57,255,20,.12);color:var(--lime);border:1px solid rgba(57,255,20,.3)">100%</span></td>
-        </tr>
-      </tbody>
+      <tbody id="emp-body"></tbody>
     </table>
 
     <!-- Sinistralidade summary in same card -->
     <div style="padding:12px 14px;border-top:1px solid var(--border);">
-      <div style="font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:var(--muted);font-family:'JetBrains Mono',monospace;margin-bottom:8px;">Maio 2026 — Sinistralidade</div>
+      <div style="font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:var(--muted);font-family:'JetBrains Mono',monospace;margin-bottom:8px;" id="sin-mini-title">Julho 2026 — Sinistralidade</div>
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
         <div style="text-align:center;background:rgba(0,0,0,.3);border-radius:10px;padding:8px;">
-          <div style="font-size:20px;font-weight:800;color:var(--green)">0</div>
+          <div style="font-size:20px;font-weight:800;color:var(--green)" id="sin-mini-acc">0</div>
           <div style="font-size:8px;color:var(--muted);font-family:'JetBrains Mono',monospace;margin-top:2px;">ACIDENTES</div>
         </div>
         <div style="text-align:center;background:rgba(0,0,0,.3);border-radius:10px;padding:8px;">
-          <div style="font-size:20px;font-weight:800;color:var(--green)">0</div>
+          <div style="font-size:20px;font-weight:800;color:var(--green)" id="sin-mini-dp">0</div>
           <div style="font-size:8px;color:var(--muted);font-family:'JetBrains Mono',monospace;margin-top:2px;">DIAS PERDIDOS</div>
         </div>
       </div>
@@ -1194,19 +1146,20 @@ body.theme-light .hp-banner .hp-sub{color:rgba(255,255,255,.76);}
 
 <script>
 /* ══ DATA ══ */
-const MONTHS = ['ago','set','out','nov','dez','jan','fev','mar','abr','mai'];
+const MONTHS = ['ago','set','out','nov','dez','jan','fev','mar','abr','mai','jun','jul'];
 
 const M_LABEL = {
   ago:'AGO 2025', set:'SET 2025', out:'OUT 2025', nov:'NOV 2025',
-  dez:'DEZ 2025', jan:'JAN 2026', fev:'FEV 2026', mar:'MAR 2026', abr:'ABR 2026', mai:'MAI 2026'
+  dez:'DEZ 2025', jan:'JAN 2026', fev:'FEV 2026', mar:'MAR 2026', abr:'ABR 2026', mai:'MAI 2026',
+  jun:'JUN 2026', jul:'JUL 2026'
 };
 const M_ABR = {
   ago:'Ago', set:'Set', out:'Out', nov:'Nov',
-  dez:'Dez', jan:'Jan', fev:'Fev', mar:'Mar', abr:'Abr', mai:'Mai'
+  dez:'Dez', jan:'Jan', fev:'Fev', mar:'Mar', abr:'Abr', mai:'Mai', jun:'Jun', jul:'Jul'
 };
 const M_YEAR = {
   ago:'2025', set:'2025', out:'2025', nov:'2025',
-  dez:'2025', jan:'2026', fev:'2026', mar:'2026', abr:'2026', mai:'2026'
+  dez:'2025', jan:'2026', fev:'2026', mar:'2026', abr:'2026', mai:'2026', jun:'2026', jul:'2026'
 };
 
 /* Real data from HMRL files:
@@ -1227,9 +1180,17 @@ const DATA = {
   mar: {w:8,   ch:100,  t:0,   p:0, f:5,   i:0, acc:0, agua:0,  gas:200,  elec:0, h:1440},
   abr: {w:10,  ch:88.89,t:0,   p:0, f:0,   i:0, acc:0, agua:14, gas:40,   elec:0, h:2160},
   mai: {w:9,   ch:88.89,t:0,   p:0, f:0,   i:0, acc:0, agua:14, gas:245,  elec:0, h:1944},
+  /* Jun 2026 = RM037 Rev.01 · Jul 2026 = RM038 Rev.01. Campos acumulados só
+     existem onde o relatório mensal os publica; os restantes meses mostram "—". */
+  jun: {w:10,  ch:87.88,t:0,   p:0, f:0,   i:0, acc:0, agua:15, gas:40,   elec:0, h:2160,
+        cls:'EXCELENTE', rsu:2, rsuAc:131.1, aguaAc:2097.45, gasAc:98386,
+        accAc:2, dpAc:3, inc:0.6894, ifq:3.1917, ig:0.004788, idur:1.50, adv:0, advAc:0},
+  jul: {w:10,  ch:87.88,t:0,   p:0, f:0,   i:0, acc:0, agua:15, gas:340,  elec:0, h:2160, hAc:628776,
+        cls:'EXCELENTE', rsu:2, rsuAc:133.1, aguaAc:2097.45, gasAc:98386, acumRepetido:true,
+        accAc:2, dpAc:3, inc:0.69, ifq:3.19, ig:0.00, idur:1.50, adv:0, advAc:0},
 };
 
-let currMonth = 'mai';
+let currMonth = 'jul';
 
 /* ══ HELPERS ══ */
 function fmt(n){
@@ -1244,11 +1205,13 @@ function setMonth(m, btn){
   currMonth = m;
   document.querySelectorAll('.mbtn').forEach(b => b.classList.remove('active'));
   if(btn) btn.classList.add('active');
-  renderKPIs(); renderSSTTable(); updatePill();
+  renderKPIs(); renderSSTTable(); renderMes(); updatePill();
 }
 
 function updatePill(){
-  document.getElementById('period-pill').textContent = 'Ago 2025 → Mai 2026';
+  document.getElementById('period-pill').textContent = 'Ago 2025 → ' + M_ABR[currMonth] + ' ' + M_YEAR[currMonth];
+  const cw = document.getElementById('cw-title');
+  if(cw) cw.textContent = 'Trabalhadores — Ago 2025 → ' + M_ABR[currMonth] + ' ' + M_YEAR[currMonth];
 }
 
 function delta(curr, prev, isChk){
@@ -1351,6 +1314,195 @@ function renderSSTTable(){
   }).join('');
 }
 
+
+/* ══ DETALHE MENSAL — situações, empresas, resíduos, sinistralidade ══
+   mai 2026 = RM036 Rev.01 · jun 2026 = RM037 Rev.01 · jul 2026 = RM038 Rev.01.
+   Meses sem relatório carregado mostram aviso — não repetem o mês anterior. */
+const MES_DETALHE = {
+  mai: {
+    situacoes: [
+      {estado:'unresolved', nome:'📋 Checklist HSE — Resultado 88,89%', tag:'Satisfatório',
+       meta:['Mai 2026','Itens NC: documentação, instalações sociais e CPAT',{txt:'A acompanhar',cor:'var(--amber)'}]},
+      {estado:'resolved', nome:'🏗 Paralisação temporária — sem actividade operacional', tag:'Registado',
+       meta:['Mai 2026','Sem testes de alcoolemia por ausência de actividade em exercício',{txt:'0 acidentes',cor:'var(--green)'}]},
+      {estado:'resolved', nome:'♻ Ambiente — sem incidentes e sem produção de resíduos', tag:'Conforme',
+       meta:['Mai 2026','Água: 14 m³ · Combustível: 245 L',{txt:'0 reclamações',cor:'var(--green)'}]}
+    ],
+    empresas: [['VAMED','Gestão do Projecto',9,'57,255,20'],['MINDENACVP','Segurança das instalações',0,'0,245,255']],
+    residuos: []
+  },
+  jun: {
+    situacoes: [
+      {estado:'resolved', nome:'📋 Checklist HSE — 87,88%', tag:'Excelente',
+       meta:['Jun 2026','Classificação do RM037',{txt:'Confirmado pelo relatório',cor:'var(--green)'}]},
+      {estado:'resolved', nome:'🏗 Obra em regime de caretaker — 10 trabalhadores', tag:'Registado',
+       meta:['Jun 2026','2.160 horas trabalhadas no mês',{txt:'0 acidentes no mês',cor:'var(--green)'}]},
+      {estado:'resolved', nome:'🎓 Formação — 0 acções no mês', tag:'Sem acções',
+       meta:['Jun 2026','Sem formação registada desde Abril 2026',{txt:'Sem registo no mês',cor:'var(--amber)'}]},
+      {estado:'resolved', nome:'🍺 Controlo de alcoolemia — 0 testes', tag:'Sem acções',
+       meta:['Jun 2026','Sem actividade operacional em exercício',{txt:'0 positivos',cor:'var(--green)'}]},
+      {estado:'resolved', nome:'🚮 Produção de resíduos — RSU 2 kg', tag:'Monitorizado',
+       meta:['Jun 2026','Acumulado: 131,1 kg',{txt:'Contentor municipal',cor:'var(--green)'}]},
+      {estado:'resolved', nome:'♻ Ambiente — água 15 m³ · gasóleo 40 L', tag:'Conforme',
+       meta:['Jun 2026','Sem ligação à rede pública — consumo apenas por gerador',{txt:'0 incidentes ambientais',cor:'var(--green)'}]},
+      {estado:'resolved', nome:'✅ Advertências — 0 no mês', tag:'Sem ocorrências',
+       meta:['Jun 2026','Resp: Hendrik Silva',{txt:'0 retiradas',cor:'var(--green)'}]},
+      {estado:'resolved', nome:'🏛 Visita do Tribunal de Contas', tag:'Realizada',
+       meta:['Jun 2026','Visita institucional à obra',{txt:'Sem ocorrências HSE',cor:'var(--green)'}]}
+    ],
+    empresas: [['VAMED','Gestora do Projecto',10,'57,255,20'],['MINDENACVP','Segurança das instalações (inerência)',0,'0,245,255']],
+    residuos: [['RSU',2,'kg',131.1,'var(--green)','0,255,159','Contentor municipal','flat']]
+  },
+  jul: {
+    situacoes: [
+      {estado:'resolved', nome:'📋 Checklist HSE — 87,88%', tag:'Excelente',
+       meta:['Jul 2026','Igual a Junho',{txt:'Sem variação',cor:'var(--green)'}]},
+      {estado:'resolved', nome:'🏗 Obra em regime de caretaker — 10 trabalhadores', tag:'Registado',
+       meta:['Jul 2026','2.160 h no mês · 628.776 h acumuladas',{txt:'0 acidentes no mês',cor:'var(--green)'}]},
+      {estado:'resolved', nome:'🎓 Formação — 0 acções no mês', tag:'Sem acções',
+       meta:['Jul 2026','Sem acções de formação registadas',{txt:'Sem registo no mês',cor:'var(--amber)'}]},
+      {estado:'resolved', nome:'🍺 Controlo de alcoolemia — 0 testes', tag:'Sem acções',
+       meta:['Jul 2026','Não se registaram acções realizadas no mês',{txt:'0 positivos',cor:'var(--green)'}]},
+      {estado:'resolved', nome:'🚮 Produção de resíduos — RSU 2 kg', tag:'Monitorizado',
+       meta:['Jul 2026','Acumulado: 133,1 kg',{txt:'Contentor municipal',cor:'var(--green)'}]},
+      {estado:'resolved', nome:'♻ Ambiente — água 15 m³ · gasóleo 340 L', tag:'Conforme',
+       meta:['Jul 2026','Sem ligação à rede pública — consumo apenas por gerador',{txt:'0 incidentes ambientais',cor:'var(--green)'}]},
+      {estado:'unresolved', nome:'⚠ Acumulados de consumos repetidos do RM037', tag:'Por confirmar',
+       meta:['Jul 2026','O RM038 mantém água em 2.097,45 m³ e gasóleo em 98.386 L',
+             {txt:'Esperado: 2.112,45 m³ e 98.726 L',cor:'var(--amber)'},'A confirmar com a obra']},
+      {estado:'unresolved', nome:'⚠ Contradição interna do RM038 — acidentes acumulados', tag:'Por confirmar',
+       meta:['Corpo do relatório: 0 acumulados',
+             {txt:'Quadro anexo: 2 não mortais · 3 dias perdidos (Jun–Jul 2024)',cor:'var(--amber)'},
+             'Adoptado o Quadro anexo, confirmado pelo Quadro do RM037']},
+      {estado:'unresolved', nome:'⚠ Papel — 163,8 m³ com código LAR 17 02 03', tag:'Por confirmar',
+       meta:['Produção acumulada','Mesmo código que o relatório atribui ao plástico',
+             {txt:'Unidade e código por confirmar',cor:'var(--amber)'}]},
+      {estado:'resolved', nome:'✅ Advertências — 0 no mês', tag:'Sem ocorrências',
+       meta:['Jul 2026','Resp: Hendrik Silva',{txt:'0 retiradas',cor:'var(--green)'}]},
+      {estado:'resolved', nome:'🎖 Visita de S.E. o Ministro do MINDENACVP', tag:'Realizada',
+       meta:['Jul 2026','Visita institucional à obra',{txt:'Sem fotos no repositório',cor:'var(--amber)'}]}
+    ],
+    empresas: [['VAMED','Gestora do Projecto',10,'57,255,20'],['MINDENACVP','Segurança das instalações (inerência)',0,'0,245,255']],
+    residuos: [['RSU',2,'kg',133.1,'var(--green)','0,255,159','Contentor municipal','flat']]
+  }
+};
+
+function nd(v,minD,maxD){
+  if(v === null || v === undefined) return '—';
+  const mn = minD || 0, mx = maxD === undefined ? mn : maxD;
+  return Number(v).toLocaleString('pt-PT',{minimumFractionDigits:mn,maximumFractionDigits:mx});
+}
+function esc(t){ return String(t).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+function setTxt(id,txt){ const e = document.getElementById(id); if(e) e.textContent = txt; }
+
+function renderMes(){
+  const m = currMonth, d = DATA[m], det = MES_DETALHE[m];
+  const rot = M_ABR[m] + ' ' + M_YEAR[m];
+
+  setTxt('topics-title', 'Situações HSE Identificadas · ' + rot);
+  setTxt('wf-div-label', '⬡  ESTALEIRO · FORÇA DE TRABALHO · ' + M_LABEL[m]);
+  setTxt('klbl-efet', 'Total Efetivos no Estaleiro (' + rot + ')');
+  setTxt('cal-mes', rot);
+  setTxt('env-title', 'Quadro de Sinistralidade — ' + M_LABEL[m]);
+  setTxt('sin-mini-title', M_LABEL[m] + ' — Sinistralidade');
+  setTxt('sin-mini-acc', fmt(d.acc));
+  setTxt('sin-mini-dp', d.dp === undefined ? '0' : fmt(d.dp));
+  setTxt('kv-horas', d.hAc ? nd(d.hAc) : nd(d.h));
+  setTxt('kd-horas', d.hAc ? '▲ Acumulado do Quadro de Sinistralidade' : '▲ Horas do mês — sem acumulado publicado');
+  /* Onde o relatório publica a classificação, é essa que vale — não o limiar do dashboard. */
+  setTxt('kv-chkcls', d.cls || (d.ch >= 98 ? 'EXCELENTE' : d.ch >= 84 ? 'SATISFATÓRIO' : 'MEDIANO'));
+  setTxt('kd-chkcls', pf(d.ch) + ' — ' + rot);
+
+  const lista = document.getElementById('topics-list');
+  if(lista){
+    if(!det){
+      lista.innerHTML = '<div class="topic-item" style="background:rgba(255,208,0,.06);border:1px solid rgba(255,208,0,.22);'
+        + 'border-left:3px solid var(--amber)"><div class="topic-top"><div class="topic-name">'
+        + 'Sem relatório mensal carregado para ' + M_LABEL[m] + '</div>'
+        + '<div class="topic-status unresolved">Sem detalhe</div></div>'
+        + '<div class="topic-meta"><span class="tmeta"><span class="tmeta-dot" style="background:var(--amber)"></span>'
+        + 'Os KPIs deste mês vêm da série histórica; as situações HSE só são publicadas a partir do relatório mensal.</span></div></div>';
+    } else {
+      lista.innerHTML = det.situacoes.map(function(t){
+        const metas = t.meta.map(function(x){
+          const o = typeof x === 'string' ? {txt:x} : x;
+          return '<span class="tmeta"><span class="tmeta-dot"'
+            + (o.cor ? ' style="background:' + o.cor + '"' : '') + '></span>' + esc(o.txt) + '</span>';
+        }).join('');
+        return '<div class="topic-item ' + t.estado + '">'
+          + '<div class="topic-top"><div class="topic-name">' + esc(t.nome) + '</div>'
+          + '<div class="topic-status ' + t.estado + '">' + esc(t.tag) + '</div></div>'
+          + '<div class="topic-meta">' + metas + '</div></div>';
+      }).join('');
+    }
+  }
+
+  const emps = det ? det.empresas : [['VAMED','Gestão do Projecto',d.w,'57,255,20']];
+  const total = emps.reduce(function(a,e){ return a + e[2]; }, 0);
+  setTxt('kv-efet', fmt(total || d.w));
+  setTxt('kd-efet', emps.length + (emps.length === 1 ? ' empresa no estaleiro' : ' empresas / subcontratadas'));
+  setTxt('donut-sub', fmt(total || d.w) + ' total · ' + rot);
+
+  const eb = document.getElementById('emp-body');
+  if(eb){
+    eb.innerHTML = emps.map(function(e){
+      return '<tr><td style="font-weight:700;color:rgba(' + e[3] + ',.9)">' + esc(e[0]) + '</td>'
+        + '<td style="color:var(--muted)">' + esc(e[1]) + '</td>'
+        + '<td style="text-align:right;color:' + (e[2] ? 'var(--txt)' : 'var(--muted)') + '">' + (e[2] || '—') + '</td>'
+        + '<td style="text-align:right">' + (e[2]
+            ? '<span class="badge up">' + (total ? (e[2]/total*100).toFixed(1).replace('.',',') : '0,0') + '%</span>'
+            : '<span class="badge flat">Registo sem efectivo</span>') + '</td></tr>';
+    }).join('')
+    + '<tr style="background:rgba(57,255,20,.04)">'
+    + '<td colspan="2" style="font-weight:800;color:var(--lime);font-family:\'JetBrains Mono\',monospace;font-size:10px;letter-spacing:.5px">TOTAL</td>'
+    + '<td style="text-align:right;font-weight:800;color:var(--lime);font-size:14px">' + total + '</td>'
+    + '<td style="text-align:right"><span class="badge" style="background:rgba(57,255,20,.12);color:var(--lime);border:1px solid rgba(57,255,20,.3)">100%</span></td></tr>';
+  }
+
+  if(window.donutChart){
+    window.donutChart.data.labels = emps.map(function(e){ return e[0]; });
+    window.donutChart.data.datasets[0].data = emps.map(function(e){ return e[2]; });
+    window.donutChart.data.datasets[0].backgroundColor = emps.map(function(e){ return 'rgba(' + e[3] + ',.7)'; });
+    window.donutChart.data.datasets[0].borderColor = emps.map(function(e){ return 'rgba(' + e[3] + ',1)'; });
+    window.donutChart.update();
+  }
+
+  const sb = document.getElementById('sin-tbody');
+  if(sb){
+    const linha = function(nome, valor, cor, badge, tipo){
+      return '<tr><td>' + nome + '</td><td style="color:' + cor + ';font-weight:700">' + valor + '</td>'
+        + '<td><span class="badge ' + tipo + '">' + badge + '</span></td></tr>';
+    };
+    const zero = function(v){ return v === 0 ? 'zero' : 'up'; };
+    const acumBadge = d.acumRepetido ? 'Acum. por confirmar' : 'Acumulado';
+    sb.innerHTML =
+      linha('Trabalhadores', fmt(d.w), 'var(--lime)', rot, 'up')
+      + linha('Horas Trabalhadas (mês)', nd(d.h), 'var(--cyan)', 'Mês', 'flat')
+      + linha('Horas Trabalhadas (acum.)', nd(d.hAc), 'var(--cyan)', d.hAc ? 'Acumulado' : 'Sem publicação', d.hAc ? 'flat' : 'flat')
+      + linha('Acidentes Mortais', '0', 'var(--green)', 'ZERO', 'zero')
+      + linha('Acidentes Não Mortais (mês)', fmt(d.acc), 'var(--green)', 'ZERO', zero(d.acc))
+      + linha('Acidentes Não Mortais (acum.)', d.accAc === undefined ? '—' : fmt(d.accAc), 'var(--amber)',
+              d.accAc ? 'Jun–Jul 2024' : 'Sem publicação', 'flat')
+      + linha('Dias Perdidos (acum.)', d.dpAc === undefined ? '—' : fmt(d.dpAc), 'var(--amber)',
+              d.dpAc ? 'Jun–Jul 2024' : 'Sem publicação', 'flat')
+      + linha('Índice de Incidência', nd(d.inc, 2, 4), 'var(--muted)', d.inc === undefined ? 'Sem publicação' : 'Acumulado', 'flat')
+      + linha('Índice de Frequência', nd(d.ifq, 2, 4), 'var(--muted)', d.ifq === undefined ? 'Sem publicação' : 'Acumulado', 'flat')
+      + linha('Índice de Gravidade', nd(d.ig, 2, 6), 'var(--muted)', d.ig === undefined ? 'Sem publicação' : 'Acumulado', 'flat')
+      + linha('Índice de Duração', nd(d.idur, 2), 'var(--muted)', d.idur === undefined ? 'Sem publicação' : 'Acumulado', 'flat')
+      + linha('Água (acum.)', d.aguaAc === undefined ? '—' : nd(d.aguaAc, 2) + ' m³', 'var(--cyan)', acumBadge, d.acumRepetido ? 'dn' : 'flat')
+      + linha('Gasóleo (acum.)', d.gasAc === undefined ? '—' : nd(d.gasAc) + ' L', 'var(--orange)', acumBadge, d.acumRepetido ? 'dn' : 'flat')
+      + linha('RSU (acum.)', d.rsuAc === undefined ? '—' : nd(d.rsuAc, 1, 1) + ' kg', 'var(--green)', d.rsuAc === undefined ? 'Sem publicação' : 'Acumulado', 'flat')
+      + linha('Advertências (mês / acum.)', d.adv === undefined ? '—' : fmt(d.adv) + ' / ' + fmt(d.advAc), 'var(--green)',
+              d.adv === undefined ? 'Sem publicação' : 'Sem retiradas', d.adv === undefined ? 'flat' : 'up');
+  }
+
+  renderCalendario(m);
+
+  if(window.mapMarker){
+    window.mapMarker.setPopupContent(popupHTML(m));
+  }
+}
+
 /* ══ CHARTS ══ */
 const LABELS = MONTHS.map(m => M_ABR[m]);
 const ALLW  = MONTHS.map(m => DATA[m].w);
@@ -1402,7 +1554,7 @@ new Chart(ctxG,{type:'bar',data:{
 }, options:{...baseOpts}});
 
 /* ══ DONUT — COMPANIES ══ */
-new Chart(document.getElementById('cDonut').getContext('2d'),{
+window.donutChart = new Chart(document.getElementById('cDonut').getContext('2d'),{
   type:'doughnut',
   data:{
     labels:['VAMED','MINDENACVP'],
@@ -1425,52 +1577,76 @@ new Chart(document.getElementById('cDonut').getContext('2d'),{
   }
 });
 
-/* ══ CALENDAR — MAIO 2026 ══ */
-// May 2026: May 1 = Friday (col 4 in Mon=0 grid), 31 days
-const may2026 = [
-  // Week 1: empty Mon-Thu, May 1=Fri(holiday), May 2=Sat, May 3=Sun
-  {},{},{},{},
-  {day:1,type:'holiday'},{day:2,type:'wkend'},{day:3,type:'wkend'},
-  // Week 2
-  {day:4,pct:89,type:'good'},{day:5,pct:89,type:'good'},{day:6,pct:89,type:'good'},
-  {day:7,pct:89,type:'good'},{day:8,pct:89,type:'good'},{day:9,type:'wkend'},{day:10,type:'wkend'},
-  // Week 3
-  {day:11,pct:89,type:'good'},{day:12,pct:89,type:'good'},{day:13,pct:89,type:'good'},
-  {day:14,pct:89,type:'good'},{day:15,pct:89,type:'good'},{day:16,type:'wkend'},{day:17,type:'wkend'},
-  // Week 4
-  {day:18,pct:89,type:'good'},{day:19,pct:89,type:'good'},{day:20,pct:89,type:'good'},
-  {day:21,pct:89,type:'good'},{day:22,pct:89,type:'good'},{day:23,type:'wkend'},{day:24,type:'wkend'},
-  // Week 5
-  {day:25,pct:89,type:'good'},{day:26,pct:89,type:'good'},{day:27,pct:89,type:'good'},
-  {day:28,pct:89,type:'good'},{day:29,pct:89,type:'good'},{day:30,type:'wkend'},{day:31,type:'wkend'},
-];
-const calBody = document.getElementById('calBody');
-const hseChecksByDay = {
-  4:[{date:'04/05',label:'Andaimes',short:'And.',cadence:'weekly'}],
-  5:[{date:'05/05',label:'Equip. Ligeiros e Pesados',short:'Equip.',cadence:'monthly'}],
-  6:[{date:'06/05',label:'Instalações Sociais',short:'Sociais',cadence:'weekly'}],
-  11:[{date:'11/05',label:'Andaimes',short:'And.',cadence:'weekly'}],
-  12:[{date:'12/05',label:'Extintores',short:'Ext.',cadence:'monthly'}],
-  13:[{date:'13/05',label:'Instalações Sociais',short:'Sociais',cadence:'weekly'}],
-  18:[{date:'18/05',label:'Andaimes',short:'And.',cadence:'weekly'}],
-  19:[{date:'19/05',label:'Caixa Primeiros Socorros',short:'Socorros',cadence:'monthly'}],
-  20:[{date:'20/05',label:'Instalações Sociais',short:'Sociais',cadence:'weekly'}],
-  25:[{date:'25/05',label:'Andaimes',short:'And.',cadence:'weekly'}],
-  26:[{date:'26/05',label:'Quadros Eléctricos',short:'Quadros',cadence:'monthly'}],
-  27:[{date:'27/05',label:'Instalações Sociais',short:'Sociais',cadence:'weekly'}],
-  29:[{date:'29/05',label:'Check-list HSE',short:'Check',cadence:'monthly'}],
+/* ══ CALENDÁRIO — PRESENÇA & PLANO DE VERIFICAÇÕES ══
+   Plano de Verificações HSE (semanal: andaimes 2.ª / instalações sociais 4.ª;
+   mensal: equipamentos, extintores, primeiros socorros, quadros eléctricos;
+   check-list HSE no fim do mês). Feriados nacionais assinalados. */
+const CAL_MES = {
+  mai: {first:4, dias:31, feriados:[1], pct:89, checks:{
+    4:[['04/05','Andaimes','And.','weekly']], 5:[['05/05','Equip. Ligeiros e Pesados','Equip.','monthly']],
+    6:[['06/05','Instalações Sociais','Sociais','weekly']], 11:[['11/05','Andaimes','And.','weekly']],
+    12:[['12/05','Extintores','Ext.','monthly']], 13:[['13/05','Instalações Sociais','Sociais','weekly']],
+    18:[['18/05','Andaimes','And.','weekly']], 19:[['19/05','Caixa Primeiros Socorros','Socorros','monthly']],
+    20:[['20/05','Instalações Sociais','Sociais','weekly']], 25:[['25/05','Andaimes','And.','weekly']],
+    26:[['26/05','Quadros Eléctricos','Quadros','monthly']], 27:[['27/05','Instalações Sociais','Sociais','weekly']],
+    29:[['29/05','Check-list HSE','Check','monthly']]}},
+  jun: {first:0, dias:30, feriados:[1], pct:88, checks:{
+    2:[['02/06','Equip. Ligeiros e Pesados','Equip.','monthly']], 3:[['03/06','Instalações Sociais','Sociais','weekly']],
+    8:[['08/06','Andaimes','And.','weekly']], 9:[['09/06','Extintores','Ext.','monthly']],
+    10:[['10/06','Instalações Sociais','Sociais','weekly']], 15:[['15/06','Andaimes','And.','weekly']],
+    16:[['16/06','Caixa Primeiros Socorros','Socorros','monthly']], 17:[['17/06','Instalações Sociais','Sociais','weekly']],
+    22:[['22/06','Andaimes','And.','weekly']], 23:[['23/06','Quadros Eléctricos','Quadros','monthly']],
+    24:[['24/06','Instalações Sociais','Sociais','weekly']], 29:[['29/06','Andaimes','And.','weekly']],
+    30:[['30/06','Check-list HSE','Check','monthly']]}},
+  jul: {first:2, dias:31, feriados:[], pct:88, checks:{
+    1:[['01/07','Instalações Sociais','Sociais','weekly']], 6:[['06/07','Andaimes','And.','weekly']],
+    7:[['07/07','Equip. Ligeiros e Pesados','Equip.','monthly']], 8:[['08/07','Instalações Sociais','Sociais','weekly']],
+    13:[['13/07','Andaimes','And.','weekly']], 14:[['14/07','Extintores','Ext.','monthly']],
+    15:[['15/07','Instalações Sociais','Sociais','weekly']], 20:[['20/07','Andaimes','And.','weekly']],
+    21:[['21/07','Caixa Primeiros Socorros','Socorros','monthly']], 22:[['22/07','Instalações Sociais','Sociais','weekly']],
+    27:[['27/07','Andaimes','And.','weekly']], 28:[['28/07','Quadros Eléctricos','Quadros','monthly']],
+    29:[['29/07','Instalações Sociais','Sociais','weekly']], 31:[['31/07','Check-list HSE','Check','monthly']]}}
 };
-may2026.forEach(c => {
-  const el = document.createElement('div');
-  const checks = c.day ? (hseChecksByDay[c.day] || []) : [];
-  el.className = 'cal-cell ' + (c.day ? c.type : 'empty') + (checks.length ? ' has-checks' : '');
-  if(c.day){
-    el.title = checks.length ? `Verificações HSE Maio 2026: ${checks.map(check => `${check.date} ${check.label}`).join(' · ')}` : '';
-    const checksHtml = checks.length ? `<span class="cc-events">${checks.map(check => `<span class="cc-event ${check.cadence}">${check.date} ${check.short}</span>`).join('')}</span>` : '';
-    el.innerHTML = `<span class="cc-day">${c.day}</span>${c.pct ? `<span class="cc-pct">${c.pct}%</span>` : ''}${checksHtml}`;
+function renderCalendario(m){
+  const calBody = document.getElementById('calBody');
+  if(!calBody) return;
+  const cfg = CAL_MES[m];
+  calBody.innerHTML = '';
+  if(!cfg){
+    calBody.innerHTML = '<div style="grid-column:1/-1;padding:18px 6px;text-align:center;font-size:10px;'
+      + 'color:var(--muted);font-family:\'JetBrains Mono\',monospace;line-height:1.7">'
+      + 'Sem plano de verificações publicado para ' + M_LABEL[m] + '.</div>';
+    return;
   }
-  calBody.appendChild(el);
-});
+  const rot = M_ABR[m] + ' ' + M_YEAR[m];
+  const cells = [];
+  for(let i=0;i<cfg.first;i++) cells.push(null);
+  for(let d=1;d<=cfg.dias;d++){
+    const wd = (cfg.first + d - 1) % 7;
+    let type = 'good';
+    if(cfg.feriados.indexOf(d) >= 0) type = 'holiday';
+    else if(wd === 5) type = 'wkend';
+    else if(wd === 6) type = 'wkend';
+    cells.push({day:d, type:type, pct: type === 'good' ? cfg.pct : null});
+  }
+  cells.forEach(function(c){
+    const el = document.createElement('div');
+    const checks = c ? (cfg.checks[c.day] || []) : [];
+    el.className = 'cal-cell ' + (c ? c.type : 'empty') + (checks.length ? ' has-checks' : '');
+    if(c){
+      el.title = checks.length
+        ? 'Verificações HSE ' + rot + ': ' + checks.map(function(k){ return k[0] + ' ' + k[1]; }).join(' · ')
+        : '';
+      const ch = checks.length
+        ? '<span class="cc-events">' + checks.map(function(k){
+            return '<span class="cc-event ' + k[3] + '">' + k[0] + ' ' + k[2] + '</span>'; }).join('') + '</span>'
+        : '';
+      el.innerHTML = '<span class="cc-day">' + c.day + '</span>'
+        + (c.pct ? '<span class="cc-pct">' + c.pct + '%</span>' : '') + ch;
+    }
+    calBody.appendChild(el);
+  });
+}
 
 /* ══ MAP — LUENA ══ */
 const map = L.map('map',{zoomControl:false,dragging:true,scrollWheelZoom:false,attributionControl:false});
@@ -1501,26 +1677,29 @@ const icon = L.divIcon({
   iconSize:[22,22],iconAnchor:[11,11]
 });
 
-const popup = `
+function popupHTML(m){
+  const d = DATA[m] || DATA[currMonth];
+  return `
 <div style="padding:4px;">
   <div class="ptitle">🏥 HMRL — Hospital Militar de Luena</div>
-  <div style="font-size:10px;color:#6B7694;font-family:'JetBrains Mono',monospace;margin-bottom:12px;">Luena · Moxico · Angola &nbsp;|&nbsp; 14DC-DEI/SV/2021</div>
+  <div style="font-size:10px;color:#6B7694;font-family:'JetBrains Mono',monospace;margin-bottom:12px;">Luena · Moxico · Angola &nbsp;|&nbsp; 14DC-DEI/SV/2021 &nbsp;|&nbsp; ${M_LABEL[m]}</div>
   <div class="pgrid">
-    <div class="pkpi"><div class="pkv" style="color:#39FF14">9</div><div class="pkl">Trabalhadores</div></div>
-    <div class="pkpi"><div class="pkv" style="color:#FFD000">88.89%</div><div class="pkl">Checklist</div></div>
-    <div class="pkpi"><div class="pkv" style="color:#00FF9F">0</div><div class="pkl">Acidentes</div></div>
-    <div class="pkpi"><div class="pkv" style="color:#00F5FF">1.944</div><div class="pkl">H. Trabalhadas</div></div>
+    <div class="pkpi"><div class="pkv" style="color:#39FF14">${d.w}</div><div class="pkl">Trabalhadores</div></div>
+    <div class="pkpi"><div class="pkv" style="color:#FFD000">${d.ch.toFixed(2)}%</div><div class="pkl">Checklist</div></div>
+    <div class="pkpi"><div class="pkv" style="color:#00FF9F">${d.acc}</div><div class="pkl">Acidentes</div></div>
+    <div class="pkpi"><div class="pkv" style="color:#00F5FF">${d.h.toLocaleString('pt-PT')}</div><div class="pkl">H. Trabalhadas</div></div>
   </div>
 </div>`;
+}
 
-L.marker([-11.7679,19.9170],{icon}).addTo(map).bindPopup(popup,{maxWidth:320});
+window.mapMarker = L.marker([-11.7679,19.9170],{icon}).addTo(map).bindPopup(popupHTML(currMonth),{maxWidth:320});
 
 /* ══ INITIAL RENDER ══ */
 setTheme(localStorage.getItem('hse-theme')||'dark');
 renderKPIs();
 renderSSTTable();
+renderMes();
 updatePill();
-document.getElementById('footer-status').textContent = '✓ Atualizado · MAI 2026 · 0 Acidentes Mortais · 1.944 H. Trabalhadas';
 </script>
 <!--
   repo-integration-snippet.html
