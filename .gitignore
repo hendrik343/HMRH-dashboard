@@ -20,3 +20,6 @@ Thumbs.db
 *.swp
 *.log
 .env*.local
+
+# Rascunhos de e-mail com destinatários nomeados — repositório é público
+email-resumo-*.md

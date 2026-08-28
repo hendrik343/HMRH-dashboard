@@ -346,6 +346,32 @@ footer{
 
 /* ══ HSE TOPICS PANEL ══ */
 .topics-panel{padding:14px 16px 16px;border-top:1px solid var(--border);}
+/* ══ FOTOS DAS SITUAÇÕES HSE ══ */
+.topic-fotos{display:flex;flex-wrap:wrap;gap:7px;margin-top:9px;}
+.foto-th{padding:0;border:1px solid var(--border);border-radius:8px;overflow:hidden;background:none;
+cursor:zoom-in;line-height:0;width:66px;height:66px;transition:transform .15s ease,border-color .15s ease;}
+.foto-th img{width:100%;height:100%;object-fit:cover;display:block;}
+.foto-th:hover,.foto-th:focus-visible{transform:translateY(-2px);border-color:var(--lime);outline:none;}
+.lightbox{position:fixed;inset:0;z-index:9999;display:none;align-items:center;justify-content:center;
+flex-direction:column;gap:14px;background:rgba(3,5,10,.93);padding:24px;backdrop-filter:blur(4px);}
+.lightbox.open{display:flex;}
+.lightbox img{max-width:min(1100px,92vw);max-height:78vh;width:auto;height:auto;border-radius:12px;
+border:1px solid rgba(255,255,255,.16);}
+.lightbox-cap{max-width:min(1100px,92vw);text-align:center;color:#fff;font-size:12.5px;line-height:1.6;
+font-family:'JetBrains Mono',monospace;}
+.lightbox-cap span{display:block;color:#8a93a8;font-size:11px;margin-top:4px;}
+.lightbox-close{position:absolute;top:18px;right:20px;width:40px;height:40px;border-radius:50%;
+border:1px solid rgba(255,255,255,.22);background:rgba(255,255,255,.08);color:#fff;font-size:20px;
+cursor:pointer;display:flex;align-items:center;justify-content:center;}
+.lightbox-close:hover{background:rgba(255,255,255,.18);}
+.lightbox-nav{position:absolute;top:50%;transform:translateY(-50%);width:44px;height:44px;border-radius:50%;
+border:1px solid rgba(255,255,255,.22);background:rgba(255,255,255,.08);color:#fff;font-size:22px;
+cursor:pointer;display:flex;align-items:center;justify-content:center;}
+.lightbox-nav:hover{background:rgba(255,255,255,.18);}
+.lightbox-nav.prev{left:16px;}
+.lightbox-nav.next{right:16px;}
+@media(max-width:640px){.foto-th{width:56px;height:56px;}.lightbox-nav{width:38px;height:38px;font-size:18px;}}
+
 .topics-title{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:1.8px;color:var(--muted);font-family:'JetBrains Mono',monospace;margin-bottom:12px;display:flex;align-items:center;gap:8px;}
 .topics-title::before{content:'';display:inline-block;width:8px;height:8px;border-radius:2px;background:var(--lime);box-shadow:0 0 8px var(--lime);flex-shrink:0;}
 .topic-item{display:flex;flex-direction:column;gap:5px;padding:11px 13px;border-radius:12px;margin-bottom:9px;border-left:3px solid transparent;position:relative;transition:transform .2s;cursor:default;}
@@ -1383,7 +1409,14 @@ const MES_DETALHE = {
       {estado:'resolved', nome:'✅ Advertências — 0 no mês', tag:'Sem ocorrências',
        meta:['Jul 2026','Resp: Hendrik Silva',{txt:'0 retiradas',cor:'var(--green)'}]},
       {estado:'resolved', nome:'🎖 Visita de S.E. o Ministro do MINDENACVP', tag:'Realizada',
-       meta:['Jul 2026','Visita institucional à obra',{txt:'Sem fotos no repositório',cor:'var(--amber)'}]}
+       meta:['Jul 2026','Visita institucional à obra',{txt:'5 fotos em anexo',cor:'var(--green)'}],
+       fotos:[
+         ['fotos-ministro/visita-ministro-01','Chegada da comitiva ao estaleiro — viaturas e escolta junto ao mastro das bandeiras','Parque de estacionamento do estaleiro com viaturas da comitiva e militares'],
+         ['fotos-ministro/visita-ministro-02','Comitiva na frente de obra, junto à torre, com o corpo do hospital ao fundo','Delegação militar e equipa VAMED alinhadas em frente à torre de betão'],
+         ['fotos-ministro/visita-ministro-03','Comitiva alinhada na frente de obra, com o estaleiro e os escritórios à esquerda','Delegação em frente à torre, escritórios do estaleiro visíveis à esquerda'],
+         ['fotos-ministro/visita-ministro-04','Fotografia de grupo com a fachada do Hospital Militar Regional de Luena ao fundo','Grupo posado com o edifício principal do hospital em construção ao fundo'],
+         ['fotos-ministro/visita-ministro-05','Fotografia de grupo — enquadramento aberto da obra e do bloco principal','Grupo posado, plano largo da obra com o bloco principal ao fundo']
+       ]}
     ],
     empresas: [['VAMED','Gestora do Projecto',10,'57,255,20'],['MINDENACVP','Segurança das instalações (inerência)',0,'0,245,255']],
     residuos: [['RSU',2,'kg',133.1,'var(--green)','0,255,159','Contentor municipal','flat']]
@@ -1432,12 +1465,19 @@ function renderMes(){
           return '<span class="tmeta"><span class="tmeta-dot"'
             + (o.cor ? ' style="background:' + o.cor + '"' : '') + '></span>' + esc(o.txt) + '</span>';
         }).join('');
+        const fotos = (t.fotos || []).map(function(f){
+          return '<button type="button" class="foto-th" data-src="./' + f[0] + '.jpg"'
+            + ' data-legenda="' + esc(f[1]) + '"><img src="./' + f[0] + '-th.jpg" alt="'
+            + esc(f[2]) + '" loading="lazy"></button>';
+        }).join('');
         return '<div class="topic-item ' + t.estado + '">'
           + '<div class="topic-top"><div class="topic-name">' + esc(t.nome) + '</div>'
           + '<div class="topic-status ' + t.estado + '">' + esc(t.tag) + '</div></div>'
-          + '<div class="topic-meta">' + metas + '</div></div>';
+          + '<div class="topic-meta">' + metas + '</div>'
+          + (fotos ? '<div class="topic-fotos">' + fotos + '</div>' : '') + '</div>';
       }).join('');
     }
+    if (window.ligarLightbox) window.ligarLightbox();
   }
 
   const emps = det ? det.empresas : [['VAMED','Gestão do Projecto',d.w,'57,255,20']];
@@ -2329,6 +2369,76 @@ updatePill();
   } else {
     init();
   }
+})();
+</script>
+<script>
+/* ══ LIGHTBOX DAS FOTOS DAS SITUAÇÕES HSE ══
+   As situações são renderizadas por JS a cada mudança de mês, por isso o
+   lightbox expõe window.ligarLightbox() para voltar a ligar os botões. */
+(function () {
+  var lb = document.createElement('div');
+  lb.className = 'lightbox';
+  lb.setAttribute('role', 'dialog');
+  lb.setAttribute('aria-modal', 'true');
+  lb.innerHTML =
+    '<button type="button" class="lightbox-close" aria-label="Fechar">&times;</button>' +
+    '<button type="button" class="lightbox-nav prev" aria-label="Foto anterior">&lsaquo;</button>' +
+    '<button type="button" class="lightbox-nav next" aria-label="Foto seguinte">&rsaquo;</button>' +
+    '<img alt=""><div class="lightbox-cap"></div>';
+  document.body.appendChild(lb);
+
+  var img = lb.querySelector('img');
+  var cap = lb.querySelector('.lightbox-cap');
+  var botoes = [], i = 0, anterior = null;
+
+  function mostrar(n) {
+    if (!botoes.length) return;
+    i = (n + botoes.length) % botoes.length;
+    var b = botoes[i];
+    img.src = b.getAttribute('data-src');
+    img.alt = b.querySelector('img').alt;
+    cap.innerHTML = b.getAttribute('data-legenda') + '<span>' + (i + 1) + ' de ' + botoes.length + '</span>';
+  }
+  function abrir(n) {
+    anterior = document.activeElement;
+    mostrar(n);
+    lb.classList.add('open');
+    document.body.style.overflow = 'hidden';
+    lb.querySelector('.lightbox-close').focus();
+  }
+  function fechar() {
+    lb.classList.remove('open');
+    document.body.style.overflow = '';
+    img.src = '';
+    if (anterior && anterior.focus) anterior.focus();
+  }
+
+  lb.querySelector('.lightbox-close').addEventListener('click', fechar);
+  lb.querySelector('.prev').addEventListener('click', function () { mostrar(i - 1); });
+  lb.querySelector('.next').addEventListener('click', function () { mostrar(i + 1); });
+  lb.addEventListener('click', function (e) { if (e.target === lb) fechar(); });
+  document.addEventListener('keydown', function (e) {
+    if (!lb.classList.contains('open')) return;
+    if (e.key === 'Escape') fechar();
+    else if (e.key === 'ArrowLeft') mostrar(i - 1);
+    else if (e.key === 'ArrowRight') mostrar(i + 1);
+  });
+
+  window.ligarLightbox = function () {
+    botoes = Array.prototype.slice.call(document.querySelectorAll('.foto-th'));
+    botoes.forEach(function (b, n) {
+      if (b.dataset.lbLigado) return;
+      b.dataset.lbLigado = '1';
+      b.addEventListener('click', function () {
+        botoes = Array.prototype.slice.call(document.querySelectorAll('.foto-th'));
+        abrir(botoes.indexOf(b));
+      });
+    });
+    lb.querySelectorAll('.lightbox-nav').forEach(function (n) {
+      n.style.display = botoes.length < 2 ? 'none' : '';
+    });
+  };
+  window.ligarLightbox();
 })();
 </script>
 <script defer src="./licencas-dashboard.js"></script>
