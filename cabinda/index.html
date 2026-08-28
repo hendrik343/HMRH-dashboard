@@ -144,6 +144,9 @@ header::before{
 .cdot{width:9px;height:9px;border-radius:50%;}
 #map{height:190px;width:100%;background:#07080D;}
 .leaflet-container{background:#07080D !important;font-family:'Syne',sans-serif;}
+.leaflet-control-attribution{background:rgba(7,8,13,.72)!important;color:var(--muted)!important;font-family:'JetBrains Mono',monospace!important;font-size:8px!important;padding:1px 5px!important;}
+.leaflet-control-attribution a{color:var(--cyan)!important;}
+body.theme-light .leaflet-control-attribution{background:rgba(255,255,255,.78)!important;}
 
 /* ══ SITE PANEL ══ */
 .site-panel{display:flex;flex-direction:column;gap:12px;}
@@ -1506,14 +1509,16 @@ june2026.forEach(c=>{
 });
 
 /* ══ MAP — CABINDA ══ */
-const map=L.map('map',{zoomControl:false,dragging:true,scrollWheelZoom:false,attributionControl:false});
+const map=L.map('map',{zoomControl:false,dragging:true,scrollWheelZoom:false});
 let mapTile=null;
 function updateMapTheme(theme){
+  /* Esri Canvas — sem chave de API. O CARTO passou a exigir chave e passou
+     a servir mosaicos com marca de água. Ordem dos eixos aqui é {z}/{y}/{x}. */
   const url=theme==='light'
-    ? 'https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png'
-    : 'https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png';
+    ? 'https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}'
+    : 'https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Dark_Gray_Base/MapServer/tile/{z}/{y}/{x}';
   if(mapTile) map.removeLayer(mapTile);
-  mapTile=L.tileLayer(url,{maxZoom:18}).addTo(map);
+  mapTile=L.tileLayer(url,{maxZoom:18,maxNativeZoom:16,attribution:'Tiles &copy; Esri — Esri, DeLorme, NAVTEQ'}).addTo(map);
 }
 function setTheme(mode){
   const theme=mode==='light'?'light':'dark';
