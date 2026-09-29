@@ -1431,7 +1431,7 @@
         <h1>HSE Dashboard · Hospital Militar Regional do Huambo</h1>
         <div class="sub">HMRH · N.º Obra: 13DC - DEI/SV/2021 · VAMED Healthcare Projects · PM: Fábio Seda · Site Manager: Eduardo Silva · HSE: Hendrik Silva</div>
       </div>
-      <nav class="months" id="monthButtons"><button class="month-btn" data-month="set" onclick="setMonth('set')">SET 2025</button><button class="month-btn" data-month="out" onclick="setMonth('out')">OUT 2025</button><button class="month-btn" data-month="nov" onclick="setMonth('nov')">NOV 2025</button><button class="month-btn" data-month="dez" onclick="setMonth('dez')">DEZ 2025</button><button class="month-btn" data-month="jan" onclick="setMonth('jan')">JAN 2026</button><button class="month-btn" data-month="fev" onclick="setMonth('fev')">FEV 2026</button><button class="month-btn" data-month="mar" onclick="setMonth('mar')">MAR 2026</button><button class="month-btn" data-month="abr" onclick="setMonth('abr')">ABR 2026</button><button class="month-btn" data-month="mai" onclick="setMonth('mai')">MAI 2026</button><button class="month-btn" data-month="jun" onclick="setMonth('jun')">JUN 2026</button><button class="month-btn" data-month="jul" onclick="setMonth('jul')">JUL 2026</button><button class="month-btn" data-month="ago" onclick="setMonth('ago')">AGO 2026</button></nav>
+      <nav class="months" id="monthButtons"><button class="month-btn" data-month="set" onclick="setMonth('set')">SET 2025</button><button class="month-btn" data-month="out" onclick="setMonth('out')">OUT 2025</button><button class="month-btn" data-month="nov" onclick="setMonth('nov')">NOV 2025</button><button class="month-btn" data-month="dez" onclick="setMonth('dez')">DEZ 2025</button><button class="month-btn" data-month="jan" onclick="setMonth('jan')">JAN 2026</button><button class="month-btn" data-month="fev" onclick="setMonth('fev')">FEV 2026</button><button class="month-btn" data-month="mar" onclick="setMonth('mar')">MAR 2026</button><button class="month-btn" data-month="abr" onclick="setMonth('abr')">ABR 2026</button><button class="month-btn" data-month="mai" onclick="setMonth('mai')">MAI 2026</button><button class="month-btn" data-month="jun" onclick="setMonth('jun')">JUN 2026</button><button class="month-btn" data-month="jul" onclick="setMonth('jul')">JUL 2026</button><button class="month-btn" data-month="ago" onclick="setMonth('ago')">AGO 2026</button><button class="month-btn" data-month="set26" onclick="setMonth('set26')">SET 2026</button></nav>
       <div class="period" id="periodText">Jun -&gt; Jul 2026</div>
       <div class="header-actions">
         <div class="mode-toggle" aria-label="Theme mode">
@@ -1466,7 +1466,7 @@
             <span>Centro operacional HSE · Província do Huambo</span>
           </div>
         </div>
-        <div class="panel-head"><span id="topicsTitle">Situações HSE Identificadas · Ago 2026</span></div>
+        <div class="panel-head"><span id="topicsTitle">Situações HSE Identificadas · Set 2026</span></div>
 
 <!--
   upload-form-snippet.html
@@ -1831,13 +1831,13 @@
   </main>
 
   <script>
-    const months = ['set','out','nov','dez','jan','fev','mar','abr','mai','jun','jul','ago'];
+    const months = ['set','out','nov','dez','jan','fev','mar','abr','mai','jun','jul','ago','set26'];
     const labels = {
       set: 'SET 2025', out: 'OUT 2025', nov: 'NOV 2025', dez: 'DEZ 2025',
-      jan: 'JAN 2026', fev: 'FEV 2026', mar: 'MAR 2026', abr: 'ABR 2026', mai: 'MAI 2026', jun: 'JUN 2026', jul: 'JUL 2026', ago: 'AGO 2026'
+      jan: 'JAN 2026', fev: 'FEV 2026', mar: 'MAR 2026', abr: 'ABR 2026', mai: 'MAI 2026', jun: 'JUN 2026', jul: 'JUL 2026', ago: 'AGO 2026', set26: 'SET 2026'
     };
-    const short = { set:'Set', out:'Out', nov:'Nov', dez:'Dez', jan:'Jan', fev:'Fev', mar:'Mar', abr:'Abr', mai:'Mai', jun:'Jun', jul:'Jul', ago:'Ago' };
-    const year = { set:'2025', out:'2025', nov:'2025', dez:'2025', jan:'2026', fev:'2026', mar:'2026', abr:'2026', mai:'2026', jun:'2026', jul:'2026', ago:'2026' };
+    const short = { set:'Set', out:'Out', nov:'Nov', dez:'Dez', jan:'Jan', fev:'Fev', mar:'Mar', abr:'Abr', mai:'Mai', jun:'Jun', jul:'Jul', ago:'Ago', set26:'Set' };
+    const year = { set:'2025', out:'2025', nov:'2025', dez:'2025', jan:'2026', fev:'2026', mar:'2026', abr:'2026', mai:'2026', jun:'2026', jul:'2026', ago:'2026', set26:'2026' };
     const data = {
       set: {w:219, ch:98.15, t:420, p:0, f:667, i:0, acc:0, water:462, gas:1100, elec:3344},
       out: {w:212, ch:98.11, t:362, p:3, f:671, i:0, acc:0, water:479, gas:3070, elec:1597},
@@ -1856,7 +1856,13 @@
          RM038 dava 2. Assinalado como por confirmar nas situações do mês. */
       ago: {w:169, ch:100.0, t:440, p:5, f:343, i:0, acc:0, accAcum:1, water:490, gas:450, elec:1810,
             warn:5, gasKg:0, rsuKg:840, blackWaterL:26440, ii:0.15, ifreq:0.68, ig:0.00, id:0.00,
-            waterAcum:998795, gasAcum:7603, elecAcum:228116.4, accAcumDuvida:true}
+            waterAcum:998795, gasAcum:7603, elecAcum:228116.4, accAcumDuvida:true},
+      /* set 2026 = RM040 Rev.01 (rascunho de 24/09). Acumulados fecham com o RM039:
+         água 998.795+140, gasóleo 7.603+520, electricidade 2.238.747+538, RSU 886.870+178.
+         Sem Quadro de Sinistralidade RM40 — índices e acidentes acumulados por confirmar. */
+      set26: {w:158, ch:100.0, t:20, p:0, f:300, i:0, acc:0, water:140, gas:520, elec:538,
+            warn:0, gasKg:0, rsuKg:178, blackWaterL:39660,
+            waterAcum:998935, gasAcum:8123, elecAcum:2239285}
     };
 
     /* ══ SITUAÇÕES HSE POR MÊS ══
@@ -1905,6 +1911,14 @@
            ['fotos-agosto/agua-03-depositos','Colheita de água · saída dos depósitos de armazenamento','Técnico HSE a encher o frasco de amostra na torneira dos depósitos, junto ao grupo de bombagem']
          ]
         }
+      ],
+      set26: [
+        {nome:'Diálogos Diários de Segurança (DDS)', cor:'green', tag:'Realizados',
+         meta:'Setembro 2026 · 4 sessões, 300 participantes (Belo) · 04/09 Higiene pessoal (91) · 07/09 Setembro Amarelo – prevenção do suicídio (79) · 11/09 Surto de febre tifóide (56) · 14/09 Impactos dos acidentes de trabalho (74)'},
+        {nome:'Controlo de alcoolemia', cor:'amber', tag:'Abaixo do habitual',
+         meta:'12/09/2026 · 20 testes, 20 negativos (0,00) · só trabalhadores da Belo · Agosto teve 440 testes'},
+        {nome:'Remoção de águas negras', cor:'green', tag:'Monitorizado',
+         meta:'02/09/2026 · 3 camiões, 39.660 L · RSU do período: 36 sacos / 178 kg'}
       ]
     };
 
@@ -1960,6 +1974,10 @@
       ago: [
         ['Belo Empreendimentos', 125], ['FAA', 21], ['VAMED', 11], ['Prefangol (Belo)', 5],
         ['GUEMAKAL (Belo)', 4], ['Dar Angola', 1], ['CIPTOP (Belo)', 1], ['Afrilim', 1], ['CEM (Belo)', 0]
+      ],
+      set26: [
+        ['Belo Empreendimentos', 124], ['VAMED', 12], ['GUEMAKAL (Belo)', 8], ['Solução Frio (Belo)', 6],
+        ['Prefangol (Belo)', 5], ['Camicuti', 3], ['Dar Angola', 0], ['CEM (Belo)', 0]
       ]
     };
 
@@ -2020,6 +2038,18 @@
           14: 'Controlo de pragas',
           19: 'Acção de interacção com a comunidade · Inquérito às vendedeiras',
           21: 'Colheita de água para análise de potabilidade'
+        };
+        return [day, null, null, notes[day]];
+      }),
+      set26: Array.from({length:30}, (_, i) => {
+        const day = i + 1;
+        const notes = {
+          2: 'Remoção de águas negras · 3 camiões, 39.660 L',
+          4: 'DDS · Higiene pessoal (91 participantes)',
+          7: 'DDS · Setembro Amarelo – prevenção do suicídio (79 participantes)',
+          11: 'DDS · Surto de febre tifóide (56 participantes)',
+          12: 'Controlo de alcoolemia · 20 testes, 0 positivos',
+          14: 'DDS · Impactos dos acidentes de trabalho (74 participantes)'
         };
         return [day, null, null, notes[day]];
       })
@@ -2212,7 +2242,7 @@
 
     function renderCalendar(m) {
       const dayNames = ['SEG','TER','QUA','QUI','SEX','SÁB','DOM'];
-      const monthIndex = ({ mar: 2, abr: 3, mai: 4, jun: 5, jul: 6, ago: 7 }[m] ?? 3);
+      const monthIndex = ({ mar: 2, abr: 3, mai: 4, jun: 5, jul: 6, ago: 7, set26: 8 }[m] ?? 3);
       const firstDay = new Date(2026, monthIndex, 1).getDay();
       const mondayOffset = (firstDay + 6) % 7;
       const rows = dailyByMonth[m] || dailyByMonth.abr;
@@ -2265,7 +2295,7 @@
         : '<em class="hse-chip monthly" title="Verificações HSE Maio 2026: 31/05 Check-list HSE">31/05 Check</em>';
     }
 
-    const chartLabels = ['Set 25','Out 25','Nov 25','Dez 25','Jan 26','Fev 26','Mar 26','Abr 26','Mai 26','Jun 26','Jul 26','Ago 26'];
+    const chartLabels = ['Set 25','Out 25','Nov 25','Dez 25','Jan 26','Fev 26','Mar 26','Abr 26','Mai 26','Jun 26','Jul 26','Ago 26','Set 26'];
     const chartOptions = {
       responsive: true,
       maintainAspectRatio: false,
@@ -2364,7 +2394,7 @@
 
       window.siteMapMarker = L.marker(hmrh, { icon: pin })
         .addTo(siteMap)
-        .bindPopup('<strong>HMRH · Huambo</strong><br>169 efetivos · 100,0% checklist HSE<br>Ago 2026')
+        .bindPopup('<strong>HMRH · Huambo</strong><br>158 efetivos · 100,0% checklist HSE<br>Set 2026')
         .openPopup();
 
       setTimeout(() => siteMap.invalidateSize(), 100);
@@ -2443,7 +2473,7 @@
     document.getElementById('today').textContent = 'Sistema activo · ' + now.toLocaleDateString('pt-PT');
     setTheme(localStorage.getItem('hse-theme') || 'dark');
     initSiteMap();
-    setMonth('ago');
+    setMonth('set26');
 
     document.querySelectorAll('#verificacoesSection .vrf-icon-btn').forEach(function(btn){
       btn.addEventListener('click', function(){
