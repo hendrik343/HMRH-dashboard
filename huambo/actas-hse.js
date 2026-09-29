@@ -151,6 +151,72 @@
           ]
         }
       ]
+    },
+    set26: {
+      rotulo: 'Setembro 2026',
+      actas: [
+        {
+          numero: 123, doc: '123/2026', data: '2026-09-02', hora: '10:00 – 11:00',
+          local: 'Obra e sala de reuniões da VAMED WWH',
+          redator: 'VAMED WWH', gestor: 'Eduardo Silva',
+          proxima: { numero: 124, data: '2026-09-23', hora: '10:00' },
+          participantes: [
+            'Leônidas Calheiros — Site Manager Adjunto (VAMED)',
+            'Juarês Manico — Coordenador Ambientalista (VAMED)',
+            'Hendrik Silva — HSE Manager (VAMED)',
+            'Faustino dos Santos — HSE (VAMED)',
+            'Leonel Luamba — Diretor Adjunto (Belo Empreendimentos)',
+            'Nelson Segunda — THSE (Belo Empreendimentos)'
+          ],
+          temas: [
+            { n: 1, cat: 'I', texto: 'Seguimento da reunião anterior: os temas provenientes da reunião n.º 122 foram todos resolvidos.', estado: 'Resolvido' },
+            { n: 2, cat: 'I', texto: 'Visita de campo à obra: não resultaram temas novos.' },
+            { n: 3, cat: 'T', texto: 'Contenção de poeiras: melhorar o procedimento de rega, evitando riscos desnecessários aos trabalhadores na obra.', estado: 'Resolvido', responsavel: 'Nelson Segunda / Leonel Luamba' },
+            { n: 4, cat: 'T', texto: 'Segurança do armamento: comprar cadeado para a caixa de armazenamento do armamento da GUEMAKAL.', estado: 'Resolvido', responsavel: 'Nelson Segunda / Leonel Luamba' },
+            { n: 5, cat: 'T', texto: 'Gestão de resíduos: partilhar a guia de recolha dos resíduos recolhidos na obra.', estado: 'Resolvido', responsavel: 'Nelson Segunda / Leonel Luamba' },
+            { n: 6, cat: 'T', texto: 'Potabilidade da água: partilhar o resultado da análise da água colhida a 21-08-2026.', estado: 'Resolvido', responsavel: 'Nelson Segunda / Leonel Luamba' },
+            { n: 7, cat: 'I', texto: 'Próxima reunião: n.º 124/2026, na obra e sala de reuniões da obra.' }
+          ],
+          boas: [
+            'Elevado nível de organização e limpeza, evidenciado nas diversas frentes de trabalho.',
+            'Corte de capim no interior e no exterior da obra.',
+            'Todos os temas provenientes da reunião anterior foram resolvidos.'
+          ],
+          mas: [
+            'Procedimento de rega insuficiente para a contenção de poeiras.',
+            'Caixa de armazenamento do armamento da GUEMAKAL sem cadeado.',
+            'Guia de recolha de resíduos e resultado da análise de potabilidade ainda por partilhar.'
+          ]
+        },
+        {
+          numero: 124, doc: '124/2026', data: '2026-09-23', hora: '10:00 – 11:00',
+          local: 'Obra e sala de reuniões da obra',
+          redator: 'VAMED WWH', gestor: 'Eduardo Silva',
+          proxima: null,
+          participantes: [
+            'Leônidas Calheiros — Site Manager Adjunto (VAMED)',
+            'Juarês Manico — Coordenador Ambientalista (VAMED)',
+            'Hendrik Silva — HSE Manager (VAMED)',
+            'Faustino dos Santos — HSE (VAMED)',
+            'Leonel Luamba — Diretor Adjunto (Belo Empreendimentos)',
+            'Nelson Segunda — THSE (Belo Empreendimentos)'
+          ],
+          temas: [
+            { n: 1, cat: 'I', texto: 'Seguimento da reunião n.º 123: todos os temas resolvidos (rega, cadeado da caixa do armamento, guia de resíduos e resultado da potabilidade).', estado: 'Resolvido' },
+            { n: 2, cat: 'T', texto: 'Equipamento de protecção dos seguranças: organizar capas de chuva para os seguranças patrimoniais (GUEMAKAL).', responsavel: 'Nelson Segunda / Leonel Luamba' },
+            { n: 3, cat: 'T', texto: 'Iluminação para as rondas nocturnas: melhorar a luminosidade disponível aos seguranças patrimoniais durante as rondas nocturnas.', responsavel: 'Nelson Segunda / Leonel Luamba' },
+            { n: 4, cat: 'I', texto: 'Próxima reunião: n.º 125/2026, na obra e sala de reuniões da obra.' }
+          ],
+          boas: [
+            'Todos os temas provenientes da reunião n.º 123 foram resolvidos.',
+            'Elevado nível de organização e limpeza, evidenciado nas diversas frentes de trabalho.'
+          ],
+          mas: [
+            'Seguranças patrimoniais sem capas de chuva.',
+            'Luminosidade insuficiente para as rondas nocturnas dos seguranças.'
+          ]
+        }
+      ]
     }
   };
 
