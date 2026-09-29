@@ -83,9 +83,14 @@
     }
 
     .header-actions { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
-    .marca { height: 44px; width: auto; flex: none; align-self: flex-start; }
+    header .brand { grid-column: 1 / -1; display: flex; align-items: center; gap: 22px; min-width: 0; }
+    header .brand > div { min-width: 0; }
+    .marca { height: 84px; width: auto; flex: none; }
     .theme-dark .marca { content: url('./vamed-wwh-logo-dark.png'); }
-    @media (max-width: 640px) { .marca { height: 32px; } }
+    @media (max-width: 640px) {
+      header .brand { flex-direction: column; align-items: flex-start; gap: 12px; }
+      .marca { height: 64px; }
+    }
 
     .mode-toggle {
       display: inline-flex;
@@ -1427,9 +1432,12 @@
   </style>
   <main class="page">
     <header>
-      <div>
+      <div class="brand">
+        <img class="marca" src="./vamed-wwh-logo.png" alt="VAMED + WWH">
+        <div>
         <h1>HSE Dashboard · Hospital Militar Regional do Huambo</h1>
         <div class="sub">HMRH · N.º Obra: 13DC - DEI/SV/2021 · VAMED Healthcare Projects · PM: Fábio Seda · Site Manager: Eduardo Silva · HSE: Hendrik Silva</div>
+        </div>
       </div>
       <nav class="months" id="monthButtons"><button class="month-btn" data-month="set" onclick="setMonth('set')">SET 2025</button><button class="month-btn" data-month="out" onclick="setMonth('out')">OUT 2025</button><button class="month-btn" data-month="nov" onclick="setMonth('nov')">NOV 2025</button><button class="month-btn" data-month="dez" onclick="setMonth('dez')">DEZ 2025</button><button class="month-btn" data-month="jan" onclick="setMonth('jan')">JAN 2026</button><button class="month-btn" data-month="fev" onclick="setMonth('fev')">FEV 2026</button><button class="month-btn" data-month="mar" onclick="setMonth('mar')">MAR 2026</button><button class="month-btn" data-month="abr" onclick="setMonth('abr')">ABR 2026</button><button class="month-btn" data-month="mai" onclick="setMonth('mai')">MAI 2026</button><button class="month-btn" data-month="jun" onclick="setMonth('jun')">JUN 2026</button><button class="month-btn" data-month="jul" onclick="setMonth('jul')">JUL 2026</button><button class="month-btn" data-month="ago" onclick="setMonth('ago')">AGO 2026</button><button class="month-btn" data-month="set26" onclick="setMonth('set26')">SET 2026</button></nav>
       <div class="period" id="periodText">Jun -&gt; Jul 2026</div>
@@ -1438,7 +1446,6 @@
           <button class="mode-btn" id="darkModeBtn" type="button" onclick="setTheme('dark')">Dark</button>
           <button class="mode-btn active" id="lightModeBtn" type="button" onclick="setTheme('light')">Normal</button>
         </div>
-        <img class="marca" src="./vamed-wwh-logo.png" alt="VAMED + WWH">
       </div>
     </header>
 
