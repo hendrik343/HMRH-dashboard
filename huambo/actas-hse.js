@@ -156,7 +156,7 @@
       rotulo: 'Setembro 2026',
       actas: [
         {
-          numero: 123, doc: '123/2026', data: '2026-09-02', hora: '10:00 – 11:00',
+          numero: 123, doc: '123/2026', pdf: './actas-pdf/HMRH_Ata_Reuniao_Seguranca_Ambiente_123_2026.pdf', data: '2026-09-02', hora: '10:00 – 11:00',
           local: 'Obra e sala de reuniões da VAMED WWH',
           redator: 'VAMED WWH', gestor: 'Eduardo Silva',
           proxima: { numero: 124, data: '2026-09-23', hora: '10:00' },
@@ -189,7 +189,7 @@
           ]
         },
         {
-          numero: 124, doc: '124/2026', data: '2026-09-23', hora: '10:00 – 11:00',
+          numero: 124, doc: '124/2026', pdf: './actas-pdf/HMRH_Ata_Reuniao_Seguranca_Ambiente_124_2026.pdf', data: '2026-09-23', hora: '10:00 – 11:00',
           local: 'Obra e sala de reuniões da obra',
           redator: 'VAMED WWH', gestor: 'Eduardo Silva',
           proxima: null,
@@ -316,6 +316,7 @@
         '<span>Redator: <strong>' + esc(a.redator) + '</strong></span>' +
         '<span>Gestor: <strong>' + esc(a.gestor) + '</strong></span>' +
         '<span>Próxima: <strong>' + prox + '</strong></span>' +
+        (a.pdf ? '<span><a href="' + esc(a.pdf) + '" target="_blank" rel="noopener"><strong>Abrir acta em PDF ↗</strong></a></span>' : '') +
       '</div>' +
     '</article>';
   }
