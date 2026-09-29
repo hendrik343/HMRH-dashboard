@@ -28,12 +28,12 @@
         {
           numero: 119, doc: '119/2026', data: '2026-07-08', hora: '10:00 – 11:00',
           local: 'Obra e sala de reuniões da obra',
-          redator: 'Faustino dos Santos', gestor: 'Eduardo Silva',
+          redator: 'Faustino dos Santos', gestor: '',
           proxima: { numero: 120, data: '2026-07-22', hora: '10:00' },
           participantes: [
             'Leônidas Calheiros — Site Manager Adjunto (VAMED)',
             'Irineu Silva — Respons. de Especialidade (VAMED)',
-            'Hendrik Silva — HSE Manager (VAMED)',
+            'Hendrik Silva — Coordenador HSE (VAMED)',
             'Faustino Santos — HSE (VAMED)',
             'João Ladeiro — HSE (Belo Empreendimentos)',
             'Nelson Segunda — Diretor (Belo Empreendimentos)'
@@ -58,14 +58,13 @@
         {
           numero: 120, doc: '120/2026', data: '2026-07-22', hora: '10:00 – 11:00',
           local: 'Obra e sala de reuniões da obra',
-          redator: 'Faustino dos Santos', gestor: 'Eduardo Silva',
+          redator: 'Faustino dos Santos', gestor: '',
           proxima: { numero: 121, data: '2026-08-05', hora: '10:00' },
           participantes: [
-            'Eduardo Silva — Site Manager (VAMED)',
             'Leônidas Calheiros — Site Manager Adjunto (VAMED)',
             'Irineu Silva — Respons. de Especialidade (VAMED)',
             'Rita Casqueiro — Site Manager HSE (VAMED)',
-            'Hendrik Silva — HSE Manager (VAMED)',
+            'Hendrik Silva — Coordenador HSE (VAMED)',
             'Faustino Santos — HSE (VAMED)',
             'Leonel Luamba — Diretor Adjunto (Belo Empreendimentos)',
             'Nelson Segunda — THSE (Belo Empreendimentos)'
@@ -95,11 +94,10 @@
         {
           numero: 121, doc: '121/2026', data: '2026-08-06', hora: '10:00 – 11:00',
           local: 'Obra e sala de reuniões da obra',
-          redator: 'Faustino dos Santos', gestor: 'Eduardo Silva',
+          redator: 'Faustino dos Santos', gestor: '',
           proxima: { numero: 122, data: '2026-08-20', hora: '10:00' },
           participantes: [
-            'Eduardo Silva — Site Manager (VAMED)',
-            'Hendrik Silva — HSE Manager (VAMED)',
+            'Hendrik Silva — Coordenador HSE (VAMED)',
             'Faustino Santos — HSE (VAMED)',
             'Leonel Luamba — Diretor Adjunto (Belo Empreendimentos)',
             'Nelson Segunda — THSE (Belo Empreendimentos)'
@@ -123,11 +121,10 @@
         {
           numero: 122, doc: '122/2026', data: '2026-08-19', hora: '10:00 – 11:00',
           local: 'Obra e sala de reuniões da obra',
-          redator: 'Faustino dos Santos', gestor: 'Eduardo Silva',
+          redator: 'Faustino dos Santos', gestor: '',
           proxima: { numero: 123, data: '2026-09-02', hora: '10:00' },
           participantes: [
-            'Eduardo Silva — Site Manager (VAMED)',
-            'Hendrik Silva — HSE Manager (VAMED)',
+            'Hendrik Silva — Coordenador HSE (VAMED)',
             'Faustino Santos — HSE (VAMED)',
             'Leonel Luamba — Diretor Adjunto (Belo Empreendimentos)',
             'Nelson Segunda — THSE (Belo Empreendimentos)'
@@ -158,12 +155,12 @@
         {
           numero: 123, doc: '123/2026', pdf: './actas-pdf/HMRH_Ata_Reuniao_Seguranca_Ambiente_123_2026.pdf', data: '2026-09-02', hora: '10:00 – 11:00',
           local: 'Obra e sala de reuniões da VAMED WWH',
-          redator: 'VAMED WWH', gestor: 'Eduardo Silva',
+          redator: 'VAMED WWH', gestor: '',
           proxima: { numero: 124, data: '2026-09-23', hora: '10:00' },
           participantes: [
             'Leônidas Calheiros — Site Manager Adjunto (VAMED)',
             'Juarês Manico — Coordenador Ambientalista (VAMED)',
-            'Hendrik Silva — HSE Manager (VAMED)',
+            'Hendrik Silva — Coordenador HSE (VAMED)',
             'Faustino dos Santos — HSE (VAMED)',
             'Leonel Luamba — Diretor Adjunto (Belo Empreendimentos)',
             'Nelson Segunda — THSE (Belo Empreendimentos)'
@@ -191,12 +188,12 @@
         {
           numero: 124, doc: '124/2026', pdf: './actas-pdf/HMRH_Ata_Reuniao_Seguranca_Ambiente_124_2026.pdf', data: '2026-09-23', hora: '10:00 – 11:00',
           local: 'Obra e sala de reuniões da obra',
-          redator: 'VAMED WWH', gestor: 'Eduardo Silva',
+          redator: 'VAMED WWH', gestor: '',
           proxima: null,
           participantes: [
             'Leônidas Calheiros — Site Manager Adjunto (VAMED)',
             'Juarês Manico — Coordenador Ambientalista (VAMED)',
-            'Hendrik Silva — HSE Manager (VAMED)',
+            'Hendrik Silva — Coordenador HSE (VAMED)',
             'Faustino dos Santos — HSE (VAMED)',
             'Leonel Luamba — Diretor Adjunto (Belo Empreendimentos)',
             'Nelson Segunda — THSE (Belo Empreendimentos)'
@@ -265,6 +262,7 @@
     return {
       rotulo: bloco.rotulo,
       nActas: lista.length,
+      lista: lista,
       ultima: ultima,
       emAberto: ultima.temas.filter(emAberto).length,
       atrasadas: ultima.temas.filter(function (t) { return atrasada(t, hoje); }).length,
@@ -314,7 +312,7 @@
       '</div>' +
       '<div class="acta-foot">' +
         '<span>Redator: <strong>' + esc(a.redator) + '</strong></span>' +
-        '<span>Gestor: <strong>' + esc(a.gestor) + '</strong></span>' +
+        (a.gestor ? '<span>Gestor: <strong>' + esc(a.gestor) + '</strong></span>' : '') +
         '<span>Próxima: <strong>' + prox + '</strong></span>' +
         (a.pdf ? '<span><a href="' + esc(a.pdf) + '" target="_blank" rel="noopener"><strong>Abrir acta em PDF ↗</strong></a></span>' : '') +
       '</div>' +
@@ -364,13 +362,12 @@
     var limpo = r.atrasadas === 0;
     var h = '<a class="at-atalho ' + (limpo ? 'is-limpo' : 'is-divida') + '" href="' + LINK + '">';
     h += '<span class="at-atalho-lbl">Actas de Reunião</span>';
-    h += '<span class="at-atalho-num">' + r.atrasadas + '</span>';
-    h += '<span class="at-atalho-sub">' + (limpo
-      ? 'acções em atraso · ' + r.emAberto + ' tarefa' + (r.emAberto === 1 ? '' : 's') + ' em aberto'
-      : 'acções com prazo ultrapassado · ' + r.emAberto + ' tarefa' + (r.emAberto === 1 ? '' : 's') + ' em aberto') +
-      '</span>';
-    h += '<span class="at-atalho-meta">' + r.nActas + ' acta' + (r.nActas === 1 ? '' : 's') +
-         ' · última Nº ' + r.ultima.numero + ' (' + dmy(r.ultima.data) + ')</span>';
+    var nums = r.lista.slice(-2).map(function (a) { return 'Nº ' + a.numero; }).join(' e ');
+    h += '<span class="at-atalho-num">' + r.nActas + ' acta' + (r.nActas === 1 ? '' : 's') + '</span>';
+    h += '<span class="at-atalho-sub">Clique para analisar ' + (r.nActas === 1 ? 'a última acta' : 'as 2 últimas actas') +
+         ' (' + nums + ') ↗</span>';
+    h += '<span class="at-atalho-meta">' + r.emAberto + ' tarefa' + (r.emAberto === 1 ? '' : 's') + ' em aberto · ' +
+         r.atrasadas + ' com prazo ultrapassado · última Nº ' + r.ultima.numero + ' (' + dmy(r.ultima.data) + ')</span>';
     if (r.proxima) {
       h += '<span class="at-atalho-prox">Próxima reunião Nº ' + r.proxima.numero + ' · ' + dmy(r.proxima.data) + '</span>';
     }
