@@ -343,6 +343,17 @@
           : t.proximo.paraLimite + ' dia' + (t.proximo.paraLimite === 1 ? '' : 's')) +
         '</span>';
     }
+    var dm = function (iso) { return fmtData(iso).slice(0, 5); };
+    h += '<span class="ph-atalho-rev">' + esc(REVISAO.revisao) + ' · ' + dm(REVISAO.inicio) + ' → ' + dm(REVISAO.fim) +
+         ' · ' + MARCOS.length + ' marcos · ' + t.ar + ' AR · ' + t.tbt + ' TBT</span>';
+    h += '<span class="ph-atalho-tab">' + MARCOS.map(function (m) {
+      return '<span class="ph-atalho-row"><b>' + esc(m.id) + '</b><span class="ph-atalho-tit">' + esc(m.titulo) +
+             '</span><span class="ph-atalho-dt">' + dm(m.inicio) + '–' + dm(m.fim) + '</span><span class="ph-atalho-d">' +
+             m.dias + 'd</span></span>';
+    }).join('') + '</span>';
+    if (hojeISO() > REVISAO.fim) {
+      h += '<span class="ph-atalho-aviso">Período encerrado · falta o quinzenal actual da BELO no Dalux</span>';
+    }
     h += '</a>';
     alvo.innerHTML = h;
   }
@@ -452,6 +463,14 @@ font-family:var(--ph-m);font-size:.65rem;color:var(--ph-t2)}
 .ph-atalho{display:flex;flex-direction:column;gap:.4rem;height:100%;padding:1.1rem 1.25rem;
 border:1px solid var(--ph-rg);border-left:5px solid var(--ph-t2);background:var(--ph-p);
 text-decoration:none;color:var(--ph-t);font-family:inherit;transition:transform .15s ease,box-shadow .15s ease}
+.ph-atalho-rev{font-family:var(--ph-m);font-size:.68rem;letter-spacing:.04em;color:var(--ph-t2);margin-top:.35rem}
+.ph-atalho-tab{display:flex;flex-direction:column;border-top:1px solid var(--ph-rg);margin-top:.15rem}
+.ph-atalho-row{display:grid;grid-template-columns:2.2rem 1fr auto 2.4rem;gap:.6rem;align-items:baseline;
+padding:.28rem 0;border-bottom:1px solid var(--ph-rg);font-size:.78rem}
+.ph-atalho-row b{font-family:var(--ph-m);font-size:.72rem;color:var(--ph-v)}
+.ph-atalho-tit{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:var(--ph-t)}
+.ph-atalho-dt,.ph-atalho-d{font-family:var(--ph-m);font-size:.7rem;color:var(--ph-t2);text-align:right;font-variant-numeric:tabular-nums}
+.ph-atalho-aviso{font-family:var(--ph-m);font-size:.68rem;color:var(--ph-w);margin-top:.2rem}
 .ph-atalho:hover{transform:translateY(-2px);box-shadow:0 10px 26px rgba(0,0,0,.18)}
 .ph-atalho.is-divida{border-left-color:var(--ph-br);background:var(--ph-brf)}
 .ph-atalho.is-limpo{border-left-color:var(--ph-c);background:var(--ph-cf)}
