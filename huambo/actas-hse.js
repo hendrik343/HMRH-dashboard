@@ -88,6 +88,69 @@
           ]
         }
       ]
+    },
+    ago: {
+      rotulo: 'Agosto 2026',
+      actas: [
+        {
+          numero: 121, doc: '121/2026', data: '2026-08-06', hora: '10:00 – 11:00',
+          local: 'Obra e sala de reuniões da obra',
+          redator: 'Faustino dos Santos', gestor: 'Eduardo Silva',
+          proxima: { numero: 122, data: '2026-08-20', hora: '10:00' },
+          participantes: [
+            'Eduardo Silva — Site Manager (VAMED)',
+            'Hendrik Silva — HSE Manager (VAMED)',
+            'Faustino Santos — HSE (VAMED)',
+            'Leonel Luamba — Diretor Adjunto (Belo Empreendimentos)',
+            'Nelson Segunda — THSE (Belo Empreendimentos)'
+          ],
+          temas: [
+            { n: 1, cat: 'I', texto: 'Temas provenientes da reunião passada: todos resolvidos.', estado: 'Resolvido' },
+            { n: 2, cat: 'I', texto: 'Visita de segurança à obra: sem temas novos relevantes; identificadas as situações dos pontos 3 e 4.' },
+            { n: 3, cat: 'T', texto: 'Baias de estoque de resíduos (ocorrência 06-08-2026): recomendada à Belo Empreendimentos a recolha dos resíduos acumulados na baia de estoque.', estado: 'Não resolvido', responsavel: 'Nelson Segunda / Leonel Luamba', prazo: '2026-08-20' },
+            { n: 4, cat: 'T', texto: 'Vazamento das fossas do WC do pessoal (ocorrência 06-02-2026): segundo a Direcção da Belo Empreendimentos, o pagamento da recolha de excrementos já foi efectuado; aguarda-se a recolha.', estado: 'Não resolvido', responsavel: 'Nelson Segunda / Leonel Luamba', prazo: '2026-08-20' },
+            { n: 5, cat: 'T', texto: 'Melhorar o procedimento de rega para conter a poeira na obra, evitando riscos desnecessários aos trabalhadores.', responsavel: 'Belo Empreendimentos' }
+          ],
+          boas: [
+            'Elevado nível de organização e limpeza, evidenciado nas diversas frentes de trabalho.'
+          ],
+          mas: [
+            'Baia de estoque de resíduos por esvaziar (prazo 20/08/2026).',
+            'Recolha dos excrementos das fossas do WC do pessoal ainda por efectuar (prazo 20/08/2026).',
+            'Procedimento de rega insuficiente para a contenção de poeiras.'
+          ]
+        },
+        {
+          numero: 122, doc: '122/2026', data: '2026-08-19', hora: '10:00 – 11:00',
+          local: 'Obra e sala de reuniões da obra',
+          redator: 'Faustino dos Santos', gestor: 'Eduardo Silva',
+          proxima: { numero: 123, data: '2026-09-02', hora: '10:00' },
+          participantes: [
+            'Eduardo Silva — Site Manager (VAMED)',
+            'Hendrik Silva — HSE Manager (VAMED)',
+            'Faustino Santos — HSE (VAMED)',
+            'Leonel Luamba — Diretor Adjunto (Belo Empreendimentos)',
+            'Nelson Segunda — THSE (Belo Empreendimentos)'
+          ],
+          temas: [
+            { n: 1, cat: 'I', texto: 'Seguimento da reunião anterior: todos os temas provenientes da reunião anterior foram resolvidos.', estado: 'Resolvido' },
+            { n: 2, cat: 'T', texto: 'Baias de estoque de resíduos (ocorrência 06-08-2026): a 24 de Agosto a Belo Empreendimentos efectuou dois carregamentos, ficando a baia esvaziada.', estado: 'Resolvido', responsavel: 'Nelson Segunda / Leonel Luamba', prazo: '2026-09-02' },
+            { n: 3, cat: 'T', texto: 'Contenção de poeiras: melhorar o procedimento de rega das vias e frentes de trabalho, de forma a evitar riscos desnecessários aos trabalhadores.', responsavel: 'Belo Empreendimentos' },
+            { n: 4, cat: 'T', texto: 'Potabilidade da água: realizar a próxima colheita de água para análise de potabilidade.', responsavel: 'Belo Empreendimentos' },
+            { n: 5, cat: 'I', texto: 'Próxima reunião: Reunião de Segurança e Ambiente n.º 123/2026 — 02-09-2026, às 10:00, na obra e sala de reuniões da obra.' }
+          ],
+          boas: [
+            'Elevado nível de organização e limpeza, evidenciado nas diversas frentes de trabalho.',
+            'Colheita de água para análise realizada em 21-08-2026.',
+            'Baia de estoque de resíduos esvaziada na sequência de dois carregamentos efectuados pela Belo Empreendimentos.',
+            'Todos os temas provenientes da reunião anterior foram resolvidos.'
+          ],
+          mas: [
+            'Procedimento de rega insuficiente para a contenção de poeiras nas frentes de trabalho (resp.: Belo Empreendimentos).',
+            'Próxima colheita de água para análise de potabilidade ainda por realizar (resp.: Belo Empreendimentos).'
+          ]
+        }
+      ]
     }
   };
 
