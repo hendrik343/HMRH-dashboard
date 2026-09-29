@@ -1,6 +1,6 @@
 /* ============================================================================
    PLANEAMENTO HSE — HMRH Huambo (13DC)
-   Cronograma Mestre Rev00 com integração HSE · emitido 31/07/2026
+   Rev01 · emitida 29/09/2026 · base: planeamento quinzenal BELO de 07/09/2026 (Dalux)
 
    Ficheiro autónomo. Não depende de nada da página.
    Monta-se em <div id="planeamento-hse"></div>.
@@ -15,32 +15,34 @@
   /* ---------- DADOS ------------------------------------------------------ */
 
   var REVISAO = {
-    revisao: 'Rev00',
-    emitido: '2026-07-31',
-    inicio: '2026-07-28',
-    fim: '2026-09-16',
+    revisao: 'Rev01',
+    emitido: '2026-09-29',
+    inicio: '2026-09-07',
+    fim: '2026-09-19',
     obra: '13DC – DEI/SV/2021',
+    fonte: 'HMRH_BELO_PLANEJAMENTO QUINZENAL_07.09.2026 (Dalux Box · 02.01 Cronogramas / 02 Revisões)',
     natureza: 'Instrumento de planeamento. Identifica que avaliações de risco e ' +
       'toolbox talks os trabalhos planeados exigem e em que data têm de estar ' +
-      'emitidas. Não é uma avaliação de risco e não substitui nenhuma.'
+      'emitidas. Não é uma avaliação de risco e não substitui nenhuma. ' +
+      'Base: planeamento quinzenal da BELO de 07/09/2026 (período 07/09 a 19/09). ' +
+      'À data de emissão não existe no Dalux planeamento quinzenal da BELO posterior a 19/09/2026.'
   };
 
+  /* Rev00 (31/07/2026, Cronograma Mestre, 28/07 → 16/09) substituída por esta Rev01. */
   var MARCOS = [
-    { id: 'M1', titulo: 'Estrutura Piso 00 — Blocos A e B', dias: 12, inicio: '2026-07-28', fim: '2026-08-12', critico: false, frente: 'H1' },
-    { id: 'M2', titulo: 'Estrutura Piso 00 — Bloco C',      dias: 12, inicio: '2026-07-28', fim: '2026-08-12', critico: true,  frente: 'H2' },
-    { id: 'M3', titulo: 'Drenagem sob Cupolex Piso 00',     dias:  8, inicio: '2026-08-13', fim: '2026-08-24', critico: true,  frente: 'H3' },
-    { id: 'M4', titulo: 'Betonilha e acabamentos Piso 00',  dias: 37, inicio: '2026-07-28', fim: '2026-09-16', critico: false, frente: 'H4' },
-    { id: 'M5', titulo: 'Coberturas e impermeabilização',   dias: 25, inicio: '2026-07-28', fim: '2026-08-31', critico: false, frente: 'H5' },
-    { id: 'M6', titulo: 'Fachadas ETICS',                   dias: 15, inicio: '2026-07-28', fim: '2026-08-17', critico: false, frente: 'H6' },
-    { id: 'M7', titulo: 'Acabamentos Piso 01',              dias: 35, inicio: '2026-07-28', fim: '2026-09-14', critico: false, frente: 'H7' },
-    { id: 'M8', titulo: 'Fecho de obra',                    dias: 37, inicio: '2026-07-28', fim: '2026-09-16', critico: false, frente: 'H8' }
+    { id: 'M1', titulo: 'Fachadas ETICS — aplicação de primário', dias: 10, inicio: '2026-09-10', fim: '2026-09-19', critico: false, frente: 'H1' },
+    { id: 'M2', titulo: 'Impermeabilização — cobertura Piso 02', dias: 12, inicio: '2026-09-07', fim: '2026-09-18', critico: false, frente: 'H2' },
+    { id: 'M3', titulo: 'Junta estrutural vertical — Bloco A/C', dias: 5, inicio: '2026-09-07', fim: '2026-09-11', critico: false, frente: 'H3' },
+    { id: 'M4', titulo: 'Estrutura Bloco X0B — viga Piso 01', dias: 6, inicio: '2026-09-07', fim: '2026-09-12', critico: false, frente: 'H4' },
+    { id: 'M5', titulo: 'Betão C25/30 — Bloco F', dias: 2, inicio: '2026-09-11', fim: '2026-09-12', critico: false, frente: 'H5' },
+    { id: 'M6', titulo: 'Emboço — platibanda T2', dias: 4, inicio: '2026-09-07', fim: '2026-09-10', critico: false, frente: 'H6' }
   ];
 
   var FRENTES = [
     {
       id: 'H0', marco: null, titulo: 'Transversal',
       abrangencia: 'Aplicável a toda a obra, todos os dias, todos os subempreiteiros',
-      inicio: '2026-07-28', fim: '2026-09-16', limiteAR: '2026-07-27', repeticoes: 8,
+      inicio: '2026-09-07', fim: '2026-09-19', limiteAR: '2026-09-06', repeticoes: 2,
       ar: ['Project Design and Construction', 'Construction', 'Temporary Services',
            'Installation Of Temporary Electrical Supplies', 'Fire',
            'Storage Of Materials On-Site', 'Driving Company Vehicles', 'Lone Working'],
@@ -52,108 +54,65 @@
             ['44', 'Instalações sociais'], ['49', 'Marcha-atrás de viaturas']]
     },
     {
-      id: 'H1', marco: 'M1', titulo: 'Estrutura Piso 00 — Blocos A e B',
-      abrangencia: 'Molde Cupolex, armadura de laje, betonagem C20/25',
-      inicio: '2026-07-28', fim: '2026-08-12', limiteAR: '2026-07-27', repeticoes: 3,
-      ar: ['Shuttering Works', 'Concrete Works', 'Manual Handling', 'Lifting Activities',
-           'Working At Height', 'Storage And Manoeuvring Of Materials And Equipment',
-           'Safe Use Of Power Tools And Equipment', 'Safe Use Of Grinders / Cutters'],
-      tbt: [['05', 'Lingas, correntes, ganchos e manilhas'], ['09', 'Rebarbadoras e discos abrasivos'],
-            ['19', 'Aberturas em lajes'], ['20', 'Empilhamento seguro de materiais'],
-            ['24', 'Movimentação manual de cargas'], ['41', 'Queimaduras por betão'],
-            ['42', 'Montagem de bombas móveis de betão'],
-            ['43', 'Trabalhar junto a equipamento móvel e gruas'], ['47', 'Amarradores e sinaleiros']]
-    },
-    {
-      id: 'H2', marco: 'M2', titulo: 'Estrutura Piso 00 — Bloco C',
-      abrangencia: 'Armadura de laje, molde Cupolex, betonagem C20/25 — Bloco C',
-      inicio: '2026-07-28', fim: '2026-08-12', limiteAR: '2026-07-27', repeticoes: 3,
-      ar: ['Shuttering Works', 'Concrete Works', 'Lifting Activities', 'Working At Height',
-           'Manual Handling', 'Panel Installation'],
-      tbt: [['05', 'Lingas, correntes, ganchos e manilhas'], ['09', 'Rebarbadoras e discos abrasivos'],
-            ['19', 'Aberturas em lajes'], ['22', 'Trabalhos em altura'],
-            ['24', 'Movimentação manual de cargas'], ['41', 'Queimaduras por betão'],
-            ['42', 'Montagem de bombas móveis de betão'], ['47', 'Amarradores e sinaleiros']]
-    },
-    {
-      id: 'H3', marco: 'M3', titulo: 'Drenagem sob Cupolex Piso 00',
-      abrangencia: 'Tubagem e acessórios Blocos A B C, ensaio e aceitação da rede',
-      inicio: '2026-08-13', fim: '2026-08-24', limiteAR: '2026-08-12', repeticoes: 2,
-      ar: ['Installation of Drainage Pipes', 'Excavation & Backfilling',
-           'Working In Confined Spaces', 'Pressure Testing',
-           'Installation of HDPE Pipes and Fittings', 'For Precast Chambers',
-           'Coring of Manhole', 'Back Filling Works'],
-      tbt: [['04', 'Entrada em espaço confinado'], ['07', 'Utilização de martelos eléctricos'],
-            ['08', 'Escavações'], ['24', 'Movimentação manual de cargas'],
-            ['25', 'Arrumação e limpeza'], ['36', 'Serviços enterrados'],
-            ['39', 'Ar comprimido'], ['46', 'Substâncias perigosas (COSHH)']]
-    },
-    {
-      id: 'H4', marco: 'M4', titulo: 'Betonilha e acabamentos Piso 00',
-      abrangencia: 'Betonilha C16/20 Blocos A e C, arestas de vãos e janelas Blocos C e D',
-      inicio: '2026-07-28', fim: '2026-09-16', limiteAR: '2026-07-27', repeticoes: 8,
-      ar: ['Concrete Works', 'Block Works and Plastering Works', 'Manual Handling',
-           'Safe Use Of Grinders / Cutters', 'Slips, Trips / Hazardous Substances',
-           'Noise / Operating Plant Equipment', 'Vibration / Cutting Construction Components',
-           'Material Shifting'],
-      tbt: [['09', 'Rebarbadoras e discos abrasivos'], ['11', 'Ferramentas eléctricas portáteis'],
-            ['19', 'Aberturas em lajes'], ['24', 'Movimentação manual de cargas'],
-            ['25', 'Arrumação e limpeza'], ['27', 'Utilização de ferramentas'],
-            ['30', 'Equipamento de protecção individual'], ['41', 'Queimaduras por betão'],
+      id: 'H1', marco: 'M1', titulo: 'Fachadas ETICS — aplicação de primário',
+      abrangencia: 'Primário na fachada posterior e caixa de escada Piso 00 (Bloco D), fachada posterior (Bloco E) e zona exterior interna da fachada (Bloco G)',
+      inicio: '2026-09-10', fim: '2026-09-19', limiteAR: '2026-09-09', repeticoes: 2,
+      ar: ['Scaffolding Works', 'Working At Height - Low-Level Mobile Tower Scaffolds', 'Working At Height - Mewps',
+           'Block Works and Plastering Works', 'Manual Handling', 'Slips, Trips / Hazardous Substances'],
+      tbt: [['06', 'Plataformas elevatórias móveis (PEMP)'], ['13', 'Andaimes gerais'], ['14', 'Andaimes de torre'],
+            ['22', 'Trabalhos em altura'], ['23', 'Utilização de arneses'], ['30', 'Equipamento de protecção individual'],
             ['46', 'Substâncias perigosas (COSHH)']]
     },
     {
-      id: 'H5', marco: 'M5', titulo: 'Coberturas e impermeabilização',
-      abrangencia: 'Betonilha leve T2 X3 X0B, tela FPO/TPO e Termostyr Bloco F, claraboias, junta de dilatação',
-      inicio: '2026-07-28', fim: '2026-08-31', limiteAR: '2026-07-27', repeticoes: 5,
-      ar: ['Working At Height - Roofs Fragile Surfaces', 'Working At Height',
-           'Working At Height - Mewps', 'Scaffolding Works', 'Fire',
-           'Storage And Use Of Flammable Liquids', 'Lifting Activities', 'Concrete Works'],
-      tbt: [['03', 'Soldadura, corte a chama e rebarbagem'], ['06', 'Plataformas elevatórias móveis (PEMP)'],
-            ['16', 'Combate a incêndios'], ['17', 'Tipos de incêndio'],
-            ['18', 'Prevenção de incêndios'], ['19', 'Aberturas em lajes e claraboias'],
-            ['21', 'Utilização segura de escadas'], ['22', 'Trabalhos em altura'],
-            ['23', 'Utilização de arneses'], ['26', 'Trabalho em período quente']]
+      id: 'H2', marco: 'M2', titulo: 'Impermeabilização — cobertura Piso 02',
+      abrangencia: 'Tela TPO na platibanda (zona da junta) e na cobertura das claraboias — Blocos A e B, C e D, F e G',
+      inicio: '2026-09-07', fim: '2026-09-18', limiteAR: '2026-09-06', repeticoes: 2,
+      ar: ['Working At Height - Roofs Fragile Surfaces', 'Working At Height', 'Fire',
+           'Storage And Use Of Flammable Liquids', 'Lifting Activities', 'Manual Handling'],
+      tbt: [['16', 'Combate a incêndios'], ['18', 'Prevenção de incêndios'], ['19', 'Aberturas em lajes e claraboias'],
+            ['21', 'Utilização segura de escadas'], ['22', 'Trabalhos em altura'], ['23', 'Utilização de arneses'],
+            ['24', 'Movimentação manual de cargas'], ['26', 'Trabalho em período quente']]
     },
     {
-      id: 'H6', marco: 'M6', titulo: 'Fachadas ETICS',
-      abrangencia: 'Barramentos de fachada posterior Blocos T1 e T2',
-      inicio: '2026-07-28', fim: '2026-08-17', limiteAR: '2026-07-27', repeticoes: 3,
-      ar: ['Scaffolding Works', 'Working At Height - Low-Level Mobile Tower Scaffolds',
-           'Working At Height - Mewps', 'Panel Installation',
-           'Block Works and Plastering Works', 'Manual Handling', 'Storage Of Materials On-Site'],
-      tbt: [['10', 'Utilização de manipuladores telescópicos'], ['13', 'Andaimes gerais'],
-            ['14', 'Andaimes de torre'], ['20', 'Empilhamento seguro de materiais'],
-            ['22', 'Trabalhos em altura'], ['23', 'Utilização de arneses'],
-            ['26', 'Trabalho em período quente'], ['30', 'Equipamento de protecção individual']]
+      id: 'H3', marco: 'M3', titulo: 'Junta estrutural vertical — Bloco A/C',
+      abrangencia: 'Execução de juntas na fachada frontal, do Piso 00 ao Piso 01',
+      inicio: '2026-09-07', fim: '2026-09-11', limiteAR: '2026-09-06', repeticoes: 1,
+      ar: ['Working At Height', 'Scaffolding Works', 'Working At Height - Mewps',
+           'Safe Use Of Grinders / Cutters', 'Slips, Trips / Hazardous Substances'],
+      tbt: [['06', 'Plataformas elevatórias móveis (PEMP)'], ['09', 'Rebarbadoras e discos abrasivos'], ['13', 'Andaimes gerais'],
+            ['22', 'Trabalhos em altura'], ['30', 'Equipamento de protecção individual'], ['46', 'Substâncias perigosas (COSHH)']]
     },
     {
-      id: 'H7', marco: 'M7', titulo: 'Acabamentos Piso 01',
-      abrangencia: 'Emboço na platibanda Bloco D, barramento de estuque em pilares Bloco C, betonilha interior Blocos A a G',
-      inicio: '2026-07-28', fim: '2026-09-14', limiteAR: '2026-07-27', repeticoes: 7,
-      ar: ['Block Works and Plastering Works', 'Working At Height - Podium Steps',
-           'Working At Height - Ladders / Stepladders', 'Working At Height - Aluminium Hop-Ups',
-           'Manual Handling', 'Slips, Trips / Hazardous Substances', 'Concrete Works'],
-      tbt: [['19', 'Aberturas em lajes'], ['20', 'Empilhamento seguro de materiais'],
-            ['21', 'Utilização segura de escadas'], ['22', 'Trabalhos em altura — platibandas e bordadura'],
-            ['24', 'Movimentação manual de cargas'], ['25', 'Arrumação e limpeza'],
-            ['30', 'Equipamento de protecção individual'], ['46', 'Substâncias perigosas (COSHH)']]
+      id: 'H4', marco: 'M4', titulo: 'Estrutura Bloco X0B — viga Piso 01',
+      abrangencia: 'Preparação e armadura da viga estrutural do Piso 01 (07–11/09) e betonagem (11–12/09)',
+      inicio: '2026-09-07', fim: '2026-09-12', limiteAR: '2026-09-06', repeticoes: 1,
+      ar: ['Shuttering Works', 'Concrete Works', 'Working At Height', 'Lifting Activities',
+           'Manual Handling', 'Safe Use Of Grinders / Cutters'],
+      tbt: [['05', 'Lingas, correntes, ganchos e manilhas'], ['09', 'Rebarbadoras e discos abrasivos'], ['22', 'Trabalhos em altura'],
+            ['24', 'Movimentação manual de cargas'], ['41', 'Queimaduras por betão'], ['42', 'Montagem de bombas móveis de betão'],
+            ['47', 'Amarradores e sinaleiros']]
     },
     {
-      id: 'H8', marco: 'M8', titulo: 'Fecho de obra',
-      abrangencia: 'Execução de carotes multi-bloco, betão C30/37 na fundação X2B',
-      inicio: '2026-07-28', fim: '2026-09-16', limiteAR: '2026-07-27', repeticoes: 8,
-      ar: ['Coring of Manhole', 'Concrete Works', 'Safe Use Of Power Tools And Equipment',
-           'Vibration / Cutting Construction Components', 'Noise / Operating Plant Equipment',
-           'Excavation & Backfilling', 'Working In Confined Spaces'],
-      tbt: [['11', 'Ferramentas eléctricas portáteis'], ['19', 'Aberturas em lajes criadas por carotagem'],
-            ['27', 'Utilização de ferramentas'], ['36', 'Serviços enterrados'],
-            ['39', 'Ar comprimido'], ['41', 'Queimaduras por betão'], ['45', 'Materiais em armazém']]
+      id: 'H5', marco: 'M5', titulo: 'Betão C25/30 — Bloco F',
+      abrangencia: 'Laje sobre Cupolex, tramo/zona 2 interior, Piso 00',
+      inicio: '2026-09-11', fim: '2026-09-12', limiteAR: '2026-09-10', repeticoes: 1,
+      ar: ['Concrete Works', 'Manual Handling', 'Noise / Operating Plant Equipment',
+           'Storage And Manoeuvring Of Materials And Equipment'],
+      tbt: [['24', 'Movimentação manual de cargas'], ['25', 'Arrumação e limpeza'], ['41', 'Queimaduras por betão'],
+            ['42', 'Montagem de bombas móveis de betão'], ['43', 'Trabalhar junto a equipamento móvel e gruas']]
+    },
+    {
+      id: 'H6', marco: 'M6', titulo: 'Emboço — platibanda T2',
+      abrangencia: 'Aplicação de emboço na platibanda da fachada posterior do Bloco T2',
+      inicio: '2026-09-07', fim: '2026-09-10', limiteAR: '2026-09-06', repeticoes: 1,
+      ar: ['Block Works and Plastering Works', 'Working At Height', 'Scaffolding Works', 'Manual Handling'],
+      tbt: [['13', 'Andaimes gerais'], ['22', 'Trabalhos em altura — platibandas e bordadura'], ['23', 'Utilização de arneses'],
+            ['24', 'Movimentação manual de cargas'], ['30', 'Equipamento de protecção individual']]
     }
   ];
 
-  /* Totais declarados no documento, para validar a transcrição. */
-  var DECLARADO = { ar: 67, titulos: 38, tbt: 79, temas: 41, sessoes: 421, frentes: 9 };
+  /* Rev01: totais calculados a partir das frentes (o quinzenal da BELO não declara totais). */
+  var DECLARADO = { ar: 39, titulos: 23, tbt: 50, temas: 29, sessoes: 77, frentes: 7 };
 
   /* ---------- LÓGICA DE ESTADO ------------------------------------------- */
 
@@ -395,6 +354,8 @@
 --ph-br:#b8321a;--ph-brf:#fdf1ee;--ph-w:#a86a00;--ph-wf:#fdf6e8;--ph-c:#16704a;--ph-cf:#eff7f2;
 --ph-m:ui-monospace,"SF Mono","Roboto Mono",Menlo,monospace;--ph-r:15rem;
 color:var(--ph-t);font-size:15px;line-height:1.5}
+.theme-dark .ph,.theme-dark .ph-atalho{--ph-t:#e6edf5;--ph-t2:#9aa8b8;--ph-p:#161d27;--ph-rg:#2a3645;
+--ph-v:#3aa8ff;--ph-br:#ff6b4f;--ph-brf:#2a1715;--ph-w:#f0b44c;--ph-wf:#2a2213;--ph-c:#3ccf8e;--ph-cf:#12241c}
 .ph *,.ph *::before,.ph *::after{box-sizing:border-box}
 .ph-cab{display:flex;flex-wrap:wrap;gap:1.5rem;align-items:flex-end;justify-content:space-between;
 padding-bottom:1rem;border-bottom:2px solid var(--ph-t)}
