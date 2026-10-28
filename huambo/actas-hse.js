@@ -156,7 +156,7 @@
           numero: 123, doc: '123/2026', pdf: './actas-pdf/HMRH_Ata_Reuniao_Seguranca_Ambiente_123_2026.pdf', data: '2026-09-02', hora: '10:00 – 11:00',
           local: 'Obra e sala de reuniões da VAMED WWH',
           redator: 'VAMED WWH', gestor: '',
-          proxima: { numero: 124, data: '2026-09-23', hora: '10:00' },
+          proxima: { numero: 124, data: '2026-10-08', hora: '10:00' },
           participantes: [
             'Leônidas Calheiros — Site Manager Adjunto (VAMED)',
             'Juarês Manico — Coordenador Ambientalista (VAMED)',
@@ -184,33 +184,74 @@
             'Caixa de armazenamento do armamento da GUEMAKAL sem cadeado.',
             'Guia de recolha de resíduos e resultado da análise de potabilidade ainda por partilhar.'
           ]
-        },
+        }
+      ]
+    },
+    out26: {
+      rotulo: 'Outubro 2026',
+      actas: [
         {
-          numero: 124, doc: '124/2026', pdf: './actas-pdf/HMRH_Ata_Reuniao_Seguranca_Ambiente_124_2026.pdf', data: '2026-09-23', hora: '10:00 – 11:00',
-          local: 'Obra e sala de reuniões da obra',
+          numero: 124, doc: '124/2026', pdf: './actas-pdf/HMRH_Ata_Reuniao_Seguranca_Ambiente_124_2026.pdf', data: '2026-10-08', hora: '10:00 – 11:00',
+          local: 'Obra e sala de reuniões da VAMED WWH',
           redator: 'VAMED WWH', gestor: '',
-          proxima: null,
+          proxima: { numero: 125, data: '2026-10-21', hora: '10:00' },
           participantes: [
             'Leônidas Calheiros — Site Manager Adjunto (VAMED)',
             'Juarês Manico — Coordenador Ambientalista (VAMED)',
             'Hendrik Silva — Coordenador HSE (VAMED)',
             'Faustino dos Santos — HSE (VAMED)',
+            'João Ladeiro — Belo Empreendimentos',
+            'Nelson Segunda — THSE (Belo Empreendimentos)'
+          ],
+          temas: [
+            { n: 1, cat: 'I', texto: 'Seguimento da reunião anterior: os temas foram todos resolvidos.', estado: 'Resolvido' },
+            { n: 2, cat: 'I', texto: 'Visita de campo à obra: não resultaram temas novos.' },
+            { n: 3, cat: 'T', texto: 'Ar-condicionado: realizar a manutenção dos aparelhos dos escritórios da VAMED WWH e da Belo Empreendimentos.', responsavel: 'Nelson Segunda / João Ladeiro' },
+            { n: 4, cat: 'T', texto: 'Iluminação: melhorar a iluminação no interior das frentes de trabalho e dos blocos.', responsavel: 'Nelson Segunda / João Ladeiro' },
+            { n: 5, cat: 'T', texto: 'Resíduos perigosos: recolher os resíduos perigosos armazenados na baia de resíduos da obra.', responsavel: 'Nelson Segunda / João Ladeiro' },
+            { n: 6, cat: 'I', texto: 'Próxima reunião: n.º 125/2026, a 21/10/2026, na sala de reuniões da VAMED WWH.' }
+          ],
+          boas: [
+            'Elevado nível de organização e limpeza, evidenciado nas diversas frentes de trabalho.',
+            'Corte de capim no interior da obra.',
+            'Todos os temas provenientes da reunião anterior foram resolvidos.'
+          ],
+          mas: [
+            'Aparelhos de ar-condicionado dos escritórios sem manutenção.',
+            'Iluminação insuficiente no interior das frentes de trabalho e dos blocos.',
+            'Resíduos perigosos por recolher na baia de resíduos.'
+          ]
+        },
+        {
+          numero: 125, doc: '125/2026', pdf: './actas-pdf/HMRH_Ata_Reuniao_Seguranca_Ambiente_125_2026.pdf', data: '2026-10-21', hora: '10:00 – 11:00',
+          local: 'Obra e sala de reuniões da VAMED WWH',
+          redator: 'VAMED WWH', gestor: '',
+          proxima: { numero: 126, data: '2026-11-04', hora: '10:00' },
+          participantes: [
+            'Leônidas Calheiros — Site Manager Adjunto (VAMED)',
+            'Irineu Silva — VAMED',
+            'Faustino dos Santos — HSE (VAMED)',
             'Leonel Luamba — Diretor Adjunto (Belo Empreendimentos)',
             'Nelson Segunda — THSE (Belo Empreendimentos)'
           ],
           temas: [
-            { n: 1, cat: 'I', texto: 'Seguimento da reunião n.º 123: todos os temas resolvidos (rega, cadeado da caixa do armamento, guia de resíduos e resultado da potabilidade).', estado: 'Resolvido' },
-            { n: 2, cat: 'T', texto: 'Equipamento de protecção dos seguranças: organizar capas de chuva para os seguranças patrimoniais (GUEMAKAL).', responsavel: 'Nelson Segunda / Leonel Luamba' },
-            { n: 3, cat: 'T', texto: 'Iluminação para as rondas nocturnas: melhorar a luminosidade disponível aos seguranças patrimoniais durante as rondas nocturnas.', responsavel: 'Nelson Segunda / Leonel Luamba' },
-            { n: 4, cat: 'I', texto: 'Próxima reunião: n.º 125/2026, na obra e sala de reuniões da obra.' }
+            { n: 1, cat: 'I', texto: 'Seguimento da reunião n.º 124: os temas foram dados como resolvidos.', estado: 'Resolvido' },
+            { n: 2, cat: 'I', texto: 'Visita de campo à obra: não resultaram temas novos.' },
+            { n: 3, cat: 'T', texto: 'Ar-condicionado: a Belo garantiu a manutenção dos aparelhos dos escritórios na semana seguinte.', responsavel: 'Nelson Segunda / Leonel Luamba' },
+            { n: 4, cat: 'T', texto: 'Iluminação: continuar a melhorar a iluminação nas frentes de trabalho e blocos à medida que os trabalhos se intensificarem.', responsavel: 'Nelson Segunda / Leonel Luamba' },
+            { n: 5, cat: 'D', texto: 'Resíduos perigosos: quantidade ainda aceitável; acordado acompanhar o armazenamento na baia de resíduos.', responsavel: 'Nelson Segunda / Leonel Luamba' },
+            { n: 6, cat: 'T', texto: 'Retroescavadora: reparar o retrovisor e as luzes de retaguarda e de presença.', responsavel: 'Nelson Segunda / Leonel Luamba' },
+            { n: 7, cat: 'T', texto: 'Multifunção (avariada): reparar os piscas de mudança de direcção.', responsavel: 'Nelson Segunda / Leonel Luamba' },
+            { n: 8, cat: 'I', texto: 'Próxima reunião: n.º 126/2026, a 04/11/2026, na sala de reuniões da VAMED WWH.' }
           ],
           boas: [
-            'Todos os temas provenientes da reunião n.º 123 foram resolvidos.',
-            'Elevado nível de organização e limpeza, evidenciado nas diversas frentes de trabalho.'
+            'Elevado nível de organização e limpeza, evidenciado nas diversas frentes de trabalho.',
+            'Corte de capim no interior da obra.'
           ],
           mas: [
-            'Seguranças patrimoniais sem capas de chuva.',
-            'Luminosidade insuficiente para as rondas nocturnas dos seguranças.'
+            'Manutenção do ar-condicionado dos escritórios ainda por realizar.',
+            'Retroescavadora sem retrovisor e com luzes de retaguarda e de presença deficientes.',
+            'Multifunção avariada, com piscas de mudança de direcção por reparar.'
           ]
         }
       ]
