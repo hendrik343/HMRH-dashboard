@@ -1439,7 +1439,7 @@
         <div class="sub">HMRH · N.º Obra: 13DC - DEI/SV/2021 · VAMED Healthcare Projects · PM: Fábio Seda · Coordenador HSE: Hendrik Silva</div>
         </div>
       </div>
-      <nav class="months" id="monthButtons"><button class="month-btn" data-month="set" onclick="setMonth('set')">SET 2025</button><button class="month-btn" data-month="out" onclick="setMonth('out')">OUT 2025</button><button class="month-btn" data-month="nov" onclick="setMonth('nov')">NOV 2025</button><button class="month-btn" data-month="dez" onclick="setMonth('dez')">DEZ 2025</button><button class="month-btn" data-month="jan" onclick="setMonth('jan')">JAN 2026</button><button class="month-btn" data-month="fev" onclick="setMonth('fev')">FEV 2026</button><button class="month-btn" data-month="mar" onclick="setMonth('mar')">MAR 2026</button><button class="month-btn" data-month="abr" onclick="setMonth('abr')">ABR 2026</button><button class="month-btn" data-month="mai" onclick="setMonth('mai')">MAI 2026</button><button class="month-btn" data-month="jun" onclick="setMonth('jun')">JUN 2026</button><button class="month-btn" data-month="jul" onclick="setMonth('jul')">JUL 2026</button><button class="month-btn" data-month="ago" onclick="setMonth('ago')">AGO 2026</button><button class="month-btn" data-month="set26" onclick="setMonth('set26')">SET 2026</button></nav>
+      <nav class="months" id="monthButtons"><button class="month-btn" data-month="set" onclick="setMonth('set')">SET 2025</button><button class="month-btn" data-month="out" onclick="setMonth('out')">OUT 2025</button><button class="month-btn" data-month="nov" onclick="setMonth('nov')">NOV 2025</button><button class="month-btn" data-month="dez" onclick="setMonth('dez')">DEZ 2025</button><button class="month-btn" data-month="jan" onclick="setMonth('jan')">JAN 2026</button><button class="month-btn" data-month="fev" onclick="setMonth('fev')">FEV 2026</button><button class="month-btn" data-month="mar" onclick="setMonth('mar')">MAR 2026</button><button class="month-btn" data-month="abr" onclick="setMonth('abr')">ABR 2026</button><button class="month-btn" data-month="mai" onclick="setMonth('mai')">MAI 2026</button><button class="month-btn" data-month="jun" onclick="setMonth('jun')">JUN 2026</button><button class="month-btn" data-month="jul" onclick="setMonth('jul')">JUL 2026</button><button class="month-btn" data-month="ago" onclick="setMonth('ago')">AGO 2026</button><button class="month-btn" data-month="set26" onclick="setMonth('set26')">SET 2026</button><button class="month-btn" data-month="out26" onclick="setMonth('out26')">OUT 2026</button></nav>
       <div class="period" id="periodText">Jun -&gt; Jul 2026</div>
       <div class="header-actions">
         <div class="mode-toggle" aria-label="Theme mode">
@@ -1838,13 +1838,13 @@
   </main>
 
   <script>
-    const months = ['set','out','nov','dez','jan','fev','mar','abr','mai','jun','jul','ago','set26'];
+    const months = ['set','out','nov','dez','jan','fev','mar','abr','mai','jun','jul','ago','set26','out26'];
     const labels = {
       set: 'SET 2025', out: 'OUT 2025', nov: 'NOV 2025', dez: 'DEZ 2025',
-      jan: 'JAN 2026', fev: 'FEV 2026', mar: 'MAR 2026', abr: 'ABR 2026', mai: 'MAI 2026', jun: 'JUN 2026', jul: 'JUL 2026', ago: 'AGO 2026', set26: 'SET 2026'
+      jan: 'JAN 2026', fev: 'FEV 2026', mar: 'MAR 2026', abr: 'ABR 2026', mai: 'MAI 2026', jun: 'JUN 2026', jul: 'JUL 2026', ago: 'AGO 2026', set26: 'SET 2026', out26: 'OUT 2026'
     };
-    const short = { set:'Set', out:'Out', nov:'Nov', dez:'Dez', jan:'Jan', fev:'Fev', mar:'Mar', abr:'Abr', mai:'Mai', jun:'Jun', jul:'Jul', ago:'Ago', set26:'Set' };
-    const year = { set:'2025', out:'2025', nov:'2025', dez:'2025', jan:'2026', fev:'2026', mar:'2026', abr:'2026', mai:'2026', jun:'2026', jul:'2026', ago:'2026', set26:'2026' };
+    const short = { set:'Set', out:'Out', nov:'Nov', dez:'Dez', jan:'Jan', fev:'Fev', mar:'Mar', abr:'Abr', mai:'Mai', jun:'Jun', jul:'Jul', ago:'Ago', set26:'Set', out26:'Out' };
+    const year = { set:'2025', out:'2025', nov:'2025', dez:'2025', jan:'2026', fev:'2026', mar:'2026', abr:'2026', mai:'2026', jun:'2026', jul:'2026', ago:'2026', set26:'2026', out26:'2026' };
     const data = {
       set: {w:219, ch:98.15, t:420, p:0, f:667, i:0, acc:0, water:462, gas:1100, elec:3344},
       out: {w:212, ch:98.11, t:362, p:3, f:671, i:0, acc:0, water:479, gas:3070, elec:1597},
@@ -1869,7 +1869,14 @@
          Sem Quadro de Sinistralidade RM40 — índices e acidentes acumulados por confirmar. */
       set26: {w:158, ch:100.0, t:20, p:0, f:300, i:0, acc:0, water:140, gas:520, elec:538,
             warn:0, gasKg:0, rsuKg:178, blackWaterL:39660,
-            waterAcum:998935, gasAcum:8123, elecAcum:2239285}
+            waterAcum:998935, gasAcum:8123, elecAcum:2239285},
+      /* out 2026 = fontes de 1 a 15/10 (sem RM 041): folha Actividades e Consumo Quinzenal 10-2026,
+         Carga de mão-de-obra 15.10.2026, registos de alcoolemia e listas de DDS, manifestos de resíduos.
+         Efectivo = trabalhadores com pelo menos uma presença na carga (Belo 100 + VAMED 8 + GUEMAKAL 10 +
+         Solução Frio 5 + Prefangol 3 + Camicuti 3 + Dar 1). Alcoolemia = 240 nos registos (a folha diz 220:
+         omite o registo de 15/10). Checklist, água, incidentes e acidentes sem fonte — ficam em branco. */
+      out26: {w:130, ch:null, t:240, p:0, f:236, i:null, acc:null, water:null, gas:520, elec:472,
+            rsuKg:138, rcdKg:1275, blackWaterL:36000}
     };
 
     /* ══ SITUAÇÕES HSE POR MÊS ══
@@ -1926,6 +1933,18 @@
          meta:'12/09/2026 · 20 testes, 20 negativos (0,00) · só trabalhadores da Belo · Agosto teve 440 testes'},
         {nome:'Remoção de águas negras', cor:'green', tag:'Monitorizado',
          meta:'02/09/2026 · 3 camiões, 39.660 L · RSU do período: 36 sacos / 178 kg'}
+      ],
+      out26: [
+        {nome:'Diálogos Diários de Segurança (DDS)', cor:'green', tag:'Realizados',
+         meta:'1 a 15/10/2026 · 3 sessões, 236 participantes (Belo) · 02/10 Comportamento saudável no canteiro de obra (80) · 05/10 Cuidados no trânsito após o expediente (80) · 09/10 Outubro Rosa – cancro da mama (76)'},
+        {nome:'Controlo de alcoolemia', cor:'green', tag:'Retomado',
+         meta:'1 a 15/10/2026 · 240 testes em 10 dias, todos negativos (0,00) · Setembro teve 20 testes'},
+        {nome:'Resíduos e águas negras', cor:'green', tag:'Com manifesto',
+         meta:'02/10 · entulho de alvenaria e estrutura, 1.275 kg em caçamba (Belo) · 13/10 · águas negras, 3 camiões, 36.000 L, aterro sanitário · RSU: 13 quibutos / 138 kg'},
+        {nome:'Reuniões Semanais de Segurança e Ambiente Nº 124 e Nº 125', cor:'amber', tag:'Em aberto',
+         meta:'08/10 e 21/10 · a cargo da Belo: manutenção do ar-condicionado dos escritórios, retroescavadora (retrovisor e luzes de retaguarda e presença), multifunção avariada (piscas), iluminação das frentes de trabalho'},
+        {nome:'Dados do mês', cor:'amber', tag:'Parcial',
+         meta:'Só 1 a 15/10 · checklist HSE, consumo de água, incidentes e sinistralidade sem fonte — por preencher com o RM 041'}
       ]
     };
 
@@ -1985,6 +2004,10 @@
       set26: [
         ['Belo Empreendimentos', 124], ['VAMED', 12], ['GUEMAKAL (Belo)', 8], ['Solução Frio (Belo)', 6],
         ['Prefangol (Belo)', 5], ['Camicuti', 3], ['Dar Angola', 0], ['CEM (Belo)', 0]
+      ],
+      out26: [
+        ['Belo Empreendimentos', 100], ['GUEMAKAL (Belo)', 10], ['VAMED', 8], ['Solução Frio (Belo)', 5],
+        ['Prefangol (Belo)', 3], ['Camicuti', 3], ['Dar Angola', 1], ['CEM (Belo)', 0]
       ]
     };
 
@@ -2059,11 +2082,29 @@
           14: 'DDS · Impactos dos acidentes de trabalho (74 participantes)'
         };
         return [day, null, null, notes[day]];
+      }),
+      out26: Array.from({length:31}, (_, i) => {
+        const day = i + 1;
+        const notes = {
+          1: 'Controlo de alcoolemia · 20 testes, 0 positivos',
+          2: 'DDS · Comportamento saudável no canteiro de obra (80 participantes) · Alcoolemia · 60 testes, 0 positivos · Entulho · 1.275 kg',
+          5: 'DDS · Cuidados no trânsito após o expediente (80 participantes) · Alcoolemia · 20 testes, 0 positivos',
+          6: 'Controlo de alcoolemia · 20 testes, 0 positivos',
+          8: 'Reunião Semanal HSE Nº 124 · Alcoolemia · 20 testes, 0 positivos',
+          9: 'DDS · Outubro Rosa – cancro da mama (76 participantes) · Alcoolemia · 20 testes, 0 positivos',
+          12: 'Controlo de alcoolemia · 20 testes, 0 positivos',
+          13: 'Remoção de águas negras · 3 camiões, 36.000 L · Alcoolemia · 20 testes, 0 positivos',
+          14: 'Controlo de alcoolemia · 20 testes, 0 positivos',
+          15: 'Controlo de alcoolemia · 20 testes, 0 positivos',
+          21: 'Reunião Semanal HSE Nº 125'
+        };
+        return [day, null, null, notes[day]];
       })
     };
 
     const fmt = n => n == null ? '—' : Number.isInteger(n) ? n.toLocaleString('pt-PT') : n.toLocaleString('pt-PT', { maximumFractionDigits: 1 });
-    const pct = n => n.toFixed(1) + '%';
+    const pct = n => n == null ? '—' : n.toFixed(1) + '%';
+    const nv = v => v == null ? '—' : v;
     const prevMonth = m => months.indexOf(m) > 0 ? months[months.indexOf(m)-1] : null;
 
     function delta(curr, prev, suffix, percentPoint = false) {
@@ -2080,7 +2121,8 @@
     }
 
     function badCountDelta(curr, prev, suffix) {
-      if (prev === null) return ['Primeiro mês', 'muted'];
+      if (curr == null) return ['Sem registo', 'muted'];
+      if (prev == null) return ['Primeiro mês', 'muted'];
       if (curr === prev) return ['Estável', 'muted'];
       if (prev === 0) return curr === 0 ? ['Estável', 'muted'] : [`+${curr} vs ${suffix}`, 'red'];
       const diff = ((curr - prev) / prev) * 100;
@@ -2105,21 +2147,21 @@
       document.getElementById('kTests').textContent = fmt(d.t);
       document.getElementById('kChecklist').textContent = pct(d.ch);
       document.getElementById('kTraining').textContent = fmt(d.f);
-      document.getElementById('kEnv').textContent = d.i;
+      document.getElementById('kEnv').textContent = nv(d.i);
       document.getElementById('kPositive').textContent = d.p;
 
       setText('dWorkers', ...delta(d.w, p ? p.w : null, pLabel));
       setText('dTests', ...delta(d.t, p ? p.t : null, pLabel));
       setText('dChecklist', ...delta(d.ch, p ? p.ch : null, pLabel, true));
       setText('dTraining', ...delta(d.f, p ? p.f : null, pLabel));
-      setText('dEnv', d.i === 0 ? 'Zero incidentes' : `${d.i} incidente(s)`, d.i === 0 ? 'green' : 'red');
+      setText('dEnv', ...(d.i == null ? ['Sem registo', 'muted'] : d.i === 0 ? ['Zero incidentes', 'green'] : [`${d.i} incidente(s)`, 'red']));
       setText('dPositive', d.p === 0 ? '100% negativos' : `${d.p} positivo(s)`, d.p === 0 ? 'green' : 'red');
 
       document.getElementById('detailTitle').textContent = `Detalhes · ${short[m]} ${year[m]}`;
       const detailRows = [
         ['Alcoolemia Testes', fmt(d.t)], ['Alcoolemia Positivos', d.p],
-        ['Acidentes (mês)', d.acc], ['Acidentes (acum.)', d.accAcum != null ? d.accAcum : '—'],
-        ['Incid. Ambientais', d.i], ['Água (m³)', fmt(d.water)], ['Gasóleo (L)', fmt(d.gas)], ['Electricidade (kWh)', fmt(d.elec)]
+        ['Acidentes (mês)', nv(d.acc)], ['Acidentes (acum.)', d.accAcum != null ? d.accAcum : '—'],
+        ['Incid. Ambientais', nv(d.i)], ['Água (m³)', fmt(d.water)], ['Gasóleo (L)', fmt(d.gas)], ['Electricidade (kWh)', fmt(d.elec)]
       ];
       if (d.warn !== undefined) detailRows.push(['Advertências', d.warn]);
       if (d.rcdKg !== undefined) detailRows.push(['RCD mensal', fmt(d.rcdKg) + ' kg']);
@@ -2146,7 +2188,7 @@
         ['Checklist HSE', p ? pct(p.ch) : '-', pct(d.ch), delta(d.ch, p ? p.ch : null, '', true)],
         ['Formação Part.', p ? fmt(p.f) : '-', fmt(d.f), delta(d.f, p ? p.f : null, '')],
         ['Positivos Alc.', p ? p.p : '-', d.p, badCountDelta(d.p, p ? p.p : null, pLabel)],
-        ['Acidentes (mês)', p ? p.acc : '-', d.acc, badCountDelta(d.acc, p ? p.acc : null, pLabel)],
+        ['Acidentes (mês)', p ? nv(p.acc) : '-', nv(d.acc), badCountDelta(d.acc, p ? p.acc : null, pLabel)],
       ];
       if (d.accAcum != null) sstRows.push(['Acidentes (acum.)', '—', d.accAcum, ['desde 2023', 'muted']]);
       buildRows('sstBody', sstRows);
@@ -2155,7 +2197,7 @@
         ['Água (m³)', p ? fmt(p.water) : '-', fmt(d.water), delta(d.water, p ? p.water : null, '')],
         ['Gasóleo (L)', p ? fmt(p.gas) : '-', fmt(d.gas), delta(d.gas, p ? p.gas : null, '')],
         ['Electricidade (kWh)', p ? fmt(p.elec) : '-', fmt(d.elec), delta(d.elec, p ? p.elec : null, '')],
-        ['Incid. Ambientais', p ? p.i : '-', d.i, d.i === 0 ? ['Zero', 'green'] : [`${d.i}`, 'red']]
+        ['Incid. Ambientais', p ? nv(p.i) : '-', nv(d.i), d.i == null ? ['Sem registo', 'muted'] : d.i === 0 ? ['Zero', 'green'] : [`${d.i}`, 'red']]
       ]);
 
       updateCharts(m);
@@ -2249,7 +2291,7 @@
 
     function renderCalendar(m) {
       const dayNames = ['SEG','TER','QUA','QUI','SEX','SÁB','DOM'];
-      const monthIndex = ({ mar: 2, abr: 3, mai: 4, jun: 5, jul: 6, ago: 7, set26: 8 }[m] ?? 3);
+      const monthIndex = ({ mar: 2, abr: 3, mai: 4, jun: 5, jul: 6, ago: 7, set26: 8, out26: 9 }[m] ?? 3);
       const firstDay = new Date(2026, monthIndex, 1).getDay();
       const mondayOffset = (firstDay + 6) % 7;
       const rows = dailyByMonth[m] || dailyByMonth.abr;
@@ -2480,7 +2522,7 @@
     document.getElementById('today').textContent = 'Sistema activo · ' + now.toLocaleDateString('pt-PT');
     setTheme(localStorage.getItem('hse-theme') || 'dark');
     initSiteMap();
-    setMonth('set26');
+    setMonth('out26');
 
     document.querySelectorAll('#verificacoesSection .vrf-icon-btn').forEach(function(btn){
       btn.addEventListener('click', function(){
