@@ -984,7 +984,7 @@ body.theme-light .hp-banner .hp-sub{color:rgba(255,255,255,.76);}
       </header>
       <ol class="hp-licencas-list">
         <li data-emitida="2024-03-15" data-expiracao="2027-08-30"><span class="hp-num">1</span><span class="hp-name">Licença de Obra</span><span class="hp-status" aria-hidden="true"></span><span class="hp-dates2"><span class="hp-dlbl">Em</span> <span class="hp-dval hp-em">—</span> · <span class="hp-dlbl">Ex</span> <span class="hp-dval hp-ex">—</span></span></li>
-        <li data-emitida="2024-06-01" data-expiracao="2026-06-20"><span class="hp-num">2</span><span class="hp-name">Licença Ambiental</span><span class="hp-status" aria-hidden="true"></span><span class="hp-dates2"><span class="hp-dlbl">Em</span> <span class="hp-dval hp-em">—</span> · <span class="hp-dlbl">Ex</span> <span class="hp-dval hp-ex">—</span></span></li>
+        <li data-emitida="2025-11-20" data-expiracao="2028-11-19"><span class="hp-num">2</span><span class="hp-name">Licença Ambiental</span><span class="hp-status" aria-hidden="true"></span><span class="hp-dates2"><span class="hp-dlbl">Em</span> <span class="hp-dval hp-em">—</span> · <span class="hp-dlbl">Ex</span> <span class="hp-dval hp-ex">—</span></span></li>
         <li data-emitida="2024-02-10" data-expiracao="2026-04-10"><span class="hp-num">3</span><span class="hp-name">Licença de Tapume</span><span class="hp-status" aria-hidden="true"></span><span class="hp-dates2"><span class="hp-dlbl">Em</span> <span class="hp-dval hp-em">—</span> · <span class="hp-dlbl">Ex</span> <span class="hp-dval hp-ex">—</span></span></li>
         <li data-emitida="2025-01-05" data-expiracao="2027-01-05"><span class="hp-num">4</span><span class="hp-name">Licença de Publicidade</span><span class="hp-status" aria-hidden="true"></span><span class="hp-dates2"><span class="hp-dlbl">Em</span> <span class="hp-dval hp-em">—</span> · <span class="hp-dlbl">Ex</span> <span class="hp-dval hp-ex">—</span></span></li>
         <li data-emitida="2024-05-03" data-expiracao="2026-06-15"><span class="hp-num">5</span><span class="hp-name">Licença do Gerador</span><span class="hp-status" aria-hidden="true"></span><span class="hp-dates2"><span class="hp-dlbl">Em</span> <span class="hp-dval hp-em">—</span> · <span class="hp-dlbl">Ex</span> <span class="hp-dval hp-ex">—</span></span></li>
@@ -1136,16 +1136,22 @@ const M_CHART = m => M_ABR[m] + ' ' + String(M_YEAR[m]).slice(2);
 
 /* Efectivo (w) e acidentes (acc) de todos os meses conferidos com o Quadro de
    Sinistralidade RM037 (série completa desde Out 2023). Restantes campos de
-   Ago 2025–Mar 2026 (excepto Set 2025) continuam estimados. */
+   Ago 2025–Dez 2025 (excepto Set 2025) e Mar 2026 continuam estimados.
+   Jan e Fev 2026 confirmados a partir do RM028 e RM029 Rev.01. */
 const DATA = {
-  ago: {w:202, ch:96.0, t:85,  p:0, f:3100, i:0, acc:0, agua:340, gas:14200, elec:2900},
+  ago: {w:202, ch:96.0, t:85,  p:0, f:3100, i:0, acc:0, agua:340, gas:14200, elec:2900, est:true},
   set: {w:196, ch:96.19,t:79,  p:0, f:2888, i:0, acc:0, agua:326, gas:13895, elec:2746},
-  out: {w:161, ch:96.5, t:75,  p:0, f:2600, i:0, acc:0, agua:310, gas:13200, elec:2600},
-  nov: {w:159, ch:96.8, t:68,  p:0, f:2100, i:0, acc:0, agua:280, gas:11800, elec:2350},
-  dez: {w:131, ch:97.0, t:58,  p:0, f:1600, i:0, acc:0, agua:245, gas:10400, elec:2100},
-  jan: {w:130, ch:97.0, t:52,  p:0, f:1200, i:0, acc:0, agua:225, gas:9800,  elec:1950},
-  fev: {w:126, ch:97.0, t:48,  p:0, f:1100, i:0, acc:1, agua:215, gas:9500,  elec:1850},
-  mar: {w:104, ch:97.0, t:45,  p:0, f:900,  i:0, acc:0, agua:210, gas:9200,  elec:1780},
+  out: {w:161, ch:96.5, t:75,  p:0, f:2600, i:0, acc:0, agua:310, gas:13200, elec:2600, est:true},
+  nov: {w:159, ch:96.8, t:68,  p:0, f:2100, i:0, acc:0, agua:280, gas:11800, elec:2350, est:true},
+  dez: {w:131, ch:97.0, t:58,  p:0, f:1600, i:0, acc:0, agua:245, gas:10400, elec:2100, est:true},
+  /* jan 2026 = RM028 Rev.01 */
+  jan: {w:130, ch:94.29,t:82,  p:0, f:786,  i:0, acc:0, agua:148, gas:10349, elec:1372.8,
+        tac:2456, pac:11, pacPct:0.45, accAc:0, dp:0, ifq:0.00, ig:0.00, fa:12},
+  /* fev 2026 = RM029 Rev.01; acidente do mês conforme o Quadro de Sinistralidade
+     (o RM029 indica 0) · testes = 2530 − 2456 = 74 */
+  fev: {w:126, ch:94.34,t:74,  p:0, f:1397, i:0, acc:1, agua:122, gas:8215,  elec:2534.4,
+        tac:2530, pac:11, pacPct:0.43, accAc:1, dp:0, ifq:1.45, ig:0.00, fa:23},
+  mar: {w:104, ch:97.0, t:45,  p:0, f:900,  i:0, acc:0, agua:210, gas:9200,  elec:1780, est:true},
   abr: {w:91,  ch:96.23,t:114, p:2, f:1635, i:0, acc:0, agua:92,  gas:8142,  elec:2741.6},
   mai: {w:93,  ch:96.23,t:85,  p:0, f:1332, i:0, acc:0, agua:78,  gas:7546,  elec:2428.8},
   /* Campos acumulados/índices só existem onde o relatório mensal os publica.
@@ -1241,13 +1247,15 @@ function renderKPIs(){
   document.getElementById('mb-ig').textContent    = nd(d.ig,2);
   document.getElementById('mb-fa').textContent    = nd(d.fa);
 
-  document.getElementById('footer-status').textContent = d.partial
+  document.getElementById('footer-status').textContent = d.est
+    ? '◐ '+M_LABEL[currMonth]+' · efectivo e acidentes do Quadro RM037 · restantes valores estimados'
+    : d.partial
     ? '◐ '+M_LABEL[currMonth]+' parcial · '+d.partial+' por integrar · '+fmt(d.acc)+' acidentes no mês (Quadro RM037)'
     : '✓ '+M_LABEL[currMonth]+' Verificado · '+fmt(d.acc)+' acidentes no mês · '+pf(d.ch)+' Checklist';
   const av=document.getElementById('mes-aviso');
   if(av){
-    av.style.display=d.partial?'block':'none';
-    av.textContent=d.partial?('◐ '+M_TITLE(currMonth)+' — dados parciais. Efectivo, acidentes, dias perdidos e índices vêm do Quadro de Sinistralidade RM037; os restantes indicadores aguardam a integração do relatório '+d.partial+'.'):'';
+    av.style.display=(d.partial||d.est)?'block':'none';
+    av.textContent=d.est?('◐ '+M_TITLE(currMonth)+' — efectivo e acidentes confirmados pelo Quadro de Sinistralidade RM037; checklist, alcoolemia, formação e consumos são estimativas (relatório mensal não integrado).'):d.partial?('◐ '+M_TITLE(currMonth)+' — dados parciais. Efectivo, acidentes, dias perdidos e índices vêm do Quadro de Sinistralidade RM037; os restantes indicadores aguardam a integração do relatório '+d.partial+'.'):'';
   }
 }
 
@@ -1256,6 +1264,71 @@ function renderKPIs(){
    jun 2026 = RM033 Rev.01 · jul 2026 = RM034 Rev.01
    Acumulados de resíduos de Julho não constam do RM034 → null (mostra "—"). */
 const MES_DETALHE = {
+  jan: {
+    situacoes: [
+      {estado:'resolved', nome:'🦺 Segurança e Saúde do Trabalho — 0 acidentes', tag:'Sem ocorrências',
+       meta:['Jan 2026','0 dias perdidos',{txt:'0 incidentes ambientais',cor:'var(--green)'}]},
+      {estado:'resolved', nome:'📋 Checklist HSE — 94,29% · EXCELENTE', tag:'Excelente',
+       meta:['Jan 2026','RM028 Rev.01',{txt:'Classificação EXCELENTE',cor:'var(--green)'}]},
+      {estado:'resolved', nome:'🎓 Formação — 12 acções / 786 participantes', tag:'Realizada',
+       meta:['Jan 2026','Segurança: 10 acções · 691 part.','Ambiente: 2 acções · 95 part.']},
+      {estado:'resolved', nome:'🍺 Controlo de alcoolemia — 82 testes / 0 positivos', tag:'Conforme',
+       meta:['Jan 2026','Acumulado: 2.456 testes · 11 positivos (0,45%)',{txt:'100% negativos no mês',cor:'var(--green)'}]},
+      {estado:'resolved', nome:'🚮 Resíduos — RSU 300 kg · entulho 24,34 m³ · madeira 9 m³', tag:'Monitorizado',
+       meta:['Jan 2026','Biodegradáveis 186 kg · baldes de tinta 3 m³',{txt:'Organizações AP → Lixeira da Planície',cor:'var(--green)'}]},
+      {estado:'unresolved', nome:'🔊 Estudos Técnicos — gases, partículas e ruído', tag:'1.º trimestre 2026',
+       meta:['Periodicidade trimestral',{txt:'Próximo estudo no 1.º trimestre de 2026',cor:'var(--amber)'}]},
+      {estado:'unresolved', nome:'🧯 Simulacro — último realizado a 11 Set 2025 (evacuação)', tag:'Sem simulacro em Janeiro',
+       meta:['Segurança',{txt:'Planear o próximo simulacro',cor:'var(--amber)'}]},
+      {estado:'unresolved', nome:'🤝 Interacção com a comunidade', tag:'Sem acções no mês',
+       meta:['Jan 2026',{txt:'0 reclamações',cor:'var(--green)'}]}
+    ],
+    empresas: [
+      ['Mota-Engil','Subcontratado de estrutura',53,'255,107,0'],
+      ['Confrasilvas','Cofragem (M-E)',51,'57,255,20'],
+      ['VAMED','Gestor do Projecto',10,'0,245,255'],
+      ['Leana Gest','Alvenaria',9,'191,95,255'],
+      ['Protector','Segurança Patrimonial',6,'255,208,0'],
+      ['Afrilim','Limpeza',1,'255,45,120']
+    ],
+    residuos: [
+      ['RSU', 300, 'kg', 8735, 'var(--green)', '0,255,159', 'Lixeira', 'up'],
+      ['Entulho', 24.34, 'm³', 759.84, 'var(--amber)', '255,208,0', 'Lixeira', 'flat'],
+      ['Biodegradáveis', 186, 'kg', 2874, 'var(--orange)', '255,107,0', 'Lixeira', 'flat']
+    ]
+  },
+  fev: {
+    situacoes: [
+      {estado:'unresolved', nome:'⚠️ Acidente de trabalho não mortal — 1 no mês', tag:'Registado',
+       meta:['Fev 2026','0 dias perdidos',{txt:'Í. Frequência acum. 1,45 · Í. Gravidade 0,00',cor:'var(--amber)'}]},
+      {estado:'resolved', nome:'🧯 Simulacro — desmaio', tag:'Realizado',
+       meta:['18 Fev 2026','Segurança',{txt:'Sem entidades externas',cor:'var(--green)'}]},
+      {estado:'resolved', nome:'📋 Checklist HSE — 94,34% · EXCELENTE', tag:'Excelente',
+       meta:['Fev 2026','RM029 Rev.01',{txt:'Classificação EXCELENTE',cor:'var(--green)'}]},
+      {estado:'resolved', nome:'🎓 Formação — 23 acções / 1.397 participantes', tag:'Realizada',
+       meta:['Fev 2026','Segurança: 18 acções · 1.256 part.','Ambiente: 3 · Indução: 2']},
+      {estado:'resolved', nome:'🍺 Controlo de alcoolemia — 74 testes / 0 positivos', tag:'Conforme',
+       meta:['Fev 2026','Acumulado: 2.530 testes · 11 positivos (0,43%)',{txt:'100% negativos no mês',cor:'var(--green)'}]},
+      {estado:'resolved', nome:'🚮 Resíduos — RSU 330 kg · entulho 36 m³ · madeira 14,02 m³', tag:'Monitorizado',
+       meta:['Fev 2026','Biodegradáveis 165 kg · baldes de tinta 0,66 m³',{txt:'0 incidentes ambientais',cor:'var(--green)'}]},
+      {estado:'unresolved', nome:'🔊 Estudos Técnicos — gases, partículas e ruído', tag:'1.º trimestre 2026',
+       meta:['Periodicidade trimestral',{txt:'Próximo estudo no 1.º trimestre de 2026',cor:'var(--amber)'}]},
+      {estado:'unresolved', nome:'🤝 Interacção com a comunidade', tag:'Sem acções no mês',
+       meta:['Fev 2026',{txt:'0 reclamações',cor:'var(--green)'}]}
+    ],
+    empresas: [
+      ['Mota-Engil','Subcontratado de estrutura',55,'255,107,0'],
+      ['Confrasilvas','Cofragem (M-E)',54,'57,255,20'],
+      ['VAMED','Gestor do Projecto',10,'0,245,255'],
+      ['Protector','Segurança Patrimonial',6,'255,208,0'],
+      ['Afrilim','Limpeza',1,'255,45,120']
+    ],
+    residuos: [
+      ['RSU', 330, 'kg', 9065, 'var(--green)', '0,255,159', 'Lixeira', 'up'],
+      ['Entulho', 36, 'm³', 795.84, 'var(--amber)', '255,208,0', 'Lixeira', 'flat'],
+      ['Biodegradáveis', 165, 'kg', 3039, 'var(--orange)', '255,107,0', 'Lixeira', 'flat']
+    ]
+  },
   jun: {
     situacoes: [
       {estado:'unresolved', nome:'🔊 Estudos Técnicos — periodicidade trimestral', tag:'Pendente',
@@ -1497,6 +1570,8 @@ function renderMes(){
           '<td><span class="badge ' + tipo + '">' + badge + '</span></td></tr>';
       };
       const AMB = {
+        jan: {aguaAc:'2.948,6 m³', gasAc:'377.510 L', elecAc:'49.065,2 kWh'},
+        fev: {aguaAc:'3.070,6 m³', gasAc:'385.725 L', elecAc:'51.599,6 kWh'},
         jun: {aguaAc:'3.420,6 m³', gasAc:'416.537 L', elecAc:'61.603,6 kWh'},
         jul: {aguaAc:'3.472,6 m³', gasAc:'422.403 L', elecAc:'63.580,8 kWh'},
         out26: {aguaAc:'3.503 m³', gasAc:'426.113 L', elecAc:'68.869,3 kWh'}
@@ -1511,7 +1586,7 @@ function renderMes(){
                        r[3] == null ? '—' : nfmt(r[3], r[3] % 1 ? 2 : 0) + ' ' + r[2],
                        r[4], r[6], r[7]);
         }).join('') +
-        linha('Advertências', '0', '13 acum.', 'var(--muted)', 'Sem retiradas', 'up') +
+        linha('Advertências', '0', ((m==='jan'||m==='fev') ? '11' : '13') + ' acum.', 'var(--muted)', 'Sem retiradas', 'up') +
         linha('Checklist (' + M_ABR[m] + ')', pf(d.ch), '', 'var(--violet)', d.ch == null ? 'Por integrar' : 'EXCELENTE', d.ch == null ? 'flat' : 'up');
     }
   }
