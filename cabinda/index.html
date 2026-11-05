@@ -1134,15 +1134,18 @@ const M_FULL  = ['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','
 const M_TITLE = m => M_ABR[m] + ' ' + M_YEAR[m];
 const M_CHART = m => M_ABR[m] + ' ' + String(M_YEAR[m]).slice(2);
 
+/* Efectivo (w) e acidentes (acc) de todos os meses conferidos com o Quadro de
+   Sinistralidade RM037 (série completa desde Out 2023). Restantes campos de
+   Ago 2025–Mar 2026 (excepto Set 2025) continuam estimados. */
 const DATA = {
-  ago: {w:210, ch:96.0, t:85,  p:0, f:3100, i:0, acc:0, agua:340, gas:14200, elec:2900},
+  ago: {w:202, ch:96.0, t:85,  p:0, f:3100, i:0, acc:0, agua:340, gas:14200, elec:2900},
   set: {w:196, ch:96.19,t:79,  p:0, f:2888, i:0, acc:0, agua:326, gas:13895, elec:2746},
-  out: {w:185, ch:96.5, t:75,  p:0, f:2600, i:0, acc:0, agua:310, gas:13200, elec:2600},
-  nov: {w:165, ch:96.8, t:68,  p:0, f:2100, i:0, acc:0, agua:280, gas:11800, elec:2350},
-  dez: {w:145, ch:97.0, t:58,  p:0, f:1600, i:0, acc:0, agua:245, gas:10400, elec:2100},
+  out: {w:161, ch:96.5, t:75,  p:0, f:2600, i:0, acc:0, agua:310, gas:13200, elec:2600},
+  nov: {w:159, ch:96.8, t:68,  p:0, f:2100, i:0, acc:0, agua:280, gas:11800, elec:2350},
+  dez: {w:131, ch:97.0, t:58,  p:0, f:1600, i:0, acc:0, agua:245, gas:10400, elec:2100},
   jan: {w:130, ch:97.0, t:52,  p:0, f:1200, i:0, acc:0, agua:225, gas:9800,  elec:1950},
-  fev: {w:120, ch:97.0, t:48,  p:0, f:1100, i:0, acc:0, agua:215, gas:9500,  elec:1850},
-  mar: {w:110, ch:97.0, t:45,  p:0, f:900,  i:0, acc:0, agua:210, gas:9200,  elec:1780},
+  fev: {w:126, ch:97.0, t:48,  p:0, f:1100, i:0, acc:1, agua:215, gas:9500,  elec:1850},
+  mar: {w:104, ch:97.0, t:45,  p:0, f:900,  i:0, acc:0, agua:210, gas:9200,  elec:1780},
   abr: {w:91,  ch:96.23,t:114, p:2, f:1635, i:0, acc:0, agua:92,  gas:8142,  elec:2741.6},
   mai: {w:93,  ch:96.23,t:85,  p:0, f:1332, i:0, acc:0, agua:78,  gas:7546,  elec:2428.8},
   /* Campos acumulados/índices só existem onde o relatório mensal os publica.
