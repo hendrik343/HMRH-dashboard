@@ -88,7 +88,7 @@ header::before{
   border-radius:10px;padding:7px 16px;font-size:12px;
   color:var(--violet);font-family:'JetBrains Mono',monospace;font-weight:700;
 }
-.month-toggle{display:flex;background:rgba(255,255,255,.04);border:1px solid var(--border2);border-radius:12px;padding:4px;gap:4px;}
+.month-toggle{display:flex;flex-wrap:wrap;justify-content:flex-end;max-width:760px;background:rgba(255,255,255,.04);border:1px solid var(--border2);border-radius:12px;padding:4px;gap:4px;}
 .mbtn{padding:7px 13px;border-radius:9px;border:none;background:transparent;color:var(--muted);font-family:'Syne',sans-serif;font-size:10px;font-weight:700;cursor:pointer;transition:all .25s;letter-spacing:.5px;}
 .mbtn.active{background:linear-gradient(135deg,rgba(191,95,255,.3),rgba(255,45,120,.15));color:#fff;box-shadow:0 0 20px rgba(191,95,255,.4);}
 .theme-toggle{display:flex;background:rgba(255,255,255,.04);border:1px solid var(--border2);border-radius:12px;padding:4px;gap:4px;}
@@ -230,6 +230,10 @@ footer{margin-top:16px;padding:14px 22px;background:var(--surf);border:1px solid
 .cc-pct{font-size:6.5px;font-family:'JetBrains Mono',monospace;margin-top:1px;opacity:.9;letter-spacing:.2px;}
 .cc-events{display:flex;flex-wrap:wrap;justify-content:center;gap:2px;margin-top:3px;width:100%;}
 .cc-event{max-width:100%;padding:2px 4px;border-radius:5px;font-size:6.5px;font-weight:800;line-height:1;font-family:'JetBrains Mono',monospace;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:#F7FBFF;background:rgba(191,95,255,.28);border:1px solid rgba(191,95,255,.44);}
+.mbtn.mbtn-partial{border:1px dashed rgba(255,208,0,.35);}
+.cc-event.event{background:rgba(0,245,255,.14);border-color:rgba(0,245,255,.42);color:var(--cyan);}
+.cal-cell.workday{background:rgba(191,95,255,.08);border-color:rgba(191,95,255,.2);}
+.mes-aviso{margin:0 0 14px;padding:10px 14px;border-radius:12px;border:1px dashed rgba(255,208,0,.45);background:rgba(255,208,0,.06);color:var(--amber);font-family:'JetBrains Mono',monospace;font-size:11px;display:none}
 .cc-event.monthly{background:rgba(255,208,0,.18);border-color:rgba(255,208,0,.44);color:var(--amber);}
 .cal-cell.has-checks{border-color:rgba(191,95,255,.46);box-shadow:inset 0 0 0 1px rgba(191,95,255,.16);}
 .cal-cell.empty{background:transparent;border-color:transparent;pointer-events:none;}
@@ -403,9 +407,12 @@ body.theme-light .hp-banner .hp-sub{color:rgba(255,255,255,.76);}
       <button class="mbtn" onclick="setMonth('abr',this)">ABR 2026</button>
       <button class="mbtn" onclick="setMonth('mai',this)">MAI 2026</button>
       <button class="mbtn" onclick="setMonth('jun',this)">JUN 2026</button>
-      <button class="mbtn active" onclick="setMonth('jul',this)">JUL 2026</button>
+      <button class="mbtn" onclick="setMonth('jul',this)">JUL 2026</button>
+      <button class="mbtn mbtn-partial" onclick="setMonth('ago26',this)" title="Parcial: efectivo e sinistralidade do Quadro RM037 · RM035 por integrar">AGO 2026</button>
+      <button class="mbtn mbtn-partial" onclick="setMonth('set26',this)" title="Parcial: efectivo e sinistralidade do Quadro RM037 · RM036 por integrar">SET 2026</button>
+      <button class="mbtn active" onclick="setMonth('out26',this)">OUT 2026</button>
     </div>
-    <div class="period-pill" id="period-pill">Ago 2025 → Jul 2026</div>
+    <div class="period-pill" id="period-pill">Ago 2025 → Out 2026</div>
     <div class="theme-toggle" aria-label="Modo de visualização">
       <button class="theme-btn active" id="darkModeBtn" type="button" onclick="setTheme('dark')">Dark</button>
       <button class="theme-btn" id="lightModeBtn" type="button" onclick="setTheme('light')">Normal</button>
@@ -414,6 +421,8 @@ body.theme-light .hp-banner .hp-sub{color:rgba(255,255,255,.76);}
     <img class="marca" src="./vamed-wwh-logo.png" alt="VAMED + WWH">
   </div>
 </header>
+
+<div class="mes-aviso" id="mes-aviso"></div>
 
 <!-- KPI ROW -->
 <div class="kpi-row">
@@ -667,7 +676,7 @@ body.theme-light .hp-banner .hp-sub{color:rgba(255,255,255,.76);}
 <div class="charts-row">
   <div class="chart-card">
     <div class="ch">
-      <div class="ctitle"><div class="cdot" style="background:var(--violet);box-shadow:0 0 10px var(--violet)"></div>Trabalhadores — Ago 2025 → Jun 2026</div>
+      <div class="ctitle"><div class="cdot" style="background:var(--violet);box-shadow:0 0 10px var(--violet)"></div>Trabalhadores — Ago 2025 → Out 2026</div>
     </div>
     <div class="chart-body"><canvas id="cW"></canvas></div>
   </div>
@@ -708,7 +717,7 @@ body.theme-light .hp-banner .hp-sub{color:rgba(255,255,255,.76);}
   <div class="tcard">
     <div class="ch">
       <div class="ctitle"><div class="cdot" style="background:var(--orange);box-shadow:0 0 10px var(--orange)"></div>
-        Consumos Ambientais — Junho 2026 (Verificado)
+        <span id="amb-title">Consumos Ambientais — Outubro 2026 (Verificado)</span>
       </div>
     </div>
     <table>
@@ -753,8 +762,8 @@ body.theme-light .hp-banner .hp-sub{color:rgba(255,255,255,.76);}
   <!-- Donut chart -->
   <div class="wf-donut-card">
     <div class="ch">
-      <div class="ctitle"><div class="cdot" style="background:var(--violet);box-shadow:0 0 8px var(--violet)"></div>Efetivos por Empresa (Jun 2026)</div>
-      <div style="font-size:9px;font-family:'JetBrains Mono',monospace;color:var(--muted)">71 total</div>
+      <div class="ctitle"><div class="cdot" style="background:var(--violet);box-shadow:0 0 8px var(--violet)"></div><span>Efetivos por Empresa · <span id="donut-mes">Out 2026</span></span></div>
+      <div style="font-size:9px;font-family:'JetBrains Mono',monospace;color:var(--muted)" id="donut-total">11 total</div>
     </div>
     <div class="wf-donut-body"><canvas id="cDonut"></canvas></div>
   </div>
@@ -777,13 +786,13 @@ body.theme-light .hp-banner .hp-sub{color:rgba(255,255,255,.76);}
       </div>
       <div class="cal-grid-body" id="calBody"></div>
       <div class="cal-legend">
-        <div class="cal-leg"><div class="cal-leg-sq" style="background:rgba(191,95,255,.5);border:1px solid rgba(191,95,255,.7)"></div>≥90%</div>
-        <div class="cal-leg"><div class="cal-leg-sq" style="background:rgba(191,95,255,.25);border:1px solid rgba(191,95,255,.45)"></div>70–90%</div>
+        <div class="cal-leg"><div class="cal-leg-sq" style="background:rgba(191,95,255,.08);border:1px solid rgba(191,95,255,.2)"></div>Dia útil</div>
         <div class="cal-leg"><div class="cal-leg-sq" style="background:rgba(255,208,0,.4);border:1px solid rgba(255,208,0,.5)"></div>Sábado</div>
         <div class="cal-leg"><div class="cal-leg-sq" style="background:rgba(255,45,85,.45);border:1px solid rgba(255,45,85,.5)"></div>Feriado</div>
         <div class="cal-leg"><div class="cal-leg-sq" style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08)"></div>Domingo</div>
         <div class="cal-leg"><div class="cal-leg-sq" style="background:rgba(191,95,255,.42);border:1px solid rgba(191,95,255,.55)"></div>Verif. semanal</div>
         <div class="cal-leg"><div class="cal-leg-sq" style="background:rgba(255,208,0,.26);border:1px solid rgba(255,208,0,.55)"></div>Verif. mensal</div>
+        <div class="cal-leg"><div class="cal-leg-sq" style="background:rgba(0,245,255,.14);border:1px solid rgba(0,245,255,.42)"></div>Formação / Comunidade</div>
       </div>
     </div>
   </div>
@@ -791,7 +800,7 @@ body.theme-light .hp-banner .hp-sub{color:rgba(255,255,255,.76);}
   <!-- Company breakdown table -->
   <div class="wf-table-card tcard">
     <div class="ch">
-      <div class="ctitle"><div class="cdot" style="background:var(--violet);box-shadow:0 0 8px var(--violet)"></div>Detalhe por Empresa (<span id="emp-mes">Jul 2026</span>)</div>
+      <div class="ctitle"><div class="cdot" style="background:var(--violet);box-shadow:0 0 8px var(--violet)"></div><span>Detalhe por Empresa · <span id="emp-mes">Out 2026</span></span></div>
     </div>
     <table>
       <thead>
@@ -939,7 +948,7 @@ body.theme-light .hp-banner .hp-sub{color:rgba(255,255,255,.76);}
       <p class="hp-sub">Datas principais integradas no Mapa de Presença acima · documentos e licenças mantidos nesta área.</p>
     </div>
     <div class="hp-banner-actions">
-      <span class="hp-month-label">Junho 2026</span>
+      <span class="hp-month-label">Outubro 2026</span>
     </div>
   </header>
   <div class="hp-content-grid">
@@ -958,13 +967,13 @@ body.theme-light .hp-banner .hp-sub{color:rgba(255,255,255,.76);}
       <section class="hp-inspections" aria-label="Plano de Inspecções Programadas">
         <h3 class="hp-ops-title">Plano de Inspecções Programadas</h3>
         <div class="hp-inspection-list">
-          <article class="hp-inspection-row"><span class="hp-row-icon" aria-hidden="true">□</span><div class="hp-row-main"><div class="hp-row-top"><span class="hp-inspection-title">Andaimes</span><span class="hp-mini-badge">Semanal</span></div><span class="hp-row-rule">2.ª-feira</span></div><div class="hp-date-pills"><span class="hp-mini-date">04/05</span><span class="hp-mini-date">11/05</span><span class="hp-mini-date">18/05</span><span class="hp-mini-date">25/05</span></div><div class="hp-row-actions"><button class="hp-icon-btn hp-icon-btn--upload" type="button" title="Upload" aria-label="Upload">⇧</button><button class="hp-icon-btn hp-icon-btn--download" type="button" title="Download" aria-label="Download">⇩</button><button class="hp-icon-btn hp-icon-btn--due" type="button" title="Data Devida" aria-label="Data Devida">◷</button></div></article>
-          <article class="hp-inspection-row"><span class="hp-row-icon" aria-hidden="true">◎</span><div class="hp-row-main"><div class="hp-row-top"><span class="hp-inspection-title">Instalações Sociais</span><span class="hp-mini-badge">Semanal</span></div><span class="hp-row-rule">4.ª-feira</span></div><div class="hp-date-pills"><span class="hp-mini-date">06/05</span><span class="hp-mini-date">13/05</span><span class="hp-mini-date">20/05</span><span class="hp-mini-date">27/05</span></div><div class="hp-row-actions"><button class="hp-icon-btn hp-icon-btn--upload" type="button" title="Upload" aria-label="Upload">⇧</button><button class="hp-icon-btn hp-icon-btn--download" type="button" title="Download" aria-label="Download">⇩</button><button class="hp-icon-btn hp-icon-btn--due" type="button" title="Data Devida" aria-label="Data Devida">◷</button></div></article>
-          <article class="hp-inspection-row"><span class="hp-row-icon hp-row-icon--monthly" aria-hidden="true">▣</span><div class="hp-row-main"><div class="hp-row-top"><span class="hp-inspection-title">Equip. Ligeiros e Pesados</span><span class="hp-mini-badge hp-mini-badge--monthly">Mensal</span></div><span class="hp-row-rule">1.ª 3.ª-feira</span></div><div class="hp-date-pills"><span class="hp-mini-date">05/05</span></div><div class="hp-row-actions"><button class="hp-icon-btn hp-icon-btn--upload" type="button" title="Upload" aria-label="Upload">⇧</button><button class="hp-icon-btn hp-icon-btn--download" type="button" title="Download" aria-label="Download">⇩</button><button class="hp-icon-btn hp-icon-btn--due" type="button" title="Data Devida" aria-label="Data Devida">◷</button></div></article>
-          <article class="hp-inspection-row"><span class="hp-row-icon hp-row-icon--monthly" aria-hidden="true">!</span><div class="hp-row-main"><div class="hp-row-top"><span class="hp-inspection-title">Extintores</span><span class="hp-mini-badge hp-mini-badge--monthly">Mensal</span></div><span class="hp-row-rule">2.ª 3.ª-feira</span></div><div class="hp-date-pills"><span class="hp-mini-date">12/05</span></div><div class="hp-row-actions"><button class="hp-icon-btn hp-icon-btn--upload" type="button" title="Upload" aria-label="Upload">⇧</button><button class="hp-icon-btn hp-icon-btn--download" type="button" title="Download" aria-label="Download">⇩</button><button class="hp-icon-btn hp-icon-btn--due" type="button" title="Data Devida" aria-label="Data Devida">◷</button></div></article>
-          <article class="hp-inspection-row"><span class="hp-row-icon hp-row-icon--monthly" aria-hidden="true">+</span><div class="hp-row-main"><div class="hp-row-top"><span class="hp-inspection-title">Caixa Primeiros Socorros</span><span class="hp-mini-badge hp-mini-badge--monthly">Mensal</span></div><span class="hp-row-rule">3.ª 3.ª-feira</span></div><div class="hp-date-pills"><span class="hp-mini-date">19/05</span></div><div class="hp-row-actions"><button class="hp-icon-btn hp-icon-btn--upload" type="button" title="Upload" aria-label="Upload">⇧</button><button class="hp-icon-btn hp-icon-btn--download" type="button" title="Download" aria-label="Download">⇩</button><button class="hp-icon-btn hp-icon-btn--due" type="button" title="Data Devida" aria-label="Data Devida">◷</button></div></article>
-          <article class="hp-inspection-row"><span class="hp-row-icon hp-row-icon--monthly" aria-hidden="true">⌁</span><div class="hp-row-main"><div class="hp-row-top"><span class="hp-inspection-title">Quadros Eléctricos</span><span class="hp-mini-badge hp-mini-badge--monthly">Mensal</span></div><span class="hp-row-rule">Última 3.ª-feira</span></div><div class="hp-date-pills"><span class="hp-mini-date">26/05</span></div><div class="hp-row-actions"><button class="hp-icon-btn hp-icon-btn--upload" type="button" title="Upload" aria-label="Upload">⇧</button><button class="hp-icon-btn hp-icon-btn--download" type="button" title="Download" aria-label="Download">⇩</button><button class="hp-icon-btn hp-icon-btn--due" type="button" title="Data Devida" aria-label="Data Devida">◷</button></div></article>
-          <article class="hp-inspection-row"><span class="hp-row-icon hp-row-icon--monthly" aria-hidden="true">✓</span><div class="hp-row-main"><div class="hp-row-top"><span class="hp-inspection-title">Check-list HSE</span><span class="hp-mini-badge hp-mini-badge--monthly">Mensal</span></div><span class="hp-row-rule">Último dia</span></div><div class="hp-date-pills"><span class="hp-mini-date">31/05</span></div><div class="hp-row-actions"><button class="hp-icon-btn hp-icon-btn--upload" type="button" title="Upload" aria-label="Upload">⇧</button><button class="hp-icon-btn hp-icon-btn--download" type="button" title="Download" aria-label="Download">⇩</button><button class="hp-icon-btn hp-icon-btn--due" type="button" title="Data Devida" aria-label="Data Devida">◷</button></div></article>
+          <article class="hp-inspection-row"><span class="hp-row-icon" aria-hidden="true">□</span><div class="hp-row-main"><div class="hp-row-top"><span class="hp-inspection-title">Andaimes</span><span class="hp-mini-badge">Semanal</span></div><span class="hp-row-rule">2.ª-feira</span></div><div class="hp-date-pills"><span class="hp-mini-date">05/10</span><span class="hp-mini-date">12/10</span><span class="hp-mini-date">19/10</span><span class="hp-mini-date">26/10</span></div><div class="hp-row-actions"><button class="hp-icon-btn hp-icon-btn--upload" type="button" title="Upload" aria-label="Upload">⇧</button><button class="hp-icon-btn hp-icon-btn--download" type="button" title="Download" aria-label="Download">⇩</button><button class="hp-icon-btn hp-icon-btn--due" type="button" title="Data Devida" aria-label="Data Devida">◷</button></div></article>
+          <article class="hp-inspection-row"><span class="hp-row-icon" aria-hidden="true">◎</span><div class="hp-row-main"><div class="hp-row-top"><span class="hp-inspection-title">Instalações Sociais</span><span class="hp-mini-badge">Semanal</span></div><span class="hp-row-rule">4.ª-feira</span></div><div class="hp-date-pills"><span class="hp-mini-date">07/10</span><span class="hp-mini-date">14/10</span><span class="hp-mini-date">21/10</span><span class="hp-mini-date">28/10</span></div><div class="hp-row-actions"><button class="hp-icon-btn hp-icon-btn--upload" type="button" title="Upload" aria-label="Upload">⇧</button><button class="hp-icon-btn hp-icon-btn--download" type="button" title="Download" aria-label="Download">⇩</button><button class="hp-icon-btn hp-icon-btn--due" type="button" title="Data Devida" aria-label="Data Devida">◷</button></div></article>
+          <article class="hp-inspection-row"><span class="hp-row-icon hp-row-icon--monthly" aria-hidden="true">▣</span><div class="hp-row-main"><div class="hp-row-top"><span class="hp-inspection-title">Equip. Ligeiros e Pesados</span><span class="hp-mini-badge hp-mini-badge--monthly">Mensal</span></div><span class="hp-row-rule">1.ª 3.ª-feira</span></div><div class="hp-date-pills"><span class="hp-mini-date">06/10</span></div><div class="hp-row-actions"><button class="hp-icon-btn hp-icon-btn--upload" type="button" title="Upload" aria-label="Upload">⇧</button><button class="hp-icon-btn hp-icon-btn--download" type="button" title="Download" aria-label="Download">⇩</button><button class="hp-icon-btn hp-icon-btn--due" type="button" title="Data Devida" aria-label="Data Devida">◷</button></div></article>
+          <article class="hp-inspection-row"><span class="hp-row-icon hp-row-icon--monthly" aria-hidden="true">!</span><div class="hp-row-main"><div class="hp-row-top"><span class="hp-inspection-title">Extintores</span><span class="hp-mini-badge hp-mini-badge--monthly">Mensal</span></div><span class="hp-row-rule">2.ª 3.ª-feira</span></div><div class="hp-date-pills"><span class="hp-mini-date" title="Realizada a 23/10 (registo RM037)">23/10 ✓</span></div><div class="hp-row-actions"><button class="hp-icon-btn hp-icon-btn--upload" type="button" title="Upload" aria-label="Upload">⇧</button><button class="hp-icon-btn hp-icon-btn--download" type="button" title="Download" aria-label="Download">⇩</button><button class="hp-icon-btn hp-icon-btn--due" type="button" title="Data Devida" aria-label="Data Devida">◷</button></div></article>
+          <article class="hp-inspection-row"><span class="hp-row-icon hp-row-icon--monthly" aria-hidden="true">+</span><div class="hp-row-main"><div class="hp-row-top"><span class="hp-inspection-title">Caixa Primeiros Socorros</span><span class="hp-mini-badge hp-mini-badge--monthly">Mensal</span></div><span class="hp-row-rule">3.ª 3.ª-feira</span></div><div class="hp-date-pills"><span class="hp-mini-date">20/10</span></div><div class="hp-row-actions"><button class="hp-icon-btn hp-icon-btn--upload" type="button" title="Upload" aria-label="Upload">⇧</button><button class="hp-icon-btn hp-icon-btn--download" type="button" title="Download" aria-label="Download">⇩</button><button class="hp-icon-btn hp-icon-btn--due" type="button" title="Data Devida" aria-label="Data Devida">◷</button></div></article>
+          <article class="hp-inspection-row"><span class="hp-row-icon hp-row-icon--monthly" aria-hidden="true">⌁</span><div class="hp-row-main"><div class="hp-row-top"><span class="hp-inspection-title">Quadros Eléctricos</span><span class="hp-mini-badge hp-mini-badge--monthly">Mensal</span></div><span class="hp-row-rule">Última 3.ª-feira</span></div><div class="hp-date-pills"><span class="hp-mini-date" title="Realizada a 28/10 (registo RM037)">28/10 ✓</span></div><div class="hp-row-actions"><button class="hp-icon-btn hp-icon-btn--upload" type="button" title="Upload" aria-label="Upload">⇧</button><button class="hp-icon-btn hp-icon-btn--download" type="button" title="Download" aria-label="Download">⇩</button><button class="hp-icon-btn hp-icon-btn--due" type="button" title="Data Devida" aria-label="Data Devida">◷</button></div></article>
+          <article class="hp-inspection-row"><span class="hp-row-icon hp-row-icon--monthly" aria-hidden="true">✓</span><div class="hp-row-main"><div class="hp-row-top"><span class="hp-inspection-title">Check-list HSE</span><span class="hp-mini-badge hp-mini-badge--monthly">Mensal</span></div><span class="hp-row-rule">Último dia</span></div><div class="hp-date-pills"><span class="hp-mini-date" title="Check-list de Outubro: 98,11%">31/10 ✓</span></div><div class="hp-row-actions"><button class="hp-icon-btn hp-icon-btn--upload" type="button" title="Upload" aria-label="Upload">⇧</button><button class="hp-icon-btn hp-icon-btn--download" type="button" title="Download" aria-label="Download">⇩</button><button class="hp-icon-btn hp-icon-btn--due" type="button" title="Data Devida" aria-label="Data Devida">◷</button></div></article>
         </div>
       </section>
     </div>
@@ -995,17 +1004,23 @@ body.theme-light .hp-banner .hp-sub{color:rgba(255,255,255,.76);}
         <div>
           <span class="hp-docs-kicker">Documentação HSE — Cabinda</span>
           <h3>Repositório de Documentos · HMRC</h3>
-          <p>37 documentos · Junho 2026 integrado · pasta Google Drive ligada.</p>
+          <p>43 documentos · Outubro 2026 (RM037) integrado · pasta Google Drive ligada.</p>
         </div>
         <a class="hp-drive" href="https://drive.google.com/drive/folders/1vCgKGJHByR4LWzFaD6jvO0CN28Z__PCR" target="_blank" rel="noopener">Google Drive ↗</a>
       </header>
       <div class="hp-actions" aria-label="Fluxo de documentos">
-        <button class="hp-action hp-action--active" type="button" onclick="alert('Documentos de Junho ligados ao Google Drive HMRC para consulta e partilha.');return false;">Download</button>
+        <button class="hp-action hp-action--active" type="button" onclick="alert('Documentos de Outubro (RM037) disponíveis nesta lista; arquivo completo no Google Drive HMRC.');return false;">Download</button>
         <button class="hp-action" type="button" onclick="window.open('https://drive.google.com/drive/folders/1vCgKGJHByR4LWzFaD6jvO0CN28Z__PCR','_blank');return false;">Upload</button>
         <button class="hp-action" type="button" onclick="alert('Trânsito Google Drive ligado à raiz HMRC para ficheiros em revisão e partilha.');return false;">Trânsito</button>
         <button class="hp-action" type="button" onclick="alert('Extracção para Google Drive: arquivar documentos finais na raiz HMRC ligada.');return false;">Extrair</button>
       </div>
       <div class="hp-docs-list">
+        <a class="hp-doc" href="./documentos-outubro/HMRC_Relatorio_Mensal_HSE_037_2026-10_Rev-01.docx" download><span class="hp-doc-type hp-doc-type--doc">DOC</span><span class="hp-doc-name">Relatório Mensal HSE RM Nº 037 · Outubro 2026</span><span class="hp-doc-src">DOCX</span></a>
+        <a class="hp-doc" href="./documentos-outubro/HMRC_Checklist_RM_037_2026-10_Rev-01.xlsx" download><span class="hp-doc-type hp-doc-type--xls">XLS</span><span class="hp-doc-name">Checklist RM Nº 037 · Outubro 2026</span><span class="hp-doc-src">XLSX</span></a>
+        <a class="hp-doc" href="./documentos-outubro/HMRC_Quadro_de_Sinistralidade_RM_037_2026-10.xlsx" download><span class="hp-doc-type hp-doc-type--xls">XLS</span><span class="hp-doc-name">Quadro de Sinistralidade RM Nº 037 · Outubro 2026</span><span class="hp-doc-src">XLSX</span></a>
+        <a class="hp-doc" href="./documentos-outubro/Verificacao_Extintores_2026-10-23.pdf" download><span class="hp-doc-type hp-doc-type--pdf">PDF</span><span class="hp-doc-name">Verificação de Extintores · 23 Out 2026</span><span class="hp-doc-src">PDF</span></a>
+        <a class="hp-doc" href="./documentos-outubro/Verificacao_Quadros_Electricos_2026-10-28.pdf" download><span class="hp-doc-type hp-doc-type--pdf">PDF</span><span class="hp-doc-name">Verificação de Quadros Eléctricos · 28 Out 2026</span><span class="hp-doc-src">PDF</span></a>
+        <a class="hp-doc" href="./documentos-outubro/Formacao_Seguranca_Patrimonial_2026-10.pdf" download><span class="hp-doc-type hp-doc-type--pdf">PDF</span><span class="hp-doc-name">Formação Segurança Patrimonial · Outubro 2026</span><span class="hp-doc-src">PDF</span></a>
         <a class="hp-doc" href="https://docs.google.com/document/d/1FE3B8vtm1seTETiKJRYoswtxSohmIatd/edit?usp=drivesdk&ouid=101598031199915965185&rtpof=true&sd=true" target="_blank" rel="noopener"><span class="hp-doc-type hp-doc-type--doc">DOC</span><span class="hp-doc-name">Relatório Mensal HSE RM Nº 033 · Junho 2026</span><span class="hp-doc-src">Drive</span></a>
         <a class="hp-doc" href="https://docs.google.com/spreadsheets/d/1Tb-o21pn2BkvNkicYY4GDAVaR-UDXv2p/edit?usp=drivesdk&ouid=101598031199915965185&rtpof=true&sd=true" target="_blank" rel="noopener"><span class="hp-doc-type hp-doc-type--xls">XLS</span><span class="hp-doc-name">Checklist RM Nº 033 · Junho 2026</span><span class="hp-doc-src">Drive</span></a>
         <a class="hp-doc" href="https://docs.google.com/spreadsheets/d/1R5ZUrRvkbjxFn_YUi3AnfO7VFyO7_yDo/edit?usp=drivesdk&ouid=101598031199915965185&rtpof=true&sd=true" target="_blank" rel="noopener"><span class="hp-doc-type hp-doc-type--xls">XLS</span><span class="hp-doc-name">Quadro de Sinistralidade RM Nº 033 · Junho 2026</span><span class="hp-doc-src">Drive</span></a>
@@ -1080,7 +1095,7 @@ body.theme-light .hp-banner .hp-sub{color:rgba(255,255,255,.76);}
 <!-- ════ /Plano de Verificações HSE + Licenças ════ -->
 
 <footer>
-  <span>VAMED Healthcare Projects · Angola &nbsp;|&nbsp; PM: Dilson Cardoso &nbsp;·&nbsp; HSE: Hendrik Silva &nbsp;·&nbsp; Amb: Juarês Manico &nbsp;·&nbsp; Assist.: João Luzolo / Matias Salvador</span>
+  <span>VAMED Healthcare Projects · Angola &nbsp;|&nbsp; PM: Ernestina Miguel · Site Manager: Dilson Cardoso &nbsp;·&nbsp; HSE: Hendrik Silva &nbsp;·&nbsp; Amb: Juarês Manico &nbsp;·&nbsp; Assist.: João Luzolo / Matias Salvador</span>
   <span style="color:var(--violet);font-weight:700;text-shadow:0 0 12px var(--violet)" id="footer-status"></span>
 </footer>
 
@@ -1102,9 +1117,22 @@ body.theme-light .hp-banner .hp-sub{color:rgba(255,255,255,.76);}
    Formacao interna06.pdf and Relatorio de Simulacro.pdf.
    Other months estimated based on project trajectory
 */
-const MONTHS = ['ago','set','out','nov','dez','jan','fev','mar','abr','mai','jun','jul'];
-const M_LABEL = {ago:'AGO 2025',set:'SET 2025',out:'OUT 2025',nov:'NOV 2025',dez:'DEZ 2025',jan:'JAN 2026',fev:'FEV 2026',mar:'MAR 2026',abr:'ABR 2026',mai:'MAI 2026',jun:'JUN 2026',jul:'JUL 2026'};
-const M_ABR   = {ago:'Ago',set:'Set',out:'Out',nov:'Nov',dez:'Dez',jan:'Jan',fev:'Fev',mar:'Mar',abr:'Abr',mai:'Mai',jun:'Jun',jul:'Jul'};
+/* Out 2026 confirmado a partir do RM037 Rev.01 (relatório, checklist e quadro de
+   sinistralidade de 2026.10) e dos registos de 23/10 (extintores), 28/10 (quadros
+   eléctricos), 22/10 e 29/10 (formação da segurança patrimonial).
+   Ago e Set 2026: o RM035 e o RM036 ainda não foram integrados. Destes dois meses
+   só se mostra o que o Quadro de Sinistralidade RM037 traz (efectivo, acidentes,
+   dias perdidos, índices); o resto fica "—" e o mês vem marcado como parcial.
+   Índice de frequência acumulado: valores do Quadro de Sinistralidade (1 acidente
+   / horas acumuladas × 10^6), que é a fonte de cálculo. */
+const MONTHS = ['ago','set','out','nov','dez','jan','fev','mar','abr','mai','jun','jul','ago26','set26','out26'];
+const M_LABEL = {ago:'AGO 2025',set:'SET 2025',out:'OUT 2025',nov:'NOV 2025',dez:'DEZ 2025',jan:'JAN 2026',fev:'FEV 2026',mar:'MAR 2026',abr:'ABR 2026',mai:'MAI 2026',jun:'JUN 2026',jul:'JUL 2026',ago26:'AGO 2026',set26:'SET 2026',out26:'OUT 2026'};
+const M_ABR   = {ago:'Ago',set:'Set',out:'Out',nov:'Nov',dez:'Dez',jan:'Jan',fev:'Fev',mar:'Mar',abr:'Abr',mai:'Mai',jun:'Jun',jul:'Jul',ago26:'Ago',set26:'Set',out26:'Out'};
+const M_YEAR  = {ago:2025,set:2025,out:2025,nov:2025,dez:2025,jan:2026,fev:2026,mar:2026,abr:2026,mai:2026,jun:2026,jul:2026,ago26:2026,set26:2026,out26:2026};
+const M_IDX   = {jan:0,fev:1,mar:2,abr:3,mai:4,jun:5,jul:6,ago:7,set:8,out:9,nov:10,dez:11,ago26:7,set26:8,out26:9};
+const M_FULL  = ['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'];
+const M_TITLE = m => M_ABR[m] + ' ' + M_YEAR[m];
+const M_CHART = m => M_ABR[m] + ' ' + String(M_YEAR[m]).slice(2);
 
 const DATA = {
   ago: {w:210, ch:96.0, t:85,  p:0, f:3100, i:0, acc:0, agua:340, gas:14200, elec:2900},
@@ -1120,25 +1148,36 @@ const DATA = {
   /* Campos acumulados/índices só existem onde o relatório mensal os publica.
      jun 2026 = RM033 Rev.01. Meses sem estes campos mostram "—". */
   jun: {w:71,  ch:96.23,t:77,  p:0, f:982,  i:0, acc:0, agua:64,  gas:5784,  elec:1982.4,
-        tac:2900, pac:13, pacPct:0.45, accAc:1, dp:0, ifq:1.45, ig:0.00, fa:20},
+        tac:2900, pac:13, pacPct:0.45, accAc:1, dp:0, ifq:1.30, ig:0.00, fa:20},
   jul: {w:46,  ch:98.1, t:62,  p:0, f:503,  i:0, acc:0, agua:52,  gas:5866,  elec:1977.2,
-        tac:2962, pac:13, pacPct:0.44, accAc:1, dp:0, ifq:1.45, ig:0.00, fa:25},
+        tac:2962, pac:13, pacPct:0.44, accAc:1, dp:0, ifq:1.28, ig:0.00, fa:25},
+  /* Parciais — só Quadro de Sinistralidade RM037. */
+  ago26: {w:25, ch:null, t:null, p:null, f:null, i:null, acc:0, agua:null, gas:null, elec:null,
+          accAc:1, dp:0, ifq:1.27, ig:0.00, partial:'RM035'},
+  set26: {w:15, ch:null, t:null, p:null, f:null, i:null, acc:0, agua:null, gas:null, elec:null,
+          accAc:1, dp:0, ifq:1.27, ig:0.00, partial:'RM036'},
+  /* RM037 Rev.01 · Outubro 2026 */
+  out26: {w:11, ch:98.11, t:5, p:0, f:7, i:0, acc:0, agua:8.8, gas:0, elec:1647.5,
+          tac:2989, pac:13, pacPct:0.43, accAc:1, dp:0, ifq:1.27, ig:0.00, fa:2},
 };
 
-let currMonth = 'jul';
+const LATEST = 'out26';
+let currMonth = LATEST;
 
-function fmt(n){ n=Math.round(n); return n>=1000?n.toLocaleString('pt-PT'):String(n); }
-function pf(v){ return v.toFixed(2)+'%'; }
-function prevMonth(m){ const idx=MONTHS.indexOf(m); return idx>0?MONTHS[idx-1]:null; }
+function fmt(n){ if(n===null||n===undefined) return '—'; n=Math.round(n); return n>=1000?n.toLocaleString('pt-PT'):String(n); }
+function pf(v){ return (v===null||v===undefined) ? '—' : v.toFixed(2)+'%'; }
+/* Comparação com o último mês completo (salta os meses parciais). */
+function prevMonth(m){ let idx=MONTHS.indexOf(m)-1; while(idx>=0 && DATA[MONTHS[idx]].partial) idx--; return idx>=0?MONTHS[idx]:null; }
+function dec(v){ return (v===null||v===undefined) ? '—' : v.toLocaleString('pt-PT',{maximumFractionDigits:1}); }
 
 function delta(curr,prev,isChk){
-  if(prev===null||prev===undefined) return '<span class="flat">—</span>';
+  if(prev===null||prev===undefined||curr===null||curr===undefined) return '<span class="flat">—</span>';
   const d=curr-prev;
   const sign=d>0?'▲':d<0?'▼':'—';
   const cls=d>0?'up':d<0?'dn':'flat';
   if(d===0) return '<span class="flat">— igual</span>';
   const abs=isChk?Math.abs(d).toFixed(2)+'pp':fmt(Math.abs(d));
-  return `<span class="${cls}">${sign} ${d>0?'+':''}${isChk?(d>0?'+':'')+d.toFixed(2)+'pp':fmt(d)}</span>`;
+  return `<span class="${cls}">${sign} ${d>0?'+':''}${isChk?d.toFixed(2)+'pp':fmt(d)}</span>`;
 }
 
 function setMonth(m,btn){
@@ -1162,9 +1201,9 @@ function renderKPIs(){
   document.getElementById('kf').textContent=fmt(d.f);
   document.getElementById('kfd').innerHTML=pd?delta(d.f,pd.f,false)+' vs '+M_ABR[p]:'';
   document.getElementById('ki').textContent=fmt(d.i);
-  document.getElementById('kid').innerHTML=d.i===0?'<span class="up">✓ Zero incidentes</span>':`<span class="dn">▲ ${d.i}</span>`;
+  document.getElementById('kid').innerHTML=d.i==null?'<span class="flat">—</span>':d.i===0?'<span class="up">✓ Zero incidentes</span>':`<span class="dn">▲ ${d.i}</span>`;
   document.getElementById('kp').textContent=fmt(d.p);
-  document.getElementById('kpd').innerHTML=d.p===0?'<span class="up">✓ 100% Negativos</span>':`<span class="dn">▲ ${d.p} positivo(s)</span>`;
+  document.getElementById('kpd').innerHTML=d.p==null?'<span class="flat">—</span>':d.p===0?'<span class="up">✓ 100% Negativos</span>':`<span class="dn">▲ ${d.p} positivo(s)</span>`;
 
   document.getElementById('sc-w').textContent=fmt(d.w);
   document.getElementById('sc-ch').textContent=pf(d.ch);
@@ -1180,9 +1219,9 @@ function renderKPIs(){
   document.getElementById('mb-p').textContent=fmt(d.p);
   document.getElementById('mb-acc').textContent=fmt(d.acc);
   document.getElementById('mb-i').textContent=fmt(d.i);
-  document.getElementById('mb-agua').textContent=d.agua.toLocaleString('pt-PT');
-  document.getElementById('mb-gas').textContent=d.gas.toLocaleString('pt-PT');
-  document.getElementById('mb-elec').textContent=d.elec.toLocaleString('pt-PT');
+  document.getElementById('mb-agua').textContent=dec(d.agua);
+  document.getElementById('mb-gas').textContent=dec(d.gas);
+  document.getElementById('mb-elec').textContent=dec(d.elec);
 
   /* Acumulados e índices — só nos meses em que o relatório os publica. */
   var nd = function(v, dec){
@@ -1199,7 +1238,14 @@ function renderKPIs(){
   document.getElementById('mb-ig').textContent    = nd(d.ig,2);
   document.getElementById('mb-fa').textContent    = nd(d.fa);
 
-  document.getElementById('footer-status').textContent='✓ '+M_LABEL[currMonth]+' Verificado · '+fmt(d.acc)+' acidentes no mês · '+pf(d.ch)+' Checklist';
+  document.getElementById('footer-status').textContent = d.partial
+    ? '◐ '+M_LABEL[currMonth]+' parcial · '+d.partial+' por integrar · '+fmt(d.acc)+' acidentes no mês (Quadro RM037)'
+    : '✓ '+M_LABEL[currMonth]+' Verificado · '+fmt(d.acc)+' acidentes no mês · '+pf(d.ch)+' Checklist';
+  const av=document.getElementById('mes-aviso');
+  if(av){
+    av.style.display=d.partial?'block':'none';
+    av.textContent=d.partial?('◐ '+M_TITLE(currMonth)+' — dados parciais. Efectivo, acidentes, dias perdidos e índices vêm do Quadro de Sinistralidade RM037; os restantes indicadores aguardam a integração do relatório '+d.partial+'.'):'';
+  }
 }
 
 
@@ -1270,6 +1316,60 @@ const MES_DETALHE = {
       ['Entulho', 142, 'm³', null, 'var(--amber)', '255,208,0', 'Aterro', 'flat'],
       ['Biodegradáveis', 31, 'kg', null, 'var(--orange)', '255,107,0', 'Aterro', 'flat']
     ]
+  },
+  ago26: {
+    situacoes: [
+      {estado:'unresolved', nome:'📄 Relatório Mensal RM035 — Agosto 2026', tag:'Por integrar',
+       meta:['Ago 2026','Efectivo: 25 (Quadro RM037)',{txt:'0 acidentes · 0 dias perdidos',cor:'var(--green)'}]}
+    ],
+    empresas: [], residuos: []
+  },
+  set26: {
+    situacoes: [
+      {estado:'unresolved', nome:'📄 Relatório Mensal RM036 — Setembro 2026', tag:'Por integrar',
+       meta:['Set 2026','Efectivo: 15 (Quadro RM037)',{txt:'0 acidentes · 0 dias perdidos',cor:'var(--green)'}]}
+    ],
+    empresas: [], residuos: []
+  },
+  out26: {
+    situacoes: [
+      {estado:'resolved', nome:'👷 Estaleiro em fase final — 11 efectivos (VAMED, Joferamo e Filhos, Afrilim)', tag:'Desmobilização',
+       meta:['Out 2026','Efectivo: Jul 46 → Ago 25 → Set 15 → Out 11',{txt:'Segurança patrimonial passa para a Joferamo e Filhos',cor:'var(--cyan)'}]},
+      {estado:'resolved', nome:'🦺 Segurança e Saúde do Trabalho — nada a registar', tag:'Sem ocorrências',
+       meta:['Out 2026','0 acidentes · 0 dias perdidos',{txt:'Í. Frequência acum. 1,27 · Í. Gravidade 0,00',cor:'var(--green)'}]},
+      {estado:'resolved', nome:'📋 Checklist HSE — 98,11% · EXCELENTE', tag:'Excelente',
+       meta:['Out 2026','Resp: João Luzolo · Site Manager: Dilson Cardoso',{txt:'1 não conformidade (2.4)',cor:'var(--amber)'}]},
+      {estado:'unresolved', nome:'🚩 Mastros e bandeiras — bandeiras não instaladas', tag:'Não conforme',
+       meta:['Checklist item 2.4',{txt:'Requer alteração da posição dos mastros',cor:'var(--amber)'},'Plano de imagem']},
+      {estado:'unresolved', nome:'📑 Seguro de Acidentes de Trabalho — recibo da renovação', tag:'A aguardar',
+       meta:['Apólice com renovação automática',{txt:'Recibo mais recente por receber',cor:'var(--amber)'}]},
+      {estado:'unresolved', nome:'🔊 Estudos Técnicos — gases, partículas e ruído', tag:'Trimestral',
+       meta:['Out 2026','Resp: Juarês Manico',{txt:'Sem medição no mês',cor:'var(--amber)'}]},
+      {estado:'resolved', nome:'🤝 Comunidade — sensibilização HSE na Escola PUNIV do Buco Ngoio', tag:'Realizada',
+       meta:['17 Out 2026','Interacção com a comunidade (SEP)',{txt:'0 reclamações no mês',cor:'var(--green)'}]},
+      {estado:'resolved', nome:'🛡️ Formação da Segurança Patrimonial — Código de Conduta, SEA e GBV', tag:'2 acções',
+       meta:['22 e 29 Out 2026','Joferamo e Filhos',{txt:'7 participantes · 315 min',cor:'var(--green)'}]},
+      {estado:'resolved', nome:'🧯 Extintores e ⚡ quadros eléctricos — verificação mensal', tag:'Conforme',
+       meta:['Extintores 23 Out · Quadros 28 Out','4 extintores e 4 quadros',{txt:'Todos em bom estado',cor:'var(--green)'}]},
+      {estado:'resolved', nome:'🍺 Controlo de alcoolemia — 5 testes / 0 positivos', tag:'Conforme',
+       meta:['Out 2026','Acumulado: 2.989 testes · 13 positivos (0,43%)',{txt:'100% negativos no mês',cor:'var(--green)'}]},
+      {estado:'resolved', nome:'🚮 Resíduos — RSU 48 kg · entulho e biodegradáveis 0', tag:'Monitorizado',
+       meta:['Out 2026','Organizações AP → Lixeira da Planície',{txt:'0 incidentes ambientais',cor:'var(--green)'}]},
+      {estado:'resolved', nome:'✅ Advertências — 0 no mês / 13 acumuladas', tag:'Sem ocorrências',
+       meta:['Out 2026','1 retirada definitiva acumulada',{txt:'0 retiradas no mês',cor:'var(--green)'}]},
+      {estado:'unresolved', nome:'🧯 Simulacro — último realizado a 10 Jun 2026', tag:'Sem simulacro em Outubro',
+       meta:['Segurança · queda de nível diferente',{txt:'Planear o próximo simulacro',cor:'var(--amber)'}]}
+    ],
+    empresas: [
+      ['VAMED','Gestor do Projecto',6,'0,245,255'],
+      ['Joferamo e Filhos','Segurança Patrimonial',4,'255,208,0'],
+      ['Afrilim','Limpeza',1,'255,45,120']
+    ],
+    residuos: [
+      ['RSU', 48, 'kg', 10162, 'var(--green)', '0,255,159', 'Lixeira', 'up'],
+      ['Entulho', 0, 'm³', 1101.84, 'var(--amber)', '255,208,0', 'Lixeira', 'flat'],
+      ['Biodegradáveis', 0, 'kg', 3480, 'var(--orange)', '255,107,0', 'Lixeira', 'flat']
+    ]
   }
 };
 
@@ -1301,8 +1401,13 @@ function nfmt(v, dec){
 }
 
 function renderMes(){
-  const m = currMonth, d = DATA[m], det = MES_DETALHE[m];
-  const rot = M_ABR[m] + ' 2026';
+  const m = currMonth, d = DATA[m];
+  const det = MES_DETALHE[m] || {
+    situacoes: [{estado:'unresolved', nome:'📄 Detalhe mensal de ' + M_TITLE(m) + ' não integrado no dashboard', tag:'Só indicadores',
+                 meta:[M_TITLE(m), {txt:'Situações, empresas e resíduos não carregados para este mês', cor:'var(--amber)'}]}],
+    empresas: [], residuos: []
+  };
+  const rot = M_TITLE(m);
   const esc = t => String(t).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
 
   const set = (id, txt) => { const e = document.getElementById(id); if (e) e.textContent = txt; };
@@ -1316,9 +1421,12 @@ function renderMes(){
   set('amb-mes', 'Mês (' + M_ABR[m] + ')');
   set('klbl-alc', 'Alcoolemia — ' + rot);
   set('kv-alc', nfmt(d.t));
-  set('kd-alc', nfmt(d.t) + ' negativos · ' + nfmt(d.p) + ' positivos');
+  set('kd-alc', d.t == null ? 'Por integrar' : nfmt(d.t - (d.p||0)) + ' negativos · ' + nfmt(d.p) + ' positivos');
   set('kv-chk', pf(d.ch));
-  set('kd-chk', '▲ EXCELENTE · ' + rot);
+  set('kd-chk', d.ch == null ? 'Por integrar · ' + rot : '▲ EXCELENTE · ' + rot);
+  set('amb-title', 'Consumos Ambientais — ' + M_FULL[M_IDX[m]] + ' ' + M_YEAR[m] + (d.partial ? ' (por integrar)' : ' (Verificado)'));
+  set('donut-mes', rot);
+  renderCalendar(m);
 
   const lista = document.getElementById('topics-list');
   if (lista && det) {
@@ -1343,11 +1451,12 @@ function renderMes(){
 
   if (det) {
     const total = det.empresas.reduce(function(a,e){ return a + e[2]; }, 0);
-    set('kv-efet', nfmt(total));
-    set('kd-efet', det.empresas.length + ' empresas / subcontratadas');
+    set('kv-efet', nfmt(total || d.w));
+    set('kd-efet', det.empresas.length ? det.empresas.length + ' empresas / subcontratadas' : 'Efectivo médio · distribuição por empresa por integrar');
+    set('donut-total', (total || d.w) + ' total');
     const eb = document.getElementById('emp-body');
     if (eb) {
-      eb.innerHTML = det.empresas.map(function(e){
+      eb.innerHTML = (det.empresas.length ? '' : '<tr><td colspan="4" style="color:var(--muted)">Distribuição por empresa no relatório ' + (d.partial || '') + ' (por integrar)</td></tr>') + det.empresas.map(function(e){
         return '<tr><td style="font-weight:700;color:rgba(' + e[3] + ',.9)">' + esc(e[0]) + '</td>' +
           '<td style="color:var(--muted)">' + esc(e[1]) + '</td>' +
           '<td style="text-align:right;color:var(--txt);font-weight:700">' + e[2] + '</td>' +
@@ -1365,10 +1474,10 @@ function renderMes(){
       window.donutChart.update();
     }
 
-    const maxR = Math.max.apply(null, det.residuos.map(function(r){ return r[1]; })) || 1;
+    const maxR = Math.max.apply(null, [1].concat(det.residuos.map(function(r){ return r[1]; })));
     const wb = document.getElementById('wb-items');
     if (wb) {
-      wb.innerHTML = det.residuos.map(function(r){
+      wb.innerHTML = (det.residuos.length ? '' : '<div style="color:var(--muted);font-size:11px">Resíduos do mês por integrar</div>') + det.residuos.map(function(r){
         const pct = Math.max(6, Math.round(r[1] / maxR * 60));
         return '<div class="wb-item"><div class="wb-row"><span>' + esc(r[0]) + '</span>' +
           '<span style="color:' + r[4] + '">' + nfmt(r[1]) + ' ' + r[2] + '</span></div>' +
@@ -1386,19 +1495,21 @@ function renderMes(){
       };
       const AMB = {
         jun: {aguaAc:'3.420,6 m³', gasAc:'416.537 L', elecAc:'61.603,6 kWh'},
-        jul: {aguaAc:'3.472,6 m³', gasAc:'422.403 L', elecAc:'63.580,8 kWh'}
+        jul: {aguaAc:'3.472,6 m³', gasAc:'422.403 L', elecAc:'63.580,8 kWh'},
+        out26: {aguaAc:'3.503 m³', gasAc:'426.113 L', elecAc:'68.869,3 kWh'}
       }[m] || {};
+      const un = function(v, u){ return v == null ? '—' : dec(v) + ' ' + u; };
       ab.innerHTML =
-        linha('Água', nfmt(d.agua) + ' m³', AMB.aguaAc || '—', 'var(--cyan)', 'Normal', 'up') +
-        linha('Gasóleo', nfmt(d.gas) + ' L', AMB.gasAc || '—', 'var(--orange)', 'Acum.', 'flat') +
-        linha('Electricidade', nfmt(d.elec,1) + ' kWh', AMB.elecAc || '—', 'var(--amber)', 'Acum.', 'flat') +
+        linha('Água', un(d.agua, 'm³'), AMB.aguaAc || '—', 'var(--cyan)', 'Normal', 'up') +
+        linha('Gasóleo', un(d.gas, 'L'), AMB.gasAc || '—', 'var(--orange)', 'Acum.', 'flat') +
+        linha('Electricidade', un(d.elec, 'kWh'), AMB.elecAc || '—', 'var(--amber)', 'Acum.', 'flat') +
         det.residuos.map(function(r){
           return linha(r[0] + ' (' + r[2] + ')', nfmt(r[1]) + ' ' + r[2],
                        r[3] == null ? '—' : nfmt(r[3], r[3] % 1 ? 2 : 0) + ' ' + r[2],
                        r[4], r[6], r[7]);
         }).join('') +
         linha('Advertências', '0', '13 acum.', 'var(--muted)', 'Sem retiradas', 'up') +
-        linha('Checklist (' + M_ABR[m] + ')', pf(d.ch), '', 'var(--violet)', 'EXCELENTE', 'up');
+        linha('Checklist (' + M_ABR[m] + ')', pf(d.ch), '', 'var(--violet)', d.ch == null ? 'Por integrar' : 'EXCELENTE', d.ch == null ? 'flat' : 'up');
     }
   }
 }
@@ -1423,7 +1534,7 @@ function renderSSTTable(){
     const cv=r.pct?pf(r.curr):fmt(r.curr);
     const pv=r.prev!==undefined&&r.prev!==null?(r.pct?pf(r.prev):fmt(r.prev)):'—';
     let varHtml='—';
-    if(r.prev!==undefined&&r.prev!==null){
+    if(r.prev!==undefined&&r.prev!==null&&r.curr!==undefined&&r.curr!==null){
       const diff=r.curr-r.prev;
       const isNeg=r.lbl.includes('Acidente')||r.lbl.includes('Positivo')||r.lbl.includes('Ambientais');
       const cls=diff>0?(isNeg?'badge dn':'badge up'):diff<0?(isNeg?'badge up':'badge dn'):'badge flat';
@@ -1436,7 +1547,7 @@ function renderSSTTable(){
 }
 
 /* ══ CHARTS ══ */
-const LABELS=MONTHS.map(m=>M_ABR[m]);
+const LABELS=MONTHS.map(M_CHART);
 const ALLW=MONTHS.map(m=>DATA[m].w);
 const ALLF=MONTHS.map(m=>DATA[m].f);
 const ALLT=MONTHS.map(m=>DATA[m].t);
@@ -1471,17 +1582,12 @@ window.donutChart = new Chart(document.getElementById('cDonut').getContext('2d')
   options:{responsive:true,maintainAspectRatio:false,cutout:'60%',plugins:{legend:{display:true,position:'bottom',labels:{color:'#6B7694',font:{size:9,family:'JetBrains Mono'},padding:10}}}}
 });
 
-/* ══ CALENDAR — Junho 2026 ══ */
-// June 2026 starts Monday. Daily attendance percentages were not in the June source package.
-const june2026=[
-  {day:1,type:'good'},{day:2,type:'good'},{day:3,type:'good'},{day:4,type:'good'},{day:5,type:'good'},{day:6,type:'sat-work'},{day:7,type:'wkend'},
-  {day:8,type:'good'},{day:9,type:'good'},{day:10,type:'great'},{day:11,type:'good'},{day:12,type:'good'},{day:13,type:'sat-work'},{day:14,type:'wkend'},
-  {day:15,type:'good'},{day:16,type:'good'},{day:17,type:'good'},{day:18,type:'good'},{day:19,type:'good'},{day:20,type:'sat-work'},{day:21,type:'wkend'},
-  {day:22,type:'good'},{day:23,type:'good'},{day:24,type:'good'},{day:25,type:'good'},{day:26,type:'good'},{day:27,type:'sat-work'},{day:28,type:'wkend'},
-  {day:29,type:'good'},{day:30,type:'good'},
-];
-const calBody=document.getElementById('calBody');
-const hseChecksByDay={
+/* ══ CALENDÁRIO — mês seleccionado ══
+   Não há percentagens de presença diária nos pacotes mensais: dias úteis,
+   sábados e domingos só se distinguem pela cor. As verificações vêm dos
+   registos do mês (Junho: plano + simulacro; Outubro: registos RM037). */
+const CAL_EVENTS = {
+  jun: {
   1:[{date:'01/06',label:'Andaimes',short:'And.',cadence:'weekly'}],
   2:[{date:'02/06',label:'Equip. Ligeiros e Pesados',short:'Equip.',cadence:'monthly'}],
   3:[{date:'03/06',label:'Instalações Sociais',short:'Sociais',cadence:'weekly'}],
@@ -1495,18 +1601,37 @@ const hseChecksByDay={
   24:[{date:'24/06',label:'Instalações Sociais',short:'Sociais',cadence:'weekly'}],
   29:[{date:'29/06',label:'Andaimes',short:'And.',cadence:'weekly'}],
   30:[{date:'30/06',label:'Quadros Eléctricos',short:'Quadros',cadence:'monthly'},{date:'30/06',label:'Check-list HSE',short:'Check',cadence:'monthly'}],
-};
-june2026.forEach(c=>{
-  const el=document.createElement('div');
-  const checks=c.day?(hseChecksByDay[c.day]||[]):[];
-  el.className='cal-cell '+(c.day?c.type:'empty')+(checks.length?' has-checks':'');
-  if(c.day){
-    el.title=checks.length?`Verificações HSE Junho 2026: ${checks.map(check=>`${check.date} ${check.label}`).join(' · ')}`:'';
-    const checksHtml=checks.length?`<span class="cc-events">${checks.map(check=>`<span class="cc-event ${check.cadence}">${check.date} ${check.short}</span>`).join('')}</span>`:'';
-    el.innerHTML=`<span class="cc-day">${c.day}</span>${c.pct?`<span class="cc-pct">${c.pct}%</span>`:''}${checksHtml}`;
+},
+  out26: {
+    17:[{date:'17/10',label:'Sensibilização HSE · Escola PUNIV do Buco Ngoio',short:'Comun.',cadence:'event'}],
+    22:[{date:'22/10',label:'Formação Segurança Patrimonial · Código de Conduta (3 part.)',short:'Form.',cadence:'event'}],
+    23:[{date:'23/10',label:'Extintores · 4 verificados, todos OK',short:'Ext.',cadence:'monthly'}],
+    28:[{date:'28/10',label:'Quadros Eléctricos · 4 verificados, bom estado',short:'Quadros',cadence:'monthly'}],
+    29:[{date:'29/10',label:'Formação Segurança Patrimonial · Código de Conduta (4 part.)',short:'Form.',cadence:'event'}]
   }
-  calBody.appendChild(el);
-});
+};
+function renderCalendar(m){
+  const calBody=document.getElementById('calBody');
+  if(!calBody) return;
+  calBody.innerHTML='';
+  const y=M_YEAR[m], mi=M_IDX[m];
+  const days=new Date(y,mi+1,0).getDate();
+  const lead=(new Date(y,mi,1).getDay()+6)%7; /* segunda = 0 */
+  const ev=CAL_EVENTS[m]||{};
+  const nome=M_FULL[mi]+' '+y;
+  for(let i=0;i<lead;i++){ const e=document.createElement('div'); e.className='cal-cell empty'; calBody.appendChild(e); }
+  for(let day=1;day<=days;day++){
+    const wd=(lead+day-1)%7;
+    const type=wd===6?'wkend':wd===5?'sat-work':'workday';
+    const checks=ev[day]||[];
+    const el=document.createElement('div');
+    el.className='cal-cell '+type+(checks.length?' has-checks':'');
+    el.title=checks.length?`Verificações HSE ${nome}: ${checks.map(c=>`${c.date} ${c.label}`).join(' · ')}`:'';
+    const checksHtml=checks.length?`<span class="cc-events">${checks.map(c=>`<span class="cc-event ${c.cadence}">${c.date} ${c.short}</span>`).join('')}</span>`:'';
+    el.innerHTML=`<span class="cc-day">${day}</span>${checksHtml}`;
+    calBody.appendChild(el);
+  }
+}
 
 /* ══ MAP — CABINDA ══ */
 const map=L.map('map',{zoomControl:false,dragging:true,scrollWheelZoom:false});
@@ -1538,10 +1663,10 @@ const popup=`
   <div class="ptitle">🏥 HMRC — Hospital Militar de Cabinda</div>
   <div style="font-size:10px;color:#6B7694;font-family:'JetBrains Mono',monospace;margin-bottom:12px;">Cabinda · Angola &nbsp;|&nbsp; 12DC-DEI/SV/2021</div>
   <div class="pgrid">
-    <div class="pkpi"><div class="pkv" style="color:#BF5FFF">71</div><div class="pkl">Trabalhadores</div></div>
-    <div class="pkpi"><div class="pkv" style="color:#FFD000">96.23%</div><div class="pkl">Checklist</div></div>
-    <div class="pkpi"><div class="pkv" style="color:#00FF9F">0</div><div class="pkl">Acidentes</div></div>
-    <div class="pkpi"><div class="pkv" style="color:#00F5FF">77</div><div class="pkl">Alc. Neg.</div></div>
+    <div class="pkpi"><div class="pkv" style="color:#BF5FFF">${fmt(DATA[LATEST].w)}</div><div class="pkl">Trabalhadores · ${M_TITLE(LATEST)}</div></div>
+    <div class="pkpi"><div class="pkv" style="color:#FFD000">${pf(DATA[LATEST].ch)}</div><div class="pkl">Checklist</div></div>
+    <div class="pkpi"><div class="pkv" style="color:#00FF9F">${fmt(DATA[LATEST].acc)}</div><div class="pkl">Acidentes</div></div>
+    <div class="pkpi"><div class="pkv" style="color:#00F5FF">${fmt(DATA[LATEST].t-DATA[LATEST].p)}</div><div class="pkl">Alc. Neg.</div></div>
   </div>
 </div>`;
 
