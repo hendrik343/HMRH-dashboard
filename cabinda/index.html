@@ -340,7 +340,7 @@ body.theme-light .theme-toggle{
 body.theme-light .site-btn:hover{color:var(--txt);background:rgba(191,95,255,.08);}
 body.theme-light .site-btn.active,
 body.theme-light .mbtn.active,
-body.theme-light .theme-btn.active{color:#fff;}
+body.theme-light .theme-btn.active{color:#fff;background:linear-gradient(135deg,#9B3FE0,#D6246E);box-shadow:0 4px 14px rgba(155,63,224,.28);}
 body.theme-light .kcard{background:#FFFFFF!important;box-shadow:0 10px 30px rgba(21,32,54,.06)!important;}
 body.theme-light .scard.cab,
 body.theme-light .month-breakdown{background:linear-gradient(135deg,#FFFFFF,#F7F0FF);}
@@ -385,7 +385,7 @@ body.theme-light .hp-banner .hp-title{color:#fff;}
 body.theme-light .hp-banner .hp-sub{color:rgba(255,255,255,.76);}
 </style>
 </head>
-<body class="theme-dark">
+<body class="theme-light">
 <div class="wrap">
 
 <!-- HEADER -->
@@ -413,9 +413,9 @@ body.theme-light .hp-banner .hp-sub{color:rgba(255,255,255,.76);}
       <button class="mbtn active" onclick="setMonth('out26',this)">OUT 2026</button>
     </div>
     <div class="period-pill" id="period-pill">Ago 2025 → Out 2026</div>
-    <div class="theme-toggle" aria-label="Modo de visualização">
-      <button class="theme-btn active" id="darkModeBtn" type="button" onclick="setTheme('dark')">Dark</button>
-      <button class="theme-btn" id="lightModeBtn" type="button" onclick="setTheme('light')">Normal</button>
+    <div class="theme-toggle" aria-label="Modo de visualização" data-i18n-skip>
+      <button class="theme-btn" id="darkModeBtn" type="button" onclick="setTheme('dark')">Dark</button>
+      <button class="theme-btn active" id="lightModeBtn" type="button" onclick="setTheme('light')">Normal</button>
     </div>
     <div class="live-badge"><div class="live-dot"></div>HMRC</div>
     <img class="marca" src="./vamed-wwh-logo.png" alt="VAMED + WWH">
@@ -939,6 +939,28 @@ body.theme-light .hp-banner .hp-sub{color:rgba(255,255,255,.76);}
 @media (max-width:760px){.hp-doc{grid-template-columns:30px minmax(0,1fr) auto}.hp-doc-actions{grid-column:2/4}.hp-doc::after{display:none}}
 </style>
 <link rel="stylesheet" href="./mobile-fixes.css">
+<style id="hse-plano-light-fix">
+/* Modo Normal (claro) — secção Plano/Licenças/Documentos legível */
+body.theme-light .hse-plano .hp-banner{background:linear-gradient(135deg,#25103A,#51297E)!important;border-color:transparent}
+body.theme-light .hse-plano .hp-banner .hp-title{color:#fff!important}
+body.theme-light .hse-plano .hp-banner .hp-sub{color:rgba(255,255,255,.8)!important}
+body.theme-light .hse-plano .hp-pdf-card,
+body.theme-light .hse-plano .hp-inspections{background:#FFFFFF!important;box-shadow:0 8px 22px rgba(21,32,54,.06)!important}
+body.theme-light .hse-plano .hp-inspection-row{background:#FAF7FF!important;border-color:rgba(21,32,54,.10)!important}
+body.theme-light .hse-plano .hp-pdf-meta h3,
+body.theme-light .hse-plano .hp-inspection-title,
+body.theme-light .hse-plano .hp-ops-title,
+body.theme-light .hse-plano .hp-docs-head h3,
+body.theme-light .hse-plano .hp-doc,
+body.theme-light .hse-plano .hp-doc-name{color:#111827!important}
+body.theme-light .hse-plano .hp-pdf-meta p,
+body.theme-light .hse-plano .hp-row-rule,
+body.theme-light .hse-plano .hp-docs-head p,
+body.theme-light .hse-plano .hp-doc-src{color:#667085!important}
+body.theme-light .hse-plano .hp-doc{background:#FFFFFF!important}
+body.theme-light .hse-plano .hp-mini-date{color:#166534!important;background:rgba(22,163,74,.08)!important;border-color:rgba(22,163,74,.3)!important}
+</style>
+
 
 <section class="hse-plano hse-plano--violet" id="hse-plano-section">
   <header class="hp-banner">
@@ -1841,7 +1863,7 @@ function setTheme(mode){
   document.body.classList.toggle('theme-dark',theme==='dark');
   document.getElementById('darkModeBtn')?.classList.toggle('active',theme==='dark');
   document.getElementById('lightModeBtn')?.classList.toggle('active',theme==='light');
-  localStorage.setItem('hse-theme',theme);
+  try{ localStorage.setItem('hse-theme-cab',theme); }catch(e){}
   updateMapTheme(theme);
 }
 map.setView([-5.5487,12.1948],8);
@@ -1863,7 +1885,9 @@ const popup=`
 L.marker([-5.5487,12.1948],{icon}).addTo(map).bindPopup(popup,{maxWidth:320});
 
 /* ══ INIT ══ */
-setTheme(localStorage.getItem('hse-theme')||'dark');
+/* Abre em modo Normal (claro); a escolha do visitante fica guardada. */
+let savedTheme=null; try{ savedTheme=localStorage.getItem('hse-theme-cab'); }catch(e){}
+setTheme(savedTheme||'light');
 renderKPIs();
 renderSSTTable();
 renderMes();
@@ -2564,5 +2588,6 @@ renderMes();
 })();
 </script>
 <script defer src="./licencas-dashboard.js"></script>
+<script src="./i18n.js"></script>
 </body>
 </html>
