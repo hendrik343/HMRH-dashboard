@@ -255,6 +255,44 @@
           ]
         }
       ]
+    },
+    nov26: {
+      rotulo: 'Novembro 2026',
+      actas: [
+        {
+          numero: 126, doc: '126/2026', pdf: './actas-pdf/HMRH_Ata_Reuniao_Seguranca_Ambiente_126_2026.pdf', data: '2026-11-04', hora: '10:00 – 11:00',
+          local: 'Obra e sala de reuniões da VAMED WWH',
+          redator: 'VAMED WWH', gestor: '',
+          proxima: { numero: 127, data: '2026-11-18', hora: '10:00' },
+          participantes: [
+            'Leônidas Calheiros — Site Manager Adjunto (VAMED)',
+            'Hendrik Silva — Coordenador HSE (VAMED)',
+            'Juarês Manico — Coordenador Ambientalista (VAMED)',
+            'Faustino dos Santos — HSE (VAMED)',
+            'Leonel Luamba — Diretor Adjunto (Belo Empreendimentos)',
+            'Nelson Segunda — THSE (Belo Empreendimentos)'
+          ],
+          temas: [
+            { n: 1, cat: 'I', texto: 'Seguimento da reunião n.º 125: manutenção do ar-condicionado dos escritórios concluída a 31/10/2026.', estado: 'Resolvido' },
+            { n: 2, cat: 'I', texto: 'Visita de campo à obra: não resultaram temas novos.' },
+            { n: 3, cat: 'T', texto: 'Documentação da segunda fase: rever toda a documentação da Belo, das subcontratadas e do pessoal que vai entrar em obra.', responsavel: 'Nelson Segunda / Leonel Luamba' },
+            { n: 4, cat: 'T', texto: 'Iluminação: continuar a melhorar a iluminação nas frentes de trabalho e blocos à medida que os trabalhos se intensificarem.', responsavel: 'Nelson Segunda / Leonel Luamba' },
+            { n: 5, cat: 'D', texto: 'Resíduos perigosos: quantidade ainda aceitável; acordado acompanhar o armazenamento e proceder à recolha.', responsavel: 'Nelson Segunda / Leonel Luamba' },
+            { n: 6, cat: 'T', texto: 'Retroescavadora e multifunção: retrovisor, luzes de retaguarda e de presença, e piscas por reparar; a Belo apresenta a data de resolução na reunião n.º 127.', responsavel: 'Nelson Segunda / Leonel Luamba' },
+            { n: 7, cat: 'I', texto: 'Próxima reunião: n.º 127/2026, a 18/11/2026, na sala de reuniões da VAMED WWH.' }
+          ],
+          boas: [
+            'Manutenção do ar-condicionado dos escritórios da VAMED WWH e da Belo realizada a 31/10/2026.',
+            'Elevado nível de organização e limpeza, evidenciado nas diversas frentes de trabalho.',
+            'Corte de capim no interior da obra.'
+          ],
+          mas: [
+            'Retroescavadora sem retrovisor e com luzes de retaguarda e de presença deficientes.',
+            'Multifunção avariada, com piscas de mudança de direcção por reparar.',
+            'Documentação das empresas e do pessoal da segunda fase por rever.'
+          ]
+        }
+      ]
     }
   };
 
