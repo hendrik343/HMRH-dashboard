@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Portal HSE · VAMED+WWH · 3 Hospitais</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<style>
+:root{--bg:#060a16;--panel:#0b1224;--panel2:#0f1830;--line:#1c2847;--txt:#e6ebf5;--mut:#8592b0;--ok:#22c55e;--bad:#ef4444;--warn:#f59e0b;--acc:#60a5fa}
+*{box-sizing:border-box}
+body{margin:0;background:radial-gradient(1100px 500px at 15% -10%,#13204a 0,transparent 60%),var(--bg);color:var(--txt);font:14px/1.45 Inter,system-ui,"Segoe UI",Roboto,sans-serif;min-height:100vh}
+button,input,select,textarea{font:inherit;color:inherit}
+.hidden{display:none!important}
+.panel{background:linear-gradient(180deg,var(--panel2),var(--panel));border:1px solid var(--line);border-radius:12px;box-shadow:0 0 0 1px #3b82f614 inset,0 0 18px #3b82f612;padding:14px}
+.panel h3{margin:0 0 10px;font-size:13px;font-weight:600;color:#c9d3ea}
+header{position:sticky;top:0;z-index:5;background:#060a16e6;backdrop-filter:blur(8px);border-bottom:1px solid var(--line);padding:10px 16px;display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.brand{font-weight:700;font-size:15px;margin-right:auto}.brand small{display:block;color:var(--mut);font-weight:500;font-size:11px}
+.seg{display:flex;background:var(--panel);border:1px solid var(--line);border-radius:10px;overflow:hidden}
+.seg button{background:none;border:0;padding:7px 12px;cursor:pointer;color:var(--mut);white-space:nowrap}
+.seg button.on{background:#1d3a7a;color:#fff}
+.seg.sm button{padding:3px 9px;font-size:11px}
+select,input,textarea{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:7px 10px}
+.btn{background:#1d4ed8;border:0;border-radius:8px;padding:8px 14px;color:#fff;cursor:pointer;font-weight:600}
+.btn.ghost{background:transparent;border:1px solid var(--line);color:var(--txt)}
+.btn.ok{background:#15803d}.btn.bad{background:#b91c1c}
+.btn:disabled{opacity:.5;cursor:not-allowed}
+main{padding:16px;max-width:1500px;margin:0 auto}
+.banner{border:1px dashed var(--warn);color:#fcd34d;border-radius:10px;padding:8px 12px;margin-bottom:12px;font-size:13px}
+.tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:10px;margin-bottom:12px}
+.tile{padding:10px 12px}
+.tile .lab{font-size:11px;color:var(--mut);text-transform:uppercase;letter-spacing:.4px}
+.tile .val{font-size:22px;font-weight:700;margin:2px 0}
+.tile .row{display:flex;justify-content:space-between;align-items:end;gap:6px}
+.d{font-size:12px;font-weight:600}.d.good{color:var(--ok)}.d.bad{color:var(--bad)}.d.neu{color:var(--mut)}
+.tile .tg{font-size:11px;color:var(--mut)}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px}
+.grid3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-bottom:12px}
+.gridr{display:grid;grid-template-columns:1.5fr 1fr 1.2fr;gap:12px}
+.ck{font-size:12px;padding:5px 0;border-bottom:1px solid #16203b}.ck.e{color:#fca5a5}.ck.w{color:#fcd34d}.ck b{color:var(--txt)}
+@media(max-width:980px){.grid2,.grid3,.gridr{grid-template-columns:1fr}}
+.ch{position:relative;height:240px}
+.hrow{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}.hrow h3{margin:0}
+table{width:100%;border-collapse:collapse;font-size:13px}
+th{color:var(--mut);font-weight:500;text-align:left;padding:6px;border-bottom:1px solid var(--line);font-size:11px;text-transform:uppercase}
+td{padding:7px 6px;border-bottom:1px solid #16203b}
+tr.sel td{background:#13244d}
+.dot{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:6px}
+.chip{display:inline-block;padding:2px 8px;border-radius:999px;font-size:11px;font-weight:600;white-space:nowrap}
+.st-validado{background:#14532d;color:#86efac}.st-submetido{background:#78350f;color:#fcd34d}.st-devolvido{background:#7f1d1d;color:#fca5a5}.st-falta{background:#1f2937;color:#9ca3af}
+.statusrow{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:8px 0 2px}
+.src{font-size:11px;color:var(--mut);padding-bottom:8px;border-bottom:1px solid #16203b}
+.login{position:fixed;inset:0;display:grid;grid-template-columns:1.45fr 1fr;background:#18183f;z-index:10}
+.login .photo{position:relative;background:#0b1224 url(/assets/obra-hmrh.webp) center/cover no-repeat;overflow:hidden}
+.login .photo::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(24,24,63,0) 55%,#18183f 100%),linear-gradient(0deg,rgba(6,10,22,.82) 0%,rgba(6,10,22,0) 42%)}
+.login .cap{position:absolute;left:36px;bottom:30px;z-index:1;color:#fff;max-width:520px}
+.login .cap b{display:block;font-size:22px;letter-spacing:.2px}
+.login .cap span{display:block;font-size:13px;color:#c9d3ea;margin-top:4px}
+.login .sites{display:flex;gap:8px;margin-top:14px;flex-wrap:wrap}
+.login .sites i{font-style:normal;font-size:11px;font-weight:600;letter-spacing:.5px;padding:5px 10px;border-radius:999px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.22);backdrop-filter:blur(4px)}
+.login .side{display:flex;flex-direction:column;justify-content:center;padding:48px 56px;color:#fff}
+.login .logo{width:100%;max-width:330px;height:auto;display:block;margin:0 0 34px -8px}
+.login h1{font-size:26px;margin:0 0 6px;font-weight:700}
+.login .sub{color:#9aa6c8;font-size:14px;margin-bottom:26px}
+.login label{font-size:12px;color:#9aa6c8;text-transform:uppercase;letter-spacing:.6px}
+.login input{width:100%;text-align:center;font-size:22px;letter-spacing:8px;margin:8px 0 14px;padding:12px;background:#10102e;border:1px solid #33357a;border-radius:10px;color:#fff;outline:none}
+.login input:focus{border-color:#2aa1e0;box-shadow:0 0 0 3px rgba(42,161,224,.25)}
+.login .btn{width:100%;padding:12px;font-size:15px;background:#2aa1e0;border-radius:10px}
+.login .btn:hover{background:#1e8ec9}
+.login .foot{margin-top:34px;font-size:11px;color:#6f7aa3;line-height:1.6}
+.err{color:#fca5a5;min-height:20px;font-size:13px;margin-top:10px}
+@media(max-width:860px){.login{grid-template-columns:1fr;grid-template-rows:38vh 1fr;overflow:auto}.login .photo{background-image:url(/assets/obra-hmrh.webp)}.login .photo::after{background:linear-gradient(0deg,#18183f 0%,rgba(24,24,63,0) 55%)}.login .cap{left:22px;bottom:14px}.login .cap b{font-size:18px}.login .side{padding:18px 24px 32px;justify-content:flex-start}.login .logo{max-width:230px;margin-bottom:20px}}
+form .grp{margin-bottom:14px}
+form .grp h4{margin:0 0 8px;font-size:12px;color:var(--acc);text-transform:uppercase;letter-spacing:.5px}
+.fgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:10px}
+.fgrid label{font-size:12px;color:var(--mut);display:flex;flex-direction:column;gap:4px}
+.fgrid input{width:100%}
+.warns{color:#fcd34d;font-size:13px}
+.preview{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0}
+.preview span{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:6px 10px;font-size:12px}
+.mat td,.mat th{text-align:center}.mat td:first-child,.mat th:first-child{text-align:left}
+.mat .chip{cursor:pointer}
+.kv{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:4px 16px;font-size:13px;margin:10px 0}
+.kv div{display:flex;justify-content:space-between;border-bottom:1px dashed #1c2847;padding:3px 0}
+.mut{color:var(--mut)}
+.toolbar{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-bottom:12px}
+</style>
+</head>
+<body>
+<div id="loginView" class="login hidden">
+  <div class="photo" role="img" aria-label="Vista aérea da obra do Hospital Militar Regional do Huambo">
+    <div class="cap"><b>Hospital Militar Regional do Huambo</b><span>Vista aérea da obra · VAMED Health Projects</span>
+      <div class="sites"><i>HMRC · CABINDA</i><i>HMRH · HUAMBO</i><i>HMRL · LUENA</i></div></div>
+  </div>
+  <div class="side">
+    <img class="logo" src="/assets/vamed-wwh-logo.png" alt="VAMED + WWH" width="560" height="328">
+    <h1>Portal HSE</h1>
+    <div class="sub">Indicadores de Segurança, Saúde e Ambiente dos três hospitais militares regionais.</div>
+    <label for="pinIn">PIN de acesso</label>
+    <input id="pinIn" type="password" inputmode="numeric" placeholder="••••••" autocomplete="off">
+    <button class="btn" id="loginBtn">Entrar</button>
+    <div class="err" id="loginErr"></div>
+    <div class="foot">Acesso reservado à equipa HSE da VAMED+WWH. Cada hospital tem o seu PIN.</div>
+  </div>
+</div>
+<div id="app" class="hidden">
+<header>
+  <div class="brand">Portal HSE · 3 Hospitais<small id="who"></small></div>
+  <div class="seg" id="tabs"></div>
+  <div class="seg" id="siteSeg"></div>
+  <select id="monthSel" title="Mês de referência"></select>
+  <button class="btn ghost" id="logoutBtn">Sair</button>
+</header>
+<main>
+  <section id="v-painel">
+    <div id="note" class="banner hidden"></div>
+    <div class="tiles" id="tiles"></div>
+    <div class="grid3">
+      <div class="panel"><h3>Checklist HSE (%) — por hospital</h3><div class="ch"><canvas id="c1"></canvas></div></div>
+      <div class="panel"><h3>Índice de frequência acumulado — calculado</h3><div class="ch"><canvas id="c6"></canvas></div></div>
+      <div class="panel"><h3>Trabalhadores — por hospital</h3><div class="ch"><canvas id="c2"></canvas></div></div>
+    </div>
+    <div class="grid3">
+      <div class="panel"><h3>Alcoolemia — testes e % positivos</h3><div class="ch"><canvas id="c3"></canvas></div></div>
+      <div class="panel"><h3>Formação — participações</h3><div class="ch"><canvas id="c4"></canvas></div></div>
+      <div class="panel"><div class="hrow"><h3>Consumos</h3><div class="seg sm" id="consSeg"></div></div><div class="ch" style="height:226px"><canvas id="c5"></canvas></div></div>
+    </div>
+    <div class="gridr">
+      <div class="panel"><h3 id="tRank"></h3><div id="rank" style="overflow-x:auto"></div></div>
+      <div class="panel"><h3 id="tStat"></h3><div id="status"></div></div>
+      <div class="panel"><h3 id="tChk"></h3><div id="checks"></div></div>
+    </div>
+  </section>
+  <section id="v-submeter" class="hidden">
+    <div class="panel">
+      <h3>Submissão mensal de indicadores HSE</h3>
+      <form id="subForm" autocomplete="off">
+        <div class="toolbar">
+          <select id="fSite"></select>
+          <input type="month" id="fMonth" required>
+          <input id="fSource" placeholder="Fonte (ex.: RM Nº 041 Rev.01)" style="min-width:240px">
+          <span id="fState"></span>
+        </div>
+        <div id="fGroups"></div>
+        <div class="grp"><h4>Observações</h4><textarea id="fNote" rows="3" style="width:100%" placeholder="Contexto relevante (ocorrências, desvios, pendentes)"></textarea></div>
+        <div class="preview" id="fPreview"></div>
+        <div class="warns" id="fWarn"></div>
+        <div class="toolbar" style="margin-top:10px"><button class="btn" id="fSubmit" type="submit">Submeter</button><span id="fMsg" class="mut"></span></div>
+      </form>
+    </div>
+  </section>
+  <section id="v-validar" class="hidden">
+    <div class="panel">
+      <div class="toolbar" style="justify-content:space-between"><h3 style="margin:0">Validação das submissões</h3><button class="btn ghost" id="csvBtn">Exportar CSV</button></div>
+      <div style="overflow-x:auto"><table class="mat" id="mat"></table></div>
+      <div id="drawer" style="margin-top:12px"></div>
+    </div>
+  </section>
+</main>
+</div>
+<script>
+const SITES=[{id:'cabinda',name:'HMRC · Cabinda',color:'#38bdf8'},{id:'huambo',name:'HMRH · Huambo',color:'#a78bfa'},{id:'luena',name:'HMRL · Luena',color:'#34d399'}];
+const SITE=Object.fromEntries(SITES.map(s=>[s.id,s]));
+const short=s=>s.name.split(' · ')[1];
+const FIELDS=[
+ {g:'Efectivo',k:'headcount',l:'Trabalhadores (efectivo do mês)',req:1},
+ {g:'Efectivo',k:'hours',l:'Horas trabalhadas'},
+ {g:'Sinistralidade',k:'acc',l:'Acidentes de trabalho',req:1},
+ {g:'Sinistralidade',k:'lostDays',l:'Dias perdidos'},
+ {g:'Sinistralidade',k:'ifq',l:'Índice de frequência acumulado (Quadro de Sinistralidade)',step:'0.01',d:2},
+ {g:'Controlo',k:'checklist',l:'Checklist HSE (%)',req:1,step:'0.01',d:2,max:100},
+ {g:'Controlo',k:'alcTests',l:'Testes de alcoolemia',req:1},
+ {g:'Controlo',k:'alcPos',l:'Testes positivos',req:1},
+ {g:'Controlo',k:'warnings',l:'Advertências'},
+ {g:'Formação',k:'trainActions',l:'Acções de formação'},
+ {g:'Formação',k:'trainPart',l:'Participações em formação',req:1},
+ {g:'Ambiente',k:'envInc',l:'Incidentes ambientais',req:1},
+ {g:'Ambiente',k:'water',l:'Água (m³)',step:'0.1',d:1},
+ {g:'Ambiente',k:'diesel',l:'Gasóleo (L)'},
+ {g:'Ambiente',k:'elec',l:'Electricidade (kWh)',step:'0.1',d:1},
+ {g:'Acumulados do relatório',k:'waterAcc',l:'Água — acumulado (m³)',step:'0.01',d:1},
+ {g:'Acumulados do relatório',k:'dieselAcc',l:'Gasóleo — acumulado (L)',step:'0.1',d:0},
+ {g:'Acumulados do relatório',k:'elecAcc',l:'Electricidade — acumulado (kWh)',step:'0.1',d:1}];
+// Quadros de Sinistralidade: totais desde o início de cada obra até ao mês anterior ao primeiro mês carregado no portal
+const BASE={cabinda:{from:'2025-08',start:'2023-10',h:452952,acc:0,dp:0},huambo:{from:'2025-09',start:'2023-06',h:960120,acc:1,dp:0},luena:{from:'2025-08',start:'2023-06',h:508680,acc:2,dp:3}};
+const HPW=216; // horas por trabalhador por mês usadas nos Quadros de Sinistralidade
+// Metas — ajustar aqui
+const TARGETS={checklist:95,acc:0,alcPct:0,envInc:0};
+const MESES=['Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set','Out','Nov','Dez'];
+const S={pin:null,role:null,site:null,data:[],idx:{},view:'painel',siteSel:'all',month:null,cons:'diesel',charts:{}};
+const $=s=>document.querySelector(s);
+const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+function ss(k,v){try{v==null?sessionStorage.removeItem(k):sessionStorage.setItem(k,v)}catch(e){}}
+function sg(k){try{return sessionStorage.getItem(k)}catch(e){return null}}
+async function api(p,opt={}){const r=await fetch('/api/'+p,{...opt,headers:{'content-type':'application/json','x-pin':S.pin||''}});const j=await r.json().catch(()=>({}));if(!r.ok)throw new Error(j.error||('Erro '+r.status));return j}
+const addM=(m,n)=>{let[y,mo]=m.split('-').map(Number);mo+=n;while(mo<1){mo+=12;y--}while(mo>12){mo-=12;y++}return y+'-'+String(mo).padStart(2,'0')};
+const mLab=m=>MESES[+m.slice(5)-1]+' '+m.slice(2,4);
+const nowM=()=>{const d=new Date();return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')};
+const fmt=(v,d=0)=>v==null||!isFinite(v)?'—':v.toLocaleString('pt-PT',{minimumFractionDigits:d,maximumFractionDigits:d});
+
+/* ---------- cálculo ---------- */
+const anyRec=(s,m)=>S.data.find(r=>r.site===s&&r.month===m);
+const rec=(s,m)=>S.idx[s+'|'+m];
+const last12=m=>Array.from({length:12},(_,i)=>addM(m,i-11));
+function sm(k,sites,m){let t=null;sites.forEach(s=>{const v=rec(s,m)?.kpi[k];if(v!=null)t=(t||0)+Number(v)});return t}
+function val(k,sites,m){
+ if(k==='checklist'){const a=sites.map(s=>rec(s,m)?.kpi.checklist).filter(v=>v!=null);return a.length?a.reduce((x,y)=>x+y,0)/a.length:null}
+ if(k==='alcPct'){const t=sm('alcTests',sites,m),p=sm('alcPos',sites,m);return t>0&&p!=null?p/t*100:null}
+ if(k==='acc12'){let t=null;last12(m).forEach(x=>{const v=sm('acc',sites,x);if(v!=null)t=(t||0)+v});return t}
+ if(k==='ifc')return cum(sites,m).ifq;
+ return sm(k,sites,m)}
+const mDiff=(a,b)=>(+b.slice(0,4)-+a.slice(0,4))*12+(+b.slice(5)-+a.slice(5));
+/* Sinistralidade acumulada desde o início da obra; um hospital só entra se tiver horas em todos os meses até m */
+function cum(sites,m){let h=0,acc=0,dp=0;const out=[],inn=[];sites.forEach(s=>{const b=BASE[s];let sh=b.h,sa=b.acc,sd=b.dp,ok=mDiff(b.from,m)>=0;for(let x=b.from;ok&&mDiff(x,m)>=0;x=addM(x,1)){const k=rec(s,x)?.kpi;if(!k||k.hours==null||k.acc==null){ok=false;break}sh+=k.hours;sa+=k.acc;sd+=k.lostDays||0}if(ok){h+=sh;acc+=sa;dp+=sd;inn.push(s)}else out.push(s)});
+ return{ok:inn.length>0,inn,out,h,acc,dp,ifq:inn.length&&h>0?acc*1e6/h:null,ig:inn.length&&h>0?dp*1e3/h:null}}
+const med=a=>{const b=a.slice().sort((x,y)=>x-y),n=b.length;return n?(n%2?b[(n-1)/2]:(b[n/2-1]+b[n/2])/2):null};
+function checks(s,m){const r=rec(s,m);if(!r)return[];const k=r.kpi,p=rec(s,addM(m,-1))?.kpi,o=[];const E=t=>o.push({e:1,t}),W=t=>o.push({e:0,t});
+ if(k.alcPos!=null&&k.alcTests!=null&&k.alcPos>k.alcTests)E('Positivos de alcoolemia acima do total de testes.');
+ if(k.checklist>100)E('Checklist acima de 100%.');
+ if(k.acc===0&&k.lostDays>0)W('Dias perdidos sem acidente no mês.');
+ if(k.hours==null)W('Sem horas trabalhadas: o índice de frequência não pode ser calculado.');
+ else if(k.headcount!=null&&k.hours!==k.headcount*HPW)W(`Horas (${fmt(k.hours)}) diferentes de trabalhadores × ${HPW} (${fmt(k.headcount*HPW)}), a regra do Quadro de Sinistralidade.`);
+ const c=cum([s],m);if(k.ifq!=null&&c.ifq!=null&&Math.abs(k.ifq-c.ifq)>0.0051)E(`Índice de frequência acumulado do relatório (${fmt(k.ifq,2)}) não bate com o calculado (${fmt(c.ifq,2)}: ${c.acc} acidentes em ${fmt(c.h)} horas).`);
+ const n=mDiff(BASE[s].start,m)+1;
+ [['water','waterAcc','Água'],['diesel','dieselAcc','Gasóleo'],['elec','elecAcc','Electricidade']].forEach(([a,b,l])=>{
+  if(k[b]!=null&&k[a]!=null&&p&&p[b]!=null&&Math.abs(p[b]+k[a]-k[b])>0.6)E(`${l}: acumulado anterior + mês = ${fmt(p[b]+k[a],1)}, mas o relatório diz ${fmt(k[b],1)}.`);
+  const hist=[];for(let i=0;i<12;i++){const v=rec(s,addM(m,-i))?.kpi[a];if(v!=null)hist.push(v)}
+  if(k[b]!=null&&hist.length){const tot=hist.reduce((x,y)=>x+y,0),md=med(hist.filter(v=>v>0));
+   if(tot>k[b]+0.6)E(`${l}: acumulado do relatório (${fmt(k[b],1)}) é inferior à soma dos últimos ${hist.length} meses (${fmt(tot,1)}).`);
+   else if(md&&k[b]/n>15*md)E(`${l}: acumulado do relatório (${fmt(k[b],1)}) implausível — dá ${fmt(k[b]/n)} por mês em ${n} meses de obra, contra ${fmt(md)} habituais.`)}
+  if(k[a]!=null){const nb=[];for(let i=-3;i<=3;i++){if(!i)continue;const v=rec(s,addM(m,i))?.kpi[a];if(v!=null)nb.push(v)}const mn=med(nb);
+   if(nb.length>=3&&mn>0&&k[a]>3*mn&&k[a]-mn>100)W(`${l} (${fmt(k[a],1)}) é mais de 3× a mediana dos meses vizinhos (${fmt(mn,1)}).`);
+   if(p&&k[a]>0&&k[a]===p[a])W(`${l} igual ao mês anterior (${fmt(k[a],1)}) — confirmar que não foi copiado.`)}});
+ if(p&&k.headcount>0&&k.headcount===p.headcount&&k.trainPart===p.trainPart&&k.alcTests===p.alcTests)W('Trabalhadores, formação e alcoolemia iguais ao mês anterior — confirmar que não foi copiado.');
+ if(r.flag==='estimado')W('Valores estimados, sem relatório mensal de suporte.');if(r.flag==='parcial')W('Mês parcial.');if(r.flag==='sem-fonte')W('Por confirmar contra o relatório mensal final.');
+ return o}
+const nErr=(s,m)=>checks(s,m).filter(c=>c.e).length;
+function score(site,m){const r=rec(site,m);if(!r||r.kpi.checklist==null)return null;const parts=[[Math.min(r.kpi.checklist,100),.6]];if(r.kpi.acc!=null)parts.push([r.kpi.acc===0?100:0,.2]);const ap=val('alcPct',[site],m);if(ap!=null)parts.push([Math.max(0,100-10*ap),.2]);const w=parts.reduce((a,p)=>a+p[1],0);return Math.round(parts.reduce((a,p)=>a+p[0]*p[1],0)/w)}
+const selSites=()=>S.siteSel==='all'?SITES.map(s=>s.id):[S.siteSel];
+function stInfo(r){if(!r)return{c:'falta',t:'Em falta'};if(r.status==='validado')return{c:'validado',t:'Validado'};if(r.status==='devolvido')return{c:'devolvido',t:'Devolvido'};return{c:'submetido',t:{estimado:'Estimado · por validar',parcial:'Mês parcial · por validar','sem-fonte':'Sem RM · por validar'}[r.flag]||'Por validar'}}
+
+/* ---------- arranque ---------- */
+async function enter(){const a=await api('login',{method:'POST'});S.role=a.role;S.site=a.site||null;await loadData()}
+async function start(){S.pin=sg('hsePin');if(!S.pin)return showLogin();try{await enter();showApp()}catch(e){ss('hsePin',null);showLogin(e.message)}}
+function showLogin(msg){$('#app').classList.add('hidden');$('#loginView').classList.remove('hidden');$('#loginErr').textContent=msg||'';$('#pinIn').focus()}
+$('#loginBtn').onclick=async()=>{S.pin=$('#pinIn').value.trim();if(!S.pin)return;try{await enter();ss('hsePin',S.pin);$('#loginView').classList.add('hidden');showApp()}catch(e){$('#loginErr').textContent=e.message}};
+$('#pinIn').onkeydown=e=>{if(e.key==='Enter')$('#loginBtn').click()};
+$('#logoutBtn').onclick=()=>{ss('hsePin',null);location.reload()};
+async function loadData(){const r=await api('data');S.data=r.records||[];S.idx={};S.data.forEach(x=>{if(x.status!=='devolvido')S.idx[x.site+'|'+x.month]=x});
+ const ms=allMonths();if(!S.month||!ms.includes(S.month))S.month=ms[ms.length-1]||addM(nowM(),-1)}
+const allMonths=()=>[...new Set(S.data.map(r=>r.month))].sort();
+
+function showApp(){$('#app').classList.remove('hidden');
+ $('#who').textContent={admin:'Coordenador HSE (administrador)',site:'HSE '+(S.site?SITE[S.site].name:''),viewer:'Consulta'}[S.role];
+ const tabs=[['painel','Painel']];if(S.role!=='viewer')tabs.push(['submeter','Submeter']);if(S.role==='admin')tabs.push(['validar','Validação']);
+ $('#tabs').innerHTML=tabs.map(([k,l])=>`<button data-v="${k}">${l}</button>`).join('');
+ $('#tabs').querySelectorAll('button').forEach(b=>b.onclick=()=>{S.view=b.dataset.v;render()});
+ $('#siteSeg').innerHTML=`<button data-s="all">Todos</button>`+SITES.map(s=>`<button data-s="${s.id}">${short(s)}</button>`).join('');
+ $('#siteSeg').querySelectorAll('button').forEach(b=>b.onclick=()=>{S.siteSel=b.dataset.s;render()});
+ $('#consSeg').innerHTML=[['diesel','Gasóleo'],['water','Água'],['elec','Electricidade']].map(([k,l])=>`<button data-c="${k}">${l}</button>`).join('');
+ $('#consSeg').querySelectorAll('button').forEach(b=>b.onclick=()=>{S.cons=b.dataset.c;render()});
+ $('#monthSel').onchange=e=>{S.month=e.target.value;render()};
+ if(S.role==='site')S.siteSel=S.site;
+ buildForm();render()}
+
+function render(){
+ $('#tabs').querySelectorAll('button').forEach(b=>b.classList.toggle('on',b.dataset.v===S.view));
+ $('#siteSeg').querySelectorAll('button').forEach(b=>b.classList.toggle('on',b.dataset.s===S.siteSel));
+ $('#consSeg').querySelectorAll('button').forEach(b=>b.classList.toggle('on',b.dataset.c===S.cons));
+ $('#monthSel').innerHTML=allMonths().reverse().map(m=>`<option value="${m}" ${m===S.month?'selected':''}>${mLab(m)}</option>`).join('');
+ ['painel','submeter','validar'].forEach(v=>$('#v-'+v).classList.toggle('hidden',v!==S.view));
+ $('#siteSeg').classList.toggle('hidden',S.view!=='painel');$('#monthSel').classList.toggle('hidden',S.view!=='painel');
+ if(S.view==='painel')renderPainel();if(S.view==='validar')renderValidar();if(S.view==='submeter')fillForm()}
+
+/* ---------- painel ---------- */
+if(window.Chart){Chart.defaults.color='#8592b0';Chart.defaults.borderColor='#1c2847';Chart.defaults.font.family='Inter,system-ui,sans-serif';Chart.defaults.font.size=11;}
+function spark(v,color){const nn=v.filter(x=>x!=null);if(nn.length<2)return'';const mn=Math.min(...nn),mx=Math.max(...nn),w=90,h=26;const pts=v.map((x,i)=>x==null?null:[(i*(w/(v.length-1))).toFixed(1),(h-2-((x-mn)/((mx-mn)||1))*(h-4)).toFixed(1)]).filter(Boolean);return`<svg width="${w}" height="${h}"><polyline fill="none" stroke="${color}" stroke-width="1.6" points="${pts.map(p=>p.join(',')).join(' ')}"/></svg>`}
+const TILES=[
+ {k:'headcount',l:'Trabalhadores',d:0},
+ {k:'checklist',l:'Checklist HSE',d:2,better:'up',t:TARGETS.checklist,p:1},
+ {k:'acc',l:'Acidentes de trabalho',d:0,better:'down',t:TARGETS.acc,sub:(s,m)=>'12 meses: '+fmt(val('acc12',s,m))},
+ {k:'alcTests',l:'Testes de alcoolemia',d:0,better:'up'},
+ {k:'alcPct',l:'Alcoolemia positivos',d:2,better:'down',t:TARGETS.alcPct,p:1},
+ {k:'trainPart',l:'Participações em formação',d:0,better:'up'},
+ {k:'envInc',l:'Incidentes ambientais',d:0,better:'down',t:TARGETS.envInc},
+ {k:'ifc',l:'Índice de frequência acumulado',d:2,better:'down',sub:(s,m)=>{const c=cum(s,m);return c.out.length&&c.inn.length?'sem '+c.out.map(x=>short(SITE[x])).join(', '):c.inn.length?fmt(c.acc)+' acid. / '+fmt(c.h/1e6,2)+' M h':'sem horas'}}];
+function mk(id,cfg){if(!window.Chart)return;S.charts[id]?.destroy();S.charts[id]=new Chart($('#'+id),cfg)}
+const line=(label,data,color,w=1.8,extra={})=>({label,data,borderColor:color,backgroundColor:color+'22',borderWidth:w,pointRadius:2,pointHoverRadius:4,tension:.3,spanGaps:true,...extra});
+const target=(label,v,n)=>({label,data:Array(n).fill(v),borderColor:'#fbbf24',borderDash:[6,4],borderWidth:1.4,pointRadius:0,fill:false});
+const leg={position:'bottom',labels:{boxWidth:10,usePointStyle:true}};
+const tip=d=>({callbacks:{label:c=>c.dataset.label+': '+fmt(c.parsed.y,d)}});
+function renderPainel(){
+ const sites=selSites(),m=S.month,months=last12(m),prev=addM(m,-1),labels=months.map(mLab),all=S.siteSel==='all',shown=SITES.filter(s=>sites.includes(s.id));
+ const notes=[];shown.forEach(s=>{const r=rec(s.id,m);if(!r)notes.push(short(s)+' sem dados em '+mLab(m));else if(r.flag==='parcial')notes.push(short(s)+': mês parcial');else if(r.flag==='estimado')notes.push(short(s)+': valores estimados')});
+ $('#note').classList.toggle('hidden',!notes.length);$('#note').textContent=notes.join(' · ')+(all&&notes.length?' — os totais consolidados só incluem o que foi reportado.':'');
+ $('#tiles').innerHTML=TILES.map(t=>{const v=val(t.k,sites,m),pv=val(t.k,sites,prev);let dh='<span class="d neu">—</span>';
+  if(v!=null&&pv!=null){const diff=v-pv;const good=t.better==='up'?diff>=0:diff<=0;const shownD=t.p?fmt(Math.abs(diff),2)+' pp':(pv?fmt(Math.abs(diff/pv*100),1)+'%':fmt(Math.abs(diff),t.d));dh=`<span class="d ${diff===0||!t.better?'neu':good?'good':'bad'}">${diff>0?'▲':diff<0?'▼':'■'} ${shownD}</span>`}
+  const meet=t.t!=null&&v!=null?(t.better==='up'?v>=t.t:v<=t.t):null;const col=meet==null?'#60a5fa':meet?'#22c55e':'#ef4444';
+  const foot=t.sub?t.sub(sites,m):t.t!=null?'meta '+(t.better==='up'?'≥ ':t.t===0?'':'≤ ')+fmt(t.t)+(t.p?'%':''):'vs mês anterior';
+  return`<div class="panel tile"><div class="lab">${t.l}</div><div class="row"><div class="val" style="color:${meet===false?'#fca5a5':'inherit'}">${fmt(v,t.d)}${t.p&&v!=null?'%':''}</div>${spark(months.map(x=>val(t.k,sites,x)),col)}</div><div class="row">${dh}<span class="tg">${foot}</span></div></div>`}).join('');
+ const ds=shown.map(s=>line(s.name,months.map(x=>val('checklist',[s.id],x)),s.color,all?1.8:2.5));if(all)ds.push(line('Média',months.map(x=>val('checklist',sites,x)),'#e6ebf5',2.5));ds.push(target('Meta '+TARGETS.checklist+'%',TARGETS.checklist,months.length));
+ mk('c1',{type:'line',data:{labels,datasets:ds},options:{maintainAspectRatio:false,interaction:{mode:'index',intersect:false},plugins:{legend:leg,tooltip:tip(2)},scales:{y:{suggestedMin:85,max:100,grid:{color:'#16203b'}},x:{grid:{display:false}}}}});
+ const stack=k=>({type:'bar',data:{labels,datasets:shown.map(s=>({label:s.name,data:months.map(x=>val(k,[s.id],x)),backgroundColor:s.color+'cc',borderRadius:3}))},options:{maintainAspectRatio:false,interaction:{mode:'index',intersect:false},plugins:{legend:leg,tooltip:tip(0)},scales:{y:{stacked:true,beginAtZero:true,grid:{color:'#16203b'}},x:{stacked:true,grid:{display:false}}}}});
+ mk('c2',stack('headcount'));mk('c4',stack('trainPart'));
+ const d6=shown.map(s=>line(s.name,months.map(x=>cum([s.id],x).ifq),s.color,all?1.8:2.5));if(all)d6.push(line('3 hospitais',months.map(x=>{const c=cum(sites,x);return c.out.length?null:c.ifq}),'#e6ebf5',2.5));
+ mk('c6',{type:'line',data:{labels,datasets:d6},options:{maintainAspectRatio:false,interaction:{mode:'index',intersect:false},plugins:{legend:leg,tooltip:tip(2)},scales:{y:{beginAtZero:true,grid:{color:'#16203b'}},x:{grid:{display:false}}}}});
+ mk('c3',{data:{labels,datasets:[{type:'bar',label:'Testes',data:months.map(x=>val('alcTests',sites,x)),backgroundColor:'#60a5fa99',borderRadius:3,yAxisID:'y'},{type:'line',...line('% positivos',months.map(x=>val('alcPct',sites,x)),'#f87171',2),yAxisID:'y1'}]},options:{maintainAspectRatio:false,interaction:{mode:'index',intersect:false},plugins:{legend:leg,tooltip:tip(2)},scales:{y:{beginAtZero:true,grid:{color:'#16203b'}},y1:{position:'right',beginAtZero:true,suggestedMax:5,grid:{display:false},ticks:{callback:v=>v+'%'}},x:{grid:{display:false}}}}});
+ mk('c5',{type:'line',data:{labels,datasets:shown.map(s=>line(s.name,months.map(x=>val(S.cons,[s.id],x)),s.color))},options:{maintainAspectRatio:false,interaction:{mode:'index',intersect:false},plugins:{legend:leg,tooltip:tip(1)},scales:{y:{beginAtZero:true,grid:{color:'#16203b'}},x:{grid:{display:false}}}}});
+ $('#tRank').textContent='Classificação dos hospitais · '+mLab(m);
+ const rk=SITES.map(s=>({s,sc:score(s.id,m),k:rec(s.id,m)?.kpi||{},a12:val('acc12',[s.id],m),ap:val('alcPct',[s.id],m),tr:months.map(x=>val('checklist',[s.id],x))})).sort((a,b)=>(b.sc??-1)-(a.sc??-1));
+ $('#rank').innerHTML=`<table><tr><th>#</th><th>Hospital</th><th>Checklist 12m</th><th>Índice</th><th>Checklist</th><th>Trab.</th><th>Acid. 12m</th><th>Alc. +</th><th>IF acum.</th></tr>${rk.map((r,i)=>`<tr class="${S.siteSel===r.s.id?'sel':''}"><td>${i+1}</td><td><span class="dot" style="background:${r.s.color}"></span>${short(r.s)}</td><td>${spark(r.tr,r.s.color)}</td><td><b>${fmt(r.sc)}</b></td><td>${fmt(r.k.checklist,2)}${r.k.checklist!=null?'%':''}</td><td>${fmt(r.k.headcount)}</td><td>${fmt(r.a12)}</td><td>${fmt(r.ap,2)}${r.ap!=null?'%':''}</td><td>${fmt(cum([r.s.id],m).ifq,2)}</td></tr>`).join('')}</table><div class="mut" style="font-size:11px;margin-top:8px">Índice (0–100) = 60% checklist + 20% zero acidentes no mês + 20% alcoolemia (perde 10 pontos por cada 1% de positivos); componentes sem dados ficam de fora. IF acum. = acidentes × 1 000 000 ÷ horas trabalhadas desde o início da obra, calculado pelo portal a partir dos Quadros de Sinistralidade (horas = trabalhadores × ${HPW}, uma estimativa fixa).</div>`;
+ $('#tStat').textContent='Estado dos dados · '+mLab(m);
+ $('#status').innerHTML=SITES.map(s=>{const r=anyRec(s.id,m),i=stInfo(r);return`<div class="statusrow"><span><span class="dot" style="background:${s.color}"></span>${s.name}</span><span class="chip st-${i.c}">${i.t}</span></div><div class="src">${r?esc(r.source||'')+(r.status==='devolvido'&&r.reviewNote?' — '+esc(r.reviewNote):r.note?' — '+esc(r.note):''):'Nenhum registo para este mês.'}</div>`}).join('');
+ $('#tChk').textContent='Controlo de coerência · '+mLab(m);
+ $('#checks').innerHTML=shown.map(s=>{const c=checks(s.id,m);return`<div class="ck"><b><span class="dot" style="background:${s.color}"></span>${short(s)}</b>${!rec(s.id,m)?' <span class="mut">sem registo</span>':c.length?'':' <span style="color:var(--ok)">sem incoerências detectadas</span>'}</div>`+c.map(x=>`<div class="ck ${x.e?'e':'w'}">${x.e?'✖':'⚠'} ${esc(x.t)}</div>`).join('')}).join('')}
+
+/* ---------- submeter ---------- */
+function buildForm(){
+ const allowed=S.role==='admin'?SITES:SITES.filter(s=>s.id===S.site);
+ $('#fSite').innerHTML=allowed.map(s=>`<option value="${s.id}">${s.name}</option>`).join('');$('#fSite').disabled=allowed.length===1;
+ $('#fMonth').value=addM(nowM(),-1);$('#fMonth').max=nowM();
+ $('#fGroups').innerHTML=[...new Set(FIELDS.map(f=>f.g))].map(g=>`<div class="grp"><h4>${g}</h4><div class="fgrid">${FIELDS.filter(f=>f.g===g).map(f=>`<label>${f.l}${f.req?' *':''}<input type="number" min="0" ${f.max?'max="'+f.max+'"':''} step="${f.step||'1'}" id="f_${f.k}" ${f.req?'required':'placeholder="opcional"'}></label>`).join('')}</div></div>`).join('');
+ $('#fSite').onchange=fillForm;$('#fMonth').onchange=fillForm;$('#fGroups').oninput=preview;$('#subForm').onsubmit=submitForm}
+function fillForm(){
+ const r=anyRec($('#fSite').value,$('#fMonth').value);
+ FIELDS.forEach(f=>$('#f_'+f.k).value=r&&r.kpi[f.k]!=null?r.kpi[f.k]:'');$('#fNote').value=r?.note||'';$('#fSource').value=r&&!r.seed?r.source||'':'';
+ const i=stInfo(r);$('#fState').innerHTML=`<span class="chip st-${i.c}">${r?i.t:'Ainda não submetido'}</span>${r?.reviewNote?` <span class="mut">${esc(r.reviewNote)}</span>`:''}`;
+ const locked=r?.status==='validado'&&S.role!=='admin';
+ $('#subForm').querySelectorAll('#fGroups input,#fNote,#fSource').forEach(x=>x.disabled=locked);$('#fSubmit').disabled=locked;
+ $('#fSubmit').textContent=r?'Ressubmeter':'Submeter';$('#fMsg').textContent=locked?'Mês validado — só o coordenador HSE pode reabrir.':'';preview()}
+function formVals(){const k={};FIELDS.forEach(f=>{const v=$('#f_'+f.k).value;k[f.k]=v===''?null:Number(v)});return k}
+function preview(){const k=formVals();
+ $('#fPreview').innerHTML=[['Alcoolemia +',k.alcTests>0&&k.alcPos!=null?fmt(k.alcPos/k.alcTests*100,2)+'%':'—'],['Formação / trabalhador',k.headcount>0&&k.trainPart!=null?fmt(k.trainPart/k.headcount,1):'—'],['Horas / trabalhador',k.headcount>0&&k.hours!=null?fmt(k.hours/k.headcount):'—']].map(([a,b])=>`<span>${a}: <b>${b}</b></span>`).join('');
+ const w=[];if(k.alcPos>k.alcTests)w.push('Positivos acima do total de testes — erro.');if(k.checklist>100)w.push('Checklist acima de 100% — erro.');if(k.acc===0&&k.lostDays>0)w.push('Dias perdidos sem acidente no mês — confirmar.');if(k.headcount&&k.hours&&(k.hours/k.headcount<120||k.hours/k.headcount>320))w.push('Horas por trabalhador fora do intervalo normal (120–320 h/mês) — confirmar.');if(k.alcTests===0)w.push('Zero testes de alcoolemia — confirmar que é real e não omissão.');
+ $('#fWarn').innerHTML=w.map(x=>'⚠ '+x).join('<br>');return w}
+async function submitForm(e){e.preventDefault();const k=formVals();preview();if(k.alcPos>k.alcTests||k.checklist>100){$('#fMsg').textContent='Corrija os erros antes de submeter.';return}
+ $('#fSubmit').disabled=true;$('#fMsg').textContent='A gravar…';
+ try{await api('submit',{method:'POST',body:JSON.stringify({site:$('#fSite').value,month:$('#fMonth').value,kpi:k,note:$('#fNote').value,source:$('#fSource').value})});await loadData();fillForm();$('#fMsg').textContent='✔ Submetido com sucesso.'}
+ catch(err){$('#fMsg').textContent='✖ '+err.message;$('#fSubmit').disabled=false}}
+
+/* ---------- validar ---------- */
+let selCell=null;
+function renderValidar(){
+ $('#mat').innerHTML=`<tr><th>Mês</th>${SITES.map(s=>`<th>${s.name}</th>`).join('')}</tr>`+allMonths().reverse().map(m=>`<tr><td>${mLab(m)}</td>${SITES.map(s=>{const i=stInfo(anyRec(s.id,m));return`<td><span class="chip st-${i.c}" data-s="${s.id}" data-m="${m}">${i.c==='falta'?'—':i.t}${nErr(s.id,m)?' · '+nErr(s.id,m)+'✖':''}</span></td>`}).join('')}</tr>`).join('');
+ $('#mat').querySelectorAll('.chip').forEach(c=>c.onclick=()=>{selCell={s:c.dataset.s,m:c.dataset.m};drawer()});drawer()}
+function drawer(){const d=$('#drawer');if(!selCell){d.innerHTML='<div class="mut">Toque num estado para ver e validar o registo.</div>';return}
+ const r=anyRec(selCell.s,selCell.m);if(!r){d.innerHTML=`<div class="mut">${SITE[selCell.s].name} · ${mLab(selCell.m)}: sem registo.</div>`;return}
+ const i=stInfo(r);
+ d.innerHTML=`<div class="panel"><h3>${SITE[r.site].name} · ${mLab(r.month)} <span class="chip st-${i.c}">${i.t}</span></h3>
+ <div class="mut">Fonte: ${esc(r.source||'—')}${r.seed?' (histórico importado)':''}</div>
+ <div class="kv">${FIELDS.map(f=>`<div><span class="mut">${f.l}</span><b>${fmt(r.kpi[f.k],f.d||0)}</b></div>`).join('')}</div>
+ ${r.note?`<div><span class="mut">Observações:</span> ${esc(r.note)}</div>`:''}
+ ${checks(r.site,r.month).map(x=>`<div class="ck ${x.e?'e':'w'}">${x.e?'✖':'⚠'} ${esc(x.t)}</div>`).join('')}
+ <div class="mut" style="font-size:12px;margin:6px 0">${(r.history||[]).map(h=>`${new Date(h.at).toLocaleString('pt-PT')} — ${esc(h.by)}: ${esc(h.action)}${h.note?' ('+esc(h.note)+')':''}`).join('<br>')}</div>
+ <textarea id="revNote" rows="2" style="width:100%" placeholder="Nota para o site (obrigatória ao devolver)"></textarea>
+ <div class="toolbar" style="margin-top:8px">${r.status!=='validado'?'<button class="btn ok" data-a="validar">Validar</button>':''}<button class="btn bad" data-a="devolver">Devolver para correcção</button>${r.status==='validado'?'<button class="btn ghost" data-a="reabrir">Reabrir</button>':''}<span class="mut" id="revMsg"></span></div></div>`;
+ d.querySelectorAll('[data-a]').forEach(b=>b.onclick=async()=>{const note=$('#revNote').value.trim();if(b.dataset.a==='devolver'&&!note){$('#revMsg').textContent='Escreva o motivo da devolução.';return}
+  try{$('#revMsg').textContent='A gravar…';await api('validate',{method:'POST',body:JSON.stringify({site:r.site,month:r.month,action:b.dataset.a,note})});await loadData();renderValidar()}catch(e){$('#revMsg').textContent='✖ '+e.message}})}
+$('#csvBtn').onclick=()=>{const q=s=>'"'+String(s||'').replace(/"/g,'""')+'"';const h=['hospital','mes','estado','fonte',...FIELDS.map(f=>f.k),'observacoes'];const rows=S.data.slice().sort((a,b)=>(a.month+a.site).localeCompare(b.month+b.site)).map(r=>[SITE[r.site].name,r.month,stInfo(r).t,q(r.source),...FIELDS.map(f=>r.kpi[f.k]??''),q(r.note)]);
+ const a=document.createElement('a');a.href=URL.createObjectURL(new Blob(['﻿'+[h,...rows].map(r=>r.join(';')).join('\n')],{type:'text/csv'}));a.download='hse_3_hospitais.csv';a.click()};
+start();
+</script>
+</body>
+</html>

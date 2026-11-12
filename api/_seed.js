@@ -1,0 +1,48 @@
+// Histórico importado dos relatórios mensais e Quadros de Sinistralidade (repo HMRH-dashboard). Submissões no portal substituem estes registos.
+const K=["headcount","hours","acc","lostDays","ifq","checklist","alcTests","alcPos","warnings","trainActions","trainPart","envInc","water","diesel","elec","waterAcc","dieselAcc","elecAcc"];
+const SITE={c:'cabinda',h:'huambo',l:'luena'},FLAG={r:'rm',e:'estimado',s:'sem-fonte',p:'parcial'};
+const SRC={'@E':"Estimativa do dashboard anterior, sem relatório mensal de suporte",'@S':"Valor do dashboard anterior, sem referência a relatório mensal",'@Q':"Efectivo e horas do Quadro de Sinistralidade; restantes valores sem referência a relatório mensal"};
+const ROWS=[
+["c","2025-08","e","@E",202,43632,0,0,null,96,85,0,null,null,3100,0,340,14200,2900,null,null,null],
+["c","2025-09","r","RM Nº 024",196,42336,0,0,null,96.19,79,0,null,null,2888,0,326,13895,2746,null,null,null],
+["c","2025-10","e","@E",161,34776,0,0,null,96.5,75,0,null,null,2600,0,310,13200,2600,null,null,null],
+["c","2025-11","e","@E",159,34344,0,0,null,96.8,68,0,null,null,2100,0,280,11800,2350,null,null,null],
+["c","2025-12","e","@E",131,28296,0,0,null,97,58,0,null,null,1600,0,245,10400,2100,null,null,null],
+["c","2026-01","r","RM Nº 028 Rev.01",130,28080,0,0,0,94.29,82,0,null,12,786,0,148,10349,1372.8,null,null,null],
+["c","2026-02","r","RM Nº 029 Rev.01",126,27216,1,0,1.45,94.34,74,0,null,23,1397,0,122,8215,2534.4,null,null,null,"1 acidente conforme o Quadro de Sinistralidade (o RM029 indica 0)."],
+["c","2026-03","r","RM Nº 030 Rev.01",104,22464,0,0,1.4,96.23,94,0,null,21,1457,1,116,9340,2851.2,null,null,null],
+["c","2026-04","r","RM Nº 031 Rev.01",91,19656,0,0,1.36,96.23,114,2,null,null,1635,0,92,8142,2741.6,3278.6,403207,57192.4],
+["c","2026-05","r","RM Nº 032 Rev.01",93,20088,0,0,1.33,96.23,85,0,null,null,1332,0,78,7546,2428.8,null,null,null],
+["c","2026-06","r","RM Nº 033 Rev.01",71,15336,0,0,1.3,96.23,77,0,null,20,982,0,64,5784,1982.4,3420.6,416537,61603.6],
+["c","2026-07","r","RM Nº 034 Rev.01",46,9936,0,0,1.28,98.1,62,0,null,25,503,0,52,5866,1977.2,3472.6,422403,63580.8],
+["c","2026-08","r","RM Nº 035 Rev.01",25,5400,0,0,1.27,96.23,22,0,null,22,163,0,14,3245,1852.7,null,null,null],
+["c","2026-09","r","RM Nº 036 Rev.01",15,3240,0,0,1.27,96.23,0,0,null,2,8,0,7.6,465,1788.3,null,null,null],
+["c","2026-10","r","RM Nº 037 Rev.01",11,2376,0,0,1.27,98.11,5,0,null,2,7,0,8.8,0,1647.5,null,null,null],
+["h","2025-09","s","@Q",219,47304,0,0,null,98.15,420,0,null,null,667,0,462,1100,3344,null,null,null],
+["h","2025-10","s","@Q",212,45792,0,0,null,98.11,362,3,null,null,671,0,479,3070,1597,null,null,null],
+["h","2025-11","s","@Q",221,47736,0,0,null,91,300,3,null,null,383,0,367,1109,7350,null,null,null,"Electricidade 7 350 kWh é cerca de 4x os meses vizinhos; gasóleo igual a Dezembro. Confirmar."],
+["h","2025-12","s","@Q",206,44496,0,0,null,98.1,0,0,null,null,587,0,428,1109,2841,null,null,null,"Efectivo corrigido de 208 para 206, conforme o Quadro de Sinistralidade."],
+["h","2026-01","s","@Q",182,39312,0,0,null,98.1,0,0,null,null,375,0,291,728,2012,null,null,null],
+["h","2026-02","s","@Q",232,50112,0,0,null,94.3,180,0,null,null,524,0,514,1038,1634,null,null,null],
+["h","2026-03","s","@Q",229,49464,0,0,null,95.5,195,0,null,null,480,0,510,1050,1680,null,null,null,"Efectivo corrigido de 248 para 229, conforme o Quadro de Sinistralidade."],
+["h","2026-04","s","@Q",207,44712,0,0,null,100,90,4,4,null,475,0,410,1020,1783.2,null,null,null],
+["h","2026-05","r","RM Nº 036 Rev.02",192,41256,0,0,null,98.1,95,1,4,null,424,0,528,1033,1995,997367,5081,223691777,"O RM indica 192 trabalhadores; o Quadro de Sinistralidade indica 191 (horas calculadas sobre 191)."],
+["h","2026-06","r","RM Nº 037 Rev.01",171,36936,1,0,null,98.11,316,5,5,21,395,0,469,1412,1672.2,null,null,null,"1 acidente em trajecto, não mortal, 0 dias perdidos. Horas obtidas por diferença entre os acumulados do RM038 e do Quadro do RM036."],
+["h","2026-07","r","RM Nº 038 Rev.01",157,33912,0,0,1.39,98.1,0,0,0,19,277,0,469,660,2613,998305,7153,2236937,"Zero testes de alcoolemia é real, não omissão."],
+["h","2026-08","r","RM Nº 039 Rev.01",169,36504,0,0,0.68,100,440,5,5,17,343,0,490,450,1810,998795,7603,2238747,"Acidentes acumulados: o Quadro do RM039 dá 1, o do RM038 dava 2. Por confirmar. Horas acumuladas do RM039 (1 477 008) não fecham com RM038 + mês (1 477 656)."],
+["h","2026-09","s","RM Nº 040 Rev.01 (rascunho de 24/09)",158,null,0,null,null,100,20,0,0,null,300,0,140,520,538,998935,8123,2239285,"Sem Quadro de Sinistralidade do RM040: índices e acidentes acumulados por confirmar."],
+["h","2026-10","p","Fontes de 1 a 15/10 (sem RM Nº 041)",130,null,null,null,null,null,240,0,null,null,236,null,null,520,472,null,null,null,"Mês parcial. Checklist, água, incidentes ambientais e acidentes sem fonte."],
+["l","2025-08","e","@E",207,44712,0,0,null,95,155,0,null,null,280,0,0,2850,0,null,null,null],
+["l","2025-09","e","@E",105,22680,0,0,null,95.5,78,0,null,null,148,0,0,1820,0,null,null,null],
+["l","2025-10","e","@E",95,20520,0,0,null,95.8,70,0,null,null,126,0,0,1640,0,null,null,null],
+["l","2025-11","e","@E",57,12312,0,0,null,96,42,0,null,null,76,0,0,960,0,null,null,null],
+["l","2025-12","r","RM Nº 031",22,4752,0,0,null,100,0,0,null,null,10,0,0,380,0,null,null,null],
+["l","2026-01","r","RM Nº 032",10,2160,0,0,null,100,0,0,null,null,5,0,0,280,0,null,null,null,"Valores idênticos a Fevereiro. Plausíveis mas não verificados."],
+["l","2026-02","r","RM Nº 033",10,2160,0,0,null,100,0,0,null,null,5,0,0,280,0,null,null,null],
+["l","2026-03","s","@Q",10,2160,0,0,null,100,0,0,null,null,5,0,0,200,0,null,null,null,"Efectivo corrigido de 8 para 10, conforme o Quadro de Sinistralidade."],
+["l","2026-04","r","RM Nº 035",10,2160,0,0,null,88.89,0,0,null,null,0,0,14,40,0,null,null,null],
+["l","2026-05","r","RM Nº 036",9,1944,0,0,null,88.89,0,0,null,null,0,0,14,245,0,null,null,null],
+["l","2026-06","r","RM Nº 037 Rev.01",10,2160,0,0,3.19,87.88,0,0,0,0,0,0,15,40,null,2097.45,98386,null],
+["l","2026-07","r","RM Nº 038 Rev.01",10,2160,0,0,3.19,87.88,0,0,0,0,0,0,15,340,null,2097.45,98386,null,"Acumulados repetidos de Junho no relatório."]
+];
+export const SEED=ROWS.map(r=>{const kpi={};K.forEach((k,i)=>kpi[k]=r[4+i]);const flag=FLAG[r[2]];return{site:SITE[r[0]],month:r[1],status:flag==='rm'?'validado':'submetido',seed:true,flag,source:SRC[r[3]]||r[3],note:r[4+K.length]||'',kpi}});
