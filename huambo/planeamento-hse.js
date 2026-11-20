@@ -88,6 +88,21 @@
   /* Rev02: totais calculados a partir das frentes (o quinzenal da BELO não declara totais). */
   var DECLARADO = { ar: 48, titulos: 23, tbt: 59, temas: 28, sessoes: 364, frentes: 9 };
 
+  /* Descrição curta do trabalho em curso, por frente (para a secção "Próximos trabalhos"). */
+  var PROX = {
+    H8: ['Viga de fundação VF.4 · Bloco T2', 'Betonagem (betão 30/37) · Piso 00'],
+    H4: ['Carotes · abertura de negativos', 'Piso 01 · Bloco C'],
+    H6: ['Drenagem abaixo do Cupolex', 'Tubagens, ensaio de estanquidade e peças de Cupolex · Piso 00 · Blocos F e G'],
+    H0: ['Transversal', 'Toda a obra, todos os dias, todos os subempreiteiros'],
+    H1: ['Fachadas ETICS', 'Remates, barramentos e primário · Blocos A, B, C, E, F, G, T1 e X0B'],
+    H3: ['Aresta dos vãos', 'Execução de aresta das janelas · Bloco T2'],
+    H5: ['Emboço, fissuras e escada', 'Pilares F e G (Piso 01) · fissuras A, B, C e G (Piso 01) · escada Piso 00 Bloco E']
+  };
+  var DOCS = [
+    ['Plano HSE dos próximos trabalhos', './documentos-planeamento/Plano-HSE-Proximos-Trabalhos.pdf'],
+    ['Planeamento HSE Rev02 (completo)', './documentos-planeamento/Planeamento-HSE-HMRH-Rev02.pdf']
+  ];
+
   /* Marcos de calendário que não são limites de AR. */
   var EVENTOS_EXTRA = [
     { data: '2026-11-23', titulo: 'Betonagem VF.4 · Bloco T2 (betão 30/37)', tipo: 'marco',
@@ -238,6 +253,36 @@
     h += '</dl></div>';
 
     h += '<p class="ph-nat">' + esc(REVISAO.natureza) + '</p>';
+
+
+    /* Próximos trabalhos: o que está em curso, com as AR e as toolbox talks de cada um. */
+    var prox = r.lista.filter(function (f) { return !f.fechada && PROX[f.id]; })
+      .sort(function (a, b) { return a.fim < b.fim ? -1 : a.fim > b.fim ? 1 : a.id < b.id ? -1 : 1; });
+    if (prox.length) {
+      h += '<h3 class="ph-sec">Próximos trabalhos<span class="ph-sec-n">avaliações de risco e toolbox talks por trabalho</span></h3>';
+      h += '<p class="ph-regra">Sem avaliação de risco emitida e toolbox talk dada, a frente não arranca.</p>';
+      h += '<ol class="ph-px">';
+      prox.forEach(function (f, i) {
+        h += '<li class="ph-pxl tom-' + f.tom + (i === 0 ? ' is-prio' : '') + '">' +
+             '<span class="ph-px-id">' + esc(f.id) + '</span>' +
+             '<div class="ph-px-t"><b>' + esc(PROX[f.id][0]) + '</b><span class="ph-sub">' + esc(PROX[f.id][1]) + '</span></div>' +
+             '<span class="ph-px-ate">até ' + fmtData(f.fim).slice(0, 5) + (i === 0 ? '<em>prioridade</em>' : '') + '</span>' +
+             '<div class="ph-px-c"><h5>AR a emitir</h5><p>' + f.ar.map(esc).join(' · ') + '</p></div>' +
+             '<div class="ph-px-c"><h5>Toolbox talks</h5><p>' +
+             f.tbt.map(function (x) { return '<span class="ph-tn">' + esc(x[0]) + '</span> ' + esc(x[1]); }).join(' · ') + '</p></div></li>';
+      });
+      h += '</ol>';
+      var idx = {};
+      prox.forEach(function (f) { f.tbt.forEach(function (x) { (idx[x[0]] = idx[x[0]] || { n: x[1], f: [] }).f.push(f.id); }); });
+      h += '<h4 class="ph-px-sub">Toolbox talks e trabalhos que cobrem</h4><ul class="ph-ti">';
+      Object.keys(idx).sort().forEach(function (k) {
+        h += '<li><span class="ph-tn">' + esc(k) + '</span><span class="ph-ti-n">' + esc(idx[k].n) + '</span><span class="ph-ti-f">' +
+             idx[k].f.map(function (id) { return '<i>' + esc(id) + '</i>'; }).join('') + '</span></li>';
+      });
+      h += '</ul><p class="ph-leg">' + DOCS.map(function (dd) {
+        return '<a class="ph-doc" href="' + dd[1] + '" download>' + esc(dd[0]) + ' · PDF</a>';
+      }).join('') + '</p>';
+    }
 
     /* Registo de frentes, por urgência. */
     h += '<h3 class="ph-sec">Frentes de trabalho<span class="ph-sec-n">por urgência</span></h3>';
@@ -519,7 +564,27 @@ border-top:1px solid var(--ph-rg);border-left:3px solid var(--ph-br);font-size:.
 .ph-evg:hover{text-decoration:underline}
 .ph-ics{font-family:var(--ph-m);font-size:.68rem;padding:.35rem .8rem;border:1px solid var(--ph-t);background:transparent;color:var(--ph-t);cursor:pointer}
 .ph-ics:hover{background:var(--ph-t);color:var(--ph-p)}
+.ph-regra{margin:.2rem 0 .75rem;font-size:.82rem;font-weight:600}
+.ph-px{list-style:none;margin:0;padding:0}
+.ph-pxl{display:grid;grid-template-columns:2.5rem minmax(12rem,1.1fr) 5.5rem 1.4fr 1.6fr;gap:.5rem 1rem;align-items:start;
+padding:.8rem .5rem;border-bottom:1px solid var(--ph-rg);border-left:4px solid var(--ph-br)}
+.ph-pxl.tom-window{border-left-color:var(--ph-w)}.ph-pxl.tom-clear{border-left-color:var(--ph-c)}
+.ph-pxl.is-prio{background:var(--ph-brf)}
+.ph-px-id{font-family:var(--ph-m);font-weight:600}
+.ph-px-t{display:flex;flex-direction:column;gap:.1rem}.ph-px-t b{font-weight:600}
+.ph-px-ate{font-family:var(--ph-m);font-size:1rem;font-weight:600;display:flex;flex-direction:column;gap:.15rem}
+.ph-px-ate em{font-style:normal;font-size:.58rem;letter-spacing:.08em;text-transform:uppercase;color:var(--ph-br)}
+.ph-px-c h5{margin:0 0 .2rem;font-family:var(--ph-m);font-size:.6rem;letter-spacing:.09em;text-transform:uppercase;color:var(--ph-t2)}
+.ph-px-c p{margin:0;font-size:.78rem;line-height:1.5}
+.ph-px-sub{margin:1.5rem 0 .5rem;font-family:var(--ph-m);font-size:.68rem;letter-spacing:.09em;text-transform:uppercase;color:var(--ph-t2)}
+.ph-ti{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(20rem,1fr));gap:0 2rem}
+.ph-ti li{display:flex;align-items:baseline;gap:.6rem;padding:.35rem 0;border-top:1px solid var(--ph-rg);font-size:.82rem}
+.ph-ti-n{flex:1}.ph-ti-f{display:flex;gap:.25rem}
+.ph-ti-f i{font-style:normal;font-family:var(--ph-m);font-size:.62rem;padding:.1rem .35rem;background:var(--ph-t);color:var(--ph-p)}
+.ph-doc{font-family:var(--ph-m);font-size:.72rem;padding:.4rem .8rem;border:1px solid var(--ph-t);color:var(--ph-t);text-decoration:none}
+.ph-doc:hover{background:var(--ph-t);color:var(--ph-p)}
 @media(max-width:760px){
+.ph-pxl{grid-template-columns:2.2rem 1fr}.ph-px-ate,.ph-px-c{grid-column:2/-1}
 .ph{--ph-r:7rem}
 .ph-f-cab{grid-template-columns:2.2rem 1fr;row-gap:.5rem}
 .ph-f-c,.ph-f-e{grid-column:2/-1}
