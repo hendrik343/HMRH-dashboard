@@ -88,6 +88,14 @@
   /* Rev02: totais calculados a partir das frentes (o quinzenal da BELO não declara totais). */
   var DECLARADO = { ar: 48, titulos: 23, tbt: 59, temas: 28, sessoes: 364, frentes: 9 };
 
+  /* Marcos de calendário que não são limites de AR. */
+  var EVENTOS_EXTRA = [
+    { data: '2026-11-23', titulo: 'Betonagem VF.4 · Bloco T2 (betão 30/37)', tipo: 'marco',
+      nota: 'TBT exigidas: 05, 09, 22, 24, 41, 42 e 47.' },
+    { data: '2026-11-27', titulo: 'Fim do período do Planeamento HSE ' + 'Rev02', tipo: 'marco',
+      nota: 'Preparar a revisão seguinte com os quinzenais da BELO.' }
+  ];
+
   /* ---------- LÓGICA DE ESTADO ------------------------------------------- */
 
   var DIA = 86400000;
@@ -290,8 +298,74 @@
          '<span class="ph-k ph-k-b"></span> duração da frente' +
          '<span class="ph-k ph-k-h"></span> hoje</p></div>';
 
+    /* Calendário: limites de emissão das AR e marcos. */
+    var ev = [];
+    r.lista.forEach(function (f) {
+      if (f.fechada) return;
+      ev.push({ data: f.limiteAR, titulo: 'Limite AR · ' + f.id + ' ' + f.titulo, tipo: 'limite', tom: f.tom,
+                nota: f.nAR + ' avaliações de risco · ' + f.nTBT + ' temas de toolbox talk · ' + f.rotulo });
+    });
+    EVENTOS_EXTRA.forEach(function (e) { ev.push({ data: e.data, titulo: e.titulo, tipo: e.tipo, tom: 'clear', nota: e.nota }); });
+    ev.sort(function (a, b) { return a.data < b.data ? -1 : a.data > b.data ? 1 : 0; });
+    var MES = ['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'];
+    h += '<h3 class="ph-sec">Calendário<span class="ph-sec-n">limites de emissão e marcos</span></h3>';
+    h += '<div class="ph-cal">';
+    var ini = d(REVISAO.inicio), fimD = d(REVISAO.fim);
+    var my = ini.getUTCFullYear(), mm = ini.getUTCMonth();
+    while (my < fimD.getUTCFullYear() || (my === fimD.getUTCFullYear() && mm <= fimD.getUTCMonth())) {
+      var primeiro = new Date(Date.UTC(my, mm, 1, 12));
+      var nDias = new Date(Date.UTC(my, mm + 1, 0, 12)).getUTCDate();
+      var off = (primeiro.getUTCDay() + 6) % 7;
+      h += '<section class="ph-mes"><h4>' + MES[mm] + ' ' + my + '</h4><div class="ph-mg">';
+      ['S','T','Q','Q','S','S','D'].forEach(function (x) { h += '<span class="ph-dw">' + x + '</span>'; });
+      for (var b = 0; b < off; b++) h += '<span class="ph-dv"></span>';
+      for (var dn = 1; dn <= nDias; dn++) {
+        var iso = my + '-' + String(mm + 1).padStart(2, '0') + '-' + String(dn).padStart(2, '0');
+        var doDia = ev.filter(function (e) { return e.data === iso; });
+        h += '<span class="ph-dc' + (iso === hoje ? ' is-hoje' : '') + (doDia.length ? ' tem-ev' : '') + '"' +
+             (doDia.length ? ' title="' + esc(doDia.map(function (e) { return e.titulo; }).join(' | ')) + '"' : '') +
+             '><span class="ph-dn">' + dn + '</span>';
+        doDia.forEach(function (e) { h += '<i class="ph-pt ' + (e.tipo === 'marco' ? 'is-marco' : 'tom-' + e.tom) + '"></i>'; });
+        h += '</span>';
+      }
+      h += '</div></section>';
+      mm++; if (mm > 11) { mm = 0; my++; }
+    }
+    h += '</div><ul class="ph-evl">';
+    ev.forEach(function (e) {
+      var p2 = e.data.split('-'), fim2 = new Date(d(e.data).getTime() + DIA).toISOString().slice(0, 10).replace(/-/g, '');
+      var gl = 'https://calendar.google.com/calendar/render?action=TEMPLATE&text=' + encodeURIComponent(e.titulo) +
+        '&dates=' + e.data.replace(/-/g, '') + '/' + fim2 +
+        '&details=' + encodeURIComponent('Planeamento HSE ' + REVISAO.revisao + ' · HMRH Huambo. ' + (e.nota || ''));
+      h += '<li class="ph-ev ' + (e.tipo === 'marco' ? 'is-marco' : 'tom-' + e.tom) + '"><span class="ph-evd">' + p2[2] + '/' + p2[1] + '</span>' +
+           '<span class="ph-evt">' + esc(e.titulo) + '<span class="ph-sub"> · ' + esc(e.nota || '') + '</span></span>' +
+           '<a class="ph-evg" href="' + gl + '" target="_blank" rel="noopener">+ Google Calendar</a></li>';
+    });
+    h += '</ul><p class="ph-leg"><button type="button" class="ph-ics" data-ph-ics>Descarregar .ics</button>' +
+         '<span>Abre em Google Calendar, Outlook e Apple Calendar</span></p>';
+    window.__phEventos = ev;
+
     h += '</div>';
     alvo.innerHTML = h;
+    var bi = alvo.querySelector('[data-ph-ics]');
+    if (bi) bi.addEventListener('click', function () { descarregarICS(ev); });
+  }
+
+
+  function descarregarICS(ev) {
+    var z = function (iso) { return iso.replace(/-/g, ''); };
+    var lin = ['BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//HMRH Huambo//Planeamento HSE//PT', 'CALSCALE:GREGORIAN'];
+    ev.forEach(function (e, i) {
+      var f2 = new Date(d(e.data).getTime() + DIA).toISOString().slice(0, 10);
+      lin.push('BEGIN:VEVENT', 'UID:phse-' + REVISAO.revisao + '-' + i + '@hmrh-huambo',
+        'DTSTAMP:' + z(REVISAO.emitido) + 'T000000Z', 'DTSTART;VALUE=DATE:' + z(e.data), 'DTEND;VALUE=DATE:' + z(f2),
+        'SUMMARY:' + e.titulo.replace(/[,;]/g, ' '), 'DESCRIPTION:' + (e.nota || '').replace(/[,;]/g, ' '), 'END:VEVENT');
+    });
+    lin.push('END:VCALENDAR');
+    var a = document.createElement('a');
+    a.href = URL.createObjectURL(new Blob([lin.join('\r\n')], { type: 'text/calendar' }));
+    a.download = 'planeamento-hse-' + REVISAO.revisao + '.ics';
+    document.body.appendChild(a); a.click(); a.remove();
   }
 
   /* Em produção o Vercel serve com cleanUrls:true ("./planeamento").
@@ -425,6 +499,26 @@ font-family:var(--ph-m);font-size:.65rem;color:var(--ph-t2)}
 .ph-k-l{width:2px;height:.8rem;background:var(--ph-br)}
 .ph-k-b{width:1.4rem;height:.55rem;background:var(--ph-v)}
 .ph-k-h{width:1px;height:.8rem;background:var(--ph-w)}
+.ph-cal{display:grid;grid-template-columns:repeat(auto-fit,minmax(15rem,1fr));gap:1.25rem 1.75rem;margin-top:.75rem}
+.ph-mes h4{margin:0 0 .4rem;font-family:var(--ph-m);font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;color:var(--ph-t2)}
+.ph-mg{display:grid;grid-template-columns:repeat(7,1fr);gap:2px}
+.ph-dw{font-family:var(--ph-m);font-size:.58rem;text-align:center;color:var(--ph-t2);padding-bottom:.2rem}
+.ph-dc{position:relative;aspect-ratio:1/.85;display:flex;flex-direction:column;align-items:center;justify-content:center;
+background:var(--ph-p);font-family:var(--ph-m);font-size:.7rem;font-variant-numeric:tabular-nums}
+.ph-dc.is-hoje{outline:2px solid var(--ph-w);outline-offset:-2px;font-weight:700}
+.ph-dc.tem-ev{background:var(--ph-brf)}
+.ph-pt{display:block;width:.4rem;height:.4rem;border-radius:50%;margin-top:.1rem;background:var(--ph-br)}
+.ph-pt.tom-window{background:var(--ph-w)}.ph-pt.tom-clear{background:var(--ph-c)}
+.ph-pt.is-marco{background:var(--ph-v);border-radius:0;transform:rotate(45deg)}
+.ph-evl{list-style:none;margin:1.1rem 0 0;padding:0}
+.ph-ev{display:grid;grid-template-columns:3.2rem 1fr auto;gap:.75rem;align-items:baseline;padding:.45rem .5rem;
+border-top:1px solid var(--ph-rg);border-left:3px solid var(--ph-br);font-size:.8rem}
+.ph-ev.tom-window{border-left-color:var(--ph-w)}.ph-ev.tom-clear{border-left-color:var(--ph-c)}.ph-ev.is-marco{border-left-color:var(--ph-v)}
+.ph-evd{font-family:var(--ph-m);font-weight:600;font-variant-numeric:tabular-nums}
+.ph-evg{font-family:var(--ph-m);font-size:.66rem;color:var(--ph-v);text-decoration:none;white-space:nowrap}
+.ph-evg:hover{text-decoration:underline}
+.ph-ics{font-family:var(--ph-m);font-size:.68rem;padding:.35rem .8rem;border:1px solid var(--ph-t);background:transparent;color:var(--ph-t);cursor:pointer}
+.ph-ics:hover{background:var(--ph-t);color:var(--ph-p)}
 @media(max-width:760px){
 .ph{--ph-r:7rem}
 .ph-f-cab{grid-template-columns:2.2rem 1fr;row-gap:.5rem}
